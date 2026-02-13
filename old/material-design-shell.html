@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Material Design 3 Ultimate Shell</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
+    <style>
+        /* =========================================
+           1. CORE DESIGN SYSTEM (CSS Variables)
+           ========================================= */
+        :root {
+            /* --- COLOR PALETTE (Generated from Blue Seed) --- */
+            /* Primary */
+            --md-sys-color-primary: #005AC1;
+            --md-sys-color-on-primary: #FFFFFF;
+            --md-sys-color-primary-container: #D8E2FF;
+            --md-sys-color-on-primary-container: #001A41;
+            /* Secondary */
+            --md-sys-color-secondary: #575E71;
+            --md-sys-color-on-secondary: #FFFFFF;
+            --md-sys-color-secondary-container: #DBE2F9;
+            --md-sys-color-on-secondary-container: #141B2C;
+            /* Tertiary */
+            --md-sys-color-tertiary: #715573;
+            --md-sys-color-on-tertiary: #FFFFFF;
+            --md-sys-color-tertiary-container: #FBD7FC;
+            --md-sys-color-on-tertiary-container: #29132D;
+            /* Neutral / Surface */
+            --md-sys-color-surface: #F9F9FF;
+            --md-sys-color-on-surface: #1A1C1E;
+            --md-sys-color-surface-container-low: #F3F3FA;
+            --md-sys-color-surface-container: #EDEDF4;
+            --md-sys-color-surface-container-high: #E7E8EE;
+            --md-sys-color-outline: #74777F;
+            --md-sys-color-outline-variant: #C4C6CF;
+
+            /* Semantic */
+            --md-sys-color-error: #BA1A1A;
+            --md-sys-color-on-error: #FFFFFF;
+            --md-sys-color-error-container: #FFDAD6;
+            --md-sys-color-success: #146c2e;
+            --md-sys-color-success-container: #c4eed0;
+            --md-sys-color-warning: #d97706;
+            --md-sys-color-warning-container: #fef3c7;
+
+            /* --- TYPOGRAPHY --- */
+            --md-font-sans: 'Roboto', sans-serif;
+            --md-font-mono: 'Roboto Mono', monospace;
+
+            /* --- SHAPES --- */
+            --md-shape-xs: 4px;
+            --md-shape-sm: 8px;
+            --md-shape-md: 12px;
+            --md-shape-lg: 16px;
+            --md-shape-xl: 28px;
+            --md-shape-full: 999px;
+
+            /* --- ELEVATION --- */
+            --md-elevation-1: 0 1px 3px 1px rgba(0, 0, 0, 0.15), 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+            --md-elevation-2: 0 2px 6px 2px rgba(0, 0, 0, 0.15), 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+            --md-elevation-3: 0 4px 8px 3px rgba(0, 0, 0, 0.15), 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+
+            /* --- STATE LAYERS --- */
+            --md-state-hover: 0.08;
+            --md-state-focus: 0.12;
+            --md-state-pressed: 0.12;
+        }
+
+        /* DARK THEME */
+        [data-theme="dark"] {
+            --md-sys-color-primary: #ADC6FF;
+            --md-sys-color-on-primary: #002E69;
+            --md-sys-color-primary-container: #004494;
+            --md-sys-color-on-primary-container: #D8E2FF;
+            --md-sys-color-secondary: #BFC6DC;
+            --md-sys-color-on-secondary: #293041;
+            --md-sys-color-secondary-container: #3F4759;
+            --md-sys-color-on-secondary-container: #DBE2F9;
+            --md-sys-color-tertiary: #DEBCDF;
+            --md-sys-color-on-tertiary: #402843;
+            --md-sys-color-tertiary-container: #583E5B;
+            --md-sys-color-on-tertiary-container: #FBD7FC;
+            --md-sys-color-surface: #111318;
+            --md-sys-color-on-surface: #E2E2E6;
+            --md-sys-color-surface-container-low: #1A1C1E;
+            --md-sys-color-surface-container: #1E2022;
+            --md-sys-color-surface-container-high: #282A2D;
+            --md-sys-color-outline: #8E9099;
+            --md-sys-color-outline-variant: #44474F;
+            --md-sys-color-error: #FFB4AB;
+            --md-sys-color-on-error: #690005;
+            --md-sys-color-error-container: #93000A;
+
+            --md-elevation-1: none; /* Dark mode uses tonal elevation */
+            --md-elevation-2: none;
+            --md-elevation-3: none;
+        }
+
+        /* --- GLOBAL RESET --- */
+        * { box-sizing: border-box; margin: 0; padding: 0; outline: none; -webkit-tap-highlight-color: transparent; }
+        body {
+            font-family: var(--md-font-sans);
+            background-color: var(--md-sys-color-surface);
+            color: var(--md-sys-color-on-surface);
+            transition: background-color 0.3s, color 0.3s;
+            overflow-x: hidden;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- UTILITIES --- */
+        .hidden { display: none !important; }
+        .flex { display: flex; }
+        .flex-col { flex-direction: column; }
+        .items-center { align-items: center; }
+        .justify-between { justify-content: space-between; }
+        .gap-2 { gap: 8px; }
+        .gap-4 { gap: 16px; }
+        .w-full { width: 100%; }
+        .h-full { height: 100%; }
+        .text-primary { color: var(--md-sys-color-primary); }
+        .bg-surface { background-color: var(--md-sys-color-surface-container); }
+
+        /* =========================================
+           2. COMPONENT LIBRARY
+           ========================================= */
+
+        /* BUTTONS */
+        .btn {
+            position: relative; height: 40px; padding: 0 24px; border-radius: var(--md-shape-full);
+            font-size: 14px; font-weight: 500; letter-spacing: 0.1px; display: inline-flex; align-items: center; justify-content: center;
+            gap: 8px; cursor: pointer; border: none; overflow: hidden; transition: all 0.2s; user-select: none;
+        }
+        .btn::before {
+            content: ""; position: absolute; inset: 0; background: currentColor; opacity: 0; transition: opacity 0.2s;
+        }
+        .btn:hover::before { opacity: var(--md-state-hover); }
+        .btn:active::before { opacity: var(--md-state-pressed); }
+
+        .btn-filled { background: var(--md-sys-color-primary); color: var(--md-sys-color-on-primary); }
+        .btn-tonal { background: var(--md-sys-color-secondary-container); color: var(--md-sys-color-on-secondary-container); }
+        .btn-outlined { background: transparent; border: 1px solid var(--md-sys-color-outline); color: var(--md-sys-color-primary); }
+        .btn-text { background: transparent; color: var(--md-sys-color-primary); padding: 0 12px; }
+        .btn-icon { width: 40px; padding: 0; border-radius: 50%; color: var(--md-sys-color-on-surface-variant); }
+
+        /* CARDS */
+        .card {
+            background-color: var(--md-sys-color-surface-container);
+            border-radius: var(--md-shape-lg);
+            padding: 24px;
+            position: relative;
+            transition: 0.2s;
+        }
+        [data-theme="light"] .card { box-shadow: var(--md-elevation-1); }
+        [data-theme="dark"] .card { background-image: linear-gradient(rgba(255,255,255,0.05), rgba(255,255,255,0.05)); }
+
+        .card-outlined { background: transparent; border: 1px solid var(--md-sys-color-outline-variant); box-shadow: none !important; }
+
+        /* INPUTS */
+        .input-group { position: relative; margin-bottom: 16px; }
+        .input-field {
+            width: 100%; height: 56px; border-radius: 4px 4px 0 0; background: var(--md-sys-color-surface-container-high);
+            border: none; border-bottom: 1px solid var(--md-sys-color-outline); padding: 24px 16px 8px;
+            font-size: 16px; color: var(--md-sys-color-on-surface); transition: 0.2s;
+        }
+        .input-field:focus { border-bottom: 2px solid var(--md-sys-color-primary); background: var(--md-sys-color-surface-container-high); }
+        .input-label {
+            position: absolute; left: 16px; top: 18px; color: var(--md-sys-color-outline); pointer-events: none; transition: 0.2s;
+        }
+        .input-field:focus ~ .input-label, .input-field:not(:placeholder-shown) ~ .input-label {
+            top: 8px; font-size: 12px; color: var(--md-sys-color-primary);
+        }
+
+        /* NAVIGATION RAIL / DRAWER */
+        .nav-container {
+            display: flex; height: 100%; overflow: hidden;
+        }
+        .sidebar {
+            width: 80px; background: var(--md-sys-color-surface); display: flex; flex-direction: column; align-items: center;
+            padding: 24px 0; border-right: 1px solid var(--md-sys-color-outline-variant); transition: width 0.3s; z-index: 50;
+        }
+        .sidebar.expanded { width: 280px; align-items: flex-start; padding: 24px 12px; }
+
+        .nav-item {
+            width: 56px; height: 56px; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            border-radius: 16px; color: var(--md-sys-color-on-surface-variant); cursor: pointer; margin-bottom: 12px;
+            position: relative; gap: 4px;
+        }
+        .sidebar.expanded .nav-item {
+            flex-direction: row; width: 100%; height: 56px; justify-content: flex-start; padding-left: 16px; border-radius: 28px;
+        }
+        .nav-icon-container {
+            width: 56px; height: 32px; border-radius: 16px; display: flex; align-items: center; justify-content: center; transition: 0.2s;
+        }
+        .nav-item.active .nav-icon-container { background: var(--md-sys-color-secondary-container); color: var(--md-sys-color-on-secondary-container); }
+        .nav-label { font-size: 12px; font-weight: 500; }
+        .sidebar.expanded .nav-label { font-size: 14px; margin-left: 12px; }
+
+        /* HEADER */
+        .app-header {
+            height: 64px; padding: 0 24px; display: flex; align-items: center; justify-content: space-between;
+            background: var(--md-sys-color-surface); color: var(--md-sys-color-on-surface);
+        }
+
+        /* PAGE CONTENT */
+        .main-content {
+            flex: 1; padding: 24px; overflow-y: auto; position: relative; scroll-behavior: smooth;
+        }
+        .page { display: none; animation: fadeUp 0.3s cubic-bezier(0.2, 0, 0, 1); max-width: 1200px; margin: 0 auto; }
+        .page.active { display: block; }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* RIPPLE EFFECT */
+        .ripple {
+            position: absolute; border-radius: 50%; transform: scale(0); animation: ripple 600ms linear;
+            background-color: currentColor; opacity: 0.12; pointer-events: none;
+        }
+        @keyframes ripple { to { transform: scale(4); opacity: 0; } }
+
+        /* =========================================
+           3. SPECIFIC PAGE STYLES
+           ========================================= */
+
+        /* AUTH LAYOUT */
+        #auth-layout {
+            position: fixed; inset: 0; z-index: 999; background: var(--md-sys-color-surface);
+            display: grid; grid-template-columns: 1fr 1fr;
+        }
+        .auth-visual {
+            background: var(--md-sys-color-primary-container); border-radius: 24px; margin: 16px;
+            display: flex; align-items: center; justify-content: center; flex-direction: column;
+            color: var(--md-sys-color-on-primary-container);
+        }
+        .auth-form-container { display: flex; align-items: center; justify-content: center; padding: 48px; }
+        .auth-card { width: 100%; max-width: 400px; }
+
+        /* DASHBOARD GRID */
+        .dashboard-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px;
+        }
+
+        /* CHAT UI */
+        .chat-container {
+            display: flex; flex-direction: column; height: calc(100vh - 140px); background: var(--md-sys-color-surface-container-low);
+            border-radius: 24px; overflow: hidden; border: 1px solid var(--md-sys-color-outline-variant);
+        }
+        .chat-messages { flex: 1; overflow-y: auto; padding: 24px; display: flex; flex-direction: column; gap: 16px; }
+        .message { max-width: 80%; padding: 12px 16px; border-radius: 20px; font-size: 15px; line-height: 1.5; }
+        .msg-ai { background: var(--md-sys-color-secondary-container); color: var(--md-sys-color-on-secondary-container); border-bottom-left-radius: 4px; align-self: flex-start; }
+        .msg-user { background: var(--md-sys-color-primary); color: var(--md-sys-color-on-primary); border-bottom-right-radius: 4px; align-self: flex-end; }
+        .chat-input-area { padding: 16px; background: var(--md-sys-color-surface-container); display: flex; gap: 12px; align-items: center; }
+
+        /* STATS CHARTS (CSS ONLY) */
+        .bar-chart {
+            display: flex; align-items: flex-end; height: 200px; gap: 12px; padding-top: 20px;
+        }
+        .bar {
+            flex: 1; background: var(--md-sys-color-primary); border-radius: 4px 4px 0 0;
+            position: relative; transition: height 0.5s ease; opacity: 0.8;
+        }
+        .bar:hover { opacity: 1; }
+        .bar::after {
+            content: attr(data-label); position: absolute; bottom: -24px; left: 50%; transform: translateX(-50%);
+            font-size: 12px; color: var(--md-sys-color-on-surface-variant);
+        }
+
+        /* TABLE */
+        .data-table { width: 100%; border-collapse: collapse; }
+        .data-table th { text-align: left; padding: 16px; border-bottom: 1px solid var(--md-sys-color-outline-variant); font-size: 14px; color: var(--md-sys-color-on-surface-variant); }
+        .data-table td { padding: 16px; border-bottom: 1px solid var(--md-sys-color-outline-variant); }
+        .data-table tr:last-child td { border: none; }
+        .status-chip {
+            padding: 4px 12px; border-radius: 8px; font-size: 12px; font-weight: 500; display: inline-block;
+        }
+        .status-success { background: var(--md-sys-color-success-container); color: #00210E; }
+        .status-warning { background: var(--md-sys-color-warning-container); color: #2B1700; }
+
+        /* MOBILE RESPONSIVENESS */
+        @media (max-width: 800px) {
+            #auth-layout { grid-template-columns: 1fr; }
+            .auth-visual { display: none; }
+            .sidebar { display: none; position: fixed; height: 100%; }
+            .sidebar.mobile-open { display: flex; width: 300px; box-shadow: 4px 0 24px rgba(0,0,0,0.2); }
+            .menu-trigger { display: block !important; }
+        }
+        .menu-trigger { display: none; }
+
+    </style>
+</head>
+<body data-theme="light">
+
+    <!-- ================= AUTHENTICATION VIEW ================= -->
+    <div id="auth-layout">
+        <div class="auth-visual">
+            <span class="material-symbols-outlined" style="font-size: 64px; margin-bottom: 24px;">rocket_launch</span>
+            <h1 style="font-size: 32px;">Orbit UI</h1>
+            <p style="opacity: 0.8; margin-top: 12px;">The Ultimate Material Design 3 Shell</p>
+        </div>
+        <div class="auth-form-container">
+            <div class="auth-card">
+                <h2 style="font-size: 28px; margin-bottom: 8px;">Welcome back</h2>
+                <p style="color: var(--md-sys-color-outline); margin-bottom: 32px;">Please enter your details to sign in.</p>
+
+                <div class="input-group">
+                    <input type="email" class="input-field" placeholder=" " id="loginEmail">
+                    <label class="input-label">Email Address</label>
+                </div>
+                <div class="input-group">
+                    <input type="password" class="input-field" placeholder=" " id="loginPass">
+                    <label class="input-label">Password</label>
+                </div>
+
+                <div class="flex justify-between items-center" style="margin-bottom: 32px;">
+                    <label class="flex items-center gap-2" style="font-size: 14px; cursor: pointer;">
+                        <input type="checkbox" style="accent-color: var(--md-sys-color-primary);"> Remember me
+                    </label>
+                    <span class="text-primary" style="font-size: 14px; font-weight: 500; cursor: pointer;">Forgot Password?</span>
+                </div>
+
+                <button class="btn btn-filled w-full ripple-target" onclick="app.login()" style="height: 48px; margin-bottom: 24px;">
+                    Sign In
+                </button>
+
+                <div style="text-align: center; font-size: 14px;">
+                    Don't have an account? <span class="text-primary" style="font-weight: 500; cursor: pointer;">Sign up</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= MAIN APP VIEW ================= -->
+    <div id="app-layout" class="hidden nav-container">
+
+        <!-- NAVIGATION SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+            <div style="padding: 0 16px 24px; display: flex; align-items: center; width: 100%; gap: 12px;">
+                <span class="material-symbols-outlined text-primary" style="font-size: 28px;">rocket_launch</span>
+                <span class="nav-label" style="font-size: 18px; font-weight: 700;">Orbit</span>
+            </div>
+
+            <div class="nav-item active ripple-target" onclick="app.nav('dashboard', this)">
+                <div class="nav-icon-container"><span class="material-symbols-outlined">dashboard</span></div>
+                <span class="nav-label">Home</span>
+            </div>
+            <div class="nav-item ripple-target" onclick="app.nav('analytics', this)">
+                <div class="nav-icon-container"><span class="material-symbols-outlined">bar_chart</span></div>
+                <span class="nav-label">Stats</span>
+            </div>
+            <div class="nav-item ripple-target" onclick="app.nav('chat', this)">
+                <div class="nav-icon-container"><span class="material-symbols-outlined">chat_bubble</span></div>
+                <span class="nav-label">AI Chat</span>
+            </div>
+            <div class="nav-item ripple-target" onclick="app.nav('uikit', this)">
+                <div class="nav-icon-container"><span class="material-symbols-outlined">category</span></div>
+                <span class="nav-label">UI Kit</span>
+            </div>
+            <div class="nav-item ripple-target" onclick="app.nav('profile', this)">
+                <div class="nav-icon-container"><span class="material-symbols-outlined">person</span></div>
+                <span class="nav-label">Profile</span>
+            </div>
+
+            <div style="margin-top: auto;"></div>
+            <div class="nav-item ripple-target" onclick="app.nav('settings', this)">
+                <div class="nav-icon-container"><span class="material-symbols-outlined">settings</span></div>
+                <span class="nav-label">Settings</span>
+            </div>
+            <div class="nav-item ripple-target" onclick="app.logout()">
+                <div class="nav-icon-container"><span class="material-symbols-outlined">logout</span></div>
+                <span class="nav-label">Logout</span>
+            </div>
+        </aside>
+
+        <div style="flex: 1; display: flex; flex-direction: column; overflow: hidden;">
+            <!-- TOP APP BAR -->
+            <header class="app-header">
+                <div class="flex items-center gap-4">
+                    <button class="btn btn-icon ripple-target menu-trigger" onclick="app.toggleMobileMenu()">
+                        <span class="material-symbols-outlined">menu</span>
+                    </button>
+                    <button class="btn btn-icon ripple-target" onclick="app.toggleSidebar()" style="display: none;" id="desktopToggle">
+                        <span class="material-symbols-outlined">menu_open</span>
+                    </button>
+                    <h2 style="font-size: 22px; font-weight: 400;" id="page-title">Dashboard</h2>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button class="btn btn-icon ripple-target" onclick="app.toggleTheme()">
+                        <span class="material-symbols-outlined">dark_mode</span>
+                    </button>
+                    <button class="btn btn-icon ripple-target">
+                        <span class="material-symbols-outlined">notifications</span>
+                    </button>
+                    <div style="width: 32px; height: 32px; background: var(--md-sys-color-tertiary-container); border-radius: 50%; color: var(--md-sys-color-on-tertiary-container); display: flex; align-items: center; justify-content: center; font-weight: bold; margin-left: 8px;">
+                        JD
+                    </div>
+                </div>
+            </header>
+
+            <!-- PAGES CONTAINER -->
+            <main class="main-content">
+
+                <!-- 1. DASHBOARD PAGE -->
+                <div id="page-dashboard" class="page active">
+                    <!-- Stats Row -->
+                    <div class="dashboard-grid" style="margin-bottom: 24px;">
+                        <div class="card">
+                            <div class="flex justify-between">
+                                <div>
+                                    <div style="font-size: 14px; opacity: 0.7;">Total Revenue</div>
+                                    <div style="font-size: 32px; font-weight: 500; margin-top: 4px;">$42,593</div>
+                                    <div class="flex items-center gap-2" style="margin-top: 12px; font-size: 12px; color: var(--md-sys-color-success);">
+                                        <span class="material-symbols-outlined" style="font-size: 16px;">trending_up</span> +12.5%
+                                    </div>
+                                </div>
+                                <span class="material-symbols-outlined text-primary" style="font-size: 48px; opacity: 0.2;">payments</span>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="flex justify-between">
+                                <div>
+                                    <div style="font-size: 14px; opacity: 0.7;">Active Users</div>
+                                    <div style="font-size: 32px; font-weight: 500; margin-top: 4px;">8,549</div>
+                                    <div class="flex items-center gap-2" style="margin-top: 12px; font-size: 12px; color: var(--md-sys-color-warning);">
+                                        <span class="material-symbols-outlined" style="font-size: 16px;">trending_flat</span> +0.8%
+                                    </div>
+                                </div>
+                                <span class="material-symbols-outlined text-primary" style="font-size: 48px; opacity: 0.2;">group</span>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="flex justify-between">
+                                <div>
+                                    <div style="font-size: 14px; opacity: 0.7;">Project Completion</div>
+                                    <div style="font-size: 32px; font-weight: 500; margin-top: 4px;">93%</div>
+                                    <div style="width: 100%; height: 4px; background: var(--md-sys-color-surface-container-high); border-radius: 2px; margin-top: 16px; width: 120px;">
+                                        <div style="width: 93%; height: 100%; background: var(--md-sys-color-primary); border-radius: 2px;"></div>
+                                    </div>
+                                </div>
+                                <span class="material-symbols-outlined text-primary" style="font-size: 48px; opacity: 0.2;">task_alt</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activity -->
+                    <div class="dashboard-grid" style="grid-template-columns: 2fr 1fr;">
+                        <div class="card">
+                            <h3 style="margin-bottom: 24px; font-size: 18px;">Recent Transactions</h3>
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Customer</th>
+                                        <th>Date</th>
+                                        <th>Status</th>
+                                        <th>Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>#4920</td>
+                                        <td>Alice Freeman</td>
+                                        <td>Oct 24</td>
+                                        <td><span class="status-chip status-success">Completed</span></td>
+                                        <td>$120.50</td>
+                                    </tr>
+                                    <tr>
+                                        <td>#4919</td>
+                                        <td>Bob Smith</td>
+                                        <td>Oct 24</td>
+                                        <td><span class="status-chip status-warning">Pending</span></td>
+                                        <td>$85.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>#4918</td>
+                                        <td>Charlie Day</td>
+                                        <td>Oct 23</td>
+                                        <td><span class="status-chip status-success">Completed</span></td>
+                                        <td>$240.00</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div style="margin-top: 16px; text-align: center;">
+                                <button class="btn btn-text ripple-target">View All</button>
+                            </div>
+                        </div>
+
+                        <!-- Quick Actions -->
+                        <div class="card">
+                            <h3 style="margin-bottom: 24px; font-size: 18px;">Quick Actions</h3>
+                            <div class="flex flex-col gap-2">
+                                <button class="btn btn-tonal w-full ripple-target" style="justify-content: flex-start;">
+                                    <span class="material-symbols-outlined">add</span> Create Invoice
+                                </button>
+                                <button class="btn btn-tonal w-full ripple-target" style="justify-content: flex-start;">
+                                    <span class="material-symbols-outlined">person_add</span> Add User
+                                </button>
+                                <button class="btn btn-tonal w-full ripple-target" style="justify-content: flex-start;">
+                                    <span class="material-symbols-outlined">mail</span> Send Report
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. ANALYTICS PAGE -->
+                <div id="page-analytics" class="page">
+                    <div class="card" style="margin-bottom: 24px;">
+                        <div class="flex justify-between items-center" style="margin-bottom: 24px;">
+                            <h3>Yearly Revenue Growth</h3>
+                            <div class="flex gap-2">
+                                <button class="btn btn-outlined ripple-target" style="height: 32px;">2024</button>
+                                <button class="btn btn-filled ripple-target" style="height: 32px;">2025</button>
+                            </div>
+                        </div>
+                        <!-- CSS Bar Chart -->
+                        <div class="bar-chart">
+                            <div class="bar" style="height: 40%;" data-label="Jan"></div>
+                            <div class="bar" style="height: 55%;" data-label="Feb"></div>
+                            <div class="bar" style="height: 45%;" data-label="Mar"></div>
+                            <div class="bar" style="height: 70%;" data-label="Apr"></div>
+                            <div class="bar" style="height: 60%;" data-label="May"></div>
+                            <div class="bar" style="height: 85%;" data-label="Jun"></div>
+                            <div class="bar" style="height: 75%;" data-label="Jul"></div>
+                            <div class="bar" style="height: 90%;" data-label="Aug"></div>
+                            <div class="bar" style="height: 65%;" data-label="Sep"></div>
+                            <div class="bar" style="height: 50%;" data-label="Oct"></div>
+                            <div class="bar" style="height: 80%;" data-label="Nov"></div>
+                            <div class="bar" style="height: 95%;" data-label="Dec"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. AI CHAT PAGE -->
+                <div id="page-chat" class="page h-full" style="height: calc(100vh - 120px);">
+                    <div class="chat-container">
+                        <div class="flex justify-between items-center" style="padding: 16px; border-bottom: 1px solid var(--md-sys-color-outline-variant); background: var(--md-sys-color-surface);">
+                            <div class="flex items-center gap-2">
+                                <span class="material-symbols-outlined text-primary">smart_toy</span>
+                                <span style="font-weight: 500;">Gemini Assistant</span>
+                            </div>
+                            <button class="btn btn-icon ripple-target"><span class="material-symbols-outlined">more_vert</span></button>
+                        </div>
+                        <div class="chat-messages" id="chatHistory">
+                            <div class="message msg-ai">Hello! I'm your AI assistant. How can I help you optimize your dashboard today?</div>
+                        </div>
+                        <div class="chat-input-area">
+                            <button class="btn btn-icon ripple-target"><span class="material-symbols-outlined">add</span></button>
+                            <input type="text" class="input-field" placeholder="Type a message..." style="border-radius: 24px; border: none; height: 48px; padding-top: 0; padding-bottom: 0;" id="chatInput">
+                            <button class="btn btn-filled ripple-target" style="width: 48px; padding: 0;" onclick="app.sendMessage()">
+                                <span class="material-symbols-outlined">send</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. UI KIT PAGE -->
+                <div id="page-uikit" class="page">
+                    <div class="dashboard-grid">
+                        <div class="card">
+                            <h3 style="margin-bottom: 16px;">Buttons</h3>
+                            <div class="flex gap-2 flex-wrap">
+                                <button class="btn btn-filled ripple-target">Filled</button>
+                                <button class="btn btn-tonal ripple-target">Tonal</button>
+                                <button class="btn btn-outlined ripple-target">Outlined</button>
+                                <button class="btn btn-text ripple-target">Text</button>
+                            </div>
+                            <div class="flex gap-2 flex-wrap" style="margin-top: 16px;">
+                                <button class="btn btn-filled ripple-target"><span class="material-symbols-outlined">add</span> Icon</button>
+                                <button class="btn btn-filled ripple-target" style="background: var(--md-sys-color-error); color: white;">Error</button>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <h3 style="margin-bottom: 16px;">Inputs</h3>
+                            <div class="input-group">
+                                <input type="text" class="input-field" placeholder=" ">
+                                <label class="input-label">Standard Input</label>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <label class="flex items-center gap-2">
+                                    <input type="checkbox" checked style="width: 20px; height: 20px; accent-color: var(--md-sys-color-primary);"> Option A
+                                </label>
+                                <label class="flex items-center gap-2">
+                                    <input type="radio" name="r1" checked style="width: 20px; height: 20px; accent-color: var(--md-sys-color-primary);"> Radio 1
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. PROFILE PAGE -->
+                <div id="page-profile" class="page">
+                    <div class="card" style="overflow: hidden; padding: 0;">
+                        <div style="height: 140px; background: linear-gradient(45deg, var(--md-sys-color-primary), var(--md-sys-color-tertiary));"></div>
+                        <div style="padding: 0 24px 24px; position: relative;">
+                            <div style="width: 100px; height: 100px; border-radius: 50%; background: white; padding: 4px; position: absolute; top: -50px;">
+                                <div style="width: 100%; height: 100%; background: var(--md-sys-color-secondary-container); border-radius: 50%; display: grid; place-items: center; font-size: 32px; font-weight: bold; color: var(--md-sys-color-on-secondary-container);">JD</div>
+                            </div>
+                            <div style="margin-left: 120px; padding-top: 12px;">
+                                <h2 style="font-size: 24px;">John Doe</h2>
+                                <p style="opacity: 0.7;">Senior Developer • San Francisco, CA</p>
+                            </div>
+                        </div>
+                        <div style="padding: 24px; border-top: 1px solid var(--md-sys-color-outline-variant);">
+                            <h3 style="margin-bottom: 16px;">Profile Settings</h3>
+                            <div class="dashboard-grid">
+                                <div class="input-group"><input type="text" class="input-field" value="John Doe"><label class="input-label">Full Name</label></div>
+                                <div class="input-group"><input type="email" class="input-field" value="john.doe@example.com"><label class="input-label">Email</label></div>
+                                <div class="input-group"><input type="text" class="input-field" value="Senior Developer"><label class="input-label">Job Title</label></div>
+                            </div>
+                            <button class="btn btn-filled ripple-target">Save Changes</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6. SETTINGS PAGE -->
+                <div id="page-settings" class="page">
+                    <h2>App Settings</h2>
+                    <div class="card">
+                        <div class="flex justify-between items-center" style="padding: 16px 0; border-bottom: 1px solid var(--md-sys-color-outline-variant);">
+                            <div>
+                                <div style="font-weight: 500;">Dark Mode</div>
+                                <div style="font-size: 14px; opacity: 0.7;">Switch between light and dark themes</div>
+                            </div>
+                            <button class="btn btn-tonal ripple-target" onclick="app.toggleTheme()">Toggle</button>
+                        </div>
+
+                        <div style="padding: 16px 0;">
+                            <div style="font-weight: 500; margin-bottom: 12px;">Theme Color (Seed)</div>
+                            <div class="flex gap-4">
+                                <div onclick="app.setSeed('blue')" style="width: 40px; height: 40px; border-radius: 50%; background: #005AC1; cursor: pointer; border: 2px solid var(--md-sys-color-outline);"></div>
+                                <div onclick="app.setSeed('green')" style="width: 40px; height: 40px; border-radius: 50%; background: #006D42; cursor: pointer; border: 2px solid var(--md-sys-color-outline);"></div>
+                                <div onclick="app.setSeed('red')" style="width: 40px; height: 40px; border-radius: 50%; background: #B3261E; cursor: pointer; border: 2px solid var(--md-sys-color-outline);"></div>
+                                <div onclick="app.setSeed('purple')" style="width: 40px; height: 40px; border-radius: 50%; background: #6750A4; cursor: pointer; border: 2px solid var(--md-sys-color-outline);"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- ================= JAVASCRIPT LOGIC ================= -->
+    <script>
+        const app = {
+            state: {
+                isLoggedIn: false,
+                theme: 'light',
+                seed: 'blue',
+                isSidebarExpanded: true
+            },
+
+            // --- AUTH ---
+            login() {
+                const email = document.getElementById('loginEmail').value;
+                if(email) {
+                    // Simulate API call
+                    const btn = document.querySelector('#auth-layout .btn');
+                    btn.innerHTML = '<span class="material-symbols-outlined" style="animation: spin 1s linear infinite;">progress_activity</span>';
+                    setTimeout(() => {
+                        document.getElementById('auth-layout').classList.add('hidden');
+                        document.getElementById('app-layout').classList.remove('hidden');
+                        this.state.isLoggedIn = true;
+
+                        // Check desktop width to auto-show toggle
+                        if(window.innerWidth > 800) {
+                             document.getElementById('desktopToggle').style.display = 'flex';
+                        }
+                    }, 800);
+                } else {
+                    alert("Please enter any email to simulate login.");
+                }
+            },
+            logout() {
+                document.getElementById('app-layout').classList.add('hidden');
+                document.getElementById('auth-layout').classList.remove('hidden');
+                this.state.isLoggedIn = false;
+                document.getElementById('loginEmail').value = '';
+                document.getElementById('loginPass').value = '';
+                document.querySelector('#auth-layout .btn').innerText = 'Sign In';
+            },
+
+            // --- NAVIGATION ---
+            nav(pageId, navEl) {
+                // 1. Hide all pages
+                document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
+                // 2. Show target page
+                document.getElementById('page-' + pageId).classList.add('active');
+                // 3. Update Title
+                document.getElementById('page-title').innerText = pageId.charAt(0).toUpperCase() + pageId.slice(1);
+                // 4. Update Sidebar Active State
+                document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+                navEl.classList.add('active');
+
+                // Mobile drawer handling
+                if(window.innerWidth <= 800) {
+                    document.getElementById('sidebar').classList.remove('mobile-open');
+                }
+            },
+
+            toggleSidebar() {
+                const sb = document.getElementById('sidebar');
+                this.state.isSidebarExpanded = !this.state.isSidebarExpanded;
+                if(this.state.isSidebarExpanded) {
+                    sb.classList.add('expanded');
+                } else {
+                    sb.classList.remove('expanded');
+                }
+            },
+
+            toggleMobileMenu() {
+                document.getElementById('sidebar').classList.toggle('mobile-open');
+            },
+
+            // --- THEMING ---
+            toggleTheme() {
+                this.state.theme = this.state.theme === 'light' ? 'dark' : 'light';
+                document.body.setAttribute('data-theme', this.state.theme);
+            },
+
+            setSeed(color) {
+                const r = document.querySelector(':root');
+                // Simplified dynamic color logic simulation
+                const palettes = {
+                    blue: { p: '#005AC1', pc: '#D8E2FF', onp: '#FFFFFF', s: '#575E71', sc: '#DBE2F9' },
+                    green: { p: '#006D42', pc: '#93F9B9', onp: '#FFFFFF', s: '#4F6354', sc: '#D1E8D5' },
+                    red: { p: '#B3261E', pc: '#F9DEDC', onp: '#FFFFFF', s: '#775654', sc: '#FFDAD8' },
+                    purple: { p: '#6750A4', pc: '#EADDFF', onp: '#FFFFFF', s: '#625B71', sc: '#E8DEF8' }
+                };
+
+                const c = palettes[color];
+                r.style.setProperty('--md-sys-color-primary', c.p);
+                r.style.setProperty('--md-sys-color-primary-container', c.pc);
+                r.style.setProperty('--md-sys-color-on-primary', c.onp);
+                r.style.setProperty('--md-sys-color-secondary', c.s);
+                r.style.setProperty('--md-sys-color-secondary-container', c.sc);
+            },
+
+            // --- CHAT LOGIC ---
+            sendMessage() {
+                const input = document.getElementById('chatInput');
+                const text = input.value;
+                if(!text) return;
+
+                const history = document.getElementById('chatHistory');
+
+                // Add User Message
+                const userMsg = document.createElement('div');
+                userMsg.className = 'message msg-user';
+                userMsg.innerText = text;
+                history.appendChild(userMsg);
+
+                input.value = '';
+                history.scrollTop = history.scrollHeight;
+
+                // Simulate AI Reply
+                setTimeout(() => {
+                    const aiMsg = document.createElement('div');
+                    aiMsg.className = 'message msg-ai';
+                    aiMsg.innerHTML = '<span class="material-symbols-outlined" style="font-size:16px; animation:spin 1s infinite linear">sync</span> Generating...';
+                    history.appendChild(aiMsg);
+                    history.scrollTop = history.scrollHeight;
+
+                    setTimeout(() => {
+                        aiMsg.innerHTML = "I've processed your request: <strong>" + text + "</strong>. Is there anything else you need help with regarding the dashboard metrics?";
+                    }, 1500);
+                }, 500);
+            }
+        };
+
+        // --- RIPPLE EFFECT ---
+        document.addEventListener('click', function(e) {
+            const target = e.target.closest('.ripple-target');
+            if (target) {
+                const circle = document.createElement('span');
+                const diameter = Math.max(target.clientWidth, target.clientHeight);
+                const radius = diameter / 2;
+                circle.style.width = circle.style.height = `${diameter}px`;
+                const rect = target.getBoundingClientRect();
+                circle.style.left = `${e.clientX - rect.left - radius}px`;
+                circle.style.top = `${e.clientY - rect.top - radius}px`;
+                circle.classList.add('ripple');
+                const existing = target.querySelector('.ripple');
+                if (existing) existing.remove();
+                circle.addEventListener('animationend', () => circle.remove());
+                target.appendChild(circle);
+            }
+        });
+
+        // --- INIT ---
+        // Initialize sidebar state
+        document.getElementById('sidebar').classList.add('expanded');
+
+        // Add spinner keyframe
+        const styleSheet = document.createElement("style");
+        styleSheet.innerText = `
+            @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+        `;
+        document.head.appendChild(styleSheet);
+
+    </script>
+</body>
+</html>

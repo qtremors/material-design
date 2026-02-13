@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigation - Material Showcase</title>
+    
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Flex:opsz,wdth,wght@8..144,100,100..400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <style>
+        /* Tabs */
+        .tabs-container {
+            display: flex; border-bottom: 1px solid var(--md-sys-color-outline-variant); margin-bottom: 24px;
+        }
+        .md-tab {
+            flex: 1; height: 48px; display: flex; align-items: center; justify-content: center;
+            font: var(--md-sys-typescale-title-medium); color: var(--md-sys-color-on-surface-variant);
+            cursor: pointer; position: relative; transition: 0.2s;
+        }
+        .md-tab:hover { background: rgba(0,0,0,0.04); }
+        .md-tab.active { color: var(--md-sys-color-primary); }
+        .md-tab.active::after {
+            content: ""; position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+            background: var(--md-sys-color-primary); border-radius: 3px 3px 0 0;
+        }
+        .tab-panel { display: none; padding: 24px 0; }
+        .tab-panel.active { display: block; animation: fadeUp 0.3s ease; }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Bottom Sheet */
+        .bottom-sheet {
+            position: fixed; bottom: 0; left: 0; right: 0; max-height: 80vh; 
+            background: var(--md-sys-color-surface-container-low); border-radius: 28px 28px 0 0;
+            z-index: 600; padding: 24px; transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1);
+            box-shadow: var(--md-sys-elevation-3);
+        }
+        .bottom-sheet.open { transform: translateY(0); }
+        .sheet-scrim {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 599;
+            opacity: 0; pointer-events: none; transition: opacity 0.3s;
+        }
+        .drag-handle {
+            width: 32px; height: 4px; background: var(--md-sys-color-outline-variant);
+            margin: 0 auto 16px; border-radius: 2px;
+        }
+
+        /* Nav Rail Demo Only overrides */
+        .demo-rail-container {
+            height: 400px; border: 1px solid var(--md-sys-color-outline-variant);
+            display: flex; overflow: hidden; position: relative; border-radius: 16px;
+        }
+    </style>
+</head>
+<body data-theme="light" data-seed="blue">
+
+    <!-- Navigation Rail -->
+    <nav class="md-nav-rail">
+        <div class="menu-trigger ripple-target" style="padding: 12px; margin-bottom: 24px; cursor: pointer;">
+            <span class="material-symbols-rounded">menu</span>
+        </div>
+        
+
+
+        <a href="index.html" class="md-rail-item" title="Dashboard">
+            <div class="icon-container"><span class="material-symbols-rounded">dashboard</span></div>
+            <span class="label">Home</span>
+        </a>
+        <a href="buttons.html" class="md-rail-item" title="Buttons">
+             <div class="icon-container"><span class="material-symbols-rounded">smart_button</span></div>
+            <span class="label">Buttons</span>
+        </a>
+        <a href="inputs.html" class="md-rail-item" title="Inputs">
+             <div class="icon-container"><span class="material-symbols-rounded">text_fields</span></div>
+            <span class="label">Inputs</span>
+        </a>
+        <a href="cards.html" class="md-rail-item" title="Cards">
+             <div class="icon-container"><span class="material-symbols-rounded">view_quilt</span></div>
+            <span class="label">Cards</span>
+        </a>
+        <a href="navigation.html" class="md-rail-item active" title="Navigation">
+             <div class="icon-container"><span class="material-symbols-rounded">menu_open</span></div>
+            <span class="label">Nav</span>
+        </a>
+        <a href="feedback.html" class="md-rail-item" title="Feedback">
+             <div class="icon-container"><span class="material-symbols-rounded">campaign</span></div>
+            <span class="label">Feedback</span>
+        </a>
+        <a href="typography.html" class="md-rail-item" title="Typography">
+             <div class="icon-container"><span class="material-symbols-rounded">text_format</span></div>
+            <span class="label">Type</span>
+        </a>
+        
+        <div style="flex:1"></div>
+        <div id="themeToggle" class="md-rail-item" style="cursor: pointer;">
+             <div class="icon-container"><span class="material-symbols-rounded">dark_mode</span></div>
+        </div>
+    </nav>
+
+    <!-- MOBILE DRAWER -->
+    <div id="drawerOverlay" class="md-drawer-overlay"></div>
+    <aside id="navDrawer" class="md-drawer">
+        <div style="padding: 24px; font: var(--md-sys-typescale-title-large); color: var(--md-sys-color-primary);">
+            Material Showcase
+        </div>
+        <div class="drawer-content">
+            <a href="index.html" class="drawer-item ripple-target">
+                <span class="material-symbols-rounded">dashboard</span> Home
+            </a>
+            <a href="buttons.html" class="drawer-item ripple-target">
+                <span class="material-symbols-rounded">smart_button</span> Buttons
+            </a>
+            <a href="inputs.html" class="drawer-item ripple-target">
+                <span class="material-symbols-rounded">text_fields</span> Inputs
+            </a>
+            <a href="cards.html" class="drawer-item ripple-target">
+                <span class="material-symbols-rounded">view_quilt</span> Cards
+            </a>
+            <a href="navigation.html" class="drawer-item active ripple-target">
+                <span class="material-symbols-rounded">menu_open</span> Navigation
+            </a>
+            <a href="feedback.html" class="drawer-item ripple-target">
+                <span class="material-symbols-rounded">campaign</span> Feedback
+            </a>
+             <a href="typography.html" class="drawer-item ripple-target">
+                <span class="material-symbols-rounded">text_format</span> Typography
+            </a>
+        </div>
+    </aside>
+
+    <main style="flex: 1; margin-left: 80px; width: 100%;">
+        <div class="top-app-bar">
+            <h2>Navigation</h2>
+            <div style="flex: 1"></div>
+             <!-- Color Seeds -->
+            <div class="actions" style="display: flex; gap: 8px; align-items: center;">
+                <div class="color-swatch active" data-seed="blue" style="background: #2962FF;" title="Blue"></div>
+                <div class="color-swatch" data-seed="purple" style="background: #6750A4;" title="Purple"></div>
+                <div class="color-swatch" data-seed="green" style="background: #006C51;" title="Key Lime"></div>
+                <div class="color-swatch" data-seed="teal" style="background: #006A6A;" title="Teal"></div>
+                <div class="color-swatch" data-seed="red" style="background: #B3261E;" title="Red"></div>
+            </div>
+        </div>
+
+        <div class="container">
+            
+            <div class="section-grid">
+                <!-- App Bars -->
+                <div class="md-card">
+                    <h3>Top App Bar</h3>
+                    <p>The standard top app bar handles navigation, actions, and title.</p>
+                     <div style="background: var(--md-sys-color-surface-container); height: 64px; display: flex; align-items: center; padding: 0 16px; border-radius: 8px;">
+                        <span class="material-symbols-rounded" style="margin-right: 24px;">menu</span>
+                        <span style="font: var(--md-sys-typescale-title-large); flex: 1;">Page Title</span>
+                        <span class="material-symbols-rounded" style="margin-left: 24px;">search</span>
+                        <span class="material-symbols-rounded" style="margin-left: 24px;">more_vert</span>
+                     </div>
+                </div>
+
+                <!-- Tabs -->
+                <div class="md-card">
+                    <h3>Tabs</h3>
+                    <div class="tabs-container">
+                        <div class="md-tab active ripple-target" data-target="tab1">Item One</div>
+                        <div class="md-tab ripple-target" data-target="tab2">Item Two</div>
+                        <div class="md-tab ripple-target" data-target="tab3">Item Three</div>
+                    </div>
+                    <div id="tab1" class="tab-panel active">
+                        <p>Content for Tab One. Tabs organize content at a high level.</p>
+                    </div>
+                     <div id="tab2" class="tab-panel">
+                        <p>Content for Tab Two. Switch between views easily.</p>
+                    </div>
+                     <div id="tab3" class="tab-panel">
+                        <p>Content for Tab Three. Supports animations.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Drawers & Rails -->
+            <div class="md-card" style="margin-top: 24px;">
+                <h3>Drawer & Rail</h3>
+                <p>Click the buttons below to trigger the actual navigation components.</p>
+                <div class="btn-row">
+                    <button class="md-btn md-btn-filled ripple-target" onclick="toggleDrawer()">
+                        Open Navigation Drawer
+                    </button>
+                    <button class="md-btn md-btn-tonal ripple-target" onclick="window.openSheet('demo-sheet')">
+                        Open Bottom Sheet
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Bottom Sheet Demo -->
+    <div id="sheet-scrim" class="sheet-scrim" onclick="window.closeSheet()"></div>
+    <div id="demo-sheet" class="bottom-sheet">
+        <div class="drag-handle"></div>
+        <h3 style="text-align: center;">Bottom Sheet Title</h3>
+        <p style="text-align: center;">This is a modal bottom sheet. It slides up from the bottom and can contain any content.</p>
+        <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 24px;">
+            <button class="md-btn md-btn-tonal ripple-target" style="width: 100%;">Option 1</button>
+            <button class="md-btn md-btn-tonal ripple-target" style="width: 100%;">Option 2</button>
+            <button class="md-btn md-btn-text ripple-target" style="width: 100%; color: var(--md-sys-color-error);" onclick="window.closeSheet()">Cancel</button>
+        </div>
+    </div>
+
+    <script src="js/scripts.js"></script>
+</body>
+</html>

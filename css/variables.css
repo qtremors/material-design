@@ -1,0 +1,229 @@
+/* =========================================
+   DESIGN TOKENS (CSS Variables)
+   Merged from material-design-v2.html (Standard) & md31.html/md32.html (Expressive)
+   ========================================= */
+:root {
+    /* --- TYPE SCALE (Standard - Roboto) --- */
+    --font-family-std: 'Roboto', sans-serif;
+    --md-sys-typescale-body-large: 400 16px/24px var(--font-family-std);
+    --md-sys-typescale-body-medium: 400 14px/20px var(--font-family-std);
+    --md-sys-typescale-label-large: 500 14px/20px var(--font-family-std);
+    --md-sys-typescale-headline-small: 400 24px/32px var(--font-family-std);
+    --md-sys-typescale-headline-medium: 400 28px/36px var(--font-family-std);
+    --md-sys-typescale-title-medium: 500 16px/24px var(--font-family-std);
+    --md-sys-typescale-title-large: 400 22px/28px var(--font-family-std);
+
+    /* --- SHAPES (Standard) --- */
+    --md-sys-shape-corner-extra-small: 4px;
+    --md-sys-shape-corner-small: 8px;
+    --md-sys-shape-corner-medium: 12px;
+    --md-sys-shape-corner-large: 16px;
+    --md-sys-shape-corner-extra-large: 28px;
+    --md-sys-shape-corner-full: 100px; /* Pill */
+
+    /* --- MOTION --- */
+    --md-sys-motion-standard: 200ms cubic-bezier(0.2, 0.0, 0, 1.0);
+    --md-sys-motion-emphasized: 400ms cubic-bezier(0.2, 0.0, 0, 1.0);
+    --motion-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+    /* --- ELEVATION --- */
+    --md-sys-elevation-1: 0 1px 2px rgba(0,0,0,0.3);
+    --md-sys-elevation-2: 0 2px 6px 2px rgba(0,0,0,0.15);
+    --md-sys-elevation-3: 0 4px 8px 3px rgba(0,0,0,0.15);
+
+    /* --- BASE COLORS (Neutrals) --- */
+    --md-sys-color-surface: #F4F7FC;
+    --md-sys-color-surface-container: #FFFFFF;
+    --md-sys-color-surface-container-high: #F0F3F9;
+    --md-sys-color-surface-container-low: #F0F5F1; /* From md32 */
+    --md-sys-color-surface-container-highest: #DEE4E1; /* From md32 */
+    --md-sys-color-outline: #74777F;
+    --md-sys-color-outline-variant: #C4C7D0;
+    --md-sys-color-on-surface: #1B1B1F;
+    --md-sys-color-on-surface-variant: #44474F;
+
+    /* --- DYNAMIC THEME COLORS (Default: Blue) --- */
+    --md-sys-color-primary: #2962FF;
+    --md-sys-color-on-primary: #FFFFFF;
+    --md-sys-color-primary-container: #E0EAFF;
+    --md-sys-color-on-primary-container: #001A4D;
+    /* Secondary tokens from v2 were minimal, expanded here for consistency */
+    --md-sys-color-secondary: #5A5D72; /* Placeholder based on v2 logic */
+    --md-sys-color-on-secondary: #FFFFFF;
+    --md-sys-color-secondary-container: #DDE2F0;
+    --md-sys-color-on-secondary-container: #181C28;
+    /* Tertiary tokens needed for md3* components */
+    --md-sys-color-tertiary: #7D5260;
+    --md-sys-color-on-tertiary: #FFFFFF;
+    --md-sys-color-tertiary-container: #FFD8E4;
+    --md-sys-color-on-tertiary-container: #31111D;
+
+    /* --- SEMANTIC COLORS (Fixed) --- */
+    --md-sys-color-error: #BA1A1A;
+    --md-sys-color-on-error: #FFFFFF;
+    --md-sys-color-error-container: #FFDAD6;
+    --md-sys-color-on-error-container: #410002;
+
+    --md-sys-color-success: #146c2e;
+    --md-sys-color-on-success: #FFFFFF;
+    --md-sys-color-success-container: #c4eed0;
+    --md-sys-color-on-success-container: #07210e;
+
+    --md-sys-color-warning: #d97706;
+    --md-sys-color-on-warning: #FFFFFF;
+    --md-sys-color-warning-container: #fef3c7;
+    --md-sys-color-on-warning-container: #451a03;
+
+    /* State Layer Opacities */
+    --md-sys-state-hover: 0.08;
+    --md-sys-state-focus: 0.12;
+    --md-sys-state-pressed: 0.12;
+}
+
+/* --- THEME VARIATIONS (Data Attributes) --- */
+/* PURPLE (Expressive Default) */
+[data-seed="purple"] {
+    --md-sys-color-primary: #6750A4;
+    --md-sys-color-on-primary: #FFFFFF;
+    --md-sys-color-primary-container: #EADDFF;
+    --md-sys-color-on-primary-container: #21005D;
+    --md-sys-color-secondary: #625B71;
+    --md-sys-color-on-secondary: #FFFFFF;
+    --md-sys-color-secondary-container: #E8DEF8;
+    --md-sys-color-on-secondary-container: #1D192B;
+    --md-sys-color-tertiary: #7D5260;
+    --md-sys-color-on-tertiary: #FFFFFF;
+    --md-sys-color-tertiary-container: #FFD8E4;
+    --md-sys-color-on-tertiary-container: #31111D;
+}
+/* GREEN (Key Lime / Real - from md31) */
+[data-seed="green"] {
+    --md-sys-color-primary: #006C51; /* #006D42 in v2, slight variation */
+    --md-sys-color-on-primary: #FFFFFF;
+    --md-sys-color-primary-container: #83F8CC; /* #93F9B9 in v2 */
+    --md-sys-color-on-primary-container: #002116;
+    --md-sys-color-secondary: #4C6359;
+    --md-sys-color-on-secondary: #FFFFFF;
+    --md-sys-color-secondary-container: #CEE9DB;
+    --md-sys-color-on-secondary-container: #082017;
+    --md-sys-color-tertiary: #3E6373;
+    --md-sys-color-on-tertiary: #FFFFFF;
+    --md-sys-color-tertiary-container: #C2E8FB;
+    --md-sys-color-on-tertiary-container: #001F29;
+}
+/* TEAL (From md31/md32 implicit) */
+[data-seed="teal"] {
+    --md-sys-color-primary: #006A6A;
+    --md-sys-color-on-primary: #FFFFFF;
+    --md-sys-color-primary-container: #6FF7F6;
+    --md-sys-color-on-primary-container: #002020;
+    --md-sys-color-secondary: #4A6363;
+    --md-sys-color-on-secondary: #FFFFFF;
+    --md-sys-color-secondary-container: #CCE8E7;
+    --md-sys-color-on-secondary-container: #051F1F;
+    --md-sys-color-tertiary: #4B607C;
+    --md-sys-color-on-tertiary: #FFFFFF;
+    --md-sys-color-tertiary-container: #D3E4FF;
+    --md-sys-color-on-tertiary-container: #041C35;
+}
+/* RED */
+[data-seed="red"] {
+    --md-sys-color-primary: #B3261E;
+    --md-sys-color-on-primary: #FFFFFF;
+    --md-sys-color-primary-container: #F9DEDC;
+    --md-sys-color-on-primary-container: #410E0B;
+    --md-sys-color-secondary-container: #F4DDDB;
+    --md-sys-color-on-secondary-container: #2B1513;
+}
+
+/* --- DARK THEME OVERRIDES --- */
+[data-theme="dark"] {
+    --md-sys-color-surface: #111318;
+    --md-sys-color-surface-container: #1F2229;
+    --md-sys-color-surface-container-high: #292C35;
+    --md-sys-color-surface-container-low: #191c20;
+    --md-sys-color-surface-container-highest: #333537;
+    --md-sys-color-outline: #8D9199;
+    --md-sys-color-outline-variant: #44474F;
+    --md-sys-color-on-surface: #E2E2E6;
+    --md-sys-color-on-surface-variant: #C4C7D0;
+
+    --md-sys-color-primary: #B0C5FF; /* Default Blue Dark */
+    --md-sys-color-on-primary: #002B75;
+    --md-sys-color-primary-container: #0042A9;
+    --md-sys-color-on-primary-container: #D9E2FF;
+    --md-sys-color-secondary-container: #3E4450;
+    --md-sys-color-on-secondary-container: #DDE2F0;
+
+    --md-sys-color-error: #FFB4AB;
+    --md-sys-color-on-error: #690005;
+    --md-sys-color-error-container: #93000A;
+    --md-sys-color-on-error-container: #FFDAD6;
+
+    --md-sys-color-success: #75db8b;
+    --md-sys-color-on-success: #003912;
+    --md-sys-color-success-container: #00531e;
+    --md-sys-color-on-success-container: #91f8a7;
+
+    --md-sys-elevation-1: none;
+    --md-sys-elevation-2: none;
+    --md-sys-elevation-3: none;
+}
+/* Dark Theme Color Seeds */
+[data-theme="dark"][data-seed="purple"] {
+    --md-sys-color-primary: #D0BCFF;
+    --md-sys-color-on-primary: #381E72;
+    --md-sys-color-primary-container: #4F378B;
+    --md-sys-color-on-primary-container: #EADDFF;
+    --md-sys-color-secondary-container: #4A4458;
+    --md-sys-color-on-secondary-container: #E8DEF8;
+    --md-sys-color-tertiary: #EFB8C8;
+    --md-sys-color-on-tertiary: #492532;
+    --md-sys-color-tertiary-container: #633B48;
+    --md-sys-color-on-tertiary-container: #FFD8E4;
+}
+[data-theme="dark"][data-seed="green"] {
+    --md-sys-color-primary: #78DB9F;
+    --md-sys-color-on-primary: #003920;
+    --md-sys-color-primary-container: #005230;
+    --md-sys-color-on-primary-container: #93F9B9;
+    --md-sys-color-secondary-container: #364B3B;
+    --md-sys-color-on-secondary-container: #D8E7CC;
+    --md-sys-color-tertiary: #A6CCE0;
+    --md-sys-color-on-tertiary: #003543;
+    --md-sys-color-tertiary-container: #224C5C;
+    --md-sys-color-on-tertiary-container: #C2E8FB;
+
+}
+[data-theme="dark"][data-seed="red"] {
+    --md-sys-color-primary: #F2B8B5;
+    --md-sys-color-on-primary: #601410;
+    --md-sys-color-primary-container: #8C1D18;
+    --md-sys-color-on-primary-container: #F9DEDC;
+    --md-sys-color-secondary-container: #5C403E;
+    --md-sys-color-on-secondary-container: #F4DDDB;
+}
+
+/* --- EXPRESSIVE STYLE OVERRIDES --- */
+[data-style="expressive"] {
+    --font-family-exp: 'Roboto Flex', sans-serif;
+    
+    /* Typography Overrides */
+    --md-sys-typescale-display-large: 400 64px/72px var(--font-family-exp);
+    --md-sys-typescale-display-medium: 400 45px/52px var(--font-family-exp);
+    --md-sys-typescale-headline-large: 500 32px/40px var(--font-family-exp);
+    --md-sys-typescale-headline-medium: 500 28px/36px var(--font-family-exp);
+    --md-sys-typescale-title-large: 400 22px/28px var(--font-family-exp);
+    --md-sys-typescale-title-medium: 500 16px/24px var(--font-family-exp);
+    --md-sys-typescale-body-large: 400 16px/24px var(--font-family-exp);
+    --md-sys-typescale-label-large: 600 14px/20px var(--font-family-exp);
+
+    /* Shape Overrides - Rounder */
+    --md-sys-shape-corner-extra-small: 4px;
+    --md-sys-shape-corner-small: 12px;
+    --md-sys-shape-corner-medium: 16px;
+    --md-sys-shape-corner-large: 28px;
+    --md-sys-shape-corner-xl: 32px;
+}
+
+.expressive-text { font-variation-settings: 'wdth' 115; }

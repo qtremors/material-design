@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inputs - Material Showcase</title>
+    
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Flex:opsz,wdth,wght@8..144,100,100..400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <style>
+        /* --- Checkbox & Radio Styles --- */
+        .selection-control {
+            display: inline-flex; align-items: center; cursor: pointer; margin-right: 24px;
+            position: relative;
+        }
+        .selection-control input { opacity: 0; width: 0; height: 0; position: absolute; }
+        
+        /* Checkbox */
+        .checkbox-box {
+            width: 18px; height: 18px; border: 2px solid var(--md-sys-color-on-surface-variant);
+            border-radius: 2px; display: inline-flex; align-items: center; justify-content: center;
+            margin-right: 12px; transition: 0.2s; background: transparent;
+        }
+        .selection-control input:checked + .checkbox-box {
+            background-color: var(--md-sys-color-primary); border-color: var(--md-sys-color-primary);
+        }
+        .checkbox-box .material-symbols-rounded {
+            font-size: 14px; color: var(--md-sys-color-on-primary); transform: scale(0); transition: 0.2s;
+        }
+        .selection-control input:checked + .checkbox-box .material-symbols-rounded { transform: scale(1); }
+
+        /* Radio */
+        .radio-circle {
+            width: 20px; height: 20px; border: 2px solid var(--md-sys-color-on-surface-variant);
+            border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;
+            margin-right: 12px; transition: 0.2s;
+        }
+        .selection-control input:checked + .radio-circle {
+            border-color: var(--md-sys-color-primary);
+        }
+        .radio-circle::after {
+            content: ""; width: 10px; height: 10px; background-color: var(--md-sys-color-primary);
+            border-radius: 50%; transform: scale(0); transition: 0.2s;
+        }
+        .selection-control input:checked + .radio-circle::after { transform: scale(1); }
+
+        /* --- Sliders --- */
+        .slider-container { width: 100%; max-width: 300px; padding: 10px 0; margin-bottom: 24px; }
+
+        /* Track */
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%; height: 4px; background: var(--md-sys-color-secondary-container);
+            border-radius: 2px;
+        }
+        /* Thumb */
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none; height: 20px; width: 20px; border-radius: 50%;
+            background: var(--md-sys-color-primary); margin-top: -8px; 
+            box-shadow: var(--md-sys-elevation-1); transition: 0.2s;
+        }
+        input[type=range]:hover::-webkit-slider-thumb {
+            box-shadow: 0 0 0 8px rgba(var(--md-sys-color-primary-rgb), 0.1); 
+            /* Note: RGB var not defined, creating simple hover effect instead */
+            transform: scale(1.1);
+        }
+
+        /* Expressive Slider (Thick) */
+        .slider-expressive input[type=range]::-webkit-slider-runnable-track {
+            height: 16px; border-radius: 8px;
+        }
+        .slider-expressive input[type=range]::-webkit-slider-thumb {
+            height: 44px; width: 4px; border-radius: 2px; margin-top: -14px;
+            background: var(--md-sys-color-on-primary-container);
+        }
+
+        /* --- Chips --- */
+        .chip-set { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+        .chip {
+            height: 32px; display: inline-flex; align-items: center; padding: 0 16px;
+            border-radius: 8px; border: 1px solid var(--md-sys-color-outline);
+            background: transparent; color: var(--md-sys-color-on-surface-variant);
+            font-size: 14px; font-weight: 500; cursor: pointer; transition: 0.2s; user-select: none;
+        }
+        .chip:hover { background-color: rgba(0,0,0,0.04); }
+        .chip.active {
+            background-color: var(--md-sys-color-secondary-container);
+            color: var(--md-sys-color-on-secondary-container); border-color: transparent;
+        }
+        .chip .material-symbols-rounded { font-size: 18px; margin-right: 8px; margin-left: -4px; }
+        .chip .close-icon { margin-right: -4px; margin-left: 8px; font-size: 16px; }
+        .chip-avatar {
+            width: 24px; height: 24px; border-radius: 50%; margin-left: -12px; margin-right: 8px;
+            object-fit: cover;
+        }
+        
+    </style>
+</head>
+<body data-theme="light" data-seed="blue">
+
+    <!-- Navigation Rail -->
+    <nav class="md-nav-rail">
+        <div class="menu-trigger ripple-target" style="padding: 12px; margin-bottom: 24px; cursor: pointer;">
+            <span class="material-symbols-rounded">menu</span>
+        </div>
+        
+
+
+        <a href="index.html" class="md-rail-item" title="Dashboard">
+            <div class="icon-container"><span class="material-symbols-rounded">dashboard</span></div>
+            <span class="label">Home</span>
+        </a>
+        <a href="buttons.html" class="md-rail-item" title="Buttons">
+             <div class="icon-container"><span class="material-symbols-rounded">smart_button</span></div>
+            <span class="label">Buttons</span>
+        </a>
+        <a href="inputs.html" class="md-rail-item active" title="Inputs">
+             <div class="icon-container"><span class="material-symbols-rounded">text_fields</span></div>
+            <span class="label">Inputs</span>
+        </a>
+        <a href="cards.html" class="md-rail-item" title="Cards">
+             <div class="icon-container"><span class="material-symbols-rounded">view_quilt</span></div>
+            <span class="label">Cards</span>
+        </a>
+        <a href="navigation.html" class="md-rail-item" title="Navigation">
+             <div class="icon-container"><span class="material-symbols-rounded">menu_open</span></div>
+            <span class="label">Nav</span>
+        </a>
+        <a href="feedback.html" class="md-rail-item" title="Feedback">
+             <div class="icon-container"><span class="material-symbols-rounded">campaign</span></div>
+            <span class="label">Feedback</span>
+        </a>
+        <a href="typography.html" class="md-rail-item" title="Typography">
+             <div class="icon-container"><span class="material-symbols-rounded">text_format</span></div>
+            <span class="label">Type</span>
+        </a>
+        
+        <div style="flex:1"></div>
+        <div id="themeToggle" class="md-rail-item" style="cursor: pointer;">
+             <div class="icon-container"><span class="material-symbols-rounded">dark_mode</span></div>
+        </div>
+    </nav>
+
+    <!-- MOBILE DRAWER -->
+    <div id="drawerOverlay" class="md-drawer-overlay"></div>
+    <aside id="navDrawer" class="md-drawer">
+        <div style="padding: 24px; font: var(--md-sys-typescale-title-large); color: var(--md-sys-color-primary);">
+            Material Showcase
+        </div>
+        <div class="drawer-content">
+            <a href="index.html" class="drawer-item ripple-target">
+                <span class="material-symbols-rounded">dashboard</span> Home
+            </a>
+            <a href="buttons.html" class="drawer-item ripple-target">
+                <span class="material-symbols-rounded">smart_button</span> Buttons
+            </a>
+            <a href="inputs.html" class="drawer-item active ripple-target">
+                <span class="material-symbols-rounded">text_fields</span> Inputs
+            </a>
+            <a href="cards.html" class="drawer-item ripple-target">
+                <span class="material-symbols-rounded">view_quilt</span> Cards
+            </a>
+            <a href="navigation.html" class="drawer-item ripple-target">
+                <span class="material-symbols-rounded">menu_open</span> Navigation
+            </a>
+            <a href="feedback.html" class="drawer-item ripple-target">
+                <span class="material-symbols-rounded">campaign</span> Feedback
+            </a>
+             <a href="typography.html" class="drawer-item ripple-target">
+                <span class="material-symbols-rounded">text_format</span> Typography
+            </a>
+        </div>
+    </aside>
+
+    <main style="flex: 1; margin-left: 80px; width: 100%;">
+        <div class="top-app-bar">
+            <h2>Inputs & Selection</h2>
+            <div style="flex: 1"></div>
+             <!-- Color Seeds -->
+            <div class="actions" style="display: flex; gap: 8px; align-items: center;">
+                <div class="color-swatch active" data-seed="blue" style="background: #2962FF;" title="Blue"></div>
+                <div class="color-swatch" data-seed="purple" style="background: #6750A4;" title="Purple"></div>
+                <div class="color-swatch" data-seed="green" style="background: #006C51;" title="Key Lime"></div>
+                <div class="color-swatch" data-seed="teal" style="background: #006A6A;" title="Teal"></div>
+                <div class="color-swatch" data-seed="red" style="background: #B3261E;" title="Red"></div>
+            </div>
+        </div>
+
+        <div class="container">
+            
+            <div class="section-grid">
+                <!-- Text Fields -->
+                <div class="md-card">
+                    <h3>Text Fields</h3>
+                    <div style="display: flex; flex-direction: column; gap: 16px;">
+                        
+                        <!-- Filled -->
+                        <div class="md-field">
+                            <input type="text" id="tf1" placeholder=" " value="Input text">
+                            <label for="tf1">Label Text</label>
+                        </div>
+
+                        <!-- With Leading Icon -->
+                         <div class="md-field">
+                            <span class="material-symbols-rounded" style="color: var(--md-sys-color-on-surface-variant); margin-right: 12px;">search</span>
+                            <input type="text" id="tf2" placeholder=" ">
+                            <label for="tf2" style="left: 48px;">Search</label>
+                            <span class="material-symbols-rounded" style="color: var(--md-sys-color-on-surface-variant); margin-left: auto; cursor: pointer;">close</span>
+                         </div>
+                        
+                        <!-- Error State -->
+                        <div class="md-field" style="border-bottom-color: var(--md-sys-color-error);">
+                            <input type="text" id="tf3" placeholder=" " value="Invalid Value">
+                            <label for="tf3" style="color: var(--md-sys-color-error);">Error Field</label>
+                        </div>
+                        <div style="color: var(--md-sys-color-error); font-size: 12px; margin-top: -12px; margin-left: 16px;">
+                            Incorrect value
+                        </div>
+
+                        <!-- Outlined Variant (CSS override) -->
+                         <div class="md-field" style="background: transparent; border: 1px solid var(--md-sys-color-outline); border-radius: 4px;">
+                            <input type="text" id="tf4" placeholder=" ">
+                            <label for="tf4">Outlined Field</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Selection Controls -->
+                <div class="md-card">
+                    <h3>Selection Controls</h3>
+                    
+                    <div style="margin-bottom: 24px;">
+                        <h4>Checkbox</h4>
+                        <label class="selection-control ripple-target">
+                            <input type="checkbox" checked>
+                            <span class="checkbox-box"><span class="material-symbols-rounded">check</span></span>
+                            Option 1
+                        </label>
+                        <label class="selection-control ripple-target">
+                            <input type="checkbox">
+                            <span class="checkbox-box"><span class="material-symbols-rounded">check</span></span>
+                            Option 2
+                        </label>
+                    </div>
+
+                    <div style="margin-bottom: 24px;">
+                        <h4>Radio Button</h4>
+                        <label class="selection-control ripple-target">
+                            <input type="radio" name="grp1" checked>
+                            <span class="radio-circle"></span>
+                            Radio 1
+                        </label>
+                        <label class="selection-control ripple-target">
+                            <input type="radio" name="grp1">
+                            <span class="radio-circle"></span>
+                            Radio 2
+                        </label>
+                    </div>
+
+                    <div>
+                        <h4>Switch</h4>
+                        <label class="switch ripple-target">
+                            <input type="checkbox" checked>
+                            <span class="switch-track">
+                                <span class="switch-handle"></span>
+                            </span>
+                        </label>
+                        <label class="switch ripple-target">
+                            <input type="checkbox">
+                            <span class="switch-track">
+                                <span class="switch-handle"></span>
+                            </span>
+                        </label>
+                    </div>
+
+                    <div style="margin-top: 16px;">
+                        <h4>Switch with Icon</h4>
+                        <label class="switch ripple-target">
+                            <input type="checkbox" checked>
+                            <span class="switch-track">
+                                <span class="switch-handle"></span>
+                            </span>
+                             <span class="material-symbols-rounded switch-icon">check</span>
+                        </label>
+                    </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sliders -->
+            <div class="md-card" style="margin-top: 24px;">
+                <h3>Sliders</h3>
+                
+                <p>Continuous Slider</p>
+                <div class="slider-container">
+                    <input type="range" class="md-slider" min="0" max="100" value="50">
+                </div>
+
+                <p>Expressive Slider (Custom Track)</p>
+                <div class="slider-container slider-expressive">
+                    <input type="range" class="md-slider" min="0" max="100" value="70">
+                </div>
+            </div>
+
+            <!-- Chips -->
+            <div class="md-card" style="margin-top: 24px;">
+                <h3>Chips</h3>
+                <div class="chip-set">
+                    <div class="chip ripple-target">Assist Chip</div>
+                    <div class="chip ripple-target">
+                        <span class="material-symbols-rounded">event</span> With Icon
+                    </div>
+                    <div class="chip active ripple-target">
+                        <span class="material-symbols-rounded check-icon">check</span> Selected
+                    </div>
+                </div>
+                
+                <h4>Filter Chips</h4>
+                <div class="chip-set">
+                    <div class="chip ripple-target" data-toggle="true">Filter 1</div>
+                    <div class="chip ripple-target" data-toggle="true">Filter 2</div>
+                    <div class="chip ripple-target" data-toggle="true">Filter 3</div>
+                </div>
+
+                 <h4>Input Chips</h4>
+                <div class="chip-set">
+                    <div class="chip ripple-target" style="padding-left: 12px;">
+                        <img src="https://i.pravatar.cc/150?u=a042581f4e29026024d" class="chip-avatar">
+                        Person Name
+                        <span class="material-symbols-rounded close-icon">close</span>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </main>
+
+    <script src="js/scripts.js"></script>
+</body>
+</html>
