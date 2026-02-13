@@ -1,7 +1,6 @@
 /**
- * THEME ENGINE (Universal)
- * Handles Theme, Color, Radius, and Font persistence.
- * syncing across pages via localStorage and window.name (for file:// support).
+ * THEME ENGINE
+ * Handles Theme, Color, Radius, and Font persistence across pages.
  */
 
 const ThemeEngine = {
@@ -52,19 +51,16 @@ const ThemeEngine = {
             // LocalStorage might be blocked or partitioned
         }
 
-        // 2. Try window.name (file:// Protocol Sync)
+        // 2. Try window.name (file sync support)
         // Checks if the window name contains a valid JSON config from a previous page
         try {
             if (window.name && window.name.startsWith('{')) {
                 const sessionState = JSON.parse(window.name);
                 if (sessionState.theme && sessionState.seed) {
-                    // console.log('Restored state from window.name', sessionState);
                     this.state = { ...this.state, ...sessionState };
                 }
             }
-        } catch (e) {
-            // Invalid JSON or other error, ignore
-        }
+        } catch (e) {}
     },
 
     /**
@@ -101,8 +97,7 @@ const ThemeEngine = {
      * Bind click listeners to theme toggles and color swatches
      */
     bindUI() {
-        // Theme Toggle Button (Global) - Event Delegation
-        // Handles dynamically injected navigation elements
+        // Theme Toggle Button - Event Delegation
         document.addEventListener('click', (e) => {
             const themeBtn = e.target.closest('#themeToggle');
             if (themeBtn) {

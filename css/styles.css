@@ -1,6 +1,6 @@
-/* =========================================
+/* ==========================================================================
    GLOBAL STYLES & COMPONENTS
-   ========================================= */
+   ========================================================================== */
 
 /* --- RESET --- */
 * { box-sizing: border-box; margin: 0; padding: 0; outline: none; -webkit-tap-highlight-color: transparent; }
@@ -12,7 +12,7 @@ body {
     transition: background-color var(--md-sys-motion-standard), color var(--md-sys-motion-standard);
     min-height: 100vh;
     overflow-x: hidden;
-    display: flex; /* Often used for rail layouts */
+    display: flex;
 }
 
 /* Scrollbar styling */
@@ -41,7 +41,7 @@ span.ripple {
     border-radius: var(--md-sys-shape-corner-full);
     font: var(--md-sys-typescale-label-large); border: none; cursor: pointer;
     transition: all var(--md-sys-motion-standard); user-select: none; min-width: 64px; z-index: 1;
-    overflow: hidden; /* For ripple */
+    overflow: hidden;
 }
 /* States */
 .md-btn::before, .btn::before {
@@ -160,10 +160,9 @@ span.ripple {
 .md-drawer-overlay.open { opacity: 1; pointer-events: auto; }
 
 /* Rail Items */
-/* Rail Items */
 .md-rail-item {
     display: flex; flex-direction: column; align-items: center; justify-content: center;
-    width: 80px; height: 56px; margin-bottom: 12px; /* Increased width to match rail */
+    width: 80px; height: 56px; margin-bottom: 12px;
     color: var(--md-sys-color-on-surface-variant);
     text-decoration: none; transition: 0.2s;
     cursor: pointer;
@@ -315,7 +314,7 @@ p { font: var(--md-sys-typescale-body-large); margin-bottom: 16px; }
     color: var(--md-sys-color-on-primary-container);
 }
 .card-colorful, .dialog {
-    border-radius: 28px; /* High rounding */
+    border-radius: 28px;
 }
 
 /* 4. Bottom Sheet */

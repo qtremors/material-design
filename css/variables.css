@@ -1,7 +1,7 @@
-/* =========================================
+/* ==========================================================================
    DESIGN TOKENS (CSS Variables)
-   Merged from material-design-v2.html (Standard) & md31.html/md32.html (Expressive)
-   ========================================= */
+   Standard & Expressive configuration
+   ========================================================================== */
 
 
 
@@ -38,8 +38,8 @@
     --md-sys-color-surface: #F4F7FC;
     --md-sys-color-surface-container: #FFFFFF;
     --md-sys-color-surface-container-high: #F0F3F9;
-    --md-sys-color-surface-container-low: #F0F5F1; /* From md32 */
-    --md-sys-color-surface-container-highest: #DEE4E1; /* From md32 */
+    --md-sys-color-surface-container-low: #F0F5F1;
+    --md-sys-color-surface-container-highest: #DEE4E1;
     --md-sys-color-outline: #74777F;
     --md-sys-color-outline-variant: #C4C7D0;
     --md-sys-color-on-surface: #1B1B1F;
@@ -50,7 +50,6 @@
     --md-sys-color-on-primary: #FFFFFF;
     --md-sys-color-primary-container: #E0EAFF;
     --md-sys-color-on-primary-container: #001A4D;
-    /* Secondary tokens from v2 were minimal, expanded here for consistency */
     --md-sys-color-secondary: #5A5D72; /* Placeholder based on v2 logic */
     --md-sys-color-on-secondary: #FFFFFF;
     --md-sys-color-secondary-container: #DDE2F0;
@@ -138,7 +137,6 @@
     --md-sys-color-secondary-container: #F4DDDB;
     --md-sys-color-on-secondary-container: #2B1513;
 }
-/* PINK */
 [data-seed="pink"] {
     --md-sys-color-primary: #BC004B;
     --md-sys-color-on-primary: #FFFFFF;
@@ -165,7 +163,6 @@
     --md-sys-color-secondary-container: #E9E2D0;
     --md-sys-color-on-secondary-container: #1F1B0D;
 }
-/* CYAN */
 /* CYAN */
 [data-seed="cyan"] {
     --md-sys-color-primary: #0097A7;

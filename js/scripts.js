@@ -1,13 +1,12 @@
-/* =========================================
+/* ==========================================================================
    SHARED LOGIC
-   Consolidated from all source files
-   ========================================= */
+   Core functionality and component initialization
+   ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
     renderNavigation();
     initRipples();
     initNavigation();
-    // initTheme(); // Moved to theme.js
     initTabs();
     initDialogs();
     initSheets();
@@ -25,7 +24,6 @@ function initRipples() {
 }
 
 function createRipple(event, element) {
-    // Do not add ripple to specific inputs if they trigger elsewhere
     if(element.classList.contains('switch') || element.classList.contains('checkbox-container')) return;
 
     const circle = document.createElement("span");
@@ -75,9 +73,6 @@ function toggleDrawer() {
 }
 
 /* --- 3. THEME TOGGLING --- */
-/* --- 3. THEME TOGGLING (PERSISTENCE) --- */
-/* --- 3. THEME TOGGLING --- */
-// Theme logic moved to js/theme.js
 
 
 /* --- 4. TABS --- */
@@ -96,9 +91,6 @@ function initTabs() {
             // Find target content
             const targetId = tab.getAttribute('data-target');
             if(targetId) {
-                // Deactivate all panels in the same generic container?
-                // Assuming tabs and panels are siblings or known structure. 
-                // Simple implementation: Hide all panels, show target.
                 document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
                 const target = document.getElementById(targetId);
                 if(target) target.classList.add('active');
@@ -108,7 +100,6 @@ function initTabs() {
 }
 
 function switchTab(tabElement, contentId) {
-    // Legacy helper if called directly
     tabElement.click();
 }
 
@@ -126,7 +117,7 @@ function initDialogs() {
         // Parent Backdrop
         const backdrop = dialog.closest('.dialog-backdrop') || document.getElementById('dialog-backdrop');
         
-        // If multiple dialogs share a backdrop, toggle visibility
+        // Toggle visibility if multiple dialogs share a backdrop
         if(backdrop) {
              backdrop.querySelectorAll('.dialog').forEach(d => d.classList.add('hidden'));
              dialog.classList.remove('hidden');
