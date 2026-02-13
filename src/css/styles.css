@@ -312,12 +312,62 @@ p { font: var(--md-sys-typescale-body-large); margin-bottom: 16px; }
 .slider-expressive .md-slider::-moz-range-track { height: 12px; border-radius: 6px; }
 
 .slider-expressive .md-slider::-webkit-slider-thumb {
-    width: 28px; height: 28px; margin-top: -8px; /* (28 - 12) / 2 = 8 */
+    width: 28px; height: 28px; margin-top: -8px; 
     background: var(--md-sys-color-tertiary);
 }
 .slider-expressive .md-slider::-moz-range-thumb {
     width: 28px; height: 28px; 
     background: var(--md-sys-color-tertiary);
+}
+
+/* Squiggly Slider (High-Fidelity MD3) */
+.slider-squiggly {
+    position: relative;
+    padding: 18px 0;
+    --wave-mask: url("data:image/svg+xml,%3Csvg width='40' height='10' viewBox='0 0 40 10' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 5 Q 10 0 20 5 T 40 5' stroke='black' stroke-width='4' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
+/* Base Track (Inactive - Straight) */
+.slider-squiggly::before {
+    content: "";
+    position: absolute;
+    left: 0; right: 0;
+    top: 50%; height: 4px;
+    transform: translateY(-50%);
+    background: var(--md-sys-color-surface-container-highest);
+    border-radius: 2px;
+}
+
+/* Active Track (Squiggly & Animated) */
+.slider-squiggly::after {
+    content: "";
+    position: absolute;
+    left: 0; 
+    width: var(--slider-value, 0%);
+    top: 50%; height: 10px;
+    transform: translateY(-50%);
+    background: var(--md-sys-color-primary);
+    
+    mask-image: var(--wave-mask);
+    -webkit-mask-image: var(--wave-mask);
+    mask-size: 40px 100%; -webkit-mask-size: 40px 100%;
+    
+    animation: wave-slide 2s linear infinite;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.slider-squiggly .md-slider {
+    z-index: 2;
+    position: relative;
+    background: transparent !important;
+}
+
+.slider-squiggly .md-slider::-webkit-slider-runnable-track { background: transparent; }
+.slider-squiggly .md-slider::-moz-range-track { background: transparent; }
+
+.slider-squiggly .md-slider::-webkit-slider-thumb {
+    margin-top: -8px; /* Standard 20px thumb on center of 4px track base */
 }
 
 /* --- COLOR SWATCHES --- */

@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initDialogs();
     initSheets();
     initSelectionControls();
+    initSliders(); // Slider Progress Tracker
     initInteractions(); // Generalized Interaction Handler
 });
 
@@ -215,6 +216,22 @@ function showSnackbar(text) {
     setTimeout(() => {
         snackbar.classList.remove('show');
     }, 3000);
+}
+
+/* --- 6. SLIDERS --- */
+function initSliders() {
+    const updateSlider = (slider) => {
+        const val = (slider.value - slider.min) / (slider.max - slider.min) * 100;
+        const container = slider.closest('.slider-container');
+        if (container) {
+            container.style.setProperty('--slider-value', val + '%');
+        }
+    };
+
+    document.querySelectorAll('.md-slider').forEach(slider => {
+        slider.addEventListener('input', () => updateSlider(slider));
+        updateSlider(slider); // Initial state
+    });
 }
 
 /* --- 6. SELECTION CONTROLS --- */

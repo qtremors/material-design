@@ -1,12 +1,30 @@
 # Material Design Changelog
 
 > **Project:** Material Design  
-> **Version:** 1.2.2  
+> **Version:** 1.2.4  
 > **Last Updated:** 2026-02-13
 
 ---
 
 
+
+
+
+## [1.2.4] - 2026-02-13
+
+### Refined
+-   **Expressive Slider:** Refined the **Squiggly Slider** for 100% MD3 fidelity.
+    -   Implemented a **Hybrid Track**: Progress portion is squiggly and animated; inactive portion is a straight line.
+    -   Added dynamic CSS variable tracking (`--slider-value`) in `scripts.js` to drive the animation boundary.
+    -   Centered the thumb precisely on the hybrid track transition.
+
+## [1.2.3] - 2026-02-13
+
+### Added
+-   **Expressive Slider:** Implemented the **Squiggly Slider** on the Inputs page.
+    -   Integrated the high-fidelity squiggly mask on the slider track.
+    -   Added hover/active animations to give the track a "sliding wave" effect.
+    -   Ensured cross-browser support for Webkit and Moz range tracks.
 
 ## [1.2.2] - 2026-02-13
 
