@@ -1,11 +1,20 @@
 # Material Design Changelog
 
 > **Project:** Material Design  
-> **Version:** 1.2.1  
+> **Version:** 1.2.2  
 > **Last Updated:** 2026-02-13
 
 ---
 
+
+
+## [1.2.2] - 2026-02-13
+
+### Added
+-   **Expressive Progress:** Replaced the legacy wavy progress with the official **MD3 Squiggly Progress Bar**.
+    -   Implemented a high-fidelity sine-wave SVG mask.
+    -   Added horizontal sliding animations for an "active" feel.
+    -   Created dedicated `determinate` and `indeterminate` variants.
 
 ## [1.2.1] - 2026-02-13
 

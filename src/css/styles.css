@@ -586,26 +586,45 @@ p { font: var(--md-sys-typescale-body-large); margin-bottom: 16px; }
 .fab-morph.circle { border-radius: 50% !important; }
 
 
-/* Wavy Progress */
+/* Wavy Progress (High-Fidelity MD3 Squiggly) */
 .progress-wavy {
-    width: 100%; height: 12px;
+    width: 100%; height: 10px;
     background: transparent;
     position: relative; overflow: hidden;
+    /* Use a thicker, smoother sine wave for MD3 fidelity */
+    --wave-mask: url("data:image/svg+xml,%3Csvg width='40' height='10' viewBox='0 0 40 10' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 5 Q 10 0 20 5 T 40 5' stroke='black' stroke-width='3' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
 }
+
 .progress-wavy::before {
     content: ""; position: absolute; inset: 0;
     background: var(--md-sys-color-surface-container-highest);
-    mask-image: url("data:image/svg+xml,%3Csvg width='20' height='12' viewBox='0 0 20 12' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 6 Q 5 1 10 6 T 20 6' stroke='black' stroke-width='4' fill='none'/%3E%3C/svg%3E");
-    -webkit-mask-image: url("data:image/svg+xml,%3Csvg width='20' height='12' viewBox='0 0 20 12' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 6 Q 5 1 10 6 T 20 6' stroke='black' stroke-width='4' fill='none'/%3E%3C/svg%3E");
-    mask-size: 20px 100%; -webkit-mask-size: 20px 100%;
+    mask-image: var(--wave-mask);
+    -webkit-mask-image: var(--wave-mask);
+    mask-size: 40px 100%; -webkit-mask-size: 40px 100%;
+    opacity: 0.3; /* Subtle track */
 }
+
 .progress-wavy .bar {
-    position: absolute; top:0; left:0; bottom:0; width: 0%; /* Start at 0 */
+    position: absolute; top:0; left:0; bottom:0; width: 0%; 
     background: var(--md-sys-color-primary);
-    mask-image: url("data:image/svg+xml,%3Csvg width='20' height='12' viewBox='0 0 20 12' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 6 Q 5 1 10 6 T 20 6' stroke='black' stroke-width='4' fill='none'/%3E%3C/svg%3E");
-    -webkit-mask-image: url("data:image/svg+xml,%3Csvg width='20' height='12' viewBox='0 0 20 12' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 6 Q 5 1 10 6 T 20 6' stroke='black' stroke-width='4' fill='none'/%3E%3C/svg%3E");
-    mask-size: 20px 100%; -webkit-mask-size: 20px 100%;
-    transition: width 1s linear;
+    mask-image: var(--wave-mask);
+    -webkit-mask-image: var(--wave-mask);
+    mask-size: 40px 100%; -webkit-mask-size: 40px 100%;
+    transition: width 0.5s var(--md-sys-motion-standard);
+    
+    /* The magic of MD3 Expressive: The wave slides horizontally when active */
+    animation: wave-slide 2s linear infinite;
+}
+
+@keyframes wave-slide {
+    from { mask-position: 0px center; -webkit-mask-position: 0px center; }
+    to { mask-position: 40px center; -webkit-mask-position: 40px center; }
+}
+
+/* Indeterminate State (Flowing continuously) */
+.progress-wavy.indeterminate .bar {
+    width: 100% !important;
+    animation: wave-slide 1s linear infinite;
 }
 
 /* Segmented Progress */

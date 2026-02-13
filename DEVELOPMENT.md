@@ -114,7 +114,7 @@ All new additions to this library **must** strictly adhere to the following Mate
 ### 1. Design Systems
 -   **Material Design 3 (MD3):** Base styles must follow the latest MD3 specifications for baseline colors, shapes, and layouts.
 -   **Material You:** Ensure dynamic theming compatibility. Components must react correctly to `data-seed` changes and dark mode.
--   **Material 2 Expressive:** Advanced components (like Speed Dials and Morphing FABs) should leverage the "Expressive" traits—rounder shapes, playful but precise transitions, and unique positioning.
+-   **Material 3 Expressive:** Advanced components (like Speed Dials and Morphing FABs) should leverage the "Expressive" traits—rounder shapes, playful but precise transitions, and unique positioning.
 
 ### 2. Animations & Effects
 -   **Duration & Easing:** Use MD3 standard durations (200ms-400ms) and easing functions (standard, emphasized).
