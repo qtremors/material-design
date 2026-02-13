@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renderNavigation();
     initRipples();
     initNavigation();
-    initTheme();
+    // initTheme(); // Moved to theme.js
     initTabs();
     initDialogs();
     initSheets();
@@ -75,38 +75,10 @@ function toggleDrawer() {
 }
 
 /* --- 3. THEME TOGGLING --- */
-function initTheme() {
-    const themeBtn = document.getElementById('themeToggle');
-    if (themeBtn) {
-        themeBtn.addEventListener('click', () => {
-            const current = document.body.getAttribute('data-theme');
-            const newTheme = current === 'dark' ? 'light' : 'dark';
-            document.body.setAttribute('data-theme', newTheme);
-            
-            // Update Icon
-            const icon = themeBtn.querySelector('.material-symbols-rounded, .material-symbols-outlined');
-            if(icon) icon.innerText = newTheme === 'dark' ? 'light_mode' : 'dark_mode';
-        });
-    }
+/* --- 3. THEME TOGGLING (PERSISTENCE) --- */
+/* --- 3. THEME TOGGLING --- */
+// Theme logic moved to js/theme.js
 
-    // Color Seeds
-    const swatches = document.querySelectorAll('.color-swatch');
-    swatches.forEach(swatch => {
-        swatch.addEventListener('click', () => {
-            const seed = swatch.getAttribute('data-seed');
-            setThemeColor(seed, swatch);
-        });
-    });
-
-}
-
-function setThemeColor(seed, element) {
-    document.body.setAttribute('data-seed', seed);
-    if(element) {
-        document.querySelectorAll('.color-swatch').forEach(sw => sw.classList.remove('active'));
-        element.classList.add('active');
-    }
-}
 
 /* --- 4. TABS --- */
 function initTabs() {

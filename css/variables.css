@@ -2,6 +2,30 @@
    DESIGN TOKENS (CSS Variables)
    Merged from material-design-v2.html (Standard) & md31.html/md32.html (Expressive)
    ========================================= */
+
+/* --- SHAPE OVERRIDES --- */
+[data-radius="small"] {
+    --md-sys-shape-corner-extra-small: 2px;
+    --md-sys-shape-corner-small: 4px;
+    --md-sys-shape-corner-medium: 6px;
+    --md-sys-shape-corner-large: 8px;
+    --md-sys-shape-corner-extra-large: 12px;
+}
+[data-radius="large"] {
+    --md-sys-shape-corner-extra-small: 8px;
+    --md-sys-shape-corner-small: 12px;
+    --md-sys-shape-corner-medium: 16px;
+    --md-sys-shape-corner-large: 24px;
+    --md-sys-shape-corner-extra-large: 32px;
+}
+[data-radius="full"] {
+    --md-sys-shape-corner-extra-small: 4px;
+    --md-sys-shape-corner-small: 16px;
+    --md-sys-shape-corner-medium: 24px;
+    --md-sys-shape-corner-large: 32px;
+    --md-sys-shape-corner-extra-large: 48px;
+}
+
 :root {
     /* --- TYPE SCALE (Standard - Roboto) --- */
     --font-family-std: 'Roboto', sans-serif;
@@ -135,6 +159,43 @@
     --md-sys-color-secondary-container: #F4DDDB;
     --md-sys-color-on-secondary-container: #2B1513;
 }
+/* PINK */
+[data-seed="pink"] {
+    --md-sys-color-primary: #BC004B;
+    --md-sys-color-on-primary: #FFFFFF;
+    --md-sys-color-primary-container: #FFD9DE;
+    --md-sys-color-on-primary-container: #400014;
+    --md-sys-color-secondary-container: #F0DBE1;
+    --md-sys-color-on-secondary-container: #2B151C;
+}
+/* ORANGE */
+[data-seed="orange"] {
+    --md-sys-color-primary: #8B5000;
+    --md-sys-color-on-primary: #FFFFFF;
+    --md-sys-color-primary-container: #FFDCBE;
+    --md-sys-color-on-primary-container: #2C1600;
+    --md-sys-color-secondary-container: #F2DFD1;
+    --md-sys-color-on-secondary-container: #27190F;
+}
+/* YELLOW */
+[data-seed="yellow"] {
+    --md-sys-color-primary: #6D5E00;
+    --md-sys-color-on-primary: #FFFFFF;
+    --md-sys-color-primary-container: #FFE24B;
+    --md-sys-color-on-primary-container: #211B00;
+    --md-sys-color-secondary-container: #E9E2D0;
+    --md-sys-color-on-secondary-container: #1F1B0D;
+}
+/* CYAN */
+/* CYAN */
+[data-seed="cyan"] {
+    --md-sys-color-primary: #0097A7;
+    --md-sys-color-on-primary: #FFFFFF;
+    --md-sys-color-primary-container: #8EF7FF;
+    --md-sys-color-on-primary-container: #002022;
+    --md-sys-color-secondary-container: #CCE8E9;
+    --md-sys-color-on-secondary-container: #051F23;
+}
 
 /* --- DARK THEME OVERRIDES --- */
 [data-theme="dark"] {
@@ -195,6 +256,14 @@
     --md-sys-color-on-tertiary-container: #C2E8FB;
 
 }
+[data-theme="dark"][data-seed="teal"] {
+    --md-sys-color-primary: #4CD9D9;
+    --md-sys-color-on-primary: #003737;
+    --md-sys-color-primary-container: #005050;
+    --md-sys-color-on-primary-container: #6FF7F6;
+    --md-sys-color-secondary-container: #3F4949;
+    --md-sys-color-on-secondary-container: #CCE8E7;
+}
 [data-theme="dark"][data-seed="red"] {
     --md-sys-color-primary: #F2B8B5;
     --md-sys-color-on-primary: #601410;
@@ -202,6 +271,32 @@
     --md-sys-color-on-primary-container: #F9DEDC;
     --md-sys-color-secondary-container: #5C403E;
     --md-sys-color-on-secondary-container: #F4DDDB;
+}
+[data-theme="dark"][data-seed="pink"] {
+    --md-sys-color-primary: #FFB2BE;
+    --md-sys-color-on-primary: #650025;
+    --md-sys-color-primary-container: #900037;
+    --md-sys-color-on-primary-container: #FFD9DE;
+    --md-sys-color-secondary-container: #49454F; /* Fallback */
+    --md-sys-color-on-secondary-container: #E8DEF8;
+}
+[data-theme="dark"][data-seed="orange"] {
+    --md-sys-color-primary: #FFB870;
+    --md-sys-color-on-primary: #4A2800;
+    --md-sys-color-primary-container: #693C00;
+    --md-sys-color-on-primary-container: #FFDCBE;
+}
+[data-theme="dark"][data-seed="yellow"] {
+    --md-sys-color-primary: #DEC600;
+    --md-sys-color-on-primary: #393000;
+    --md-sys-color-primary-container: #524700;
+    --md-sys-color-on-primary-container: #FFE24B;
+}
+[data-theme="dark"][data-seed="cyan"] {
+    --md-sys-color-primary: #4FD8EB;
+    --md-sys-color-on-primary: #00363D;
+    --md-sys-color-primary-container: #004F58;
+    --md-sys-color-on-primary-container: #97F0FF;
 }
 
 /* --- EXPRESSIVE STYLE OVERRIDES --- */

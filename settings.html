@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Material Showcase</title>
+    
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Flex:opsz,wdth,wght@8..144,100,100..400&family=Open+Sans:wght@400;600&family=Space+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+
+    <!-- Theme Engine (Must be loaded first) -->
+    <script src="js/theme.js"></script>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <style>
+        .settings-container {
+            max-width: 900px; margin: 0 auto;
+            display: grid; grid-template-columns: 1fr; gap: 24px;
+            padding-bottom: 80px;
+        }
+
+        .settings-card {
+            background: var(--md-sys-color-surface-container-low);
+            border-radius: var(--md-sys-shape-corner-large);
+            padding: 24px;
+            border: 1px solid var(--md-sys-color-outline-variant);
+        }
+
+        .settings-header {
+            margin-bottom: 24px;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .settings-header h3 { margin: 0; font-size: 20px; font-weight: 500; }
+
+        /* Compact Control Rows */
+        .control-row {
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 24px;
+        }
+        .control-row:last-child { margin-bottom: 0; }
+        .control-label { font-size: 16px; font-weight: 500; color: var(--md-sys-color-on-surface); }
+        .control-desc { font-size: 14px; color: var(--md-sys-color-on-surface-variant); margin-top: 4px;}
+
+        /* Color Grid - Tighter */
+        .color-grid { display: flex; gap: 12px; flex-wrap: wrap; }
+        .color-option {
+            width: 40px; height: 40px; border-radius: 50%; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            border: 2px solid transparent; transition: all 0.2s ease;
+        }
+        .color-option:hover { transform: scale(1.1); box-shadow: var(--md-sys-elevation-1); }
+        .color-option.active { border-color: var(--md-sys-color-on-surface); transform: scale(1.15); }
+        .color-option .material-symbols-rounded { 
+            color: #fff; font-size: 20px; opacity: 0; transform: scale(0.5); transition: 0.2s;
+        }
+        .color-option.active .material-symbols-rounded { opacity: 1; transform: scale(1); }
+
+        /* Segmented-ish Toggle for Radius/Fonts */
+        .toggle-group {
+            display: inline-flex; background: var(--md-sys-color-surface-container-highest);
+            border-radius: 99px; padding: 4px; gap: 4px;
+        }
+        .toggle-btn {
+            padding: 8px 16px; border-radius: 99px; cursor: pointer;
+            font-size: 14px; font-weight: 500; border: none; background: transparent;
+            color: var(--md-sys-color-on-surface-variant); transition: 0.2s;
+        }
+        .toggle-btn:hover { background: rgba(0,0,0,0.05); color: var(--md-sys-color-on-surface); }
+        .toggle-btn.active {
+            background: var(--md-sys-color-primary); color: var(--md-sys-color-on-primary);
+            box-shadow: var(--md-sys-elevation-1);
+        }
+
+        /* Preview Area */
+        .preview-section {
+            background: var(--md-sys-color-surface);
+            border: 1px dashed var(--md-sys-color-outline-variant);
+            border-radius: 12px; padding: 24px;
+            display: flex; gap: 24px; flex-wrap: wrap; align-items: center;
+            justify-content: center;
+        }
+        
+        .md-card-preview {
+            width: 240px;
+            background: var(--md-sys-color-surface-container);
+            padding: 16px; border-radius: var(--md-sys-shape-corner-medium);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation injected by js/navigation.js -->
+
+    <main style="flex: 1; margin-left: 80px; width: 100%;">
+        <div class="top-app-bar">
+            <h2>Settings</h2>
+            <div style="flex: 1"></div>
+        </div>
+
+        <div class="container settings-container">
+            
+            <!-- Appearance Card -->
+            <div class="settings-card">
+                <div class="settings-header">
+                    <h3>Appearance</h3>
+                </div>
+
+                <!-- Theme Mode -->
+                <div class="control-row">
+                    <div>
+                        <div class="control-label">Theme Mode</div>
+                        <div class="control-desc">Switch between light and dark themes</div>
+                    </div>
+                    <div class="toggle-group">
+                        <button class="toggle-btn" id="btn-theme-light" onclick="setThemeMode('light')">
+                            <span style="display:flex;align-items:center;gap:6px;"><span class="material-symbols-rounded" style="font-size:18px">light_mode</span> Light</span>
+                        </button>
+                        <button class="toggle-btn" id="btn-theme-dark" onclick="setThemeMode('dark')">
+                            <span style="display:flex;align-items:center;gap:6px;"><span class="material-symbols-rounded" style="font-size:18px">dark_mode</span> Dark</span>
+                        </button>
+                    </div>
+                </div>
+
+                <hr style="border:0; border-top:1px solid var(--md-sys-color-outline-variant); margin: 24px 0;">
+
+                <!-- Color Palette -->
+                <div class="control-row" style="align-items: flex-start;">
+                     <div>
+                        <div class="control-label">Accent Color</div>
+                        <div class="control-desc">Select your preferred color seed</div>
+                    </div>
+                    <div class="color-grid" style="max-width: 400px; justify-content: flex-end;">
+                        <!-- Standard -->
+                        <div class="color-option" data-color="blue" style="background: #2962FF;" onclick="setThemeSeed('blue')">
+                            <span class="material-symbols-rounded">check</span>
+                        </div>
+                        <div class="color-option" data-color="purple" style="background: #6750A4;" onclick="setThemeSeed('purple')">
+                            <span class="material-symbols-rounded">check</span>
+                        </div>
+                        <div class="color-option" data-color="green" style="background: #006C51;" onclick="setThemeSeed('green')">
+                            <span class="material-symbols-rounded">check</span>
+                        </div>
+                        <div class="color-option" data-color="teal" style="background: #006A6A;" onclick="setThemeSeed('teal')">
+                            <span class="material-symbols-rounded">check</span>
+                        </div>
+                        <div class="color-option" data-color="cyan" style="background: #0097A7;" onclick="setThemeSeed('cyan')">
+                            <span class="material-symbols-rounded">check</span>
+                        </div>
+                        <div class="color-option" data-color="yellow" style="background: #6D5E00;" onclick="setThemeSeed('yellow')">
+                            <span class="material-symbols-rounded">check</span>
+                        </div>
+                        <div class="color-option" data-color="orange" style="background: #8B5000;" onclick="setThemeSeed('orange')">
+                            <span class="material-symbols-rounded">check</span>
+                        </div>
+                        <div class="color-option" data-color="pink" style="background: #BC004B;" onclick="setThemeSeed('pink')">
+                            <span class="material-symbols-rounded">check</span>
+                        </div>
+                         <div class="color-option" data-color="red" style="background: #B3261E;" onclick="setThemeSeed('red')">
+                            <span class="material-symbols-rounded">check</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Customization Card -->
+            <div class="settings-card">
+                <div class="settings-header">
+                    <h3>Customization</h3>
+                </div>
+
+                <!-- Border Radius -->
+                <div class="control-row">
+                    <div>
+                        <div class="control-label">Corner Radius</div>
+                        <div class="control-desc">Adjust the roundness of components</div>
+                    </div>
+                    <div class="toggle-group">
+                        <button class="toggle-btn" onclick="setRadius('small')" data-radius="small">Small</button>
+                        <button class="toggle-btn" onclick="setRadius('medium')" data-radius="medium">Medium</button>
+                        <button class="toggle-btn" onclick="setRadius('large')" data-radius="large">Large</button>
+                        <button class="toggle-btn" onclick="setRadius('full')" data-radius="full">Full</button>
+                    </div>
+                </div>
+
+                <!-- Typography Removed per user request -->
+            </div>
+
+
+            <!-- Live Preview -->
+            <div class="settings-card">
+                <div class="settings-header">
+                    <h3>Live Preview</h3>
+                </div>
+                <div class="preview-section">
+                    
+                    <!-- Card Preview -->
+                    <div class="md-card-preview md-elevation-1">
+                        <div style="font-weight: 500; font-size: 16px; margin-bottom: 8px;">Card Title</div>
+                        <div style="font-size: 14px; color: var(--md-sys-color-on-surface-variant); margin-bottom: 16px;">
+                            This is how a card looks with your current settings.
+                        </div>
+                        <button class="md-btn md-btn-filled" style="width:100%">Action</button>
+                    </div>
+
+                    <!-- Inputs Preview -->
+                    <div style="display:flex; flex-direction:column; gap: 16px; min-width: 250px;">
+                        <button class="md-btn md-btn-tonal">
+                            <span class="material-symbols-rounded">star</span> Tonal Button
+                        </button>
+                        <div class="md-field">
+                            <input type="text" placeholder=" ">
+                            <label>Text Field</label>
+                        </div>
+                        <div style="display:flex; align-items:center;">
+                            <label class="switch ripple-target">
+                                <input type="checkbox" checked>
+                                <span class="switch-track"><span class="switch-handle"></span></span>
+                            </label>
+                            <span style="margin-left:12px; font-size:14px;">Switch Toggle</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            
+            <div style="text-align: center;">
+                <button class="md-btn md-btn-text ripple-target" onclick="resetSettings()" style="color: var(--md-sys-color-error);">
+                    Reset Settings
+                </button>
+            </div>
+
+        </div>
+    </main>
+
+    <script src="js/navigation.js"></script>
+    <script src="js/scripts.js"></script>
+    <script>
+        // Settings Page Logic
+        
+        // This function is hooked into theme.js
+        window.updateSettingsUI = function() {
+            const root = document.documentElement;
+            
+            // Theme
+            const currentTheme = root.getAttribute('data-theme') || 'light';
+            document.querySelectorAll('[id^="btn-theme-"]').forEach(btn => {
+                if(btn.id.includes(currentTheme)) btn.classList.add('active');
+                else btn.classList.remove('active');
+            });
+
+            // Seed
+            const currentSeed = root.getAttribute('data-seed') || 'blue';
+            document.querySelectorAll('.color-option').forEach(opt => {
+                if(opt.dataset.color === currentSeed) opt.classList.add('active');
+                else opt.classList.remove('active');
+            });
+
+            // Radius
+            const currentRadius = root.getAttribute('data-radius') || 'medium';
+            document.querySelectorAll('button[data-radius]').forEach(btn => {
+                if(btn.dataset.radius === currentRadius) btn.classList.add('active');
+                else btn.classList.remove('active');
+            });
+        }
+        
+        // Helpers that call the global setter
+        function setThemeMode(mode) {
+             window.setThemeConfig('theme', mode); // theme.js handles logic
+        }
+
+        function setThemeSeed(seed) {
+             window.setThemeConfig('seed', seed);
+        }
+
+        function setRadius(size) {
+             window.setThemeConfig('radius', size);
+        }
+
+        function resetSettings() {
+            localStorage.clear();
+            window.name = ''; // Clear session sync
+            location.reload();
+        }
+
+        // Init (theme.js handles the rest)
+        // We don't need to call updateSettingsUI() manually because theme.js calls it on load if it exists
+
+    </script>
+</body>
+</html>

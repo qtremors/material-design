@@ -5,7 +5,8 @@ const NAV_ITEMS = [
     { label: 'Cards', icon: 'view_quilt', url: 'cards.html' },
     { label: 'Navigation', icon: 'menu_open', url: 'navigation.html' }, // "Nav" on rail, "Navigation" on drawer? We can handle short labels if needed.
     { label: 'Feedback', icon: 'campaign', url: 'feedback.html' },
-    { label: 'Typography', icon: 'text_format', url: 'typography.html' }
+    { label: 'Typography', icon: 'text_format', url: 'typography.html' },
+    { label: 'Settings', icon: 'settings', url: 'settings.html' }
 ];
 
 function renderNavigation() {
