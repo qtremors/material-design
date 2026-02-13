@@ -44,7 +44,7 @@
 
     <!-- Navigation injected by js/navigation.js -->
 
-    <main style="flex: 1; margin-left: 80px; width: 100%;">
+    <main>
         <div class="top-app-bar">
             <span class="material-symbols-rounded menu-trigger" role="button" tabindex="0" aria-label="Open menu" style="margin-right: 16px; cursor: pointer; display: none;">menu</span>
             <h2>Feedback</h2>
@@ -61,6 +61,22 @@
 
         <div class="container">
             
+            <!-- Banners -->
+            <div class="md-card" style="margin-bottom: 24px;">
+                <h3>Banners</h3>
+                <p>Banners display important, concise messages and provide actions for users.</p>
+                <div class="md-banner" style="margin-bottom: 16px; border: 1px solid var(--md-sys-color-outline-variant); border-radius: 8px;">
+                    <span class="material-symbols-rounded md-banner-icon">error</span>
+                    <div class="md-banner-text">
+                        Your password was changed. This will affect all devices signed in to this account.
+                    </div>
+                    <div class="md-banner-actions">
+                        <button class="md-btn md-btn-text ripple-target">Learn more</button>
+                        <button class="md-btn md-btn-text ripple-target" style="color: var(--md-sys-color-primary);">OK</button>
+                    </div>
+                </div>
+            </div>
+
             <div class="section-grid">
                 <!-- Dialogs -->
                 <div class="md-card">
@@ -72,13 +88,15 @@
                     </div>
                 </div>
 
-                <!-- Snackbars -->
+                <!-- Toasts & Snackbars -->
                 <div class="md-card">
-                    <h3>Snackbars</h3>
-                    <p>Snackbars provide brief messages about app processes.</p>
+                    <h3>Toasts & Snackbars</h3>
+                    <p>Brief messages about app processes. Now pill-shaped with variants.</p>
                     <div class="btn-row">
-                        <button class="md-btn md-btn-outlined ripple-target" data-action="show-snackbar" data-text="Message sent">Show Snackbar</button>
-                        <button class="md-btn md-btn-outlined ripple-target" data-action="show-snackbar" data-text="Connection restored">Another Message</button>
+                        <button class="md-btn md-btn-outlined ripple-target" onclick="showToast('Success! Data saved', 'success')">Success Toast</button>
+                        <button class="md-btn md-btn-outlined ripple-target" onclick="showToast('Error! Access denied', 'error')">Error Toast</button>
+                        <button class="md-btn md-btn-outlined ripple-target" onclick="showToast('Warning! Storage full', 'warning')">Warning Toast</button>
+                        <button class="md-btn md-btn-outlined ripple-target" onclick="showToast('Info! New update', 'info')">Info Toast</button>
                     </div>
                 </div>
             </div>
@@ -148,8 +166,8 @@
 
     <!-- Snackbar -->
     <div id="snackbar" class="snackbar">
-        <span>Message Text</span>
-        <button class="md-btn md-btn-text ripple-target" style="color: var(--md-sys-color-primary-container); min-width: auto; padding: 0 8px;" onclick="this.parentElement.classList.remove('show')">
+        <div class="content">Message Text</div>
+        <button class="md-btn md-btn-text ripple-target" style="color: var(--md-sys-color-primary-container); min-width: auto; padding: 0 16px; height: 36px;" onclick="this.parentElement.classList.remove('show')">
             Close
         </button>
     </div>

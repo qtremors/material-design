@@ -354,3 +354,18 @@
     --md-sys-shape-corner-large: 32px;
     --md-sys-shape-corner-extra-large: 48px;
 }
+
+/* --- OLD MATERIAL (M2) STYLE OVERRIDES --- */
+[data-style="m2"] {
+    --md-sys-shape-corner-extra-small: 2px;
+    --md-sys-shape-corner-small: 4px;
+    --md-sys-shape-corner-medium: 4px;
+    --md-sys-shape-corner-large: 4px;
+    --md-sys-shape-corner-extra-large: 4px;
+    --md-sys-shape-corner-full: 4px;
+    
+    /* M2 Elevation - Sharper/Deeper shadows */
+    --md-sys-elevation-1: 0 1px 3px rgba(0,0,0,0.2), 0 1px 1px rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.12);
+    --md-sys-elevation-2: 0 1px 5px rgba(0,0,0,0.2), 0 2px 2px rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12);
+    --md-sys-elevation-3: 0 1px 8px rgba(0,0,0,0.2), 0 3px 4px rgba(0,0,0,0.14), 0 3px 3px -2px rgba(0,0,0,0.12);
+}

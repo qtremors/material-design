@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (typeof renderNavigation === 'function') renderNavigation();
     }
     
+    initPersistence();
     initRipples();
     initNavigation();
     initTabs();
@@ -17,7 +18,14 @@ document.addEventListener('DOMContentLoaded', () => {
     initSliders(); // Slider Progress Tracker
     initInteractions(); // Generalized Interaction Handler
     initExpressiveAnimations();
+    initScrollAnimations();
 });
+
+function initPersistence() {
+    const root = document.documentElement;
+    const style = localStorage.getItem('mdStyle') || 'm3';
+    root.setAttribute('data-style', style);
+}
 
 /* --- 1. RIPPLE ENGINE --- */
 function initRipples() {
@@ -207,17 +215,35 @@ function initSheets() {
     }
 }
 
-function showSnackbar(text) {
+function showSnackbar(text, type = 'info') {
     const snackbar = document.getElementById('snackbar');
     if(!snackbar) return;
     
-    if(text) snackbar.querySelector('span').innerText = text;
+    // Reset classes
+    snackbar.classList.remove('toast-success', 'toast-error', 'toast-info', 'toast-warning');
+    if(type !== 'default') snackbar.classList.add(`toast-${type}`);
+
+    // Set icon based on type
+    let icon = '';
+    switch(type) {
+        case 'success': icon = 'check_circle'; break;
+        case 'error': icon = 'error'; break;
+        case 'warning': icon = 'warning'; break;
+        case 'info': icon = 'info'; break;
+    }
+
+    const iconHtml = icon ? `<span class="material-symbols-rounded">${icon}</span>` : '';
+    const content = snackbar.querySelector('.content') || snackbar.querySelector('span');
+    if(content) content.innerHTML = `${iconHtml} <span>${text || 'Message sent'}</span>`;
+    
     snackbar.classList.add('show');
     
     setTimeout(() => {
         snackbar.classList.remove('show');
     }, 3000);
 }
+
+window.showToast = window.showSnackbar;
 
 /* --- 6. SLIDERS --- */
 function initSliders() {
@@ -241,10 +267,11 @@ window.refreshSettingsPreview = function() {
     const seed = root.getAttribute('data-seed');
     const theme = root.getAttribute('data-theme');
     const radius = root.getAttribute('data-radius');
+    const style = root.getAttribute('data-style');
 
     // Update any demo elements that might need specific JS-driven refreshes
     // In this project, most are handled by CSS variables on :root
-    console.log(`Settings Refreshed: ${theme}, ${seed}, ${radius}`);
+    console.log(`Settings Refreshed: ${theme}, ${seed}, ${radius}, ${style}`);
 }
 
 /* --- 6. SELECTION CONTROLS --- */
@@ -458,6 +485,24 @@ function initInteractions() {
             }
             return;
         }
+
+
+        // Generic Theme Toggle (Used by Mobile Toggle)
+        const themeToggle = e.target.closest('#themeToggle, #mobileThemeToggle');
+        if (themeToggle) {
+             const current = document.documentElement.getAttribute('data-theme');
+             const next = current === 'dark' ? 'light' : 'dark';
+             window.setThemeConfig('theme', next);
+             return;
+        }
+
+        // Color Swatches (Header)
+        const swatch = e.target.closest('.color-swatch');
+        if (swatch) {
+            const seed = swatch.getAttribute('data-seed');
+            window.setThemeConfig('seed', seed);
+            return;
+        }
     });
 
     document.body.addEventListener('keydown', (e) => {
@@ -507,4 +552,20 @@ function initExpressiveAnimations() {
             if(segmentIndex >= segments.length) segmentIndex = 0;
         }, 1000);
     }
+}
+
+function initScrollAnimations() {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('card-entrance');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.md-card, .expressive-card, .hero-card').forEach(el => {
+        el.classList.remove('card-entrance'); // Remove load-time animation
+        observer.observe(el);
+    });
 }

@@ -83,9 +83,9 @@ function renderNavigation() {
 
     railHtml += `
         <div style="flex:1"></div>
-        <div id="themeToggle" class="md-rail-item" role="button" tabindex="0" aria-label="Toggle theme" style="cursor: pointer;">
+        <button id="themeToggle" class="md-rail-item" aria-label="Toggle theme" style="background: transparent; border: none; padding: 0;">
              <div class="icon-container"><span class="material-symbols-rounded">dark_mode</span></div>
-        </div>
+        </button>
     </nav>
     `;
 
@@ -127,4 +127,23 @@ function renderNavigation() {
 
     document.body.insertAdjacentHTML('afterbegin', drawerHtml);
     document.body.insertAdjacentHTML('afterbegin', railHtml);
+
+    // MOBILE TOP BAR THEME TOGGLE
+    const topBar = document.querySelector('.top-app-bar');
+    if (topBar && !topBar.querySelector('#mobileThemeToggle')) {
+        const toggleHtml = `
+            <button id="mobileThemeToggle" class="md-btn icon-btn ripple-target" aria-label="Toggle theme" style="margin-left: 8px; display: none;">
+                <span class="material-symbols-rounded">dark_mode</span>
+            </button>
+        `;
+        const actions = topBar.querySelector('.actions');
+        if (actions) {
+            actions.insertAdjacentHTML('afterend', toggleHtml);
+        } else {
+            topBar.insertAdjacentHTML('beforeend', toggleHtml);
+        }
+    }
+
+    // Sync icons with current theme state
+    if (window.ThemeEngine) ThemeEngine.updateUI();
 }

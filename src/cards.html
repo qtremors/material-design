@@ -31,14 +31,11 @@
             display: flex; gap: 8px; justify-content: flex-end; margin-top: 16px;
         }
 
-        /* Horizontal Card */
-        .card-horizontal {
-            display: flex; flex-direction: row; align-items: center; padding: 0; overflow: hidden;
+        /* Music Note Styling */
+        .card-horizontal .card-media span {
+            font-size: 32px;
+            opacity: 0.8;
         }
-        .card-horizontal .card-media {
-            width: 120px; height: 100%; border-radius: 0; margin: 0; flex-shrink: 0;
-        }
-        .card-horizontal .card-content { padding: 16px; flex: 1; }
 
         /* Masonry Grid */
         .masonry-grid {
@@ -61,7 +58,7 @@
 
     <!-- Navigation injected by js/navigation.js -->
 
-    <main style="flex: 1; margin-left: 80px; width: 100%;">
+    <main>
         <div class="top-app-bar">
             <span class="material-symbols-rounded menu-trigger" role="button" tabindex="0" aria-label="Open menu" style="margin-right: 16px; cursor: pointer; display: none;">menu</span>
             <h2>Cards & Layouts</h2>
@@ -77,27 +74,42 @@
         </div>
 
         <div class="container">
-            <h3>Standard Cards</h3>
-            <div class="section-grid card-entrance" style="margin-bottom: 48px;">
+            <h3>Cards</h3>
+            <div class="section-grid" style="margin-bottom: 48px;">
                 
-                <!-- Elevated -->
-                <div class="md-card card-elevated ripple-target">
-                    <div class="card-media"><span class="material-symbols-rounded">image</span></div>
-                    <h3>Elevated</h3>
-                    <p>Elevated cards have a drop shadow and a container color.</p>
-                    <div class="card-actions">
-                        <button class="md-btn md-btn-text ripple-target">Action</button>
-                        <button class="md-btn md-btn-filled ripple-target">Explore</button>
+                <!-- Explore Card (Visual Ref) -->
+                <div class="md-card expressive-card">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px;">
+                        <div>
+                            <h3 style="margin: 0; font-size: 24px; font-weight: 700;">Explore</h3>
+                            <p style="margin: 0; color: var(--md-sys-color-on-surface-variant); font-size: 16px;">Secondary text</p>
+                        </div>
+                        <button class="icon-btn ripple-target" style="background: var(--md-sys-color-secondary-container); color: var(--md-sys-color-on-secondary-container);">
+                            <span class="material-symbols-rounded">more_vert</span>
+                        </button>
+                    </div>
+                    
+                    <div class="card-media" style="background-color: var(--md-sys-color-primary-container); color: var(--md-sys-color-on-primary-container); height: 160px; margin: 16px 0;">
+                        <span class="material-symbols-rounded" style="font-size: 64px;">image</span>
+                    </div>
+                    
+                    <p style="font-size: 16px; line-height: 1.5; margin-bottom: 24px;">
+                        Expressive cards use 28px corners to feel more organic and friendly.
+                    </p>
+                    
+                    <div class="card-actions" style="justify-content: flex-end; gap: 16px;">
+                        <button class="md-btn md-btn-text ripple-target" style="color: var(--md-sys-color-primary); font-weight: 600;">Read</button>
+                        <button class="md-btn md-btn-filled ripple-target" style="background: var(--md-sys-color-primary); color: var(--md-sys-color-on-primary);">Open</button>
                     </div>
                 </div>
 
-                <!-- Filled -->
-                <div class="md-card card-filled ripple-target">
-                     <div class="card-media" style="background-color: rgba(0,0,0,0.05);"><span class="material-symbols-rounded">brush</span></div>
-                    <h3>Filled</h3>
-                    <p>Filled cards have a higher container color without shadow.</p>
-                     <div class="card-actions">
-                        <button class="md-btn md-btn-tonal ripple-target">Details</button>
+                <!-- Expressive Features (Moved from Masonry) -->
+                <div class="md-card expressive-card ripple-target card-entrance" style="animation-delay: 0.1s;">
+                    <div class="card-media"><span class="material-symbols-rounded">auto_awesome</span></div>
+                    <h3>Expressive Features</h3>
+                    <p>Combining vibrant container colors, high 28px rounding, and emphasized visual media focus.</p>
+                    <div class="card-actions">
+                        <button class="md-btn md-btn-text ripple-target">Explore</button>
                     </div>
                 </div>
 
@@ -112,106 +124,152 @@
                 </div>
             </div>
 
-            <h3>Horizontal Layout</h3>
-            <div class="md-card card-outlined card-horizontal ripple-target card-entrance" style="margin-bottom: 48px; animation-delay: 0.2s;">
-                <div class="card-media"><span class="material-symbols-rounded">music_note</span></div>
-                <div class="card-content">
-                    <h3>Now Playing</h3>
-                    <p style="margin:0; color: var(--md-sys-color-on-surface-variant);">Artist Name - Song Title</p>
-                </div>
-                <div style="padding: 16px;">
-                    <button class="icon-btn ripple-target"><span class="material-symbols-rounded">play_arrow</span></button>
-                </div>
-            </div>
+            <!-- WIDGETS SECTION -->
+            <section id="widgets" class="section-entrance" style="margin-top: 64px; margin-bottom: 80px;">
+                <h2 style="display: flex; align-items: center; gap: 12px;">
+                    <span class="material-symbols-rounded">widgets</span>
+                    Widgets
+                </h2>
+                <p style="margin-bottom: 32px; color: var(--md-sys-color-on-surface-variant);">
+                    Specialized components for specific use cases like media playback and dashboards.
+                </p>
 
-            <h3>Masonry Grid (Colorful)</h3>
-            <p style="margin-bottom: 24px; color: var(--md-sys-color-on-surface-variant);">Cards can use container colors for distinct visual hierarchy.</p>
-            <div class="masonry-grid">
-                <div class="masonry-item md-card expressive-card ripple-target card-entrance" style="animation-delay: 0.1s;">
-                    <div class="card-media"><span class="material-symbols-rounded">palette</span></div>
-                    <h3>Vibrant Surfaces</h3>
-                    <p>Expressive cards use colorful container backgrounds.</p>
-                </div>
-                <div class="masonry-item md-card expressive-card ripple-target card-entrance" style="animation-delay: 0.2s;">
-                    <div class="card-media"><span class="material-symbols-rounded">star</span></div>
-                    <h3>Highly Rounded</h3>
-                    <p>Corner radius increased to 28px.</p>
-                </div>
-                 <div class="masonry-item md-card expressive-card ripple-target card-entrance" style="animation-delay: 0.3s;">
-                    <div class="card-media"><span class="material-symbols-rounded">auto_awesome</span></div>
-                    <h3>Dynamic Color</h3>
-                    <p>Backgrounds cycle through theme containers.</p>
-                     <div class="card-actions">
-                        <button class="md-btn md-btn-text ripple-target">Explore</button>
+                <div class="section-grid" style="align-items: flex-start; gap: 48px;">
+                    <!-- 1. Full Card Music Widget -->
+                    <div style="grid-column: 1 / -1;">
+                        <h3 style="margin-bottom: 16px;">Music Player (Card)</h3>
+                        <div class="md-card card-music-widget card-outlined ripple-target" style="animation-delay: 0.1s;">
+                            <div class="card-media">
+                                <span class="material-symbols-rounded">music_note</span>
+                            </div>
+                            <div class="card-content">
+                                <h3 style="margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Try Me</h3>
+                                <p style="margin:0; color: var(--md-sys-color-on-surface-variant); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">The Weeknd</p>
+                            </div>
+                            <div class="widget-controls">
+                                <button class="md-btn icon-btn ripple-target" title="Shuffle">
+                                    <span class="material-symbols-rounded">shuffle</span>
+                                </button>
+                                <button class="md-btn icon-btn ripple-target" title="Previous">
+                                    <span class="material-symbols-rounded">skip_previous</span>
+                                </button>
+                                <button class="md-btn icon-btn play-btn ripple-target" title="Play/Pause">
+                                    <span class="material-symbols-rounded">play_arrow</span>
+                                </button>
+                                <button class="md-btn icon-btn ripple-target" title="Next">
+                                    <span class="material-symbols-rounded">skip_next</span>
+                                </button>
+                                <button class="md-btn icon-btn ripple-target" title="Repeat">
+                                    <span class="material-symbols-rounded">repeat</span>
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                </div>
 
-                <!-- Daily Mix (Filled) -->
-                <div class="masonry-item md-card card-filled ripple-target" style="padding: 0; overflow: hidden;">
-                    <div class="card-media" style="background: var(--md-sys-color-secondary-container); color: var(--md-sys-color-on-secondary-container); height: 160px; margin: 0; border-radius: 0;">
-                        <span class="material-symbols-rounded" style="font-size: 48px;">music_note</span>
-                    </div>
-                    <div style="padding: 24px;">
-                        <h3 style="font-size: 22px; margin-bottom: 4px;">Daily Mix</h3>
-                        <p style="color: var(--md-sys-color-on-surface-variant); margin-bottom: 24px;">Based on your recent listening history.</p>
-                        <div class="list" style="background: rgba(255,255,255,0.5);">
-                            <div class="list-item">
-                                <span class="material-symbols-rounded">play_arrow</span>
-                                <div>
-                                    <div style="font-weight: 500;">Track One</div>
-                                    <div style="font-size: 12px;">Artist Name</div>
+                    <!-- 2. Daily Mix Widget -->
+                    <div style="display: flex; flex-direction: column; gap: 16px;">
+                        <h3>Music Player (Daily Mix)</h3>
+                        <div class="md-card card-filled ripple-target" style="padding: 0; overflow: hidden; max-width: 340px; animation-delay: 0.2s;">
+                            <div class="card-media" style="background: var(--md-sys-color-secondary-container); color: var(--md-sys-color-on-secondary-container); height: 160px; margin: 0; border-radius: 0;">
+                                <span class="material-symbols-rounded" style="font-size: 56px;">music_note</span>
+                            </div>
+                            <div style="padding: 24px;">
+                                <h3 style="font-size: 24px; margin-bottom: 4px;">Daily Mix</h3>
+                                <p style="color: var(--md-sys-color-on-surface-variant); margin-bottom: 16px; font-size: 14px;">Based on your recent listening.</p>
+                                <div class="list daily-mix-list">
+                                    <div class="list-item">
+                                        <span class="material-symbols-rounded">play_arrow</span>
+                                        <div style="margin-left: 12px;">
+                                            <div style="font-weight: 500; font-size: 14px;">Try Me</div>
+                                            <div style="font-size: 11px;">The Weeknd</div>
+                                        </div>
+                                    </div>
+                                    <div class="list-item">
+                                        <span class="material-symbols-rounded">play_arrow</span>
+                                        <div style="margin-left: 12px;">
+                                            <div style="font-weight: 500; font-size: 14px;">Blinding Lights</div>
+                                            <div style="font-size: 11px;">The Weeknd</div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="list-item">
+                        </div>
+                    </div>
+
+                    <!-- 3. High-Fidelity Circular Widget -->
+                    <div style="display: flex; flex-direction: column; align-items: center; gap: 16px;">
+                        <h3>Music Player (Circular)</h3>
+                        <div class="card-music-circular" style="animation-delay: 0.3s;">
+                            <div class="album-art">
+                                <span class="material-symbols-rounded">music_note</span>
+                            </div>
+                            <button class="float-btn repeat-btn ripple-target" title="Repeat">
+                                <span class="material-symbols-rounded">repeat</span>
+                            </button>
+                            <button class="float-btn play-pause ripple-target" title="Play/Pause">
+                                <span class="material-symbols-rounded">pause</span>
+                            </button>
+                        </div>
+                        <div style="text-align: center;">
+                            <h4 style="margin: 0; font-size: 16px;">Try Me</h4>
+                            <p style="margin: 4px 0 0 0; font-size: 14px; color: var(--md-sys-color-on-surface-variant);">The Weeknd</p>
+                        </div>
+                    </div>
+
+                    <!-- 3. Compact Music Widget -->
+                    <div style="display: flex; flex-direction: column; gap: 16px;">
+                        <h3>Music Player (Compact)</h3>
+                        <div class="card-music-compact ripple-target" style="animation-delay: 0.3s;">
+                            <div class="card-media">
+                                <span class="material-symbols-rounded">music_note</span>
+                            </div>
+                            <div class="card-content">
+                                <h3>Try Me</h3>
+                                <p>The Weeknd</p>
+                            </div>
+                            <button class="md-btn icon-btn ripple-target">
                                 <span class="material-symbols-rounded">play_arrow</span>
-                                <div>
-                                    <div style="font-weight: 500;">Track Two</div>
-                                    <div style="font-size: 12px;">Artist Name</div>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- 4. Contacts Widget (Moved from Masonry) -->
+                    <div style="display: flex; flex-direction: column; gap: 16px; grid-column: span 1;">
+                        <h3>Contacts Widget</h3>
+                        <div class="md-card card-outlined ripple-target" style="margin: 0;">
+                            <div class="list" style="background: transparent;">
+                                <div class="list-item">
+                                    <div class="avatar" style="background: #FFD8E4; color: #31111D;">A</div>
+                                    <div style="flex: 1;">
+                                        <div style="font-weight: 600;">Ali Connors</div>
+                                        <div style="font-size: 13px; color: var(--md-sys-color-on-surface-variant);">Mobile • 5 min ago</div>
+                                    </div>
+                                    <span class="material-symbols-rounded" style="color: var(--md-sys-color-primary);">sms</span>
+                                </div>
+                                <div class="list-item">
+                                    <div class="avatar" style="background: #E8DEF8; color: #1D192B;">B</div>
+                                    <div style="flex: 1;">
+                                        <div style="font-weight: 600;">Ben Dover</div>
+                                        <div style="font-size: 13px; color: var(--md-sys-color-on-surface-variant);">Work • Yesterday</div>
+                                    </div>
+                                    <span class="material-symbols-rounded" style="color: var(--md-sys-color-primary);">call</span>
+                                </div>
+                                 <div class="list-item">
+                                    <div class="avatar" style="background: #C2E8FB; color: #001F29;">C</div>
+                                    <div style="flex: 1;">
+                                        <div style="font-weight: 600;">Charlie</div>
+                                        <div style="font-size: 13px; color: var(--md-sys-color-on-surface-variant);">Home • Mon</div>
+                                    </div>
+                                    <span class="material-symbols-rounded" style="color: var(--md-sys-color-primary);">star</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </section>
 
-                <!-- Contacts (Outlined List) -->
-                <div class="masonry-item md-card card-outlined ripple-target">
-                    <h3 style="margin-bottom: 16px;">Contacts</h3>
-                    <div class="list" style="background: transparent;">
-                        <div class="list-item">
-                            <div class="avatar" style="background: #FFD8E4; color: #31111D;">A</div>
-                            <div style="flex: 1;">
-                                <div style="font-weight: 600;">Ali Connors</div>
-                                <div style="font-size: 13px; color: var(--md-sys-color-on-surface-variant);">Mobile • 5 min ago</div>
-                            </div>
-                            <span class="material-symbols-rounded" style="color: var(--md-sys-color-primary);">sms</span>
-                        </div>
-                        <div class="list-item">
-                            <div class="avatar" style="background: #E8DEF8; color: #1D192B;">B</div>
-                            <div style="flex: 1;">
-                                <div style="font-weight: 600;">Ben Dover</div>
-                                <div style="font-size: 13px; color: var(--md-sys-color-on-surface-variant);">Work • Yesterday</div>
-                            </div>
-                            <span class="material-symbols-rounded" style="color: var(--md-sys-color-primary);">call</span>
-                        </div>
-                         <div class="list-item">
-                            <div class="avatar" style="background: #C2E8FB; color: #001F29;">C</div>
-                            <div style="flex: 1;">
-                                <div style="font-weight: 600;">Charlie</div>
-                                <div style="font-size: 13px; color: var(--md-sys-color-on-surface-variant);">Home • Mon</div>
-                            </div>
-                            <span class="material-symbols-rounded" style="color: var(--md-sys-color-primary);">star</span>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="masonry-item md-card expressive-card ripple-target">
-                    <div class="card-media"><span class="material-symbols-rounded">image</span></div>
-                    <h3>Visual Focus</h3>
-                    <p>Media areas are emphasized.</p>
-                </div>
-            </div>
 
-            <h3>Semantic Cards</h3>
+            <h3 style="margin-top: 48px;">Semantic Cards</h3>
              <div class="section-grid card-entrance" style="animation-delay: 0.5s;">
                 <div class="md-card card-success card-semantic">
                     <h3>Success</h3>

@@ -29,7 +29,7 @@
         .settings-card {
             background: var(--md-sys-color-surface-container-low);
             border-radius: var(--md-sys-shape-corner-large);
-            padding: 24px;
+            padding: clamp(16px, 4vw, 24px);
             border: 1px solid var(--md-sys-color-outline-variant);
         }
 
@@ -98,7 +98,7 @@
 
     <!-- Navigation injected by js/navigation.js -->
 
-    <main style="flex: 1; margin-left: 80px; width: 100%;">
+    <main>
         <div class="top-app-bar">
             <span class="material-symbols-rounded menu-trigger" role="button" tabindex="0" aria-label="Open menu" style="margin-right: 16px; cursor: pointer; display: none;">menu</span>
             <h2>Settings</h2>
@@ -120,17 +120,16 @@
                         <div class="control-desc">Switch between light and dark themes</div>
                     </div>
                     <div class="toggle-group">
-                        <button class="toggle-btn" id="btn-theme-light" data-action="set-theme-mode" data-value="light">
+                        <button class="toggle-btn ripple-target" id="btn-theme-light" data-action="set-theme-mode" data-value="light">
                             <span style="display:flex;align-items:center;gap:6px;"><span class="material-symbols-rounded" style="font-size:18px">light_mode</span> Light</span>
                         </button>
-                        <button class="toggle-btn" id="btn-theme-dark" data-action="set-theme-mode" data-value="dark">
+                        <button class="toggle-btn ripple-target" id="btn-theme-dark" data-action="set-theme-mode" data-value="dark">
                             <span style="display:flex;align-items:center;gap:6px;"><span class="material-symbols-rounded" style="font-size:18px">dark_mode</span> Dark</span>
                         </button>
                     </div>
                 </div>
 
                 <hr style="border:0; border-top:1px solid var(--md-sys-color-outline-variant); margin: 24px 0;">
-
                 <!-- Color Palette -->
                 <div class="control-row" style="align-items: flex-start;">
                      <div>
@@ -183,10 +182,10 @@
                         <div class="control-desc">Adjust the roundness of components</div>
                     </div>
                     <div class="toggle-group">
-                        <button class="toggle-btn" data-action="set-radius" data-value="small" data-radius="small">Small</button>
-                        <button class="toggle-btn" data-action="set-radius" data-value="medium" data-radius="medium">Medium</button>
-                        <button class="toggle-btn" data-action="set-radius" data-value="large" data-radius="large">Large</button>
-                        <button class="toggle-btn" data-action="set-radius" data-value="full" data-radius="full">Full</button>
+                        <button class="toggle-btn ripple-target" data-action="set-radius" data-value="small" data-radius="small">Small</button>
+                        <button class="toggle-btn ripple-target" data-action="set-radius" data-value="medium" data-radius="medium">Medium</button>
+                        <button class="toggle-btn ripple-target" data-action="set-radius" data-value="large" data-radius="large">Large</button>
+                        <button class="toggle-btn ripple-target" data-action="set-radius" data-value="full" data-radius="full">Full</button>
                     </div>
 
                 <!-- Typography Removed per user request -->

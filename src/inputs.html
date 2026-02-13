@@ -76,14 +76,6 @@
             transform: scale(1.1);
         }
 
-        /* Expressive Slider (Thick) */
-        .slider-expressive input[type=range]::-webkit-slider-runnable-track {
-            height: 16px; border-radius: 8px;
-        }
-        .slider-expressive input[type=range]::-webkit-slider-thumb {
-            height: 44px; width: 4px; border-radius: 2px; margin-top: -14px;
-            background: var(--md-sys-color-on-primary-container);
-        }
 
         /* --- Chips --- */
         .chip-set { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
@@ -95,7 +87,7 @@
 
     <!-- Navigation injected by js/navigation.js -->
 
-    <main style="flex: 1; margin-left: 80px; width: 100%;">
+    <main>
         <div class="top-app-bar">
             <span class="material-symbols-rounded menu-trigger" role="button" tabindex="0" aria-label="Open menu" style="margin-right: 16px; cursor: pointer; display: none;">menu</span>
             <h2>Inputs & Selection</h2>
@@ -149,9 +141,9 @@
                     </div>
                 </div>
 
-                <!-- Expressive Text Fields (New from md3.html) -->
+                <!-- Expressive Text Fields -->
                 <div class="md-card">
-                    <h3>Expressive Fields (from md3.html)</h3>
+                    <h3>Expressive Fields</h3>
                     <p>Uses a floating label style where the label sits on the border.</p>
                     <div style="display: flex; flex-direction: column; gap: 16px;">
                         <div class="expressive-input-group">
@@ -218,6 +210,20 @@
                             </span>
                              <span class="material-symbols-rounded switch-icon">check</span>
                         </label>
+                    </div>
+
+                    <div style="margin-top: 16px;">
+                        <h4>Old Material (M2) Switches</h4>
+                        <div style="display: flex; gap: 16px; align-items: center;">
+                            <label class="switch switch-m2 ripple-target">
+                                <input type="checkbox" checked>
+                                <span class="switch-track"><span class="switch-handle"></span></span>
+                            </label>
+                            <label class="switch switch-m2 ripple-target">
+                                <input type="checkbox">
+                                <span class="switch-track"><span class="switch-handle"></span></span>
+                            </label>
+                        </div>
                     </div>
                 </div>
 
