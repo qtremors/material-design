@@ -47,6 +47,7 @@
     --md-sys-color-surface-container-high: #F0F3F9;
     --md-sys-color-surface-container-low: #F0F5F1;
     --md-sys-color-surface-container-highest: #DEE4E1;
+    --md-sys-color-surface-container-highest-rgb: 222, 228, 225;
     --md-sys-color-outline: #74777F;
     --md-sys-color-outline-variant: #C4C7D0;
     --md-sys-color-on-surface: #1B1B1F;
@@ -207,6 +208,7 @@
     --md-sys-color-surface-container-high: #292C35;
     --md-sys-color-surface-container-low: #191c20;
     --md-sys-color-surface-container-highest: #333537;
+    --md-sys-color-surface-container-highest-rgb: 51, 53, 55;
     --md-sys-color-outline: #8D9199;
     --md-sys-color-outline-variant: #44474F;
     --md-sys-color-on-surface: #E2E2E6;

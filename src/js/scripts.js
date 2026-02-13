@@ -23,7 +23,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function initPersistence() {
     const root = document.documentElement;
-    const style = localStorage.getItem('mdStyle') || 'm3';
+    let style = 'm3';
+    try {
+        style = localStorage.getItem('mdStyle') || 'm3';
+    } catch (e) {
+        console.warn('LocalStorage access denied, falling back to default style.');
+    }
     root.setAttribute('data-style', style);
 }
 
@@ -232,9 +237,19 @@ function showSnackbar(text, type = 'info') {
         case 'info': icon = 'info'; break;
     }
 
-    const iconHtml = icon ? `<span class="material-symbols-rounded">${icon}</span>` : '';
     const content = snackbar.querySelector('.content') || snackbar.querySelector('span');
-    if(content) content.innerHTML = `${iconHtml} <span>${text || 'Message sent'}</span>`;
+    if(content) {
+        content.innerHTML = ''; // Clear existing
+        if(icon) {
+            const iconSpan = document.createElement('span');
+            iconSpan.className = 'material-symbols-rounded';
+            iconSpan.textContent = icon;
+            content.appendChild(iconSpan);
+        }
+        const textSpan = document.createElement('span');
+        textSpan.textContent = text || 'Message sent';
+        content.appendChild(textSpan);
+    }
     
     snackbar.classList.add('show');
     

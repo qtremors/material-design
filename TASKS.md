@@ -1,12 +1,12 @@
 # Material Design - Tasks
 
 > **Project:** Material Design  
-> **Version:** 1.3.0 (Planned)
+> **Version:** 1.3.1
 > **Last Updated:** 2026-02-13
 
 ---
 
-## 🚀 v1.3 Roadmap: "Selling the System"
+## 🚀 v1.3 Planned Roadmap: "Selling the System"
 Focus on maturing the showcase from a component list to a professional design system portal.
 
 ### 1. Developer Mode & DX Tools
@@ -40,7 +40,17 @@ Focus on maturing the showcase from a component list to a professional design sy
 
 ---
 
+- **Logic**: Managed in `theme.js` via `updateSettingsUI()` and `setThemeConfig()` (exposed globally).
+
+### Fixes & Improvements
+### Fixes & Improvements
+- [x] **CSS Variables**: Add missing RGB tokens for surface containers.
+- [x] **Hardcoded Values**: Replace hex codes in `.snackbar` with design tokens.
+- [x] **Safety**: Wrap `localStorage` access in try/catch blocks.
+- [x] **Security**: Sanitize snackbar content inputs to prevent XSS.
+
 ## 📋 Ongoing & Past
+- [x] v1.3.1: Color Palette Viewer & Codebase Health Fixes.
 - [x] v1.2.7: PR refinements (elevation-4, motion easing, RGB seeds).
 - [x] v1.2.6: Deep polish (semantic cards, clear buttons, selection logic).
 - [x] v1.2.5: Stability & Safety (null guards, deterministic pathing).
@@ -57,7 +67,6 @@ Focus on maturing the showcase from a component list to a professional design sy
     - `data-seed`: `purple` | `teal` | `red` | `green` | `pink` | `orange` | `yellow` | `cyan`
     - `data-radius`: `small` | `medium` | `large` | `full`
     - `data-style`: `standard` | `expressive`
-- **Logic**: Managed in `scripts.js` via `updateSettingsUI()` and `setThemeConfig()`.
 
 ### Navigation Data
 - **Source**: `navigation.js` contains the source-of-truth for the Rail and Drawer items.

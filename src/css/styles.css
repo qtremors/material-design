@@ -412,7 +412,7 @@ span.ripple {
 
 .snackbar {
     position: fixed; bottom: 24px; left: 50%; transform: translate(-50%, 100px);
-    background: #313033; color: #F4EFF4; padding: 12px 24px; border-radius: 9999px;
+    background: var(--md-sys-color-inverse-surface); color: var(--md-sys-color-inverse-on-surface); padding: 12px 24px; border-radius: 9999px;
     box-shadow: var(--md-sys-elevation-3); z-index: 600;
     display: flex; align-items: center; transition: 0.4s; min-width: 320px; justify-content: space-between;
     gap: 12px; height: 56px;

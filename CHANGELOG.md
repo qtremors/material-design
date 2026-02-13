@@ -1,10 +1,22 @@
 # Material Design Changelog
 
 > **Project:** Material Design  
-> **Version:** 1.3.0  
+> **Version:** 1.3.1
 > **Last Updated:** 2026-02-13
 
 ---
+
+## [1.3.1] - 2026-02-13
+
+### Added
+- **Settings:** Implemented a new compact **Color Palette Viewer** to visualize active theme tokens and hex codes.
+
+### Fixed & Improved
+- **Codebase Health:**
+    - **CSS**: Added missing `surface-container-highest-rgb` tokens to `variables.css`.
+    - **Styles**: Replaced hardcoded hex values in `.snackbar` with design tokens.
+    - **Safety**: Wrapped `localStorage` access in `scripts.js` with try/catch blocks for restricted environments.
+    - **Security**: Refactored `showSnackbar` to sanitize inputs and prevent XSS.
 
 ## [1.3.0] - 2026-02-13
 
