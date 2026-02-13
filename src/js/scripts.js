@@ -269,7 +269,8 @@ function initInteractions() {
             return;
         }
 
-        const segBtn = e.target.closest('[data-action="segment-pick"]');
+        // Generic Segment Pick (Single Select)
+        const segBtn = e.target.closest('[data-action="segment-pick"], [data-action="segment-pick-opt"]');
         if (segBtn && !segBtn.disabled) {
             const group = segBtn.closest('.segmented-btn-group');
             if(group) {
@@ -317,6 +318,84 @@ function initInteractions() {
              if(window.showSnackbar) window.showSnackbar(text);
              return;
         }
+
+        // Icon Toolbar Toggle
+        const toolbarTrigger = e.target.closest('[data-action="toggle-toolbar"]');
+        if (toolbarTrigger) {
+             // Only toggle if clicking the trigger button OR if it's already open (to allow closing by clicking elsewhere if needed, but here simple toggle)
+             // Actually, let's make it so clicking the *trigger* button toggles it. 
+             // If it's collapsed, any click opens it. 
+             const toolbar = toolbarTrigger;
+             if(toolbar.classList.contains('collapsed')) {
+                 toolbar.classList.remove('collapsed');
+             } else {
+                 // If open, only close if clicking the trigger again? 
+                 // For this demo, let's just toggle on click of the container or specific close button.
+                 // Let's use the trigger button logic.
+                 const btn = e.target.closest('.trigger');
+                 if(btn) toolbar.classList.add('collapsed');
+             }
+             return;
+        }
+
+         // FAB Morph
+         const fabMorph = e.target.closest('[data-action="morph"]');
+         if (fabMorph) {
+             if(fabMorph.classList.contains('square')) {
+                 fabMorph.classList.remove('square');
+                 fabMorph.classList.add('circle');
+             } else {
+                 fabMorph.classList.remove('circle');
+                 fabMorph.classList.add('square');
+             }
+             return;
+         }
+
+         // Speed Dial Toggle
+         const speedDialTrigger = e.target.closest('[data-action="toggle-speed-dial"]');
+         if (speedDialTrigger) {
+             const container = speedDialTrigger.closest('.speed-dial-container');
+             if(container) container.classList.toggle('open');
+             return;
+         }
+
+         // Horizontal Drawer Toggle
+         const hDrawerTrigger = e.target.closest('[data-action="toggle-horizontal-drawer"]');
+         if (hDrawerTrigger) {
+             const container = hDrawerTrigger.closest('.horizontal-drawer-container');
+             const drawer = container.querySelector('.horizontal-drawer');
+             const icon = hDrawerTrigger.querySelector('span');
+             
+             // Check computed style or inline style
+             if (drawer.style.width === '0px' || drawer.style.width === '' || drawer.style.width === '0') {
+                 drawer.style.width = '240px'; 
+                 drawer.style.opacity = '1';
+                 icon.innerText = 'close';
+                 icon.style.transform = 'rotate(180deg)';
+             } else {
+                 drawer.style.width = '0';
+                 drawer.style.opacity = '0';
+                 icon.innerText = 'add';
+                 icon.style.transform = 'rotate(0deg)';
+             }
+             return;
+         }
+
+        // Drawer Item Pick (Demo)
+        const drawerItem = e.target.closest('[data-action="drawer-item-pick"]');
+        if (drawerItem) {
+            const container = drawerItem.parentElement;
+            container.querySelectorAll('.drawer-item').forEach(item => item.classList.remove('active'));
+            drawerItem.classList.add('active');
+            
+            // Optional: Update content area text for demo
+            const contentArea = container.parentElement.querySelector('div[style*="absolute"] span');
+            if(contentArea) {
+                contentArea.innerText = drawerItem.innerText.trim();
+                contentArea.style.opacity = '1';
+            }
+            return;
+        }
     });
 
     document.body.addEventListener('keydown', (e) => {
@@ -338,3 +417,33 @@ function initInteractions() {
         }
     });
 }
+
+/* --- 8. EXPRESSIVE ANIMATIONS --- */
+function initExpressiveAnimations() {
+    // Wavy Progress Loop
+    setInterval(() => {
+        document.querySelectorAll('.progress-wavy .bar').forEach(bar => {
+            const width = Math.random() * 60 + 20; // Random between 20-80%
+            bar.style.width = `${width}%`;
+        });
+    }, 2000);
+
+    // Segmented Progress Loop
+    const segments = document.querySelectorAll('.progress-segmented .segment');
+    let segmentIndex = 0;
+    
+    if(segments.length > 0) {
+        setInterval(() => {
+            segments.forEach(s => s.classList.remove('filled'));
+            for(let i=0; i<=segmentIndex; i++) {
+                if(segments[i]) segments[i].classList.add('filled');
+            }
+            segmentIndex++;
+            if(segmentIndex >= segments.length) segmentIndex = 0;
+        }, 1000);
+    }
+}
+// Add to init
+document.addEventListener('DOMContentLoaded', () => {
+    initExpressiveAnimations();
+});

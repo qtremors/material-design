@@ -2,7 +2,7 @@
 
 > Comprehensive documentation for developers working on Material Design.
 
-**Version:** 1.1.0 | **Last Updated:** 2026-02-13
+**Version:** 1.2.0 | **Last Updated:** 2026-02-13
 
 ---
 
@@ -107,9 +107,28 @@ Custom implementation of the material ink ripple.
 
 ---
 
-## How to Create New Components
+## Technical Standards & Strict Compliance
 
-Follow these steps to add a new page or component to the project.
+All new additions to this library **must** strictly adhere to the following Material Design specifications to maintain a cohesive "feel" and behavior.
+
+### 1. Design Systems
+-   **Material Design 3 (MD3):** Base styles must follow the latest MD3 specifications for baseline colors, shapes, and layouts.
+-   **Material You:** Ensure dynamic theming compatibility. Components must react correctly to `data-seed` changes and dark mode.
+-   **Material 2 Expressive:** Advanced components (like Speed Dials and Morphing FABs) should leverage the "Expressive" traits—rounder shapes, playful but precise transitions, and unique positioning.
+
+### 2. Animations & Effects
+-   **Duration & Easing:** Use MD3 standard durations (200ms-400ms) and easing functions (standard, emphasized).
+-   **Ripples:** Every interactive element must have a ripple effect using the `.ripple-target` class.
+-   **Expressive Motion:** For complex transitions (e.g., shape morphing), use `cubic-bezier(0.175, 0.885, 0.32, 1.275)` for a bouncy, elastic feel.
+
+### 3. Theme & Feel
+-   **Tokens Only:** Never use hardcoded hex values in component CSS. Always map to `--md-sys-color-*` tokens.
+-   **State Layers:** Use standard state layer opacities (`.08` for hover, `.12` for pressed) via CSS variables.
+-   **Naming:** Follow the MD3 naming schema for variables and classes (e.g., `surface-container-high`, `on-primary-container`).
+
+---
+
+## How to Create New Components
 
 ### 1. Create the HTML Page
 Create a new file (e.g., `my-component.html`) in the `src/` directory.
@@ -163,18 +182,23 @@ Project configuration is primarily handled via CSS Variables in `src/css/variabl
 
 ### Code Style
 
--   **HTML:** Semantic HTML5.
--   **CSS:** Use CSS Variables for all values. No magic numbers.
--   **JS:** ES6+ syntax. Comment public functions.
+-   **HTML:** Semantic HTML5 strictly.
+-   **CSS:** **Mandatory** use of CSS Variables for all values. No magic numbers, no hardcoded colors.
+-   **JS:** ES6+ syntax. Comment public functions and document animation logic.
 -   **Indentation:** 4 spaces.
+-   **Compliance:** All code must pass the "MD3 Feel Test"—smooth animations, standard corner radiuses, and correct elevation.
 
 ### Pull Request Process
 
 1.  Fork the repository
 2.  Create a feature branch (`git checkout -b feature/new-component`)
-3.  Implement your changes
-4.  Verify in both Light and Dark modes
-5.  Commit with clear messages
+3.  Implement your changes following the [Technical Standards](#technical-standards--strict-compliance)
+4.  **Verify Compliance:**
+    -   Test in both Light and Dark modes.
+    -   Test across all Color Seeds (Blue, Purple, Green, etc.).
+    -   Check that all interactive elements have Ripples.
+    -   Ensure animations follow MD3 durations/easing.
+5.  Commit with clear, descriptive messages
 6.  Push and create a Pull Request
 
 ---

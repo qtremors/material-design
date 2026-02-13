@@ -1,10 +1,26 @@
 # Material Design Changelog
 
 > **Project:** Material Design  
-> **Version:** 1.0.0  
+> **Version:** 1.2.0  
 > **Last Updated:** 2026-02-13
 
+---
 
+## [1.2.0] - 2026-02-13
+
+### Added
+-   **Expressive Components:** Implemented Speed Dial (Expandable FAB) with staggered entry animations.
+-   **Expressive Components:** Added Horizontal Drawer component with smooth right-side expansion.
+-   **Expressive Components:** Implemented Wavy and Segmented progress bars for high-fidelity loading states.
+-   **Guidelines:** Added strict technical standards and compliance requirements for MD3, Material You, and Expressive traits in `DEVELOPMENT.md`.
+
+### Changed
+-   **Layout:** Reorganized the FAB section into a flexible 3-column grid for better demonstration of expressive components.
+-   **Theming:** Fully integrated MD3 theme variables across all expressive components, enabling dynamic color switching and dark mode support.
+-   **Alignment:** Shifted component demos to left-alignment within columns to prevent collisions during expansion.
+-   **Refactor:** Streamlined `buttons.html` by removing redundant standard FAB size demos.
+
+---
 
 ## [1.1.1] - 2026-02-13
 
@@ -15,6 +31,8 @@
 
 ### Changed
 -   **Refactor:** Updated `navigation.js` path detection to be environment-agnostic using script tag inspection.
+
+---
 
 ## [1.1.0] - 2026-02-13
 
