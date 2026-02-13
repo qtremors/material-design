@@ -276,18 +276,21 @@
             const modeBtn = target.closest('[data-action="set-theme-mode"]');
             if(modeBtn) {
                 window.setThemeConfig('theme', modeBtn.dataset.value);
+                if(window.refreshSettingsPreview) window.refreshSettingsPreview();
                 return;
             }
 
             const seedBtn = target.closest('[data-action="set-theme-seed"]');
             if(seedBtn) {
                 window.setThemeConfig('seed', seedBtn.dataset.value);
+                if(window.refreshSettingsPreview) window.refreshSettingsPreview();
                 return;
             }
             
             const radiusBtn = target.closest('[data-action="set-radius"]');
             if(radiusBtn) {
                 window.setThemeConfig('radius', radiusBtn.dataset.value);
+                if(window.refreshSettingsPreview) window.refreshSettingsPreview();
                 return;
             }
             

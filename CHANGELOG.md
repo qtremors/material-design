@@ -1,10 +1,20 @@
 # Material Design Changelog
 
 > **Project:** Material Design  
-> **Version:** 1.2.5  
+> **Version:** 1.2.6  
 > **Last Updated:** 2026-02-13
 
 ---
+
+## [1.2.6] - 2026-02-13
+
+### Added
+-   **Deep Polish (Animation & Functionality):**
+    -   **Semantic Cards:** Implemented high-fidelity success, warning, and error card styles with staggered entrance animations.
+    -   **TextField Polish:** Added functional clear buttons (`close` icon) for search and icon-leading fields.
+    -   **Icon Toolbar:** Implemented item selection logic; clicking an icon now marks it as active.
+    -   **Settings Reactivity:** Enhanced the settings live preview to be more responsive and "alive" during theme adjustments.
+    -   **Expressive Cards:** Standardized expressive card variants with `28px` corner radii and hover "pop" effects.
 
 ## [1.2.5] - 2026-02-13
 

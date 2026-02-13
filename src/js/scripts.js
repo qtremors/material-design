@@ -235,6 +235,18 @@ function initSliders() {
     });
 }
 
+// Global update for settings preview (invoked by settings.html if present)
+window.refreshSettingsPreview = function() {
+    const root = document.documentElement;
+    const seed = root.getAttribute('data-seed');
+    const theme = root.getAttribute('data-theme');
+    const radius = root.getAttribute('data-radius');
+
+    // Update any demo elements that might need specific JS-driven refreshes
+    // In this project, most are handled by CSS variables on :root
+    console.log(`Settings Refreshed: ${theme}, ${seed}, ${radius}`);
+}
+
 /* --- 6. SELECTION CONTROLS --- */
 function initSelectionControls() {
     document.querySelectorAll('.chip').forEach(chip => {
@@ -340,20 +352,17 @@ function initInteractions() {
         // Icon Toolbar Toggle
         const toolbarTrigger = e.target.closest('[data-action="toggle-toolbar"]');
         if (toolbarTrigger) {
-             // Only toggle if clicking the trigger button OR if it's already open (to allow closing by clicking elsewhere if needed, but here simple toggle)
-             // Actually, let's make it so clicking the *trigger* button toggles it. 
-             // If it's collapsed, any click opens it. 
              const toolbar = toolbarTrigger;
+             const isTriggerClick = e.target.closest('.trigger');
+
              if(toolbar.classList.contains('collapsed')) {
                  toolbar.classList.remove('collapsed');
-             } else {
-                 // If open, only close if clicking the trigger again? 
-                 // For this demo, let's just toggle on click of the container or specific close button.
-                 // Let's use the trigger button logic.
-                 const btn = e.target.closest('.trigger');
-                 if(btn) toolbar.classList.add('collapsed');
+                 return; // Handled opening
+             } else if (isTriggerClick) {
+                 toolbar.classList.add('collapsed');
+                 return; // Handled closing
              }
-             return;
+             // If open and NOT clicking trigger, let it fall through to selection logic below
         }
 
          // FAB Morph
@@ -415,6 +424,33 @@ function initInteractions() {
             if(contentArea) {
                 contentArea.innerText = drawerItem.innerText.trim();
                 contentArea.style.opacity = '1';
+            }
+            return;
+        }
+
+        // TextField Clear Logic
+        const clearBtn = e.target.closest('[data-action="clear-input"]');
+        if (clearBtn) {
+            const field = clearBtn.closest('.md-field, .expressive-input-group');
+            if (field) {
+                const input = field.querySelector('input');
+                if (input) {
+                    input.value = '';
+                    input.focus();
+                    // Manually trigger input event if needed for listeners
+                    input.dispatchEvent(new Event('input', { bubbles: true }));
+                }
+            }
+            return;
+        }
+
+        // Icon Toolbar Item Selection
+        const toolbarItem = e.target.closest('.icon-toolbar .icon-btn:not(.trigger)');
+        if (toolbarItem) {
+            const toolbar = toolbarItem.closest('.icon-toolbar');
+            if (toolbar) {
+                toolbar.querySelectorAll('.icon-btn').forEach(btn => btn.classList.remove('active'));
+                toolbarItem.classList.add('active');
             }
             return;
         }

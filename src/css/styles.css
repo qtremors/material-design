@@ -143,6 +143,33 @@ span.ripple {
     background: var(--md-sys-color-surface-container-high);
 }
 
+/* --- EXPRESSIVE & SEMANTIC CARDS --- */
+.expressive-card {
+    border-radius: 28px;
+    padding: 32px;
+    transition: all 0.4s cubic-bezier(0.2, 0, 0, 1);
+}
+.expressive-card:hover {
+    transform: translateY(-4px) scale(1.01);
+    box-shadow: var(--md-sys-elevation-3);
+}
+
+.card-semantic {
+    border-left: 4px solid transparent;
+}
+.card-success { border-left-color: var(--md-sys-color-success); background: var(--md-sys-color-success-container); color: var(--md-sys-color-on-success-container); }
+.card-warning { border-left-color: var(--md-sys-color-warning); background: var(--md-sys-color-warning-container); color: var(--md-sys-color-on-warning-container); }
+.card-error { border-left-color: var(--md-sys-color-error); background: var(--md-sys-color-error-container); color: var(--md-sys-color-on-error-container); }
+
+.card-entrance {
+    animation: cardFadeIn 0.6s cubic-bezier(0.2, 0, 0, 1) both;
+}
+
+@keyframes cardFadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
 /* --- NAVIGATION --- */
 .md-top-app-bar, .top-app-bar {
     position: fixed; top: 0; left: 0; right: 0; height: 64px;
@@ -620,6 +647,13 @@ p { font: var(--md-sys-typescale-body-large); margin-bottom: 16px; }
 }
 .icon-toolbar.collapsed .icon-btn.trigger {
     pointer-events: auto; opacity: 1; width: 40px; color: inherit;
+}
+.icon-toolbar .icon-btn.trigger {
+    color: var(--md-sys-color-primary); /* Keep primary color even when expanded */
+    background: var(--md-sys-color-primary-container);
+}
+.icon-toolbar.collapsed .icon-btn.trigger {
+    background: transparent; /* Container handles it when collapsed */
 }
 .icon-toolbar .icon-btn {
     transition: 0.3s; opacity: 1; width: 40px;
