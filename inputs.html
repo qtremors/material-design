@@ -86,23 +86,7 @@
 
         /* --- Chips --- */
         .chip-set { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
-        .chip {
-            height: 32px; display: inline-flex; align-items: center; padding: 0 16px;
-            border-radius: 8px; border: 1px solid var(--md-sys-color-outline);
-            background: transparent; color: var(--md-sys-color-on-surface-variant);
-            font-size: 14px; font-weight: 500; cursor: pointer; transition: 0.2s; user-select: none;
-        }
-        .chip:hover { background-color: rgba(0,0,0,0.04); }
-        .chip.active {
-            background-color: var(--md-sys-color-secondary-container);
-            color: var(--md-sys-color-on-secondary-container); border-color: transparent;
-        }
-        .chip .material-symbols-rounded { font-size: 18px; margin-right: 8px; margin-left: -4px; }
-        .chip .close-icon { margin-right: -4px; margin-left: 8px; font-size: 16px; }
-        .chip-avatar {
-            width: 24px; height: 24px; border-radius: 50%; margin-left: -12px; margin-right: 8px;
-            object-fit: cover;
-        }
+
         
     </style>
 </head>
@@ -159,6 +143,18 @@
                          <div class="md-field" style="background: transparent; border: 1px solid var(--md-sys-color-outline); border-radius: 4px;">
                             <input type="text" id="tf4" placeholder=" ">
                             <label for="tf4">Outlined Field</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Expressive Text Fields (New from md3.html) -->
+                <div class="md-card">
+                    <h3>Expressive Fields (from md3.html)</h3>
+                    <p>Uses a floating label style where the label sits on the border.</p>
+                    <div style="display: flex; flex-direction: column; gap: 16px;">
+                        <div class="expressive-input-group">
+                            <input type="text" class="expressive-text-field" placeholder=" " id="exp-input1">
+                            <label for="exp-input1" class="expressive-input-label">Label text</label>
                         </div>
                     </div>
                 </div>
@@ -254,17 +250,34 @@
                 
                 <h4>Filter Chips</h4>
                 <div class="chip-set">
-                    <div class="chip ripple-target" data-toggle="true">Filter 1</div>
+                    <div class="chip ripple-target active" data-toggle="true">
+                        <span class="material-symbols-rounded check-icon" style="font-size: 18px; margin-right: 8px; margin-left: -4px;">check</span>
+                        Filter 1
+                    </div>
                     <div class="chip ripple-target" data-toggle="true">Filter 2</div>
                     <div class="chip ripple-target" data-toggle="true">Filter 3</div>
                 </div>
 
-                 <h4>Input Chips</h4>
+                <h4>Input Chips</h4>
                 <div class="chip-set">
-                    <div class="chip ripple-target" style="padding-left: 12px;">
+                    <div class="chip ripple-target">
                         <img src="https://i.pravatar.cc/150?u=a042581f4e29026024d" class="chip-avatar">
                         Person Name
                         <span class="material-symbols-rounded close-icon">close</span>
+                    </div>
+                    <div class="chip ripple-target">
+                        <div class="chip-avatar initial">J</div>
+                        Jane Doe
+                        <span class="material-symbols-rounded close-icon">close</span>
+                    </div>
+                </div>
+
+                <h4>Squircle Chips</h4>
+                <div class="chip-set">
+                    <div class="chip chip-squircle ripple-target">Small Radius</div>
+                    <div class="chip chip-squircle ripple-target active" data-toggle="true">
+                        <span class="material-symbols-rounded check-icon" style="font-size: 18px; margin-right: 8px; margin-left: -4px;">check</span>
+                        Filter 1
                     </div>
                 </div>
             </div>

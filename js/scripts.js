@@ -179,10 +179,13 @@ function initSelectionControls() {
     // Chip Toggling
     document.querySelectorAll('.chip').forEach(chip => {
         chip.addEventListener('click', () => {
-            if(chip.getAttribute('data-toggle') === 'true') {
+            // Check if it's a filter chip (toggleable)
+            if(chip.getAttribute('data-toggle') === 'true' || chip.classList.contains('filter-chip')) {
                 chip.classList.toggle('active');
-                // Optional: Toggle check icon logic
-                const icon = chip.querySelector('.material-symbols-rounded.check-icon');
+                
+                // Toggle check icon logic
+                const icon = chip.querySelector('.check-icon');
+                
                 if(chip.classList.contains('active')) {
                     if(!icon) {
                         const newIcon = document.createElement('span');
@@ -190,6 +193,7 @@ function initSelectionControls() {
                         newIcon.innerText = 'check';
                         newIcon.style.fontSize = '18px';
                         newIcon.style.marginRight = '8px';
+                        newIcon.style.marginLeft = '-4px'; // Offset for alignment
                         chip.prepend(newIcon);
                     }
                 } else {
