@@ -5,6 +5,17 @@
 > **Last Updated:** 2026-02-13
 
 
+
+## [1.1.1] - 2026-02-13
+
+### Fixed
+-   **Security:** Replaced inline `onclick` handlers with `data-action` attributes in `navigation.html`.
+-   **Settings:** Fixed duplicated DOM nesting in `settings.html` and improved reset functionality to only clear relevant keys.
+-   **Tabs:** Scoped tab panel toggling to the parent container to prevent conflicts.
+
+### Changed
+-   **Refactor:** Updated `navigation.js` path detection to be environment-agnostic using script tag inspection.
+
 ## [1.1.0] - 2026-02-13
 
 ### Security
@@ -13,7 +24,7 @@
 
 ### Added
 -   **Mobile Navigation:** Added `.menu-trigger` buttons to all content pages to allow Drawer access on mobile devices.
--   **Interactions:** Centralized event delegation in `scripts.js` for handling Dialogs, Snacbars, Sheets, and Theme Toggles.
+-   **Interactions:** Centralized event delegation in `scripts.js` for handling Dialogs, Snackbars, Sheets, and Theme Toggles.
 
 ### Fixed
 -   **UI:** Fixed vertical misalignment between the Hamburger Menu icon and Page Title in the top app bar.

@@ -4,8 +4,6 @@
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Check if we need to polyfill navigation if the script ran before DOMContentLoaded
-    // (navigation.js sometimes runs immediately if placed in body, allowing this is safer)
     if (!document.querySelector('.md-nav-rail')) {
         if (typeof renderNavigation === 'function') renderNavigation();
     }
@@ -55,10 +53,9 @@ function initNavigation() {
     const drawer = document.getElementById('navDrawer');
     const overlay = document.getElementById('drawerOverlay');
 
-    if (menuBtns.length > 0) { // Changed from length check to > 0
-        // Use Delegation for triggers potentially added later
+    if (menuBtns.length > 0) {
         document.body.addEventListener('click', (e) => {
-            if (e.target.closest('.menu-trigger') || e.target.closest('#menuBtn')) {
+            if (e.target.closest('.menu-trigger') || e.target.closest('#menuBtn') || e.target.closest('[data-action="toggle-drawer"]')) {
                 toggleDrawer();
             }
         });
@@ -66,7 +63,7 @@ function initNavigation() {
         if (overlay) overlay.addEventListener('click', toggleDrawer);
     }
     
-    // Accessibility: Keyboard support for menu triggers
+
     document.body.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
             const trigger = e.target.closest('.menu-trigger');
@@ -94,14 +91,13 @@ function toggleDrawer() {
 }
 
 /* --- 3. THEME TOGGLING --- */
-// (Handled effectively in theme.js, ensuring accessibility there)
+
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' || e.key === ' ') {
         const themeToggle = e.target.closest('#themeToggle');
         if (themeToggle) {
             e.preventDefault();
-             // Simulate click for theme.js to handle
-            themeToggle.click();
+             themeToggle.click();
         }
         
         const swatch = e.target.closest('.color-swatch');
@@ -117,7 +113,6 @@ document.addEventListener('keydown', (e) => {
 function initTabs() {
     const tabs = document.querySelectorAll('.md-tab');
     tabs.forEach(tab => {
-        // Prepare Accessibility
         tab.setAttribute('role', 'tab');
         tab.setAttribute('tabindex', '0');
         
@@ -135,11 +130,9 @@ function initTabs() {
 }
 
 function handleTabSwitch(tab) {
-    // Find parent group
     const group = tab.parentElement;
     if(!group) return;
     
-    // Deactivate siblings
     group.querySelectorAll('.md-tab').forEach(t => {
         t.classList.remove('active');
         t.setAttribute('aria-selected', 'false');
@@ -147,12 +140,19 @@ function handleTabSwitch(tab) {
     tab.classList.add('active');
     tab.setAttribute('aria-selected', 'true');
 
-    // Find target content
     const targetId = tab.getAttribute('data-target');
     if(targetId) {
-        document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-        const target = document.getElementById(targetId);
-        if(target) target.classList.add('active');
+        const context = group.parentElement;
+        
+        if (context) {
+             context.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+             const target = context.querySelector(`#${targetId}`) || document.getElementById(targetId);
+             if(target) target.classList.add('active');
+        } else {
+             document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+             const target = document.getElementById(targetId);
+             if(target) target.classList.add('active');
+        }
     }
 }
 
@@ -168,10 +168,8 @@ function initDialogs() {
         const dialog = document.getElementById(id || 'defaultDialog');
         if(!dialog) return;
 
-        // Parent Backdrop
         const backdrop = dialog.closest('.dialog-backdrop') || document.getElementById('dialog-backdrop');
         
-        // Toggle visibility if multiple dialogs share a backdrop
         if(backdrop) {
              backdrop.querySelectorAll('.dialog').forEach(d => d.classList.add('hidden'));
              dialog.classList.remove('hidden');
@@ -180,7 +178,7 @@ function initDialogs() {
     }
 
     window.closeDialog = (event, id) => {
-        if(event) event.stopPropagation(); // Prevent ripple or other clicks
+        if(event) event.stopPropagation();
         const backdrop = id ? document.getElementById(id) : document.querySelector('.dialog-backdrop.open');
         if(backdrop) backdrop.classList.remove('open');
     }
@@ -221,9 +219,8 @@ function showSnackbar(text) {
 
 /* --- 6. SELECTION CONTROLS --- */
 function initSelectionControls() {
-    // Chip Toggling
     document.querySelectorAll('.chip').forEach(chip => {
-        // Accessibility
+
         if(chip.classList.contains('active') || chip.getAttribute('data-toggle') === 'true') {
              chip.setAttribute('role', 'button');
              chip.setAttribute('tabindex', '0');
@@ -240,11 +237,9 @@ function initSelectionControls() {
 }
 
 function toggleChip(chip) {
-    // Check if it's a filter chip (toggleable)
     if(chip.getAttribute('data-toggle') === 'true' || chip.classList.contains('filter-chip')) {
         chip.classList.toggle('active');
         
-        // Toggle check icon logic
         const icon = chip.querySelector('.check-icon');
         
         if(chip.classList.contains('active')) {
@@ -254,7 +249,7 @@ function toggleChip(chip) {
                 newIcon.innerText = 'check';
                 newIcon.style.fontSize = '18px';
                 newIcon.style.marginRight = '8px';
-                newIcon.style.marginLeft = '-4px'; // Offset for alignment
+                newIcon.style.marginLeft = '-4px';
                 chip.prepend(newIcon);
             }
         } else {
@@ -268,14 +263,12 @@ function toggleChip(chip) {
 function initInteractions() {
     document.body.addEventListener('click', (e) => {
         
-        // A. Toggle Loading State
         const loadBtn = e.target.closest('[data-action="toggle-loading"]');
         if (loadBtn && !loadBtn.disabled) {
             loadBtn.classList.toggle('is-loading');
             return;
         }
 
-        // B. Segmented Button Selection
         const segBtn = e.target.closest('[data-action="segment-pick"]');
         if (segBtn && !segBtn.disabled) {
             const group = segBtn.closest('.segmented-btn-group');
@@ -286,14 +279,12 @@ function initInteractions() {
             return;
         }
 
-        // C. Segmented Button Toggle (Multi)
         const multiBtn = e.target.closest('[data-action="segment-toggle"]');
         if (multiBtn && !multiBtn.disabled) {
             multiBtn.classList.toggle('selected');
             return;
         }
 
-        // D. Open Dialog
         const openDialogBtn = e.target.closest('[data-action="open-dialog"]');
         if (openDialogBtn && !openDialogBtn.disabled) {
             const targetId = openDialogBtn.getAttribute('data-target');
@@ -301,14 +292,12 @@ function initInteractions() {
             return;
         }
 
-        // E. Close Dialog
         const closeDialogBtn = e.target.closest('[data-action="close-dialog"]');
         if (closeDialogBtn && !closeDialogBtn.disabled) {
             if (window.closeDialog) window.closeDialog(e);
             return;
         }
 
-        // F. Open Sheet
         const openSheetBtn = e.target.closest('[data-action="open-sheet"]');
         if (openSheetBtn && !openSheetBtn.disabled) {
              const targetId = openSheetBtn.getAttribute('data-target');
@@ -316,14 +305,12 @@ function initInteractions() {
              return;
         }
 
-        // G. Close Sheet
         const closeSheetBtn = e.target.closest('[data-action="close-sheet"]');
         if (closeSheetBtn && !closeSheetBtn.disabled) {
              if(window.closeSheet) window.closeSheet();
              return;
         }
 
-        // H. Show Snackbar
         const snackbarBtn = e.target.closest('[data-action="show-snackbar"]');
         if (snackbarBtn && !snackbarBtn.disabled) {
              const text = snackbarBtn.getAttribute('data-text');
@@ -332,19 +319,16 @@ function initInteractions() {
         }
     });
 
-    // Keyboard support for those actions
     document.body.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
             const target = e.target.closest('[data-action]');
             if(target) {
-                // If it's a "button" like element, prevent scrolling space
                 e.preventDefault();
-                target.click(); // Trigger the click handler above
+                target.click();
             }
         }
     });
     
-    // Dialog Backdrop Close Delegation (replaces inline onclick)
     document.body.addEventListener('click', (e) => {
         if (e.target.classList.contains('dialog-backdrop')) {
             window.closeDialog(e);

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Settings|Material Design</title>
+    <title>Settings | Material Design</title>
     <link rel="icon" type="image/png" href="assets/material-design.png">
     
     <!-- Fonts & Icons -->
@@ -183,13 +183,11 @@
                         <div class="control-desc">Adjust the roundness of components</div>
                     </div>
                     <div class="toggle-group">
-                    <div class="toggle-group">
                         <button class="toggle-btn" data-action="set-radius" data-value="small" data-radius="small">Small</button>
                         <button class="toggle-btn" data-action="set-radius" data-value="medium" data-radius="medium">Medium</button>
                         <button class="toggle-btn" data-action="set-radius" data-value="large" data-radius="large">Large</button>
                         <button class="toggle-btn" data-action="set-radius" data-value="full" data-radius="full">Full</button>
                     </div>
-                </div>
 
                 <!-- Typography Removed per user request -->
             </div>
@@ -246,7 +244,6 @@
     <script>
         // Settings Page Logic
         
-        // This function is hooked into theme.js
         window.updateSettingsUI = function() {
             const root = document.documentElement;
             
@@ -296,14 +293,17 @@
             
             const resetBtn = target.closest('[data-action="reset-settings"]');
             if(resetBtn) {
-                localStorage.clear();
+                localStorage.removeItem('theme');
+                localStorage.removeItem('seed');
+                localStorage.removeItem('radius');
+                
                 window.name = ''; 
                 location.reload();
                 return;
             }
         });
 
-        // Init
+
 
     </script>
 </body>
