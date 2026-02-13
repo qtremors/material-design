@@ -1,11 +1,39 @@
 # Material Design Changelog
 
 > **Project:** Material Design  
-> **Version:** 1.2.7  
+> **Version:** 1.3.0  
 > **Last Updated:** 2026-02-13
 
 ---
 
+## [1.3.0] - 2026-02-13
+
+### Added
+- **High-Fidelity Interaction Engine:**
+    - **Expressive Slider Fill:** Implemented a dynamic `linear-gradient` active fill for thick sliders.
+    - **Squiggly Slider Refinement:** Optimized track geometry to prevent overlapping lines, ensuring the squiggle meets the inactive track precisely at the thumb.
+    - **Stagger Animations:** Switched all staggered entrance effects to use `IntersectionObserver` for viewport-based triggering.
+- **Mobile Experience Optimizations:**
+    - **Horizontal Scroll:** Added `.scroll-x` utility for chips and small components.
+    - **Navigation Spacing:** Refined Drawer and Rail padding for better mobile density.
+    - **Top Bar Toggle:** Injected a streamlined dark mode toggle for mobile viewports.
+- **Component Library Enhancements:**
+    - **Banner:** Added `.md-banner` with slide-in motion and responsive action wrapping.
+    - **Pill Toasts:** Overhauled snackbars with a modern pill-shaped design and variants (Success, Error, Info, Warning).
+    - **Card Refinements:** New expressive card layout with 3-dot action menus.
+    - **Icon Buttons:** Added "Favorite" and "Save" variants.
+    - **Music Widgets:** Added a premium suite of music players (Card, Circular, Compact, Daily Mix) with high-fidelity "Try Me" metadata.
+    - **Layout Reorganization:** Consolidated "Standard Cards" into a cleaner "Cards" section and moved functional widgets to a dedicated "Widgets" area.
+- **Legacy Support:**
+    - **M2 Switches:** Implemented high-fidelity "Old Material" switches (thin track, large elevated thumb) usable via explicit classes.
+
+### Fixed
+- **Settings Audit:** Performed a complete cleanup of `settings.html`, removing dead JS logic and the redundant Visual Style selector for a cleaner UX.
+- **Bug Fixes:**
+    - **Mobile Theme Toggle:** Resolved duplicate header icons on palette-enabled pages.
+    - **Component Alignment:** Fixed vertical centering for toast icons and M2 switch handles (z-index and offset correction).
+    - **Visual Polish:** Fixed musical note alignment in the Compact Music Widget (pixel-perfect centering) and restored the high-contrast Daily Mix list style.
+    - **Expressive Slider CSS:** Consolidated all slider styles from page-level overrides into the global `styles.css`.
 
 ## [1.2.7] - 2026-02-13
 

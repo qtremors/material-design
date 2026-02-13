@@ -97,31 +97,8 @@ const ThemeEngine = {
      * Bind click listeners to theme toggles and color swatches
      */
     bindUI() {
-        // Theme Toggle Button - Event Delegation
-        document.addEventListener('click', (e) => {
-            const themeBtn = e.target.closest('#themeToggle');
-            if (themeBtn) {
-                e.preventDefault();
-                this.state.theme = this.state.theme === 'dark' ? 'light' : 'dark';
-                this.save();
-                this.apply();
-            }
-        });
-
         // Update icon on load if it exists (for static pages)
-        const staticBtn = document.getElementById('themeToggle');
-        if (staticBtn) this.updateThemeIcon(staticBtn);
-
-        // Color Swatches (Header)
-        const swatches = document.querySelectorAll('.color-swatch');
-        swatches.forEach(swatch => {
-            swatch.onclick = () => {
-                this.state.seed = swatch.getAttribute('data-seed');
-                this.save();
-                this.apply();
-            };
-        });
-
+        this.updateAllThemeIcons();
         this.updateUI();
     },
 
@@ -129,9 +106,8 @@ const ThemeEngine = {
      * Update active states of UI elements
      */
     updateUI() {
-        // Update Toggle Icon
-        const themeBtn = document.getElementById('themeToggle');
-        if (themeBtn) this.updateThemeIcon(themeBtn);
+        // Update All Toggle Icons
+        this.updateAllThemeIcons();
 
         // Update Swatches Active State
         const swatches = document.querySelectorAll('.color-swatch');
@@ -146,11 +122,14 @@ const ThemeEngine = {
         }
     },
 
-    updateThemeIcon(btn) {
-        const icon = btn.querySelector('.material-symbols-rounded, .material-symbols-outlined');
-        if (icon) {
-            icon.innerText = this.state.theme === 'dark' ? 'light_mode' : 'dark_mode';
-        }
+    updateAllThemeIcons() {
+        const toggles = document.querySelectorAll('#themeToggle, #mobileThemeToggle');
+        toggles.forEach(btn => {
+            const icon = btn.querySelector('.material-symbols-rounded, .material-symbols-outlined');
+            if (icon) {
+                icon.innerText = this.state.theme === 'dark' ? 'light_mode' : 'dark_mode';
+            }
+        });
     }
 };
 
