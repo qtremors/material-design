@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initSelectionControls();
     initSliders(); // Slider Progress Tracker
     initInteractions(); // Generalized Interaction Handler
+    initExpressiveAnimations();
 });
 
 /* --- 1. RIPPLE ENGINE --- */
@@ -380,9 +381,13 @@ function initInteractions() {
          const hDrawerTrigger = e.target.closest('[data-action="toggle-horizontal-drawer"]');
          if (hDrawerTrigger) {
              const container = hDrawerTrigger.closest('.horizontal-drawer-container');
+             if (!container) return;
+
              const drawer = container.querySelector('.horizontal-drawer');
              const icon = hDrawerTrigger.querySelector('span');
              
+             if (!drawer || !icon) return;
+
              // Check computed style or inline style
              if (drawer.style.width === '0px' || drawer.style.width === '' || drawer.style.width === '0') {
                  drawer.style.width = '240px'; 
@@ -437,13 +442,16 @@ function initInteractions() {
 
 /* --- 8. EXPRESSIVE ANIMATIONS --- */
 function initExpressiveAnimations() {
-    // Wavy Progress Loop
-    setInterval(() => {
-        document.querySelectorAll('.progress-wavy .bar').forEach(bar => {
-            const width = Math.random() * 60 + 20; // Random between 20-80%
-            bar.style.width = `${width}%`;
-        });
-    }, 2000);
+    // Squiggly Progress Loop
+    const wavyBars = document.querySelectorAll('.progress-wavy .bar');
+    if (wavyBars.length > 0) {
+        setInterval(() => {
+            wavyBars.forEach(bar => {
+                const width = Math.random() * 60 + 20; // Random between 20-80%
+                bar.style.width = `${width}%`;
+            });
+        }, 2000);
+    }
 
     // Segmented Progress Loop
     const segments = document.querySelectorAll('.progress-segmented .segment');
@@ -460,7 +468,3 @@ function initExpressiveAnimations() {
         }, 1000);
     }
 }
-// Add to init
-document.addEventListener('DOMContentLoaded', () => {
-    initExpressiveAnimations();
-});

@@ -34,10 +34,7 @@ function isValidUrl(url) {
 }
 
 function renderNavigation() {
-    if (window.location.pathname.includes('/src/')) {
-        isInSrc = true;
-    }
-
+    let isInSrc = window.location.pathname.includes('/src/');
     const page = window.location.pathname.split("/").pop() || 'index.html';
 
     const script = document.querySelector('script[src$="navigation.js"]');

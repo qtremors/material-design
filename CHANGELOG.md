@@ -1,14 +1,18 @@
 # Material Design Changelog
 
 > **Project:** Material Design  
-> **Version:** 1.2.4  
+> **Version:** 1.2.5  
 > **Last Updated:** 2026-02-13
 
 ---
 
+## [1.2.5] - 2026-02-13
 
-
-
+### Fixed (PR Review)
+-   **Navigation:** Eliminated implicit global `isInSrc` and simplified path detection logic for better reliability.
+-   **Stability:** Added defensive null-guards to the Horizontal Drawer toggle logic to prevent potential TypeErrors.
+-   **Performance:** Optimized `initExpressiveAnimations` to only start its loop if target elements are present on the page.
+-   **Refactor:** Unified component initialization within the main `DOMContentLoaded` handler.
 
 ## [1.2.4] - 2026-02-13
 
