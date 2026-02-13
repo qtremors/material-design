@@ -2,7 +2,7 @@
 
 > Comprehensive documentation for developers working on Material Design.
 
-**Version:** 1.2.0 | **Last Updated:** 2026-02-13
+**Version:** 1.2.1 | **Last Updated:** 2026-02-13
 
 ---
 

@@ -1,10 +1,20 @@
 # Material Design Changelog
 
 > **Project:** Material Design  
-> **Version:** 1.2.0  
+> **Version:** 1.2.1  
 > **Last Updated:** 2026-02-13
 
 ---
+
+
+## [1.2.1] - 2026-02-13
+
+### Technical Compliance
+-   **Tokens:** Standardized the design token system with complete MD3 roles including `surface-variant`, `inverse-surface`, and `inverse-primary`.
+-   **RGB Variants:** Added `--md-sys-color-*-rgb` tokens to support high-fidelity interaction effects like slider halos.
+-   **States:** Replaced hardcoded interaction layers with a standardized `::before` state layer system using MD3 opacities.
+-   **Elevation:** Implemented the "Tonal Elevation" logic where elevated surfaces receive a primary-tinted container overlay.
+-   **Motion:** Standardized component transitions (Labels, Drawers, Speed Dials) using MD3-standard cubic-bezier curves.
 
 ## [1.2.0] - 2026-02-13
 
