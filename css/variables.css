@@ -3,28 +3,7 @@
    Merged from material-design-v2.html (Standard) & md31.html/md32.html (Expressive)
    ========================================= */
 
-/* --- SHAPE OVERRIDES --- */
-[data-radius="small"] {
-    --md-sys-shape-corner-extra-small: 2px;
-    --md-sys-shape-corner-small: 4px;
-    --md-sys-shape-corner-medium: 6px;
-    --md-sys-shape-corner-large: 8px;
-    --md-sys-shape-corner-extra-large: 12px;
-}
-[data-radius="large"] {
-    --md-sys-shape-corner-extra-small: 8px;
-    --md-sys-shape-corner-small: 12px;
-    --md-sys-shape-corner-medium: 16px;
-    --md-sys-shape-corner-large: 24px;
-    --md-sys-shape-corner-extra-large: 32px;
-}
-[data-radius="full"] {
-    --md-sys-shape-corner-extra-small: 4px;
-    --md-sys-shape-corner-small: 16px;
-    --md-sys-shape-corner-medium: 24px;
-    --md-sys-shape-corner-large: 32px;
-    --md-sys-shape-corner-extra-large: 48px;
-}
+
 
 :root {
     /* --- TYPE SCALE (Standard - Roboto) --- */
@@ -321,4 +300,28 @@
     --md-sys-shape-corner-xl: 32px;
 }
 
+
 .expressive-text { font-variation-settings: 'wdth' 115; }
+
+/* --- SHAPE OVERRIDES (Must come after :root to override) --- */
+[data-radius="small"] {
+    --md-sys-shape-corner-extra-small: 2px;
+    --md-sys-shape-corner-small: 4px;
+    --md-sys-shape-corner-medium: 6px;
+    --md-sys-shape-corner-large: 8px;
+    --md-sys-shape-corner-extra-large: 12px;
+}
+[data-radius="large"] {
+    --md-sys-shape-corner-extra-small: 8px;
+    --md-sys-shape-corner-small: 12px;
+    --md-sys-shape-corner-medium: 16px;
+    --md-sys-shape-corner-large: 24px;
+    --md-sys-shape-corner-extra-large: 32px;
+}
+[data-radius="full"] {
+    --md-sys-shape-corner-extra-small: 4px;
+    --md-sys-shape-corner-small: 16px;
+    --md-sys-shape-corner-medium: 24px;
+    --md-sys-shape-corner-large: 32px;
+    --md-sys-shape-corner-extra-large: 48px;
+}

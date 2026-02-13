@@ -101,17 +101,21 @@ const ThemeEngine = {
      * Bind click listeners to theme toggles and color swatches
      */
     bindUI() {
-        // Theme Toggle Button (Global)
-        const themeBtn = document.getElementById('themeToggle');
-        if (themeBtn) {
-            this.updateThemeIcon(themeBtn);
-            themeBtn.onclick = (e) => {
-                e.preventDefault(); // Prevent link nav if anchor
+        // Theme Toggle Button (Global) - Event Delegation
+        // Handles dynamically injected navigation elements
+        document.addEventListener('click', (e) => {
+            const themeBtn = e.target.closest('#themeToggle');
+            if (themeBtn) {
+                e.preventDefault();
                 this.state.theme = this.state.theme === 'dark' ? 'light' : 'dark';
                 this.save();
                 this.apply();
-            };
-        }
+            }
+        });
+
+        // Update icon on load if it exists (for static pages)
+        const staticBtn = document.getElementById('themeToggle');
+        if (staticBtn) this.updateThemeIcon(staticBtn);
 
         // Color Swatches (Header)
         const swatches = document.querySelectorAll('.color-swatch');
