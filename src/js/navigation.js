@@ -12,6 +12,17 @@ const NAV_ITEMS = [
 function renderNavigation() {
     const path = window.location.pathname;
     const page = path.split("/").pop() || 'index.html';
+    
+    // Determine if we are inside the 'src' directory or at root
+    // Simple heuristic: check if path contains '/src/'
+    // Note: This relies on the folder name being 'src'. 
+    const isInSrc = path.includes('/src/');
+    
+    // Calculate prefixes
+    // If in src: link to siblings is "", link to home (root) is "../"
+    // If at root: link to siblings (src) is "src/", link to home is ""
+    const siblingPrefix = isInSrc ? '' : 'src/';
+    const homePrefix = isInSrc ? '../' : '';
 
     // RAIL HTML
     let railHtml = `
@@ -22,13 +33,21 @@ function renderNavigation() {
     `;
 
     NAV_ITEMS.forEach(item => {
+        // Determine the actual href for this item
+        let href = '';
+        if (item.url === 'index.html') {
+            href = homePrefix + item.url;
+        } else {
+            href = siblingPrefix + item.url;
+        }
+
         const isActive = item.url === page ? 'active' : '';
         let displayLabel = item.label;
         if(item.label === 'Navigation') displayLabel = 'Nav';
         if(item.label === 'Typography') displayLabel = 'Type';
 
         railHtml += `
-        <a href="${item.url}" class="md-rail-item ${isActive}" title="${item.label}">
+        <a href="${href}" class="md-rail-item ${isActive}" title="${item.label}">
             <div class="icon-container"><span class="material-symbols-rounded">${item.icon}</span></div>
             <span class="label">${displayLabel}</span>
         </a>
@@ -54,13 +73,20 @@ function renderNavigation() {
     `;
 
     NAV_ITEMS.forEach(item => {
+        // Determine the actual href for this item
+        let href = '';
+        if (item.url === 'index.html') {
+            href = homePrefix + item.url;
+        } else {
+            href = siblingPrefix + item.url;
+        }
+
         const isActive = item.url === page ? 'active' : '';
         drawerHtml += `
-            <a href="${item.url}" class="drawer-item ${isActive} ripple-target">
+            <a href="${href}" class="drawer-item ${isActive} ripple-target">
                 <span class="material-symbols-rounded">${item.icon}</span> ${item.label}
             </a>
         `;
-        // Divider after Navigation item in original
         if (item.label === 'Navigation') {
              drawerHtml += `<hr style="border: 0; border-top: 1px solid var(--md-sys-color-outline-variant); margin: 8px 0;">`;
         }
