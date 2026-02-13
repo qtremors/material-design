@@ -55,79 +55,7 @@
 </head>
 <body data-theme="light" data-seed="blue">
 
-    <!-- Navigation Rail -->
-    <nav class="md-nav-rail">
-        <div class="menu-trigger ripple-target" style="padding: 12px; margin-bottom: 24px; cursor: pointer;">
-            <span class="material-symbols-rounded">menu</span>
-        </div>
-        
-
-
-        <a href="index.html" class="md-rail-item" title="Dashboard">
-            <div class="icon-container"><span class="material-symbols-rounded">dashboard</span></div>
-            <span class="label">Home</span>
-        </a>
-        <a href="buttons.html" class="md-rail-item" title="Buttons">
-             <div class="icon-container"><span class="material-symbols-rounded">smart_button</span></div>
-            <span class="label">Buttons</span>
-        </a>
-        <a href="inputs.html" class="md-rail-item" title="Inputs">
-             <div class="icon-container"><span class="material-symbols-rounded">text_fields</span></div>
-            <span class="label">Inputs</span>
-        </a>
-        <a href="cards.html" class="md-rail-item active" title="Cards">
-             <div class="icon-container"><span class="material-symbols-rounded">view_quilt</span></div>
-            <span class="label">Cards</span>
-        </a>
-        <a href="navigation.html" class="md-rail-item" title="Navigation">
-             <div class="icon-container"><span class="material-symbols-rounded">menu_open</span></div>
-            <span class="label">Nav</span>
-        </a>
-        <a href="feedback.html" class="md-rail-item" title="Feedback">
-             <div class="icon-container"><span class="material-symbols-rounded">campaign</span></div>
-            <span class="label">Feedback</span>
-        </a>
-        <a href="typography.html" class="md-rail-item" title="Typography">
-             <div class="icon-container"><span class="material-symbols-rounded">text_format</span></div>
-            <span class="label">Type</span>
-        </a>
-        
-        <div style="flex:1"></div>
-        <div id="themeToggle" class="md-rail-item" style="cursor: pointer;">
-             <div class="icon-container"><span class="material-symbols-rounded">dark_mode</span></div>
-        </div>
-    </nav>
-
-    <!-- MOBILE DRAWER -->
-    <div id="drawerOverlay" class="md-drawer-overlay"></div>
-    <aside id="navDrawer" class="md-drawer">
-        <div style="padding: 24px; font: var(--md-sys-typescale-title-large); color: var(--md-sys-color-primary);">
-            Material Showcase
-        </div>
-        <div class="drawer-content">
-            <a href="index.html" class="drawer-item ripple-target">
-                <span class="material-symbols-rounded">dashboard</span> Home
-            </a>
-            <a href="buttons.html" class="drawer-item ripple-target">
-                <span class="material-symbols-rounded">smart_button</span> Buttons
-            </a>
-            <a href="inputs.html" class="drawer-item ripple-target">
-                <span class="material-symbols-rounded">text_fields</span> Inputs
-            </a>
-            <a href="cards.html" class="drawer-item active ripple-target">
-                <span class="material-symbols-rounded">view_quilt</span> Cards
-            </a>
-            <a href="navigation.html" class="drawer-item ripple-target">
-                <span class="material-symbols-rounded">menu_open</span> Navigation
-            </a>
-            <a href="feedback.html" class="drawer-item ripple-target">
-                <span class="material-symbols-rounded">campaign</span> Feedback
-            </a>
-             <a href="typography.html" class="drawer-item ripple-target">
-                <span class="material-symbols-rounded">text_format</span> Typography
-            </a>
-        </div>
-    </aside>
+    <!-- Navigation injected by js/navigation.js -->
 
     <main style="flex: 1; margin-left: 80px; width: 100%;">
         <div class="top-app-bar">
@@ -238,6 +166,7 @@
         </div>
     </main>
 
+    <script src="js/navigation.js"></script>
     <script src="js/scripts.js"></script>
 </body>
 </html>

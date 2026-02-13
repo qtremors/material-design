@@ -4,6 +4,7 @@
    ========================================= */
 
 document.addEventListener('DOMContentLoaded', () => {
+    renderNavigation();
     initRipples();
     initNavigation();
     initTheme();
