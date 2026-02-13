@@ -67,7 +67,7 @@ function renderNavigation() {
     <div id="drawerOverlay" class="md-drawer-overlay"></div>
     <aside id="navDrawer" class="md-drawer">
         <div style="padding: 24px; font: var(--md-sys-typescale-title-large); color: var(--md-sys-color-primary);">
-            Material Showcase
+            Material Design
         </div>
         <div class="drawer-content">
     `;
