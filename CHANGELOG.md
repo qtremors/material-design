@@ -1,10 +1,21 @@
 # Material Design Changelog
 
 > **Project:** Material Design  
-> **Version:** 1.2.6  
+> **Version:** 1.2.7  
 > **Last Updated:** 2026-02-13
 
 ---
+
+
+## [1.2.7] - 2026-02-13
+
+### Fixed
+-   **PR Review Refinement (Batch 2):**
+    -   **Elevation:** Added missing `--md-sys-elevation-4` token for standard FAB hover states.
+    -   **Motion:** Extracted `--md-sys-motion-standard-easing` to fix redundant 200ms delays in wavy progress transitions.
+    -   **Color Sync:** Synchronized `--md-sys-color-primary-rgb` across all seed theme variations (Teal, Red, Red, Orange, etc.) to ensure accurate state layers.
+    -   **Dark Theme:** Fixed `--md-sys-color-secondary-rgb` mismatch in the dark theme.
+    -   **JS Stability:** Added parent-null guards in the `drawer-item-pick` handler to prevent runtime crashes.
 
 ## [1.2.6] - 2026-02-13
 

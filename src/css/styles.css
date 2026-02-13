@@ -694,7 +694,7 @@ p { font: var(--md-sys-typescale-body-large); margin-bottom: 16px; }
     mask-image: var(--wave-mask);
     -webkit-mask-image: var(--wave-mask);
     mask-size: 40px 100%; -webkit-mask-size: 40px 100%;
-    transition: width 0.5s var(--md-sys-motion-standard);
+    transition: width 0.5s var(--md-sys-motion-standard-easing);
     
     /* The magic of MD3 Expressive: The wave slides horizontally when active */
     animation: wave-slide 2s linear infinite;

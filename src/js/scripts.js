@@ -416,14 +416,18 @@ function initInteractions() {
         const drawerItem = e.target.closest('[data-action="drawer-item-pick"]');
         if (drawerItem) {
             const container = drawerItem.parentElement;
+            if (!container) return; // Safety guard
+            
             container.querySelectorAll('.drawer-item').forEach(item => item.classList.remove('active'));
             drawerItem.classList.add('active');
             
             // Optional: Update content area text for demo
-            const contentArea = container.parentElement.querySelector('div[style*="absolute"] span');
-            if(contentArea) {
-                contentArea.innerText = drawerItem.innerText.trim();
-                contentArea.style.opacity = '1';
+            if (container.parentElement) {
+                const contentArea = container.parentElement.querySelector('div[style*="absolute"] span');
+                if(contentArea) {
+                    contentArea.innerText = drawerItem.innerText.trim();
+                    contentArea.style.opacity = '1';
+                }
             }
             return;
         }

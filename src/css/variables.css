@@ -29,14 +29,16 @@
     --md-sys-shape-corner-full: 100px; /* Pill */
 
     /* --- MOTION --- */
-    --md-sys-motion-standard: 200ms cubic-bezier(0.2, 0.0, 0, 1.0);
-    --md-sys-motion-emphasized: 400ms cubic-bezier(0.2, 0.0, 0, 1.0);
+    --md-sys-motion-standard-easing: cubic-bezier(0.2, 0.0, 0, 1.0);
+    --md-sys-motion-standard: 200ms var(--md-sys-motion-standard-easing);
+    --md-sys-motion-emphasized: 400ms var(--md-sys-motion-standard-easing);
     --motion-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
     /* --- ELEVATION --- */
     --md-sys-elevation-1: 0 1px 2px rgba(0,0,0,0.3);
     --md-sys-elevation-2: 0 2px 6px 2px rgba(0,0,0,0.15);
     --md-sys-elevation-3: 0 4px 8px 3px rgba(0,0,0,0.15);
+    --md-sys-elevation-4: 0 6px 10px 4px rgba(0,0,0,0.15);
 
     /* --- BASE COLORS (Neutrals) --- */
     --md-sys-color-surface: #F4F7FC;
@@ -134,6 +136,7 @@
 /* TEAL (From md31/md32 implicit) */
 [data-seed="teal"] {
     --md-sys-color-primary: #006A6A;
+    --md-sys-color-primary-rgb: 0, 106, 106;
     --md-sys-color-on-primary: #FFFFFF;
     --md-sys-color-primary-container: #6FF7F6;
     --md-sys-color-on-primary-container: #002020;
@@ -149,6 +152,7 @@
 /* RED */
 [data-seed="red"] {
     --md-sys-color-primary: #B3261E;
+    --md-sys-color-primary-rgb: 179, 38, 30;
     --md-sys-color-on-primary: #FFFFFF;
     --md-sys-color-primary-container: #F9DEDC;
     --md-sys-color-on-primary-container: #410E0B;
@@ -157,6 +161,7 @@
 }
 [data-seed="pink"] {
     --md-sys-color-primary: #BC004B;
+    --md-sys-color-primary-rgb: 188, 0, 75;
     --md-sys-color-on-primary: #FFFFFF;
     --md-sys-color-primary-container: #FFD9DE;
     --md-sys-color-on-primary-container: #400014;
@@ -166,6 +171,7 @@
 /* ORANGE */
 [data-seed="orange"] {
     --md-sys-color-primary: #8B5000;
+    --md-sys-color-primary-rgb: 139, 80, 0;
     --md-sys-color-on-primary: #FFFFFF;
     --md-sys-color-primary-container: #FFDCBE;
     --md-sys-color-on-primary-container: #2C1600;
@@ -175,6 +181,7 @@
 /* YELLOW */
 [data-seed="yellow"] {
     --md-sys-color-primary: #6D5E00;
+    --md-sys-color-primary-rgb: 109, 94, 0;
     --md-sys-color-on-primary: #FFFFFF;
     --md-sys-color-primary-container: #FFE24B;
     --md-sys-color-on-primary-container: #211B00;
@@ -184,6 +191,7 @@
 /* CYAN */
 [data-seed="cyan"] {
     --md-sys-color-primary: #0097A7;
+    --md-sys-color-primary-rgb: 0, 151, 167;
     --md-sys-color-on-primary: #FFFFFF;
     --md-sys-color-primary-container: #8EF7FF;
     --md-sys-color-on-primary-container: #002022;
@@ -214,7 +222,7 @@
     --md-sys-color-on-primary-container: #D9E2FF;
     --md-sys-color-secondary-container: #3E4450;
     --md-sys-color-on-secondary-container: #DDE2F0;
-    --md-sys-color-secondary-rgb: 62, 68, 80;
+    --md-sys-color-secondary-rgb: 90, 93, 114; /* Corrected to match dark secondary */
 
     --md-sys-color-error: #FFB4AB;
     --md-sys-color-on-error: #690005;
