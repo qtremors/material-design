@@ -4,6 +4,25 @@
 > **Version:** 1.0.0  
 > **Last Updated:** 2026-02-13
 
+
+## [1.1.0] - 2026-02-13
+
+### Security
+-   **Refactor:** Removed inline `onclick` attributes from all HTML files to improve CSP compliance and security.
+-   **Hardening:** Implemented `escapeHtml` and `isValidUrl` in `navigation.js` to prevent XSS and Open Redirect vulnerabilities.
+
+### Added
+-   **Mobile Navigation:** Added `.menu-trigger` buttons to all content pages to allow Drawer access on mobile devices.
+-   **Interactions:** Centralized event delegation in `scripts.js` for handling Dialogs, Snacbars, Sheets, and Theme Toggles.
+
+### Fixed
+-   **UI:** Fixed vertical misalignment between the Hamburger Menu icon and Page Title in the top app bar.
+-   **Visual:** Fixed Ripple Effect positioning bug on Navigation Rail items (was appearing in top-left).
+-   **Accessibility:** Fixed poor text contrast on "Filled" buttons in Dark Mode by removing forced white text.
+
+### Changed
+-   **Architecture:** Moved from inline JavaScript to a global Event Delegation model using `data-action` attributes.
+
 ---
 
 ## [1.0.0] - 2026-02-13

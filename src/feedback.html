@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Feedback - Material Showcase</title>
+    <title>Feedback|Material Design</title>
+    <link rel="icon" type="image/png" href="assets/material-design.png">
     
     <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -45,6 +46,7 @@
 
     <main style="flex: 1; margin-left: 80px; width: 100%;">
         <div class="top-app-bar">
+            <span class="material-symbols-rounded menu-trigger" role="button" tabindex="0" aria-label="Open menu" style="margin-right: 16px; cursor: pointer; display: none;">menu</span>
             <h2>Feedback</h2>
             <div style="flex: 1"></div>
              <!-- Color Seeds -->
@@ -65,8 +67,8 @@
                     <h3>Dialogs</h3>
                     <p>Dialogs inform users about a task and can contain critical information.</p>
                     <div class="btn-row">
-                        <button class="md-btn md-btn-filled ripple-target" onclick="window.openDialog('alert-dialog')">Alert Dialog</button>
-                        <button class="md-btn md-btn-tonal ripple-target" onclick="window.openDialog('confirm-dialog')">Confirm Dialog</button>
+                        <button class="md-btn md-btn-filled ripple-target" data-action="open-dialog" data-target="alert-dialog">Alert Dialog</button>
+                        <button class="md-btn md-btn-tonal ripple-target" data-action="open-dialog" data-target="confirm-dialog">Confirm Dialog</button>
                     </div>
                 </div>
 
@@ -75,8 +77,8 @@
                     <h3>Snackbars</h3>
                     <p>Snackbars provide brief messages about app processes.</p>
                     <div class="btn-row">
-                        <button class="md-btn md-btn-outlined ripple-target" onclick="showSnackbar('Message sent')">Show Snackbar</button>
-                        <button class="md-btn md-btn-outlined ripple-target" onclick="showSnackbar('Connection restored')">Another Message</button>
+                        <button class="md-btn md-btn-outlined ripple-target" data-action="show-snackbar" data-text="Message sent">Show Snackbar</button>
+                        <button class="md-btn md-btn-outlined ripple-target" data-action="show-snackbar" data-text="Connection restored">Another Message</button>
                     </div>
                 </div>
             </div>
@@ -120,24 +122,24 @@
     </main>
 
     <!-- Dialogs -->
-    <div id="dialog-backdrop" class="dialog-backdrop" onclick="window.closeDialog(event)">
+    <div id="dialog-backdrop" class="dialog-backdrop">
         <!-- Alert Dialog -->
-        <div id="alert-dialog" class="dialog hidden" onclick="event.stopPropagation()">
+        <div id="alert-dialog" class="dialog hidden">
             <span class="material-symbols-rounded" style="color: var(--md-sys-color-secondary); font-size: 32px; margin-bottom: 16px;">info</span>
             <h3>Alert</h3>
             <p>This is a standard alert dialog. It conveys information that requires user acknowledgement.</p>
             <div style="display: flex; justify-content: flex-end; margin-top: 24px;">
-                <button class="md-btn md-btn-text ripple-target" onclick="window.closeDialog()">OK</button>
+                <button class="md-btn md-btn-text ripple-target" data-action="close-dialog">OK</button>
             </div>
         </div>
 
         <!-- Confirm Dialog -->
-        <div id="confirm-dialog" class="dialog hidden" onclick="event.stopPropagation()">
+        <div id="confirm-dialog" class="dialog hidden">
             <h3>Delete Item?</h3>
             <p>This action cannot be undone. Are you sure you want to proceed?</p>
             <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 24px;">
-                <button class="md-btn md-btn-text ripple-target" onclick="window.closeDialog()">Cancel</button>
-                <button class="md-btn md-btn-text ripple-target" style="color: var(--md-sys-color-error);" onclick="window.closeDialog()">Delete</button>
+                <button class="md-btn md-btn-text ripple-target" data-action="close-dialog">Cancel</button>
+                <button class="md-btn md-btn-text ripple-target" style="color: var(--md-sys-color-error);" data-action="close-dialog">Delete</button>
             </div>
         </div>
     </div>
