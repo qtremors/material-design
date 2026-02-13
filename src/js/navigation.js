@@ -9,31 +9,48 @@ const NAV_ITEMS = [
     { label: 'Settings', icon: 'settings', url: 'settings.html' }
 ];
 
+/**
+ * Basic HTML escaping to prevent XSS if data becomes dynamic
+ */
+function escapeHtml(str) {
+    if (!str) return '';
+    return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+}
+
+/**
+ * Validate URL to ensure it doesn't contain javascript: protocol
+ */
+function isValidUrl(url) {
+    if (!url) return false;
+    // Allow relative paths, anchors, and http/https
+    // Block javascript: data: vbscript:
+    if (/^\s*(javascript:|vbscript:|data:)/i.test(url)) return false;
+    return true;
+}
+
 function renderNavigation() {
     const path = window.location.pathname;
     const page = path.split("/").pop() || 'index.html';
     
     // Determine if we are inside the 'src' directory or at root
-    // Simple heuristic: check if path contains '/src/'
-    // Note: This relies on the folder name being 'src'. 
     const isInSrc = path.includes('/src/');
-    
-    // Calculate prefixes
-    // If in src: link to siblings is "", link to home (root) is "../"
-    // If at root: link to siblings (src) is "src/", link to home is ""
     const siblingPrefix = isInSrc ? '' : 'src/';
     const homePrefix = isInSrc ? '../' : '';
 
     // RAIL HTML
     let railHtml = `
     <nav class="md-nav-rail">
-        <div class="menu-trigger ripple-target" style="padding: 12px; margin-bottom: 24px; cursor: pointer;">
+        <div class="menu-trigger ripple-target" role="button" tabindex="0" aria-label="Open menu" style="padding: 12px; margin-bottom: 24px; cursor: pointer;">
             <span class="material-symbols-rounded">menu</span>
         </div>
     `;
 
     NAV_ITEMS.forEach(item => {
-        // Determine the actual href for this item
         let href = '';
         if (item.url === 'index.html') {
             href = homePrefix + item.url;
@@ -41,22 +58,24 @@ function renderNavigation() {
             href = siblingPrefix + item.url;
         }
 
+        if (!isValidUrl(href)) return; // Skip invalid URLs
+
         const isActive = item.url === page ? 'active' : '';
         let displayLabel = item.label;
         if(item.label === 'Navigation') displayLabel = 'Nav';
         if(item.label === 'Typography') displayLabel = 'Type';
 
         railHtml += `
-        <a href="${href}" class="md-rail-item ${isActive}" title="${item.label}">
-            <div class="icon-container"><span class="material-symbols-rounded">${item.icon}</span></div>
-            <span class="label">${displayLabel}</span>
+        <a href="${escapeHtml(href)}" class="md-rail-item ${isActive}" title="${escapeHtml(item.label)}">
+            <div class="icon-container"><span class="material-symbols-rounded">${escapeHtml(item.icon)}</span></div>
+            <span class="label">${escapeHtml(displayLabel)}</span>
         </a>
         `;
     });
 
     railHtml += `
         <div style="flex:1"></div>
-        <div id="themeToggle" class="md-rail-item" style="cursor: pointer;">
+        <div id="themeToggle" class="md-rail-item" role="button" tabindex="0" aria-label="Toggle theme" style="cursor: pointer;">
              <div class="icon-container"><span class="material-symbols-rounded">dark_mode</span></div>
         </div>
     </nav>
@@ -73,7 +92,6 @@ function renderNavigation() {
     `;
 
     NAV_ITEMS.forEach(item => {
-        // Determine the actual href for this item
         let href = '';
         if (item.url === 'index.html') {
             href = homePrefix + item.url;
@@ -81,10 +99,12 @@ function renderNavigation() {
             href = siblingPrefix + item.url;
         }
 
+        if (!isValidUrl(href)) return;
+
         const isActive = item.url === page ? 'active' : '';
         drawerHtml += `
-            <a href="${href}" class="drawer-item ${isActive} ripple-target">
-                <span class="material-symbols-rounded">${item.icon}</span> ${item.label}
+            <a href="${escapeHtml(href)}" class="drawer-item ${isActive} ripple-target">
+                <span class="material-symbols-rounded">${escapeHtml(item.icon)}</span> ${escapeHtml(item.label)}
             </a>
         `;
         if (item.label === 'Navigation') {

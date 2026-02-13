@@ -100,6 +100,7 @@
 
     <main style="flex: 1; margin-left: 80px; width: 100%;">
         <div class="top-app-bar">
+            <span class="material-symbols-rounded menu-trigger" role="button" tabindex="0" aria-label="Open menu" style="margin-right: 16px; cursor: pointer; display: none;">menu</span>
             <h2>Settings</h2>
             <div style="flex: 1"></div>
         </div>
@@ -119,10 +120,10 @@
                         <div class="control-desc">Switch between light and dark themes</div>
                     </div>
                     <div class="toggle-group">
-                        <button class="toggle-btn" id="btn-theme-light" onclick="setThemeMode('light')">
+                        <button class="toggle-btn" id="btn-theme-light" data-action="set-theme-mode" data-value="light">
                             <span style="display:flex;align-items:center;gap:6px;"><span class="material-symbols-rounded" style="font-size:18px">light_mode</span> Light</span>
                         </button>
-                        <button class="toggle-btn" id="btn-theme-dark" onclick="setThemeMode('dark')">
+                        <button class="toggle-btn" id="btn-theme-dark" data-action="set-theme-mode" data-value="dark">
                             <span style="display:flex;align-items:center;gap:6px;"><span class="material-symbols-rounded" style="font-size:18px">dark_mode</span> Dark</span>
                         </button>
                     </div>
@@ -138,31 +139,31 @@
                     </div>
                     <div class="color-grid" style="max-width: 400px; justify-content: flex-end;">
                         <!-- Standard -->
-                        <div class="color-option" data-color="blue" style="background: #2962FF;" onclick="setThemeSeed('blue')">
+                        <div class="color-option" data-color="blue" style="background: #2962FF;" data-action="set-theme-seed" data-value="blue">
                             <span class="material-symbols-rounded">check</span>
                         </div>
-                        <div class="color-option" data-color="purple" style="background: #6750A4;" onclick="setThemeSeed('purple')">
+                        <div class="color-option" data-color="purple" style="background: #6750A4;" data-action="set-theme-seed" data-value="purple">
                             <span class="material-symbols-rounded">check</span>
                         </div>
-                        <div class="color-option" data-color="green" style="background: #006C51;" onclick="setThemeSeed('green')">
+                        <div class="color-option" data-color="green" style="background: #006C51;" data-action="set-theme-seed" data-value="green">
                             <span class="material-symbols-rounded">check</span>
                         </div>
-                        <div class="color-option" data-color="teal" style="background: #006A6A;" onclick="setThemeSeed('teal')">
+                        <div class="color-option" data-color="teal" style="background: #006A6A;" data-action="set-theme-seed" data-value="teal">
                             <span class="material-symbols-rounded">check</span>
                         </div>
-                        <div class="color-option" data-color="cyan" style="background: #0097A7;" onclick="setThemeSeed('cyan')">
+                        <div class="color-option" data-color="cyan" style="background: #0097A7;" data-action="set-theme-seed" data-value="cyan">
                             <span class="material-symbols-rounded">check</span>
                         </div>
-                        <div class="color-option" data-color="yellow" style="background: #6D5E00;" onclick="setThemeSeed('yellow')">
+                        <div class="color-option" data-color="yellow" style="background: #6D5E00;" data-action="set-theme-seed" data-value="yellow">
                             <span class="material-symbols-rounded">check</span>
                         </div>
-                        <div class="color-option" data-color="orange" style="background: #8B5000;" onclick="setThemeSeed('orange')">
+                        <div class="color-option" data-color="orange" style="background: #8B5000;" data-action="set-theme-seed" data-value="orange">
                             <span class="material-symbols-rounded">check</span>
                         </div>
-                        <div class="color-option" data-color="pink" style="background: #BC004B;" onclick="setThemeSeed('pink')">
+                        <div class="color-option" data-color="pink" style="background: #BC004B;" data-action="set-theme-seed" data-value="pink">
                             <span class="material-symbols-rounded">check</span>
                         </div>
-                         <div class="color-option" data-color="red" style="background: #B3261E;" onclick="setThemeSeed('red')">
+                         <div class="color-option" data-color="red" style="background: #B3261E;" data-action="set-theme-seed" data-value="red">
                             <span class="material-symbols-rounded">check</span>
                         </div>
                     </div>
@@ -182,10 +183,11 @@
                         <div class="control-desc">Adjust the roundness of components</div>
                     </div>
                     <div class="toggle-group">
-                        <button class="toggle-btn" onclick="setRadius('small')" data-radius="small">Small</button>
-                        <button class="toggle-btn" onclick="setRadius('medium')" data-radius="medium">Medium</button>
-                        <button class="toggle-btn" onclick="setRadius('large')" data-radius="large">Large</button>
-                        <button class="toggle-btn" onclick="setRadius('full')" data-radius="full">Full</button>
+                    <div class="toggle-group">
+                        <button class="toggle-btn" data-action="set-radius" data-value="small" data-radius="small">Small</button>
+                        <button class="toggle-btn" data-action="set-radius" data-value="medium" data-radius="medium">Medium</button>
+                        <button class="toggle-btn" data-action="set-radius" data-value="large" data-radius="large">Large</button>
+                        <button class="toggle-btn" data-action="set-radius" data-value="full" data-radius="full">Full</button>
                     </div>
                 </div>
 
@@ -231,7 +233,7 @@
             </div>
             
             <div style="text-align: center;">
-                <button class="md-btn md-btn-text ripple-target" onclick="resetSettings()" style="color: var(--md-sys-color-error);">
+                <button class="md-btn md-btn-text ripple-target" data-action="reset-settings" style="color: var(--md-sys-color-error);">
                     Reset Settings
                 </button>
             </div>
@@ -270,24 +272,36 @@
             });
         }
         
-        // Helpers that call the global setter
-        function setThemeMode(mode) {
-             window.setThemeConfig('theme', mode); // theme.js handles logic
-        }
+        // Interaction Delegation for Settings
+        document.addEventListener('click', (e) => {
+            const target = e.target;
+            
+            const modeBtn = target.closest('[data-action="set-theme-mode"]');
+            if(modeBtn) {
+                window.setThemeConfig('theme', modeBtn.dataset.value);
+                return;
+            }
 
-        function setThemeSeed(seed) {
-             window.setThemeConfig('seed', seed);
-        }
-
-        function setRadius(size) {
-             window.setThemeConfig('radius', size);
-        }
-
-        function resetSettings() {
-            localStorage.clear();
-            window.name = ''; // Clear session sync
-            location.reload();
-        }
+            const seedBtn = target.closest('[data-action="set-theme-seed"]');
+            if(seedBtn) {
+                window.setThemeConfig('seed', seedBtn.dataset.value);
+                return;
+            }
+            
+            const radiusBtn = target.closest('[data-action="set-radius"]');
+            if(radiusBtn) {
+                window.setThemeConfig('radius', radiusBtn.dataset.value);
+                return;
+            }
+            
+            const resetBtn = target.closest('[data-action="reset-settings"]');
+            if(resetBtn) {
+                localStorage.clear();
+                window.name = ''; 
+                location.reload();
+                return;
+            }
+        });
 
         // Init
 

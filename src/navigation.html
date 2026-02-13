@@ -69,6 +69,7 @@
 
     <main style="flex: 1; margin-left: 80px; width: 100%;">
         <div class="top-app-bar">
+            <span class="material-symbols-rounded menu-trigger" role="button" tabindex="0" aria-label="Open menu" style="margin-right: 16px; cursor: pointer; display: none;">menu</span>
             <h2>Navigation</h2>
             <div style="flex: 1"></div>
              <!-- Color Seeds -->
@@ -124,7 +125,7 @@
                     <button class="md-btn md-btn-filled ripple-target" onclick="toggleDrawer()">
                         Open Navigation Drawer
                     </button>
-                    <button class="md-btn md-btn-tonal ripple-target" onclick="window.openSheet('demo-sheet')">
+                    <button class="md-btn md-btn-tonal ripple-target" data-action="open-sheet" data-target="demo-sheet">
                         Open Bottom Sheet
                     </button>
                 </div>
@@ -134,7 +135,7 @@
     </main>
 
     <!-- Bottom Sheet Demo -->
-    <div id="sheet-scrim" class="sheet-scrim" onclick="window.closeSheet()"></div>
+    <div id="sheet-scrim" class="sheet-scrim"></div>
     <div id="demo-sheet" class="bottom-sheet">
         <div class="drag-handle"></div>
         <h3 style="text-align: center;">Bottom Sheet Title</h3>
@@ -142,7 +143,7 @@
         <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 24px;">
             <button class="md-btn md-btn-tonal ripple-target" style="width: 100%;">Option 1</button>
             <button class="md-btn md-btn-tonal ripple-target" style="width: 100%;">Option 2</button>
-            <button class="md-btn md-btn-text ripple-target" style="width: 100%; color: var(--md-sys-color-error);" onclick="window.closeSheet()">Cancel</button>
+            <button class="md-btn md-btn-text ripple-target" style="width: 100%; color: var(--md-sys-color-error);" data-action="close-sheet">Cancel</button>
         </div>
     </div>
 

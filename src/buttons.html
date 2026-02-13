@@ -79,6 +79,7 @@
 
     <main style="flex: 1; margin-left: 80px; width: 100%;">
         <div class="top-app-bar">
+            <span class="material-symbols-rounded menu-trigger" role="button" tabindex="0" aria-label="Open menu" style="margin-right: 16px; cursor: pointer; display: none;">menu</span>
             <h2>Buttons</h2>
             <div style="flex: 1"></div>
              <!-- Color Seeds -->
@@ -147,13 +148,13 @@
                 <div class="btn-row">
                     <!-- Single Select -->
                     <div class="segmented-btn-group">
-                        <button class="segmented-btn selected ripple-target" onclick="toggleSegment(this, 'songs')">
+                        <button class="segmented-btn selected ripple-target" data-action="segment-pick">
                             <span class="material-symbols-rounded check-icon">check</span> Songs
                         </button>
-                        <button class="segmented-btn ripple-target" onclick="toggleSegment(this, 'albums')">
+                        <button class="segmented-btn ripple-target" data-action="segment-pick">
                             <span class="material-symbols-rounded check-icon">check</span> Albums
                         </button>
-                         <button class="segmented-btn ripple-target" onclick="toggleSegment(this, 'podcasts')">
+                         <button class="segmented-btn ripple-target" data-action="segment-pick">
                             <span class="material-symbols-rounded check-icon">check</span> Podcasts
                         </button>
                     </div>
@@ -161,13 +162,13 @@
                 <div class="btn-row">
                      <!-- Multi Select -->
                      <div class="segmented-btn-group">
-                        <button class="segmented-btn selected ripple-target" onclick="toggleMulti(this)">
+                        <button class="segmented-btn selected ripple-target" data-action="segment-toggle">
                             <span class="material-symbols-rounded check-icon">check</span> Bold
                         </button>
-                        <button class="segmented-btn ripple-target" onclick="toggleMulti(this)">
+                        <button class="segmented-btn ripple-target" data-action="segment-toggle">
                             <span class="material-symbols-rounded check-icon">check</span> Italic
                         </button>
-                         <button class="segmented-btn ripple-target" onclick="toggleMulti(this)">
+                         <button class="segmented-btn ripple-target" data-action="segment-toggle">
                             <span class="material-symbols-rounded check-icon">check</span> Underline
                         </button>
                     </div>
@@ -177,13 +178,13 @@
             <!-- Loading States -->
             <section style="margin-bottom: 48px;">
                 <h3>Loading States</h3>
-                 <div class="btn-row">
-                    <button class="md-btn md-btn-filled ripple-target" onclick="toggleLoading(this)">
+                <div class="btn-row">
+                    <button class="md-btn md-btn-filled ripple-target" data-action="toggle-loading">
                         <span class="spinner" style="display:none"></span>
                         <span class="btn-text">Click to Load</span>
                     </button>
                     
-                    <button class="md-btn md-btn-tonal ripple-target" onclick="toggleLoading(this)">
+                    <button class="md-btn md-btn-tonal ripple-target" data-action="toggle-loading">
                         <div class="typing-dots" style="display:none"><span></span><span></span><span></span></div>
                         <span class="btn-text">With Dots</span>
                     </button>
@@ -196,17 +197,7 @@
     <script src="js/navigation.js"></script>
     <script src="js/scripts.js"></script>
     <script>
-        // Segmented Button Logic
-        function toggleSegment(btn, value) {
-            // Single select: Deactivate siblings
-            const group = btn.parentElement;
-            group.querySelectorAll('.segmented-btn').forEach(b => b.classList.remove('selected'));
-            btn.classList.add('selected');
-        }
-
-        function toggleMulti(btn) {
-            btn.classList.toggle('selected');
-        }
+        // Segmented Button Logic handled by global script
     </script>
 </body>
 </html>

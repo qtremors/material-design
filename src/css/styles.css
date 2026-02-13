@@ -54,7 +54,7 @@ span.ripple {
 /* Variants */
 .md-btn-filled, .btn-filled { 
     background: var(--md-sys-color-primary); 
-    color: #FFFFFF !important; /* Force White for visibility */
+    color: var(--md-sys-color-on-primary);
 }
 .md-btn-filled .btn-text, .btn-filled .btn-text { color: inherit; } /* Fix class collision */
 .md-btn-tonal, .btn-tonal { background: var(--md-sys-color-secondary-container); color: var(--md-sys-color-on-secondary-container); }
@@ -141,6 +141,10 @@ span.ripple {
     background-color: var(--md-sys-color-surface); z-index: 100;
     display: flex; align-items: center; padding: 0 16px;
 }
+.md-top-app-bar h1, .md-top-app-bar h2, .md-top-app-bar h3,
+.top-app-bar h1, .top-app-bar h2, .top-app-bar h3 {
+    margin: 0;
+}
 .md-nav-rail, .nav-rail {
     position: fixed; top: 0; left: 0; bottom: 0; width: 80px;
     background-color: var(--md-sys-color-surface); border-right: 1px solid var(--md-sys-color-outline-variant);
@@ -165,7 +169,7 @@ span.ripple {
     width: 80px; height: 56px; margin-bottom: 12px;
     color: var(--md-sys-color-on-surface-variant);
     text-decoration: none; transition: 0.2s;
-    cursor: pointer;
+    cursor: pointer; position: relative;
 }
 .md-rail-item .icon-container {
     width: 56px; height: 32px;
