@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inputs|Material Design</title>
+    <title>Inputs | Material Design</title>
     <link rel="icon" type="image/png" href="assets/material-design.png">
     
     <!-- Fonts & Icons -->
@@ -129,7 +129,7 @@
                             <span class="material-symbols-rounded" style="color: var(--md-sys-color-on-surface-variant); margin-right: 12px;">search</span>
                             <input type="text" id="tf2" placeholder=" ">
                             <label for="tf2" style="left: 48px;">Search</label>
-                            <span class="material-symbols-rounded" style="color: var(--md-sys-color-on-surface-variant); margin-left: auto; cursor: pointer;">close</span>
+                            <span class="material-symbols-rounded" data-action="clear-input" style="color: var(--md-sys-color-on-surface-variant); margin-left: auto; cursor: pointer;">close</span>
                          </div>
                         
                         <!-- Error State -->
@@ -234,6 +234,11 @@
                 <p>Expressive Slider (Custom Track)</p>
                 <div class="slider-container slider-expressive">
                     <input type="range" class="md-slider" min="0" max="100" value="70">
+                </div>
+
+                <p>Squiggly Slider (Expressive)</p>
+                <div class="slider-container slider-squiggly">
+                    <input type="range" class="md-slider" min="0" max="100" value="40">
                 </div>
             </div>
 

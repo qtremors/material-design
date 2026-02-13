@@ -34,11 +34,19 @@ function isValidUrl(url) {
 }
 
 function renderNavigation() {
-    const path = window.location.pathname;
-    const page = path.split("/").pop() || 'index.html';
-    
-    // Determine if we are inside the 'src' directory or at root
-    const isInSrc = path.includes('/src/');
+    let isInSrc = window.location.pathname.includes('/src/');
+    const page = window.location.pathname.split("/").pop() || 'index.html';
+
+    const script = document.querySelector('script[src$="navigation.js"]');
+    if (script) {
+        const src = script.getAttribute('src');
+        if (src.includes('src/js/navigation.js')) {
+            isInSrc = false;
+        } else if (src.endsWith('js/navigation.js')) {
+            isInSrc = true;
+        }
+    }
+
     const siblingPrefix = isInSrc ? '' : 'src/';
     const homePrefix = isInSrc ? '../' : '';
 
@@ -58,7 +66,7 @@ function renderNavigation() {
             href = siblingPrefix + item.url;
         }
 
-        if (!isValidUrl(href)) return; // Skip invalid URLs
+        if (!isValidUrl(href)) return;
 
         const isActive = item.url === page ? 'active' : '';
         let displayLabel = item.label;
