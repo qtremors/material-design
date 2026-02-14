@@ -50,16 +50,32 @@
         <div class="container">
             <!-- WIDGETS DASHBOARD -->
             <section id="widgets" class="section-entrance widgets-section">
-                <h2 class="widgets-header">
-                    <span class="material-symbols-rounded">widgets</span>
-                    Widgets
-                </h2>
-                <p class="widgets-description">
-                    A collection of high-fidelity components and functional app gadgets.
-                </p>
+                <div class="widgets-header-container" style="display: flex; justify-content: space-between; align-items: flex-start;">
+                    <div class="header-text">
+                        <h2 class="widgets-header" style="margin-top: 0;">
+                            <span class="material-symbols-rounded">widgets</span>
+                            Widgets
+                        </h2>
+                        <p class="widgets-description" style="margin-bottom: 0;">
+                            A collection of high-fidelity components and functional app gadgets.
+                        </p>
+                    </div>
+                    
+                    <div class="grid-toggle-wrapper" style="display: flex; align-items: center; gap: 12px; margin-top: 8px;">
+                        <span style="font: var(--md-sys-typescale-label-large); color: var(--md-sys-color-on-surface-variant);">Show Grid</span>
+                        <label class="switch">
+                            <input type="checkbox" id="gridToggle">
+                            <span class="switch-track">
+                                <span class="switch-handle"></span>
+                            </span>
+                            <span class="material-symbols-rounded switch-icon">check</span>
+                        </label>
+                    </div>
+                </div>
 
-                <div class="section-grid widgets-grid">
-                    <!-- 1. Full Card Music Widget 4x2 -->
+                <div class="widgets-content-container">
+                    <div class="section-grid widgets-grid">
+                        <!-- 1. Full Card Music Widget 4x2 -->
                     <div class="widget-wrapper widget-wrapper-full">
                         <h3 class="widget-title">Music Player (Card) 4x2</h3>
                         <div class="md-card card-music-widget card-outlined ripple-target" style="animation-delay: 0.1s;">
@@ -253,6 +269,7 @@
                         </div>
                     </div>
 
+                    </div>
                 </div>
             </section>
         </div>

@@ -16,6 +16,8 @@
     -   **Featured News 4x2:** Expandable news card.
     -   **Calendar 2x2:** Schedule overview.
     -   **Battery Status 2x1:** Live level indicator.
+-   **Grid Visibility System:** Implemented a perfect square 100x100px grid for the Widgets dashboard with a dedicated "Show Grid" toggle in the header.
+-   **Container Architecture:** Split the Widgets header and content into distinct containers with rounded perimeters and 28px corners.
 
 ### Fixed & Improved
 -   **Design Restoration:** Restored original widget aesthetics (Card, Daily Mix, Circular, Compact) as per user feedback and reference images.

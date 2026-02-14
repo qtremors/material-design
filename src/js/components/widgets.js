@@ -127,6 +127,15 @@ function initWidgets() {
             setTimeout(() => item.style.backgroundColor = '', 200);
         });
     });
+
+    // 5. Grid Visibility Toggle
+    const gridToggle = document.getElementById('gridToggle');
+    const contentContainer = document.querySelector('.widgets-content-container');
+    if (gridToggle && contentContainer) {
+        gridToggle.addEventListener('change', () => {
+            contentContainer.classList.toggle('grid-active', gridToggle.checked);
+        });
+    }
 }
 
 window.initWidgets = initWidgets;
