@@ -1,10 +1,22 @@
 # Material Design Changelog
 
 > **Project:** Material Design  
-> **Version:** 1.3.6
+> **Version:** 1.3.7
 > **Last Updated:** 2026-02-14
 
 ---
+
+## [1.3.7] - 2026-02-14
+
+### Added
+- **Universal Perfect Square Grid:** Implemented a robust snapping system that ensures grid lines are always perfect squares on all screen sizes.
+    - **Desktop:** 100px grid units.
+    - **Mobile:** 64px grid units to guarantee at least 5 columns on narrow viewports.
+- **Refined Grid Toggle:** Enhanced the "Show Grid" toggle with an elevated capsule design and improved vertical alignment in the dashboard header.
+
+### Fixed & Improved
+- **Responsive Alignment:** Optimized container width snapping to account for the Navigation Rail and page margins, preventing grid "bleeding" or cut-off lines.
+- **Toggle Layout:** Fixed wrapping behavior in the header to ensure the title and toggle remain accessible and well-spaced on tablet and mobile.
 
 ## [1.3.6] - 2026-02-14
 

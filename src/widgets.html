@@ -50,25 +50,25 @@
         <div class="container">
             <!-- WIDGETS DASHBOARD -->
             <section id="widgets" class="section-entrance widgets-section">
-                <div class="widgets-header-container" style="display: flex; justify-content: space-between; align-items: flex-start;">
-                    <div class="header-text">
-                        <h2 class="widgets-header" style="margin-top: 0;">
+                <div class="widgets-header-container" style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 48px; gap: 16px; flex-wrap: wrap;">
+                    <div class="header-text" style="flex: 1; min-width: 280px;">
+                        <h2 class="widgets-header" style="margin: 0; display: flex; align-items: center; gap: 12px;">
                             <span class="material-symbols-rounded">widgets</span>
                             Widgets
                         </h2>
-                        <p class="widgets-description" style="margin-bottom: 0;">
+                        <p class="widgets-description" style="margin: 8px 0 0 0;">
                             A collection of high-fidelity components and functional app gadgets.
                         </p>
                     </div>
                     
-                    <div class="grid-toggle-wrapper" style="display: flex; align-items: center; gap: 12px; margin-top: 8px;">
-                        <span style="font: var(--md-sys-typescale-label-large); color: var(--md-sys-color-on-surface-variant);">Show Grid</span>
-                        <label class="switch">
+                    <div class="grid-toggle-wrapper" style="display: flex; align-items: center; gap: 12px; background: var(--md-sys-color-surface-container-high); padding: 8px 16px; border-radius: 100px; height: fit-content; margin-bottom: 4px;">
+                        <span style="font: var(--md-sys-typescale-label-large); color: var(--md-sys-color-on-surface-variant); cursor: pointer; white-space: nowrap;" onclick="document.getElementById('gridToggle').click()">Show Grid</span>
+                        <label class="switch" style="margin: 0; transform: scale(0.85); transform-origin: right center;">
                             <input type="checkbox" id="gridToggle">
                             <span class="switch-track">
                                 <span class="switch-handle"></span>
                             </span>
-                            <span class="material-symbols-rounded switch-icon">check</span>
+                            <span class="material-symbols-rounded switch-icon" style="transform: translateX(18px) scale(0.9);">check</span>
                         </label>
                     </div>
                 </div>
