@@ -17,7 +17,14 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="css/variables.css">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components/navigation.css">
+    <link rel="stylesheet" href="css/components/buttons.css">
+    <link rel="stylesheet" href="css/components/cards.css">
+    <link rel="stylesheet" href="css/components/inputs.css">
+    <link rel="stylesheet" href="css/components/feedback.css">
+    <link rel="stylesheet" href="css/components/chips.css">
+    <link rel="stylesheet" href="css/components/fab.css">
     
     <style>
         /* --- Checkbox & Radio Styles --- */
@@ -57,7 +64,7 @@
         .selection-control input:checked + .radio-circle::after { transform: scale(1); }
 
         /* --- Sliders --- */
-        .slider-container { width: 100%; max-width: 300px; padding: 10px 0; margin-bottom: 24px; }
+        .slider-container { width: 100%; padding: 10px 0; margin-bottom: 24px; }
 
         /* Track */
         input[type=range]::-webkit-slider-runnable-track {
@@ -104,9 +111,9 @@
 
         <div class="container">
             
-            <div class="section-grid">
+            <div class="bento-grid">
                 <!-- Text Fields -->
-                <div class="md-card">
+                <div class="md-card" style="grid-column: span 2; grid-row: span 2;">
                     <h3>Text Fields</h3>
                     <div style="display: flex; flex-direction: column; gap: 16px;">
                         
@@ -133,28 +140,22 @@
                             Incorrect value
                         </div>
 
-                        <!-- Outlined Variant (CSS override) -->
+                        <!-- Outlined Variant -->
                          <div class="md-field" style="background: transparent; border: 1px solid var(--md-sys-color-outline); border-radius: 4px;">
                             <input type="text" id="tf4" placeholder=" ">
-                            <label for="tf4">Outlined Field</label>
+                            <label for="tf4">Outlined Text Field</label>
                         </div>
-                    </div>
-                </div>
 
-                <!-- Expressive Text Fields -->
-                <div class="md-card">
-                    <h3>Expressive Fields</h3>
-                    <p>Uses a floating label style where the label sits on the border.</p>
-                    <div style="display: flex; flex-direction: column; gap: 16px;">
+                        <h4 style="margin-top: 16px;">Expressive Floating Label</h4>
                         <div class="expressive-input-group">
                             <input type="text" class="expressive-text-field" placeholder=" " id="exp-input1">
-                            <label for="exp-input1" class="expressive-input-label">Label text</label>
+                            <label for="exp-input1" class="expressive-input-label">Expressive Label</label>
                         </div>
                     </div>
                 </div>
 
                 <!-- Selection Controls -->
-                <div class="md-card">
+                <div class="md-card" style="grid-column: span 2; grid-row: span 2;">
                     <h3>Selection Controls</h3>
                     
                     <div style="margin-bottom: 24px;">
@@ -229,7 +230,7 @@
 
 
             <!-- Sliders -->
-            <div class="md-card">
+            <div class="md-card" style="grid-column: span 2;">
                 <h3>Sliders</h3>
                 
                 <p>Continuous Slider</p>
@@ -249,7 +250,7 @@
             </div>
 
             <!-- Chips -->
-            <div class="md-card">
+            <div class="md-card" style="grid-column: span 2;">
                 <h3>Chips</h3>
                 <div class="chip-set">
                     <div class="chip ripple-target">Assist Chip</div>
@@ -300,6 +301,17 @@
     </main>
 
     <script src="js/navigation.js"></script>
+    
+    <!-- Components -->
+    <script src="js/components/ripples.js"></script>
+    <script src="js/components/tabs.js"></script>
+    <script src="js/components/dialogs.js"></script>
+    <script src="js/components/sheets.js"></script>
+    <script src="js/components/inputs.js"></script>
+    <script src="js/components/sliders.js"></script>
+    <script src="js/components/motion.js"></script>
+    <script src="js/components/interactions.js"></script>
+
     <script src="js/scripts.js"></script>
 </body>
 </html>

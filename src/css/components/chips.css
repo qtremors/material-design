@@ -1,0 +1,40 @@
+/* ==========================================================================
+   CHIPS COMPONENT
+   ========================================================================== */
+
+.chip {
+    height: 32px; display: inline-flex; align-items: center; padding: 0 16px;
+    border-radius: 9999px; /* Pill shape */
+    border: 1px solid var(--md-sys-color-outline);
+    background: transparent; color: var(--md-sys-color-on-surface-variant);
+    font: var(--md-sys-typescale-label-large); font-weight: 500;
+    cursor: pointer; transition: 0.2s; user-select: none;
+}
+.chip:hover { background-color: rgba(0,0,0,0.04); }
+.chip.active {
+    background-color: var(--md-sys-color-secondary-container);
+    color: var(--md-sys-color-on-secondary-container); border-color: transparent;
+}
+.chip-squircle { border-radius: 8px !important; }
+
+.chip .material-symbols-rounded { font-size: 18px; margin-right: 8px; margin-left: -4px; }
+.chip .close-icon { margin-right: -4px; margin-left: 8px; font-size: 18px; }
+.chip-avatar {
+    width: 24px; height: 24px; border-radius: 50%; 
+    margin-left: -12px; margin-right: 8px;
+    object-fit: cover;
+}
+.chip-avatar.initial {
+    background-color: var(--md-sys-color-primary);
+    color: var(--md-sys-color-on-primary);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 600;
+}
+
+/* Chip Set Wrapper */
+.chip-set {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding-bottom: 8px;
+}

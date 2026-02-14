@@ -1,10 +1,56 @@
 # Material Design Changelog
 
 > **Project:** Material Design  
-> **Version:** 1.3.0  
-> **Last Updated:** 2026-02-13
+> **Version:** 1.3.4
+> **Last Updated:** 2026-02-14
 
 ---
+
+## [1.3.4] - 2026-02-14
+
+### Fixed & Improved
+-   **Universal Alignment:** Removed conflicting `max-width` constraints from cards to ensure all components align perfectly at the container edges.
+-   **Fluid Containers:** Optimized the main container to 1400px for a more balanced and professional layout on large screens.
+-   **Grid Consistency:** Standardized the `section-grid` across all pages to prevent staggered or misaligned card groups.
+-   **Mobile Fluidity:** Resolved horizontal scrolling and zoom issues on mobile (1080x2412) by implementing fluid container logic.
+-   **Responsive Hero:** Fixed hero section overflow and implemented a centered watermark backdrop on mobile.
+-   **Component Spacing:** Significantly increased margins for headings and paragraphs for better readability and a premium feel.
+-   **Navigation Polish:** Fixed "squished" app bar demos and ensured icons don't shrink and titles truncate properly.
+-   **Typography:** Updated typography rows for better responsiveness and ensured all elements are contained within properly aligned cards.
+-   **Chip Spacing:** Removed redundant margins from `.chip` to fix double-spacing inconsistencies.
+-   **Global Balance:** Optimized grids and containers to smartly use dead space on ultra-wide monitors and enforced balanced centering.
+-   **Bento Grid Layout:** Implemented a high-fidelity symmetric bento grid for the Inputs page, consolidating standard and expressive fields into a dense, professional dashboard layout.
+-   **Edge-to-Edge Typography:** Overhauled typography rows to use negative margins and full-width borders, pinning labels and samples to the absolute card edges for a "filled" aesthetic.
+-   **Full-Width Expressive Inputs:** Removed internal `max-width` constraints from expressive inputs and sliders for 100% container utilization.
+
+## [1.3.3] - 2026-02-14
+
+### Refactored
+-   **JS Architecture:** Modularized the monolithic `src/js/scripts.js` into component-specific modules in `src/js/components/`.
+    -   Extracted: `ripples.js`, `tabs.js`, `dialogs.js`, `sheets.js`, `inputs.js`, `sliders.js`, `motion.js`, `interactions.js`.
+    -   `scripts.js` now acts as a lightweight orchestrator.
+-   **Documentation:** Updated `README.md` and `DEVELOPMENT.md` to reflect the new modular CSS and JS project structure.
+
+## [1.3.2] - 2026-02-14
+
+### Refactored
+-   **CSS Architecture:** Completely modularized the monolithic `styles.css` into a component-based structure.
+    -   Created `src/css/base.css` for core foundations (Reset, Typography, Layouts).
+    -   Created `src/css/components/` directory for granular styles (`buttons.css`, `cards.css`, `inputs.css`, `navigation.css`, `feedback.css`, `chips.css`, `fab.css`).
+    -   Updated all HTML files to link these new modules.
+    -   **Zero Regression:** Verified pixel-perfect match with original styles.
+
+## [1.3.1] - 2026-02-13
+
+### Added
+- **Settings:** Implemented a new compact **Color Palette Viewer** to visualize active theme tokens and hex codes.
+
+### Fixed & Improved
+- **Codebase Health:**
+    - **CSS**: Added missing `surface-container-highest-rgb` tokens to `variables.css`.
+    - **Styles**: Replaced hardcoded hex values in `.snackbar` with design tokens.
+    - **Safety**: Wrapped `localStorage` access in `scripts.js` with try/catch blocks for restricted environments.
+    - **Security**: Refactored `showSnackbar` to sanitize inputs and prevent XSS.
 
 ## [1.3.0] - 2026-02-13
 

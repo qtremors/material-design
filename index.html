@@ -18,7 +18,14 @@
     
     <!-- Styles -->
     <link rel="stylesheet" href="src/css/variables.css">
-    <link rel="stylesheet" href="src/css/styles.css">
+    <link rel="stylesheet" href="src/css/base.css">
+    <link rel="stylesheet" href="src/css/components/navigation.css">
+    <link rel="stylesheet" href="src/css/components/buttons.css">
+    <link rel="stylesheet" href="src/css/components/cards.css">
+    <link rel="stylesheet" href="src/css/components/inputs.css">
+    <link rel="stylesheet" href="src/css/components/feedback.css">
+    <link rel="stylesheet" href="src/css/components/chips.css">
+    <link rel="stylesheet" href="src/css/components/fab.css">
     
     <style>
         /* Specific Styles for Index Dashboard */
@@ -31,13 +38,43 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            overflow: hidden;
+            position: relative;
         }
+        .hero-text { flex: 1; z-index: 2; }
         .hero-text h1 { margin-bottom: 16px; }
-        .hero-image { font-size: 120px; opacity: 0.2; }
+        .hero-image { font-size: 120px; opacity: 0.2; flex-shrink: 0; }
+        
+        @media (max-width: 900px) {
+            .hero-card { padding: 32px; }
+            .hero-image { font-size: 100px; }
+        }
+
+        @media (max-width: 600px) {
+            .hero-card { 
+                flex-direction: column; 
+                text-align: center; 
+                padding: 48px 24px;
+                align-items: center;
+                min-height: 320px;
+                justify-content: center;
+            }
+            .hero-text { margin-bottom: 0; position: relative; z-index: 2; }
+            .hero-image { 
+                position: absolute;
+                font-size: 180px; 
+                opacity: 0.1; 
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                z-index: 1;
+                pointer-events: none;
+            }
+        }
         
         .dashboard-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 24px;
         }
         
@@ -84,7 +121,7 @@
             <!-- Hero -->
             <div class="hero-card">
                 <div class="hero-text">
-                    <h1>Welcome to Material 3</h1>
+                    <h1>Welcome to Material Design</h1>
                     <p>Explore a comprehensive set of Material Design components implemented in pure HTML, CSS, and JS.</p>
                     <div style="display: flex; gap: 16px; margin-top: 24px;">
                          <a href="src/buttons.html" class="md-btn md-btn-filled ripple-target" style="text-decoration: none;">
@@ -140,6 +177,17 @@
     </main>
 
     <script src="src/js/navigation.js"></script>
+    
+    <!-- Components -->
+    <script src="src/js/components/ripples.js"></script>
+    <script src="src/js/components/tabs.js"></script>
+    <script src="src/js/components/dialogs.js"></script>
+    <script src="src/js/components/sheets.js"></script>
+    <script src="src/js/components/inputs.js"></script>
+    <script src="src/js/components/sliders.js"></script>
+    <script src="src/js/components/motion.js"></script>
+    <script src="src/js/components/interactions.js"></script>
+
     <script src="src/js/scripts.js"></script>
 
 </body>

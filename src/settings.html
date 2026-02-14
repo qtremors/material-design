@@ -17,7 +17,14 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="css/variables.css">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components/navigation.css">
+    <link rel="stylesheet" href="css/components/buttons.css">
+    <link rel="stylesheet" href="css/components/cards.css">
+    <link rel="stylesheet" href="css/components/inputs.css">
+    <link rel="stylesheet" href="css/components/feedback.css">
+    <link rel="stylesheet" href="css/components/chips.css">
+    <link rel="stylesheet" href="css/components/fab.css">
     
     <style>
         .settings-container {
@@ -92,6 +99,28 @@
             background: var(--md-sys-color-surface-container);
             padding: 16px; border-radius: var(--md-sys-shape-corner-medium);
         }
+
+        /* Palette Viewer */
+        .palette-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 16px;
+        }
+        .palette-item {
+            display: flex; flex-direction: column; gap: 8px;
+        }
+        .palette-swatch {
+            height: 60px; width: 100%;
+            border-radius: 12px;
+            border: 1px solid var(--md-sys-color-outline-variant);
+        }
+        .palette-info {
+            display: flex; flex-direction: column;
+        }
+        .palette-token { font-size: 11px; font-weight: 600; color: var(--md-sys-color-on-surface); }
+        .palette-hex { font-size: 11px; color: var(--md-sys-color-on-surface-variant); font-family: 'Space Mono', monospace; }
+        
+        .role-group { grid-column: 1 / -1; font-size: 12px; font-weight: 600; color: var(--md-sys-color-primary); margin-top: 16px; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid var(--md-sys-color-outline-variant); padding-bottom: 4px; }
     </style>
 </head>
 <body>
@@ -169,6 +198,88 @@
                 </div>
             </div>
 
+            <!-- Active Palette Viewer -->
+            <div class="settings-card">
+                <div class="settings-header">
+                    <h3>Active Tokens</h3>
+                    <button class="icon-btn ripple-target" onclick="updatePaletteHexCodes()" title="Refresh values"><span class="material-symbols-rounded">refresh</span></button>
+                </div>
+                
+                <div class="palette-section">
+                    <!-- Primary -->
+                    <div class="role-group">Primary</div>
+                    <div class="palette-item">
+                        <div class="palette-swatch" style="background: var(--md-sys-color-primary)"></div>
+                        <div class="palette-info"><span class="palette-token">Primary</span><span class="palette-hex">...</span></div>
+                    </div>
+                    <div class="palette-item">
+                        <div class="palette-swatch" style="background: var(--md-sys-color-on-primary)"></div>
+                        <div class="palette-info"><span class="palette-token">On Primary</span><span class="palette-hex">...</span></div>
+                    </div>
+                    <div class="palette-item">
+                        <div class="palette-swatch" style="background: var(--md-sys-color-primary-container)"></div>
+                        <div class="palette-info"><span class="palette-token">Generic Container</span><span class="palette-hex">...</span></div>
+                    </div>
+                     <div class="palette-item">
+                        <div class="palette-swatch" style="background: var(--md-sys-color-on-primary-container)"></div>
+                        <div class="palette-info"><span class="palette-token">On Container</span><span class="palette-hex">...</span></div>
+                    </div>
+
+                    <!-- Secondary -->
+                    <div class="role-group">Secondary</div>
+                     <div class="palette-item">
+                        <div class="palette-swatch" style="background: var(--md-sys-color-secondary)"></div>
+                        <div class="palette-info"><span class="palette-token">Secondary</span><span class="palette-hex">...</span></div>
+                    </div>
+                    <div class="palette-item">
+                        <div class="palette-swatch" style="background: var(--md-sys-color-on-secondary)"></div>
+                        <div class="palette-info"><span class="palette-token">On Secondary</span><span class="palette-hex">...</span></div>
+                    </div>
+                    <div class="palette-item">
+                        <div class="palette-swatch" style="background: var(--md-sys-color-secondary-container)"></div>
+                        <div class="palette-info"><span class="palette-token">Sec Container</span><span class="palette-hex">...</span></div>
+                    </div>
+                     <div class="palette-item">
+                        <div class="palette-swatch" style="background: var(--md-sys-color-on-secondary-container)"></div>
+                        <div class="palette-info"><span class="palette-token">On Sec Cont</span><span class="palette-hex">...</span></div>
+                    </div>
+
+                    <!-- Tertiary -->
+                    <div class="role-group">Tertiary</div>
+                     <div class="palette-item">
+                        <div class="palette-swatch" style="background: var(--md-sys-color-tertiary)"></div>
+                        <div class="palette-info"><span class="palette-token">Tertiary</span><span class="palette-hex">...</span></div>
+                    </div>
+                     <div class="palette-item">
+                        <div class="palette-swatch" style="background: var(--md-sys-color-on-tertiary)"></div>
+                        <div class="palette-info"><span class="palette-token">On Tertiary</span><span class="palette-hex">...</span></div>
+                    </div>
+                    <div class="palette-item">
+                        <div class="palette-swatch" style="background: var(--md-sys-color-tertiary-container)"></div>
+                        <div class="palette-info"><span class="palette-token">Ter Container</span><span class="palette-hex">...</span></div>
+                    </div>
+
+                    <!-- Surface -->
+                    <div class="role-group">Surface</div>
+                    <div class="palette-item">
+                        <div class="palette-swatch" style="background: var(--md-sys-color-surface)"></div>
+                        <div class="palette-info"><span class="palette-token">Surface</span><span class="palette-hex">...</span></div>
+                    </div>
+                    <div class="palette-item">
+                        <div class="palette-swatch" style="background: var(--md-sys-color-on-surface)"></div>
+                        <div class="palette-info"><span class="palette-token">On Surface</span><span class="palette-hex">...</span></div>
+                    </div>
+                    <div class="palette-item">
+                        <div class="palette-swatch" style="background: var(--md-sys-color-surface-variant)"></div>
+                        <div class="palette-info"><span class="palette-token">Surface Var</span><span class="palette-hex">...</span></div>
+                    </div>
+                     <div class="palette-item">
+                        <div class="palette-swatch" style="background: var(--md-sys-color-outline)"></div>
+                        <div class="palette-info"><span class="palette-token">Outline</span><span class="palette-hex">...</span></div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Customization Card -->
             <div class="settings-card">
                 <div class="settings-header">
@@ -239,6 +350,17 @@
     </main>
 
     <script src="js/navigation.js"></script>
+    
+    <!-- Components -->
+    <script src="js/components/ripples.js"></script>
+    <script src="js/components/tabs.js"></script>
+    <script src="js/components/dialogs.js"></script>
+    <script src="js/components/sheets.js"></script>
+    <script src="js/components/inputs.js"></script>
+    <script src="js/components/sliders.js"></script>
+    <script src="js/components/motion.js"></script>
+    <script src="js/components/interactions.js"></script>
+
     <script src="js/scripts.js"></script>
     <script>
         // Settings Page Logic
@@ -304,6 +426,37 @@
                 return;
             }
         });
+
+        // Palette Hex Updater
+        function updatePaletteHexCodes() {
+            document.querySelectorAll('.palette-item').forEach(item => {
+                const swatch = item.querySelector('.palette-swatch');
+                const hexLabel = item.querySelector('.palette-hex');
+                if(swatch && hexLabel) {
+                    const bgColor = getComputedStyle(swatch).backgroundColor;
+                    // Convert RGB to Hex
+                    const hex = rgbToHex(bgColor);
+                    hexLabel.innerText = hex.toUpperCase();
+                }
+            });
+        }
+
+        function rgbToHex(rgb) {
+            if(!rgb) return '';
+            const rgbValues = rgb.match(/\d+/g);
+            if(!rgbValues) return rgb;
+            return "#" + ((1 << 24) + (parseInt(rgbValues[0]) << 16) + (parseInt(rgbValues[1]) << 8) + parseInt(rgbValues[2])).toString(16).slice(1);
+        }
+
+        // Hook into updateSettingsUI
+        const originalUpdate = window.updateSettingsUI;
+        window.updateSettingsUI = function() {
+            if(originalUpdate) originalUpdate();
+            updatePaletteHexCodes();
+        };
+        
+        // Initial Run
+        updatePaletteHexCodes();
 
 
 

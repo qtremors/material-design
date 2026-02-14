@@ -17,7 +17,14 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="css/variables.css">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components/navigation.css">
+    <link rel="stylesheet" href="css/components/buttons.css">
+    <link rel="stylesheet" href="css/components/cards.css">
+    <link rel="stylesheet" href="css/components/inputs.css">
+    <link rel="stylesheet" href="css/components/feedback.css">
+    <link rel="stylesheet" href="css/components/chips.css">
+    <link rel="stylesheet" href="css/components/fab.css">
     
     <style>
         /* Tabs */
@@ -89,11 +96,11 @@
                 <div class="md-card">
                     <h3>Top App Bar</h3>
                     <p>The standard top app bar handles navigation, actions, and title.</p>
-                     <div style="background: var(--md-sys-color-surface-container); height: 64px; display: flex; align-items: center; padding: 0 16px; border-radius: 8px;">
-                        <span class="material-symbols-rounded" style="margin-right: 24px;">menu</span>
-                        <span style="font: var(--md-sys-typescale-title-large); flex: 1;">Page Title</span>
-                        <span class="material-symbols-rounded" style="margin-left: 24px;">search</span>
-                        <span class="material-symbols-rounded" style="margin-left: 24px;">more_vert</span>
+                     <div style="background: var(--md-sys-color-surface-container); height: 60px; display: flex; align-items: center; padding: 0 16px; border-radius: 12px; border: 1px solid var(--md-sys-color-outline-variant);">
+                        <span class="material-symbols-rounded" style="margin-right: 16px; flex-shrink: 0;">menu</span>
+                        <span style="font: var(--md-sys-typescale-title-medium); flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Page Title</span>
+                        <span class="material-symbols-rounded" style="margin-left: 12px; flex-shrink: 0;">search</span>
+                        <span class="material-symbols-rounded" style="margin-left: 12px; flex-shrink: 0;">more_vert</span>
                      </div>
                 </div>
 
@@ -118,7 +125,7 @@
             </div>
 
             <!-- Drawers & Rails -->
-            <div class="md-card" style="margin-top: 24px;">
+            <div class="md-card card-wide" style="margin-top: 32px;">
                 <h3>Drawer & Rail</h3>
                 <p>Click the buttons below to trigger the actual navigation components.</p>
                 <div class="btn-row">
@@ -150,6 +157,17 @@
     </div>
 
     <script src="js/navigation.js"></script>
+    
+    <!-- Components -->
+    <script src="js/components/ripples.js"></script>
+    <script src="js/components/tabs.js"></script>
+    <script src="js/components/dialogs.js"></script>
+    <script src="js/components/sheets.js"></script>
+    <script src="js/components/inputs.js"></script>
+    <script src="js/components/sliders.js"></script>
+    <script src="js/components/motion.js"></script>
+    <script src="js/components/interactions.js"></script>
+
     <script src="js/scripts.js"></script>
 </body>
 </html>
