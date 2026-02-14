@@ -26,105 +26,10 @@
     background: var(--md-sys-color-surface-container-high);
 }
 
-/* --- MUSIC WIDGETS --- */
 
-/* 1. Card Variant (Full Controls) */
-.card-music-widget {
-    display: flex; flex-direction: row; align-items: center; padding: 0 !important;
-    overflow: hidden; max-width: 680px; border-radius: 28px;
-    background: var(--md-sys-color-surface-container-high);
-}
-.card-music-widget .card-media {
-    width: 100px; height: 100px; aspect-ratio: 1/1;
-    margin: 0; border-radius: 0; flex-shrink: 0;
-    display: flex; align-items: center; justify-content: center;
-    background: var(--md-sys-color-surface-container-highest);
-    color: var(--md-sys-color-primary);
-}
-.card-music-widget .card-media span { font-size: 40px; }
-.card-music-widget .card-content { padding: 0 24px; flex: 1; min-width: 0; }
-.card-music-widget .widget-controls { display: flex; align-items: center; gap: 4px; padding: 16px; }
-.card-music-widget .widget-controls .play-btn {
-    background: var(--md-sys-color-primary-container);
-    color: var(--md-sys-color-on-primary-container);
-}
 
-/* 2. Circular Variant (Hi-Fi Floating Controls) */
-.card-music-circular {
-    width: 200px; height: 200px;
-    position: relative; margin: 40px; /* Space for floating buttons */
-    background: transparent; border: none; cursor: default;
-}
-.card-music-circular .album-art { 
-    width: 100%; height: 100%; border-radius: 50%;
-    overflow: hidden; background: var(--md-sys-color-surface-container-highest);
-    display: flex; align-items: center; justify-content: center;
-    box-shadow: var(--md-sys-elevation-3);
-    position: relative; z-index: 1;
-}
-.card-music-circular .album-art span { font-size: 80px; color: var(--md-sys-color-primary); opacity: 0.5; }
 
-/* Floating Controls */
-.card-music-circular .float-btn {
-    position: absolute; display: flex; align-items: center; justify-content: center;
-    border: none; cursor: pointer; z-index: 5;
-    box-shadow: var(--md-sys-elevation-2);
-    transition: 0.2s cubic-bezier(0.2, 0, 0, 1);
-}
-.card-music-circular .float-btn:hover { box-shadow: var(--md-sys-elevation-3); transform: scale(1.1); }
-.card-music-circular .float-btn:active { transform: scale(0.95); }
-
-.card-music-circular .play-pause {
-    width: 72px; height: 72px;
-    background: var(--md-sys-color-success-container);
-    color: var(--md-sys-color-on-success-container);
-    border-radius: 24px; /* Squircle */
-    left: -20px; bottom: -10px;
-}
-.card-music-circular .play-pause span { font-size: 32px; }
-
-.card-music-circular .repeat-btn {
-    width: 56px; height: 56px;
-    background: var(--md-sys-color-primary-container);
-    color: var(--md-sys-color-on-primary-container);
-    border-radius: 50%; /* Pure Circle */
-    right: -10px; top: -10px;
-}
-.card-music-circular .repeat-btn span { font-size: 24px; }
-
-/* 3. Compact Card Variant */
-.card-music-compact {
-    display: flex; flex-direction: row; align-items: center; padding: 12px 16px !important;
-    max-width: 440px; min-height: 88px; border-radius: 24px;
-    background: var(--md-sys-color-surface-container-low);
-    box-shadow: var(--md-sys-elevation-1);
-}
-.card-music-compact .card-media {
-    width: 64px; height: 64px; border-radius: 16px;
-    background: var(--md-sys-color-primary-container);
-    color: var(--md-sys-color-primary);
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-}
-.card-music-compact .card-media span { 
-    font-size: 32px; 
-    line-height: 0; /* Remove baseline space */
-    display: flex; align-items: center; justify-content: center;
-}
-.card-music-compact .card-content { flex: 1; padding: 0 16px; min-width: 0; display: flex; flex-direction: column; justify-content: center; }
-.card-music-compact .card-content h3 { font-size: 18px; margin: 0; line-height: 1.1; font-weight: 600; }
-.card-music-compact .card-content p { font-size: 14px; margin: 4px 0 0 0; line-height: 1.1; color: var(--md-sys-color-on-surface-variant); }
-.card-music-compact .icon-btn { flex-shrink: 0; }
-
-/* 4. Daily Mix Restoration Helper */
-.daily-mix-list {
-    background: rgba(255, 255, 255, 0.9) !important;
-    border-radius: 16px; padding: 8px; margin-top: 16px;
-}
-[data-theme="dark"] .daily-mix-list {
-    background: rgba(var(--md-sys-color-surface-container-highest-rgb), 0.3) !important;
-}
-.daily-mix-list .list-item { padding: 12px !important; }
+/* --- EXPRESSIVE & SEMANTIC CARDS --- */
 
 
 /* --- EXPRESSIVE & SEMANTIC CARDS --- */
@@ -146,10 +51,10 @@
 .card-error { border-left-color: var(--md-sys-color-error); background: var(--md-sys-color-error-container); color: var(--md-sys-color-on-error-container); }
 
 .card-entrance {
-    animation: cardFadeIn 0.6s cubic-bezier(0.2, 0, 0, 1) both;
+    animation: card-fade-in 0.6s cubic-bezier(0.2, 0, 0, 1) both;
 }
 
-@keyframes cardFadeIn {
+@keyframes card-fade-in {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
 }
@@ -180,7 +85,7 @@
     position: relative; overflow: hidden;
 }
 .list-item::before {
-    content: ""; position: absolute; inset: 0; background-color: currentColor; opacity: 0;
+    content: ""; position: absolute; inset: 0; background-color: currentcolor; opacity: 0;
     transition: opacity 200ms; pointer-events: none;
 }
 .list-item:hover::before { opacity: var(--md-sys-state-hover); }

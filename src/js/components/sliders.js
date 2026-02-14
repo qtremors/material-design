@@ -4,7 +4,11 @@
 
 function initSliders() {
     const updateSlider = (slider) => {
-        const val = (slider.value - slider.min) / (slider.max - slider.min) * 100;
+        const min = parseFloat(slider.min) || 0;
+        const max = parseFloat(slider.max) || 100;
+        const denominator = max - min;
+        const val = denominator === 0 ? 0 : (slider.value - min) / denominator * 100;
+        
         const container = slider.closest('.slider-container');
         if (container) {
             container.style.setProperty('--slider-value', val + '%');

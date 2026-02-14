@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (window.initSheets) window.initSheets();
     if (window.initSelectionControls) window.initSelectionControls();
     if (window.initSliders) window.initSliders();
+    if (window.initWidgets) window.initWidgets();
     if (window.initInteractions) window.initInteractions(); // Global Delegates
     if (window.initExpressiveAnimations) window.initExpressiveAnimations();
     if (window.initScrollAnimations) window.initScrollAnimations();

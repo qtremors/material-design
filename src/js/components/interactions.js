@@ -177,7 +177,9 @@ function initInteractions() {
         if (themeToggle) {
              const current = document.documentElement.getAttribute('data-theme');
              const next = current === 'dark' ? 'light' : 'dark';
-             window.setThemeConfig('theme', next);
+             if (typeof window.setThemeConfig === 'function') {
+                 window.setThemeConfig('theme', next);
+             }
              return;
         }
 
@@ -185,7 +187,9 @@ function initInteractions() {
         const swatch = e.target.closest('.color-swatch');
         if (swatch) {
             const seed = swatch.getAttribute('data-seed');
-            window.setThemeConfig('seed', seed);
+            if (typeof window.setThemeConfig === 'function') {
+                window.setThemeConfig('seed', seed);
+            }
             return;
         }
     });
@@ -202,10 +206,10 @@ function initInteractions() {
     
     document.body.addEventListener('click', (e) => {
         if (e.target.classList.contains('dialog-backdrop')) {
-            window.closeDialog(e);
+            if (typeof window.closeDialog === 'function') window.closeDialog(e);
         }
         if (e.target.classList.contains('sheet-scrim')) {
-            window.closeSheet();
+            if (typeof window.closeSheet === 'function') window.closeSheet();
         }
     });
 }

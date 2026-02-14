@@ -1,0 +1,89 @@
+/* ==========================================================================
+   WIDGETS COMPONENT - CONTENT
+   Content-heavy widgets (News, Contacts)
+   ========================================================================== */
+
+/* --- 9. News Widget --- */
+#widget-news .widget-news-card {
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    background: var(--md-sys-color-surface-container-low);
+}
+
+#widget-news .widget-news-media {
+    width: 40%;
+    background: var(--md-sys-color-secondary-container); /* Vibrant */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--md-sys-color-on-secondary-container);
+}
+
+#widget-news .widget-news-media span {
+    font-size: 64px;
+}
+
+#widget-news .widget-news-content {
+    flex: 1;
+    padding: 4px 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#widget-news .widget-news-tag {
+    color: var(--md-sys-color-tertiary); /* Distinct Tag Color */
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+#widget-news .widget-news-title {
+    font-size: 18px;
+    margin: 4px 0;
+    line-height: 1.2;
+    color: var(--md-sys-color-primary); /* Vibrant Title */
+    font-weight: 600;
+}
+
+#widget-news .widget-news-summary {
+    color: var(--md-sys-color-on-surface-variant);
+    margin-bottom: 8px;
+    font-size: 13px;
+}
+
+#widget-news .widget-news-btn {
+    width: fit-content;
+}
+
+
+/* --- 11. Recent Contacts --- */
+#widget-contacts .widget-contacts-card {
+    margin: 0;
+    padding: 0;
+}
+
+#widget-contacts .widget-contacts-list {
+    background: transparent;
+}
+
+#widget-contacts .avatar-a { background: var(--md-sys-color-primary-container); color: var(--md-sys-color-on-primary-container); }
+#widget-contacts .avatar-b { background: var(--md-sys-color-secondary-container); color: var(--md-sys-color-on-secondary-container); }
+#widget-contacts .avatar-c { background: var(--md-sys-color-tertiary-container); color: var(--md-sys-color-on-tertiary-container); }
+
+#widget-contacts .contact-info {
+    flex: 1;
+}
+
+#widget-contacts .contact-name {
+    font-weight: 600;
+    color: var(--md-sys-color-primary); /* Vibrant Name */
+}
+
+#widget-contacts .contact-meta {
+    font-size: 13px;
+    color: var(--md-sys-color-on-surface-variant);
+}

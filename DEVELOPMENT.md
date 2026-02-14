@@ -2,7 +2,7 @@
 
 > Comprehensive documentation for developers working on Material Design.
 
-**Version:** 1.3.4 | **Last Updated:** 2026-02-14
+**Version:** 1.3.9 | **Last Updated:** 2026-02-14
 
 ---
 
@@ -170,6 +170,38 @@ Add a new card to the `.dashboard-grid` container:
     <p>A brief description of the component.</p>
 </a>
 ```
+
+### 4. Create New Widgets
+Widgets are specialized components used in the grid layout (`widgets.html`).
+
+#### A. Structure (`src/widgets.html`)
+- **Wrapper**: specific ID + `widget-wrapper` + size class (e.g., `w-2x2`, `w-4x2`).
+- **Heading**: `<h3>` with title and `<span class="grid-label">` for size.
+- **Content**: A container (often `.md-card`) holding the widget UI.
+
+```html
+<!-- Example Widget -->
+<div id="widget-example" class="widget-wrapper w-2x2">
+    <h3>Title <span class="grid-label">2x2</span></h3>
+    <div class="md-card card-filled">
+        <!-- Widget Content -->
+    </div>
+</div>
+```
+
+#### B. Styles (`src/css/components/widgets.css`)
+- **Scoping**: All widget styles **MUST** be scoped to the widget's ID to prevent side effects.
+- **Responsive**: Use flexbox/grid within the widget to handle different sizes if needed.
+
+```css
+#widget-example .card-example {
+    background: var(--md-sys-color-surface-container);
+    /* ... */
+}
+```
+
+#### C. Interactivity (`src/js/components/widgets.js`)
+- If the widget requires JS (e.g., toggles, updates), add a specific initialization block or function in `initWidgets()`.
 
 ---
 

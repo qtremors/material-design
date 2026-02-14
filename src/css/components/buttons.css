@@ -13,7 +13,7 @@
 
 /* States */
 .md-btn::before, .btn::before {
-    content: ""; position: absolute; inset: 0; background-color: currentColor; opacity: 0;
+    content: ""; position: absolute; inset: 0; background-color: currentcolor; opacity: 0;
     transform: scale(0.6); transition: opacity 200ms, transform 200ms; pointer-events: none; border-radius: inherit; z-index: -1;
 }
 .md-btn:hover::before, .btn:hover::before { opacity: var(--md-sys-state-hover); transform: scale(1); }
@@ -49,12 +49,12 @@
 
 /* Loading */
 .spinner {
-    width: 18px; height: 18px; border: 2px solid; border-color: currentColor; border-bottom-color: transparent;
+    width: 18px; height: 18px; border: 2px solid; border-color: currentcolor; border-bottom-color: transparent;
     border-radius: 50%; display: inline-block; animation: rotation 1s linear infinite;
 }
 @keyframes rotation { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 .typing-dots { display: flex; gap: 3px; }
-.typing-dots span { width: 5px; height: 5px; background: currentColor; border-radius: 50%; animation: bounce 1.4s infinite ease-in-out both; }
+.typing-dots span { width: 5px; height: 5px; background: currentcolor; border-radius: 50%; animation: bounce 1.4s infinite ease-in-out both; }
 .typing-dots span:nth-child(1) { animation-delay: -0.32s; }
 .typing-dots span:nth-child(2) { animation-delay: -0.16s; }
 @keyframes bounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }

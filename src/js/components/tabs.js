@@ -34,22 +34,21 @@ function handleTabSwitch(tab) {
 
     const targetId = tab.getAttribute('data-target');
     if(targetId) {
-        const context = group.parentElement;
-        
-        if (context) {
-             context.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-             const target = context.querySelector(`#${targetId}`) || document.getElementById(targetId);
-             if(target) target.classList.add('active');
-        } else {
-             document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-             const target = document.getElementById(targetId);
-             if(target) target.classList.add('active');
+        const panel = document.getElementById(targetId);
+        if (panel) {
+             const context = panel.parentElement;
+             if (context) {
+                 context.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+             } else {
+                 document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+             }
+             panel.classList.add('active');
         }
     }
 }
 
-function switchTab(tabElement, contentId) {
-    tabElement.click();
+function switchTab(tabElement) {
+    if (tabElement) tabElement.click();
 }
 
 window.initTabs = initTabs;

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Widgets | Material Design</title>
+    <link rel="icon" type="image/png" href="assets/material-design.png">
+    
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Flex:opsz,wdth,wght@8..144,100,100..400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+
+    <!-- Theme Engine -->
+    <script src="js/theme.js"></script>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components/navigation.css">
+    <link rel="stylesheet" href="css/components/buttons.css">
+    <link rel="stylesheet" href="css/components/cards.css">
+    <link rel="stylesheet" href="css/components/inputs.css">
+    <link rel="stylesheet" href="css/components/feedback.css">
+    <link rel="stylesheet" href="css/components/chips.css">
+    <link rel="stylesheet" href="css/components/fab.css">
+    
+    <link rel="stylesheet" href="css/components/widgets.css">
+</head>
+<body>
+
+    <!-- Navigation injected by js/navigation.js -->
+
+    <main>
+        <div class="top-app-bar">
+            <span class="material-symbols-rounded menu-trigger" role="button" tabindex="0" aria-label="Open menu" style="margin-right: 16px; cursor: pointer; display: none;">menu</span>
+            <h2>Widgets</h2>
+            <div style="flex: 1"></div>
+        </div>
+
+        <div class="container">
+            <!-- WIDGETS DASHBOARD -->
+            <section id="widgets" class="section-entrance widgets-section">
+                <div class="widgets-header-container">
+                    <!-- Color Swatches -->
+                    <div class="actions" style="display: flex; gap: 8px; align-items: center;">
+                        <div class="color-swatch" style="background: #2962FF;" title="Blue" onclick="setThemeConfig('seed', 'blue')" data-seed="blue"></div>
+                        <div class="color-swatch" style="background: #6750A4;" title="Purple" onclick="setThemeConfig('seed', 'purple')" data-seed="purple"></div>
+                        <div class="color-swatch" style="background: #006C51;" title="Green" onclick="setThemeConfig('seed', 'green')" data-seed="green"></div>
+                        <div class="color-swatch" style="background: #006A6A;" title="Teal" onclick="setThemeConfig('seed', 'teal')" data-seed="teal"></div>
+                        <div class="color-swatch" style="background: #0097A7;" title="Cyan" onclick="setThemeConfig('seed', 'cyan')" data-seed="cyan"></div>
+                        <div class="color-swatch" style="background: #6D5E00;" title="Yellow" onclick="setThemeConfig('seed', 'yellow')" data-seed="yellow"></div>
+                        <div class="color-swatch" style="background: #8B5000;" title="Orange" onclick="setThemeConfig('seed', 'orange')" data-seed="orange"></div>
+                        <div class="color-swatch" style="background: #BC004B;" title="Pink" onclick="setThemeConfig('seed', 'pink')" data-seed="pink"></div>
+                        <div class="color-swatch" style="background: #B3261E;" title="Red" onclick="setThemeConfig('seed', 'red')" data-seed="red"></div>
+                    </div>
+                    
+                    <div class="grid-toggle-wrapper" style="display: flex; align-items: center; gap: 12px; background: var(--md-sys-color-surface-container-high); padding: 8px 16px; border-radius: 100px; height: fit-content;">
+                        <!-- Labels Toggle -->
+                        <span style="font: var(--md-sys-typescale-label-large); color: var(--md-sys-color-on-surface-variant); cursor: pointer; white-space: nowrap;" onclick="document.getElementById('labelsToggle').click()">Show Labels</span>
+                        <label class="switch" style="margin: 0; transform: scale(0.85); transform-origin: right center;">
+                            <input type="checkbox" id="labelsToggle">
+                            <span class="switch-track">
+                                <span class="switch-handle"></span>
+                            </span>
+                            <span class="material-symbols-rounded switch-icon" style="transform: translateX(18px) scale(0.9);">check</span>
+                        </label>
+                        
+                        <div style="width: 1px; height: 16px; background: var(--md-sys-color-outline-variant); margin: 0 4px;"></div>
+
+                        <!-- Grid Toggle -->
+                        <span style="font: var(--md-sys-typescale-label-large); color: var(--md-sys-color-on-surface-variant); cursor: pointer; white-space: nowrap;" onclick="document.getElementById('gridToggle').click()">Show Grid</span>
+                        <label class="switch" style="margin: 0; transform: scale(0.85); transform-origin: right center;">
+                            <input type="checkbox" id="gridToggle">
+                            <span class="switch-track">
+                                <span class="switch-handle"></span>
+                            </span>
+                            <span class="material-symbols-rounded switch-icon" style="transform: translateX(18px) scale(0.9);">check</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="widgets-content-container">
+                    <div class="section-grid widgets-grid">
+                    <div id="widget-music-card" class="widget-wrapper w-5x1" style="grid-column-start: 1; grid-row-start: 1;">
+                        <h3>Music Player (Card) <span class="grid-label">5x1</span></h3>
+                        <div class="md-card card-music-widget card-outlined ripple-target" style="animation-delay: 0.1s;">
+                            <div class="card-media">
+                                <span class="material-symbols-rounded">music_note</span>
+                            </div>
+                            <div class="card-content">
+                                <h3>Try Me</h3>
+                                <p>The Weeknd</p>
+                            </div>
+                            <div class="widget-controls">
+                                <button class="md-btn icon-btn ripple-target"><span class="material-symbols-rounded">shuffle</span></button>
+                                <button class="md-btn icon-btn ripple-target"><span class="material-symbols-rounded">skip_previous</span></button>
+                                <button class="md-btn icon-btn play-btn ripple-target"><span class="material-symbols-rounded">play_arrow</span></button>
+                                <button class="md-btn icon-btn ripple-target"><span class="material-symbols-rounded">skip_next</span></button>
+                                <button class="md-btn icon-btn ripple-target"><span class="material-symbols-rounded">repeat</span></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2. Daily Mix Widget 4x5 -->
+                    <div id="widget-daily-mix" class="widget-wrapper w-4x5">
+                        <h3>Music Player (Daily Mix) <span class="grid-label">4x5</span></h3>
+                        <div class="md-card card-filled card-daily-mix ripple-target">
+                            <div class="daily-mix-media">
+                                <span class="material-symbols-rounded">music_note</span>
+                            </div>
+                            <div class="daily-mix-content">
+                                <h3 class="daily-mix-title">Daily Mix</h3>
+                                <p class="daily-mix-subtitle">Based on your listening.</p>
+                                <div class="list daily-mix-list">
+                                    <div class="list-item">
+                                        <span class="material-symbols-rounded">play_arrow</span>
+                                        <div class="daily-mix-item-content">
+                                            <div class="daily-mix-item-title">Try Me</div>
+                                            <div class="daily-mix-item-artist">The Weeknd</div>
+                                        </div>
+                                    </div>
+                                    <div class="list-item">
+                                        <span class="material-symbols-rounded">play_arrow</span>
+                                        <div class="daily-mix-item-content">
+                                            <div class="daily-mix-item-title">Blinding Lights</div>
+                                            <div class="daily-mix-item-artist">The Weeknd</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3. High-Fidelity Circular Widget 3x4 -->
+                    <div id="widget-circular-music" class="widget-wrapper w-3x3">
+                        <h3>Music Player (Circular) <span class="grid-label">3x3</span></h3>
+                        <div class="card-music-circular">
+                            <div class="music-circle-container">
+                                <div class="album-art">
+                                    <span class="material-symbols-rounded">music_note</span>
+                                </div>
+                                <button class="float-btn repeat-btn ripple-target"><span class="material-symbols-rounded">repeat</span></button>
+                                <button class="float-btn play-pause ripple-target"><span class="material-symbols-rounded">pause</span></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 4. Compact Music Widget 3x2 -->
+                    <div id="widget-compact-music" class="widget-wrapper w-3x1">
+                        <h3>Music Player (Compact) <span class="grid-label">3x1</span></h3>
+                        <div class="card-music-compact ripple-target">
+                            <div class="card-media">
+                                <span class="material-symbols-rounded">music_note</span>
+                            </div>
+                            <div class="card-content">
+                                <h3>Try Me</h3>
+                                <p>The Weeknd</p>
+                            </div>
+                            <button class="md-btn icon-btn ripple-target">
+                                <span class="material-symbols-rounded">play_arrow</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 5. Clock Widget 2x2 -->
+                    <div id="widget-clock" class="widget-wrapper w-2x1">
+                        <h3>Digital Clock <span class="grid-label">2x1</span></h3>
+                        <div class="md-card card-filled widget-clock-card ripple-target">
+                            <div id="clockTime" class="widget-clock-time">12:00</div>
+                            <div id="clockDate" class="widget-clock-date">Monday, Feb 24</div>
+                        </div>
+                    </div>
+
+                    <!-- 6. Weather Widget 2x2 -->
+                    <div id="widget-weather" class="widget-wrapper w-2x1">
+                        <h3>Weather <span class="grid-label">2x1</span></h3>
+                        <div class="md-card card-filled widget-weather-card ripple-target">
+                            <div class="widget-weather-city">San Francisco</div>
+                            <div class="widget-weather-temp">72°</div>
+                            <div class="widget-weather-condition">
+                                <span class="material-symbols-rounded">wb_sunny</span>
+                                <span>Sunny</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 7. Stopwatch Widget 2x2 -->
+                    <div id="widget-stopwatch" class="widget-wrapper w-2x1">
+                        <h3>Stopwatch <span class="grid-label">2x1</span></h3>
+                        <div class="md-card card-outlined widget-row-card ripple-target">
+                            <span class="material-symbols-rounded">timer</span>
+                            <div id="stopwatchTime" class="widget-stopwatch-time">00:00.0</div>
+                            <button id="stopwatchStart" class="md-btn icon-btn ripple-target"><span class="material-symbols-rounded">play_arrow</span></button>
+                            <button id="stopwatchReset" class="md-btn icon-btn ripple-target"><span class="material-symbols-rounded">refresh</span></button>
+                        </div>
+                    </div>
+
+                    <!-- 8. Battery Widget 2x2 -->
+                    <div id="widget-battery" class="widget-wrapper w-2x1">
+                        <h3>Battery Status <span class="grid-label">2x1</span></h3>
+                        <div class="md-card card-outlined widget-row-card ripple-target">
+                            <span class="material-symbols-rounded widget-battery-icon">battery_full</span>
+                            <div class="widget-battery-text">85%</div>
+                            <div class="widget-battery-bar-container">
+                                <div class="widget-battery-bar-fill"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 9. News Widget 5x3 -->
+                    <div id="widget-news" class="widget-wrapper w-5x2">
+                        <h3>Featured News <span class="grid-label">5x2</span></h3>
+                        <div class="md-card card-filled widget-news-card ripple-target">
+                            <div class="widget-news-media">
+                                <span class="material-symbols-rounded">newspaper</span>
+                            </div>
+                            <div class="widget-news-content">
+                                <p class="widget-news-tag">Material Design</p>
+                                <h3 class="widget-news-title">What's New in MD3</h3>
+                                <p class="widget-news-summary">Explore the latest updates to the Material Design system, including dynamic color and adaptive layouts.</p>
+                                <button class="md-btn md-btn-filled widget-news-btn ripple-target">Read Article</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="widget-calendar" class="widget-wrapper w-5x3">
+                        <h3>Calendar <span class="grid-label">5x3</span></h3>
+                        <div class="md-card card-outlined widget-calendar-card ripple-target">
+                            <div class="widget-calendar-header">
+                                <h3>February</h3>
+                                <span class="material-symbols-rounded">calendar_month</span>
+                            </div>
+                            <div class="widget-calendar-event">
+                                <div class="widget-calendar-time">10:00</div>
+                                <div>Design Sync</div>
+                            </div>
+                            <div class="widget-calendar-event">
+                                <div class="widget-calendar-time">14:30</div>
+                                <div>PR Review</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="widget-contacts" class="widget-wrapper w-4x3">
+                        <h3>Recent Contacts <span class="grid-label">4x3</span></h3>
+                        <div class="md-card card-outlined widget-contacts-card ripple-target">
+                            <div class="list widget-contacts-list">
+                                <div class="list-item">
+                                    <div class="avatar avatar-a">A</div>
+                                    <div class="contact-info">
+                                        <div class="contact-name">Ali Connors</div>
+                                        <div class="contact-meta">Mobile • 5 min ago</div>
+                                    </div>
+                                </div>
+                                <div class="list-item">
+                                    <div class="avatar avatar-b">B</div>
+                                    <div class="contact-info">
+                                        <div class="contact-name">Ben Dover</div>
+                                        <div class="contact-meta">Work • Yesterday</div>
+                                    </div>
+                                </div>
+                                <div class="list-item">
+                                    <div class="avatar avatar-c">C</div>
+                                    <div class="contact-info">
+                                        <div class="contact-name">Charlie</div>
+                                        <div class="contact-meta">Home • Mon</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    </div>
+                </div>
+            </section>
+        </div>
+        </div>
+    </main>
+
+    <script src="js/navigation.js"></script>
+    
+    <!-- Components -->
+    <script src="js/components/ripples.js"></script>
+    <script src="js/components/widgets.js"></script>
+    <script src="js/components/tabs.js"></script>
+    <script src="js/components/dialogs.js"></script>
+    <script src="js/components/sheets.js"></script>
+    <script src="js/components/inputs.js"></script>
+    <script src="js/components/sliders.js"></script>
+    <script src="js/components/motion.js"></script>
+    <script src="js/components/interactions.js"></script>
+
+    <script src="js/scripts.js"></script>
+</body>
+</html>

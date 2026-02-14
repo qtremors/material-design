@@ -11,7 +11,7 @@
 .md-field::after {
     content: ""; position: absolute; bottom: 0; left: 0; right: 0; height: 0; background-color: var(--md-sys-color-primary); transition: all 0.2s;
 }
-.md-field:focus-within::after, .text-field-container:focus-within { height: 2px; }
+.md-field:focus-within::after, .text-field-container:focus-within::after { height: 2px; }
 .md-field input, .text-field {
     width: 100%; height: 100%; background: transparent; border: none; outline: none;
     font: var(--md-sys-typescale-body-large); color: var(--md-sys-color-on-surface); padding-top: 24px; padding-bottom: 8px;
@@ -45,10 +45,12 @@
     transition: border-color 0.2s;
 }
 
-.expressive-text-field:focus {
+.expressive-text-field:focus,
+.expressive-text-field:focus-visible {
     border-color: var(--md-sys-color-primary);
     border-width: 2px;
     padding: 0 15px; /* Adjust for border width change */
+    outline: none;
 }
 
 .expressive-input-label {
@@ -124,12 +126,12 @@
 /* TRACK */
 .md-slider::-webkit-slider-runnable-track {
     width: 100%; height: 4px; cursor: pointer;
-    background: var(--md-sys-color-surface-container-highest);
+    background: linear-gradient(to right, var(--md-sys-color-primary) var(--slider-value, 0%), var(--md-sys-color-surface-container-highest) var(--slider-value, 0%));
     border-radius: 2px;
 }
 .md-slider::-moz-range-track {
     width: 100%; height: 4px; cursor: pointer;
-    background: var(--md-sys-color-surface-container-highest);
+    background: linear-gradient(to right, var(--md-sys-color-primary) var(--slider-value, 0%), var(--md-sys-color-surface-container-highest) var(--slider-value, 0%));
     border-radius: 2px;
 }
 

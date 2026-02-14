@@ -1,0 +1,9 @@
+/* ==========================================================================
+   WIDGETS COMPONENT ENTRY POINT
+   Imports categorized widget styles from modular files.
+   ========================================================================== */
+
+@import url('../widgets/structure.css');
+@import url('../widgets/music.css');
+@import url('../widgets/utilities.css');
+@import url('../widgets/content.css');

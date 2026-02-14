@@ -1,0 +1,144 @@
+/* ==========================================================================
+   WIDGETS COMPONENT - UTILITIES
+   Functional widgets (Clock, Weather, etc.)
+   ========================================================================== */
+
+/* --- 5. Digital Clock --- */
+#widget-clock .widget-clock-card {
+    padding: 8px; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--md-sys-color-primary-container);
+    color: var(--md-sys-color-on-primary-container);
+}
+
+#widget-clock .widget-clock-time {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+#widget-clock .widget-clock-date {
+    font-size: 16px;
+    opacity: 0.8;
+    margin-top: 4px;
+    color: var(--md-sys-color-on-primary-container);
+}
+
+
+/* --- 6. Weather --- */
+#widget-weather .widget-weather-card {
+    padding: 8px;
+    background: linear-gradient(135deg, var(--md-sys-color-tertiary-container), var(--md-sys-color-primary-container));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: var(--md-sys-color-on-primary-container);
+}
+
+#widget-weather .widget-weather-city {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+#widget-weather .widget-weather-temp {
+    font-size: 40px;
+    font-weight: 700;
+    margin: 2px 0;
+    line-height: 1.1;
+}
+
+#widget-weather .widget-weather-condition {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+}
+
+
+/* --- 7. Stopwatch --- */
+#widget-stopwatch .widget-row-card {
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+#widget-stopwatch .widget-stopwatch-time {
+    font-size: 24px;
+    font-weight: 700;
+    flex: 1;
+    color: var(--md-sys-color-primary); /* Vibrant Time */
+}
+
+
+/* --- 8. Battery --- */
+#widget-battery .widget-row-card {
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+#widget-battery .widget-battery-icon {
+    color: var(--md-sys-color-primary); /* Use Primary instead of success for theme consistency? Or keep success? User asked for color changes. */
+}
+
+#widget-battery .widget-battery-text {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--md-sys-color-on-surface);
+}
+
+#widget-battery .widget-battery-bar-container {
+    flex: 1;
+    height: 12px;
+    background: var(--md-sys-color-surface-container-highest);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+#widget-battery .widget-battery-bar-fill {
+    width: 85%;
+    height: 100%;
+    background: var(--md-sys-color-primary); /* Match icon */
+}
+
+
+/* --- 10. Calendar Widget --- */
+#widget-calendar .widget-calendar-card {
+    padding: 24px;
+}
+
+#widget-calendar .widget-calendar-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+#widget-calendar .widget-calendar-header h3 {
+    margin: 0;
+    color: var(--md-sys-color-primary);
+}
+
+#widget-calendar .widget-calendar-event {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    padding: 12px;
+    border-radius: 12px;
+    background: var(--md-sys-color-tertiary-container); /* Vibrant Event */
+    color: var(--md-sys-color-on-tertiary-container);
+    margin-bottom: 8px;
+}
+
+#widget-calendar .widget-calendar-event:last-child {
+    margin-bottom: 0;
+}
+
+#widget-calendar .widget-calendar-time {
+    font-weight: 700;
+    color: var(--md-sys-color-primary);
+}
