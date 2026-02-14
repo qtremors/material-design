@@ -76,12 +76,14 @@ Visit **http://localhost:8000**
 material-design/
 ├── src/                  # Source code
 │   ├── css/              # Design tokens and component styles
-│   │   ├── variables.css 
-│   │   └── styles.css    
+│   │   ├── components/   # Modular CSS files
+│   │   ├── base.css
+│   │   └── variables.css 
 │   ├── js/               # Application logic
+│   │   ├── components/   # Modular JS files
 │   │   ├── theme.js      
 │   │   ├── navigation.js 
-│   │   └── scripts.js    
+│   │   └── scripts.js    # Orchestrator    
 │   ├── assets/           # Static assets
 │   └── *.html            # Component pages
 ├── index.html            # Entry point

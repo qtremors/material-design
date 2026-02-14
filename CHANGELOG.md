@@ -1,10 +1,18 @@
 # Material Design Changelog
 
 > **Project:** Material Design  
-> **Version:** 1.3.2
+> **Version:** 1.3.3
 > **Last Updated:** 2026-02-14
 
 ---
+
+## [1.3.3] - 2026-02-14
+
+### Refactored
+-   **JS Architecture:** Modularized the monolithic `src/js/scripts.js` into component-specific modules in `src/js/components/`.
+    -   Extracted: `ripples.js`, `tabs.js`, `dialogs.js`, `sheets.js`, `inputs.js`, `sliders.js`, `motion.js`, `interactions.js`.
+    -   `scripts.js` now acts as a lightweight orchestrator.
+-   **Documentation:** Updated `README.md` and `DEVELOPMENT.md` to reflect the new modular CSS and JS project structure.
 
 ## [1.3.2] - 2026-02-14
 

@@ -2,7 +2,7 @@
 
 > Comprehensive documentation for developers working on Material Design.
 
-**Version:** 1.3.2 | **Last Updated:** 2026-02-13
+**Version:** 1.3.3 | **Last Updated:** 2026-02-14
 
 ---
 
@@ -55,12 +55,22 @@
 material-design/
 ├── src/                  # Source code
 │   ├── css/
-│   │   ├── variables.css     # Design tokens (colors, type, elevation)
-│   │   └── styles.css        # Component-specific styles
+│   │   ├── components/       # Component-specific styles
+│   │   │   ├── buttons.css
+│   │   │   ├── cards.css
+│   │   │   ├── inputs.css
+│   │   │   └── ...
+│   │   ├── base.css          # Core foundations (Reset, Typography)
+│   │   └── variables.css     # Design tokens (colors, type, elevation)
 │   ├── js/
+│   │   ├── components/       # Component logic
+│   │   │   ├── ripples.js
+│   │   │   ├── tabs.js
+│   │   │   ├── dialogs.js
+│   │   │   └── ...
 │   │   ├── theme.js          # Theme abstraction and persistence
 │   │   ├── navigation.js     # Navigation Rail/Drawer injection
-│   │   └── scripts.js        # General interactivity & Ripples
+│   │   └── scripts.js        # Main entry point / Orchestrator
 │   ├── assets/               # Static images/icons
 │   └── *.html                # Individual component showcases
 ├── index.html            # Entry point
@@ -135,7 +145,7 @@ Create a new file (e.g., `my-component.html`) in the `src/` directory.
 > **Tip:** Copy `src/buttons.html` or `src/cards.html` to use as a template. This ensures you have the correct `<head>` logic, viewport meta tags, and script imports.
 
 ### 2. Add Styles
-Add your component-specific styles to `src/css/styles.css`.
+Create a new CSS file in `src/css/components/` (e.g., `my-component.css`) and link it in your HTML file.
 -   **Strictly use CSS variables** from `src/css/variables.css` for colors (`--md-sys-color-*`), typography (`--md-sys-typescale-*`), and shapes.
 -   Do not hardcode hex values or pixel sizes unless absolutely necessary.
 

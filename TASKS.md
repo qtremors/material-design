@@ -1,7 +1,7 @@
 # Material Design - Tasks
 
 > **Project:** Material Design  
-> **Version:** 1.3.2
+> **Version:** 1.3.3
 > **Last Updated:** 2026-02-13
 
 ---
