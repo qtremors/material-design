@@ -7,6 +7,7 @@ const ThemeEngine = {
     // Default Config
     state: {
         theme: 'light',
+        previousTheme: 'light', // For 4-step cycle
         seed: 'blue',
         radius: 'medium'
     },
@@ -21,6 +22,10 @@ const ThemeEngine = {
         
         // Expose global helper
         window.setThemeConfig = (key, value) => {
+            if (key === 'theme') {
+                // If changing theme, track previous
+                this.state.previousTheme = this.state.theme;
+            }
             this.state[key] = value;
             this.save();
             this.apply();
@@ -41,10 +46,12 @@ const ThemeEngine = {
         // 1. Try LocalStorage (Standard Web)
         try {
             const lsTheme = localStorage.getItem('theme');
+            const lsPrevTheme = localStorage.getItem('previousTheme');
             const lsSeed = localStorage.getItem('seed');
             const lsRadius = localStorage.getItem('radius');
             
             if (lsTheme) this.state.theme = lsTheme;
+            if (lsPrevTheme) this.state.previousTheme = lsPrevTheme;
             if (lsSeed) this.state.seed = lsSeed;
             if (lsRadius) this.state.radius = lsRadius;
         } catch (e) {
@@ -70,6 +77,7 @@ const ThemeEngine = {
         // 1. LocalStorage
         try {
             localStorage.setItem('theme', this.state.theme);
+            localStorage.setItem('previousTheme', this.state.previousTheme);
             localStorage.setItem('seed', this.state.seed);
             localStorage.setItem('radius', this.state.radius);
         } catch (e) {}
@@ -86,6 +94,7 @@ const ThemeEngine = {
     apply() {
         const root = document.documentElement;
         root.setAttribute('data-theme', this.state.theme);
+        root.setAttribute('data-prev-theme', this.state.previousTheme);
         root.setAttribute('data-seed', this.state.seed);
         root.setAttribute('data-radius', this.state.radius);
         

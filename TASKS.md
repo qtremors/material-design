@@ -1,7 +1,7 @@
-# Material Design - Tasks
+# Material Design Tasks (v1.4.0)
 
 > **Project:** Material Design  
-> **Version:** 1.3.9
+> **Version:** 1.4.0
 > **Last Updated:** 2026-02-14
 
 ---

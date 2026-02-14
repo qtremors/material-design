@@ -200,8 +200,8 @@
     --md-sys-color-on-secondary-container: #051F23;
 }
 
-/* --- DARK THEME OVERRIDES --- */
-[data-theme="dark"] {
+/* --- DARK & OLED THEME OVERRIDES --- */
+[data-theme="dark"], [data-theme="oled"] {
     --md-sys-color-surface: #111318;
     --md-sys-color-surface-variant: #44474F;
     --md-sys-color-surface-container: #1F2229;
@@ -240,8 +240,30 @@
     --md-sys-elevation-2: none;
     --md-sys-elevation-3: none;
 }
-/* Dark Theme Color Seeds */
-[data-theme="dark"][data-seed="purple"] {
+
+/* OLED Specific Overrides (True Black) */
+[data-theme="oled"] {
+    --md-sys-color-surface: #000000;
+    --md-sys-color-surface-container: #000000; /* Main cards match bg */
+    --md-sys-color-surface-container-low: #000000;
+    
+    /* Slightly lighter for distinction only when needed */
+    --md-sys-color-surface-container-high: #121212; 
+    --md-sys-color-surface-container-highest: #1C1C1C;
+    
+    /* Stronger outlines for separation since elevation is gone */
+    --md-sys-color-outline-variant: #333333;
+}
+
+/* Force borders on cards in OLED mode because elevation is invisible */
+[data-theme="oled"] .md-card, 
+[data-theme="oled"] .settings-card,
+[data-theme="oled"] .widget-card {
+    border: 1px solid var(--md-sys-color-outline-variant);
+}
+
+/* Dark & OLED Theme Color Seeds */
+[data-theme="dark"][data-seed="purple"], [data-theme="oled"][data-seed="purple"] {
     --md-sys-color-primary: #D0BCFF;
     --md-sys-color-on-primary: #381E72;
     --md-sys-color-primary-container: #4F378B;
@@ -253,7 +275,7 @@
     --md-sys-color-tertiary-container: #633B48;
     --md-sys-color-on-tertiary-container: #FFD8E4;
 }
-[data-theme="dark"][data-seed="green"] {
+[data-theme="dark"][data-seed="green"], [data-theme="oled"][data-seed="green"] {
     --md-sys-color-primary: #78DB9F;
     --md-sys-color-on-primary: #003920;
     --md-sys-color-primary-container: #005230;
@@ -266,7 +288,7 @@
     --md-sys-color-on-tertiary-container: #C2E8FB;
 
 }
-[data-theme="dark"][data-seed="teal"] {
+[data-theme="dark"][data-seed="teal"], [data-theme="oled"][data-seed="teal"] {
     --md-sys-color-primary: #4CD9D9;
     --md-sys-color-on-primary: #003737;
     --md-sys-color-primary-container: #005050;
@@ -274,7 +296,7 @@
     --md-sys-color-secondary-container: #3F4949;
     --md-sys-color-on-secondary-container: #CCE8E7;
 }
-[data-theme="dark"][data-seed="red"] {
+[data-theme="dark"][data-seed="red"], [data-theme="oled"][data-seed="red"] {
     --md-sys-color-primary: #F2B8B5;
     --md-sys-color-on-primary: #601410;
     --md-sys-color-primary-container: #8C1D18;
@@ -282,7 +304,7 @@
     --md-sys-color-secondary-container: #5C403E;
     --md-sys-color-on-secondary-container: #F4DDDB;
 }
-[data-theme="dark"][data-seed="pink"] {
+[data-theme="dark"][data-seed="pink"], [data-theme="oled"][data-seed="pink"] {
     --md-sys-color-primary: #FFB2BE;
     --md-sys-color-on-primary: #650025;
     --md-sys-color-primary-container: #900037;
@@ -290,19 +312,19 @@
     --md-sys-color-secondary-container: #49454F; /* Fallback */
     --md-sys-color-on-secondary-container: #E8DEF8;
 }
-[data-theme="dark"][data-seed="orange"] {
+[data-theme="dark"][data-seed="orange"], [data-theme="oled"][data-seed="orange"] {
     --md-sys-color-primary: #FFB870;
     --md-sys-color-on-primary: #4A2800;
     --md-sys-color-primary-container: #693C00;
     --md-sys-color-on-primary-container: #FFDCBE;
 }
-[data-theme="dark"][data-seed="yellow"] {
+[data-theme="dark"][data-seed="yellow"], [data-theme="oled"][data-seed="yellow"] {
     --md-sys-color-primary: #DEC600;
     --md-sys-color-on-primary: #393000;
     --md-sys-color-primary-container: #524700;
     --md-sys-color-on-primary-container: #FFE24B;
 }
-[data-theme="dark"][data-seed="cyan"] {
+[data-theme="dark"][data-seed="cyan"], [data-theme="oled"][data-seed="cyan"] {
     --md-sys-color-primary: #4FD8EB;
     --md-sys-color-on-primary: #00363D;
     --md-sys-color-primary-container: #004F58;

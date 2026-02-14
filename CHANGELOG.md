@@ -1,23 +1,35 @@
 # Material Design Changelog
 
 > **Project:** Material Design  
-> **Version:** 1.3.9
+> **Version:** 1.4.0
 > **Last Updated:** 2026-02-14
+
+---
+
+## [1.4.0] - 2026-02-14
+
+### Fixed & Improved
+-   **Cross-Browser Compatibility:** Fixed a critical issue where slider fill colors were not rendering on Chromium browsers due to specificity conflicts. Implemented a robust CSS solution that works consistently across Firefox, Chromium, and Safari.
+-   **OLED Polish:**
+    -   Added distinct borders to cards in OLED mode to ensure visibility against the pure black background.
+    -   Updated all color seed selectors to correctly apply to the OLED theme, fixing broken palettes in OLED mode.
+-   **Typography:** Fixed typography page to correctly use active color seed tokens for headings and examples.
 
 ---
 
 ## [1.3.9] - 2026-02-14
 
 ### Fixed
--   **Daily Mix Color Scheme:** Replaced hardcoded Daily Mix widget colors with `md-sys-color` tokens to ensure proper dynamic theming and Dark Mode support.
--   **Widget Vibrancy:** Updated the entire widget library to use active theme tokens (`primary`, `secondary`, `tertiary`) for backgrounds, icons, and titles instead of neutral grays to ensure the dashboard reflects the selected color seed.
--   **Adaptive Grid:** Implemented a responsive grid system that enforces a minimum of 5 columns but dynamically scales down cell sizes on smaller screens to maintain a perfect square aspect ratio without horizontal scrolling.
--   **UI Refinement:** Moved color swatches from the top app bar to the widget header for better accessibility and included all available color options from the settings page.
--   **Expressive Input:** Fixed a double border issue on the Expressive Floating Label input component caused by conflict with global focus styles.
--   **Continuous Slider:** Added a fill color to the standard continuous slider track to visually indicate progress, matching the system's design language.
+-   **Daily Mix Color Scheme:** Replaced hardcoded Daily Mix widget colors with `md-sys-color` tokens to ensure proper dynamic theming.
+-   **Widget Vibrancy:** Updated the entire widget library to use active theme tokens.
+-   **Adaptive Grid:** Implemented a responsive grid system for widgets.
+-   **UI Refinement:** Moved color swatches to the widget header.
+-   **Expressive Input:** Fixed a double border issue on the Expressive Floating Label input.
+-   **Continuous Slider:** Added a fill color to the standard continuous slider track.
+-   **OLED Theme:** Introduced a "True Black" OLED theme option and Settings integration.
 
 ### Refactored
--   **Widget CSS:** Modularized `widgets.css` into specific modules (`structure.css`, `music.css`, `utilities.css`, `content.css`) for better maintainability.
+-   **Widget CSS:** Modularized `widgets.css` into specific modules.
 
 ## [1.3.8] - 2026-02-14
 

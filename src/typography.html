@@ -42,6 +42,10 @@
             .type-row { flex-direction: column; align-items: flex-start; gap: 12px; }
             .type-label { width: 100%; margin-bottom: 4px; }
         }
+        /* Fix: Use seed color for typography samples */
+        .type-row > span:not(.type-label) {
+            color: var(--md-sys-color-primary);
+        }
     </style>
 </head>
 <body>

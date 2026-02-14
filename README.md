@@ -78,7 +78,11 @@ material-design/
 │   ├── css/              # Design tokens and component styles
 │   │   ├── components/   # Modular CSS files
 │   │   ├── base.css
-│   │   └── variables.css 
+│   │   ├── variables.css 
+│   │   └── widgets/      # Widget-specific styles
+│   │       ├── structure.css
+│   │       ├── music.css
+│   │       └── ...
 │   ├── js/               # Application logic
 │   │   ├── components/   # Modular JS files
 │   │   ├── theme.js      

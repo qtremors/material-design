@@ -1,8 +1,8 @@
-# Material Design - Developer Documentation
+# Material Design Development Guide (v1.4.0)
 
 > Comprehensive documentation for developers working on Material Design.
 
-**Version:** 1.3.9 | **Last Updated:** 2026-02-14
+**Version:** 1.4.0 | **Last Updated:** 2026-02-14
 
 ---
 
@@ -62,6 +62,10 @@ material-design/
 │   │   │   └── ...
 │   │   ├── base.css          # Core foundations (Reset, Typography)
 │   │   └── variables.css     # Design tokens (colors, type, elevation)
+│   │   └── widgets/          # Widget-specific styles
+│   │       ├── structure.css
+│   │       ├── music.css
+│   │       └── ...
 │   ├── js/
 │   │   ├── components/       # Component logic
 │   │   │   ├── ripples.js
@@ -121,10 +125,10 @@ Custom implementation of the material ink ripple.
 
 All new additions to this library **must** strictly adhere to the following Material Design specifications to maintain a cohesive "feel" and behavior.
 
-### 1. Design Systems
--   **Material Design 3 (MD3):** Base styles must follow the latest MD3 specifications for baseline colors, shapes, and layouts.
--   **Material You:** Ensure dynamic theming compatibility. Components must react correctly to `data-seed` changes and dark mode.
--   **Material 3 Expressive:** Advanced components (like Speed Dials and Morphing FABs) should leverage the "Expressive" traits—rounder shapes, playful but precise transitions, and unique positioning.
+### 1. Design Systems & Guidelines
+-   **Google Material Design 3 (MD3):** All components **MUST** strictly follow the official [Material Design 3 Guidelines](https://m3.material.io/). This includes layout, spacing, typography, and interaction states.
+-   **Material You (Dynamic Color):** All components **MUST** be fully themeable. They must react immediately to `data-seed` changes and support both Light and Dark modes without exception.
+-   **Material 3 Expressive:** Adopt "Expressive" traits for high-impact components. Use rounder shapes, playful animations, and unique layouts as defined in the [MD3 Expressive Guidelines](https://m3.material.io/styles/motion/overview).
 
 ### 2. Animations & Effects
 -   **Duration & Easing:** Use MD3 standard durations (200ms-400ms) and easing functions (standard, emphasized).
@@ -132,7 +136,7 @@ All new additions to this library **must** strictly adhere to the following Mate
 -   **Expressive Motion:** For complex transitions (e.g., shape morphing), use `cubic-bezier(0.175, 0.885, 0.32, 1.275)` for a bouncy, elastic feel.
 
 ### 3. Theme & Feel
--   **Tokens Only:** Never use hardcoded hex values in component CSS. Always map to `--md-sys-color-*` tokens.
+-   **NO HARDCODED COLORS:** Usage of hex codes (e.g., `#FFFFFF`, `#000`) or named colors (e.g., `white`, `black`) is **STRICTLY PROHIBITED** in component styles. You **MUST** always use `--md-sys-color-*` tokens to ensure proper dynamic theming.
 -   **State Layers:** Use standard state layer opacities (`.08` for hover, `.12` for pressed) via CSS variables.
 -   **Naming:** Follow the MD3 naming schema for variables and classes (e.g., `surface-container-high`, `on-primary-container`).
 
@@ -189,9 +193,10 @@ Widgets are specialized components used in the grid layout (`widgets.html`).
 </div>
 ```
 
-#### B. Styles (`src/css/components/widgets.css`)
-- **Scoping**: All widget styles **MUST** be scoped to the widget's ID to prevent side effects.
-- **Responsive**: Use flexbox/grid within the widget to handle different sizes if needed.
+#### B. Styles (`src/css/widgets/`)
+-   **Modular CSS**: Styles should be placed in `src/css/widgets/` (e.g., `my-widget.css`).
+-   **Import**: Link the new CSS file in `widgets.html`.
+-   **Scoping**: All widget styles **MUST** be scoped to the widget's ID.
 
 ```css
 #widget-example .card-example {
