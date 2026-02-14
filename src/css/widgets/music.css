@@ -1,0 +1,355 @@
+/* ==========================================================================
+   WIDGETS COMPONENT - MUSIC
+   Music player related widget styles.
+   ========================================================================== */
+
+/* --- 1. Music Player (Card) --- */
+#widget-music-card .card-music-widget {
+    display: flex; 
+    flex-direction: row; 
+    align-items: center; 
+    padding: 0 !important;
+    overflow: hidden; 
+    border-radius: var(--md-sys-shape-corner-extra-large);
+    background: var(--md-sys-color-surface-container-low);
+    color: var(--md-sys-color-on-surface);
+    height: 100% !important;
+    box-sizing: border-box;
+}
+
+#widget-music-card .card-media {
+    width: 96px; 
+    height: 100%; 
+    aspect-ratio: 1/1;
+    margin: 0; 
+    border-radius: 0; 
+    flex-shrink: 0;
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    /* Changed to Tertiary for more color pop */
+    background: var(--md-sys-color-tertiary-container);
+    color: var(--md-sys-color-on-tertiary-container);
+}
+
+#widget-music-card .card-media span { 
+    font-size: 40px; 
+}
+
+#widget-music-card .card-content { 
+    padding: 0 20px; 
+    flex: 1; 
+    min-width: 0; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    overflow: hidden;
+}
+
+#widget-music-card .widget-controls { 
+    display: flex; 
+    align-items: center; 
+    gap: 8px; 
+    padding: 0 16px; 
+}
+
+#widget-music-card .widget-controls .play-btn {
+    background: var(--md-sys-color-primary);
+    color: var(--md-sys-color-on-primary);
+    width: 40px; height: 40px;
+    border-radius: 50%;
+}
+
+#widget-music-card .card-content h3 { 
+    margin: 0; 
+    padding: 0;
+    font-size: 16px; 
+    line-height: 1.2; 
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    color: var(--md-sys-color-primary); /* Vibrant Title */
+    font-weight: 600;
+}
+
+#widget-music-card .card-content p { 
+    margin: 0; 
+    padding: 0;
+    font-size: 13px; 
+    line-height: 1.2; 
+    color: var(--md-sys-color-on-surface-variant); 
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+}
+
+
+/* --- 2. Music Player (Daily Mix) --- */
+#widget-daily-mix .daily-mix-media {
+    background: var(--md-sys-color-primary-container);
+    height: 35%; /* Top section */
+    margin: 0;
+    border-radius: 0;
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    color: var(--md-sys-color-on-primary-container);
+}
+
+#widget-daily-mix .daily-mix-media span {
+     font-size: 64px;
+}
+
+#widget-daily-mix .card-daily-mix {
+    padding: 0; 
+    overflow: hidden; 
+    background: var(--md-sys-color-surface-container);
+    border-radius: 28px;
+    display: flex;
+    flex-direction: column;
+}
+
+#widget-daily-mix .daily-mix-content {
+    padding: 24px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+#widget-daily-mix .daily-mix-title {
+    font-size: 28px; 
+    margin-bottom: 4px;
+    color: var(--md-sys-color-primary); /* Vibrant Title */
+    font-weight: 400;
+}
+
+#widget-daily-mix .daily-mix-subtitle {
+     color: var(--md-sys-color-on-surface-variant);
+     margin-bottom: 24px; 
+     font-size: 14px;
+}
+
+#widget-daily-mix .daily-mix-list {
+    background: var(--md-sys-color-surface-container-high) !important;
+    border-radius: 24px; 
+    padding: 8px; 
+    margin-top: auto; /* Push to bottom if space */
+    box-shadow: var(--md-sys-elevation-1);
+}
+
+#widget-daily-mix .daily-mix-list .list-item { 
+    padding: 16px !important; 
+    border-radius: 16px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--md-sys-color-outline-variant);
+    transition: background-color 0.2s;
+}
+
+#widget-daily-mix .daily-mix-list .list-item:last-child {
+    border-bottom: none;
+}
+
+#widget-daily-mix .daily-mix-list .list-item:hover {
+    background-color: var(--md-sys-color-secondary-container); /* Color on hover */
+    color: var(--md-sys-color-on-secondary-container);
+}
+
+#widget-daily-mix .daily-mix-list .list-item:hover .daily-mix-item-title {
+    color: var(--md-sys-color-on-secondary-container);
+}
+
+#widget-daily-mix .daily-mix-item-content {
+    margin-left: 16px;
+}
+
+#widget-daily-mix .daily-mix-item-title {
+    font-weight: 500; 
+    font-size: 16px;
+    color: var(--md-sys-color-primary); /* Vibrant */
+    transition: color 0.2s;
+}
+
+#widget-daily-mix .daily-mix-item-artist {
+    font-size: 12px;
+    color: var(--md-sys-color-secondary); /* Vibrant */
+    margin-top: 2px;
+}
+
+
+/* --- 3. Music Player (Circular) --- */
+#widget-circular-music .widget-circular-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    height: 100%;
+}
+
+#widget-circular-music .card-music-circular {
+    width: 100%; 
+    height: 100%;
+    position: relative; 
+    margin: 0; 
+    background: transparent; 
+    border: none; 
+    cursor: default;
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+}
+
+#widget-circular-music .music-circle-container {
+    position: relative;
+    width: 240px; 
+    height: 240px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#widget-circular-music .album-art { 
+    width: 100%; 
+    height: 100%; 
+    border-radius: 50%;
+    overflow: hidden; 
+    background: var(--md-sys-color-tertiary-container); /* Vibrant */
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    box-shadow: var(--md-sys-elevation-3);
+    position: relative; 
+    z-index: 1;
+}
+
+#widget-circular-music .album-art span { 
+    font-size: 80px; 
+    color: var(--md-sys-color-on-tertiary-container); 
+    opacity: 0.8; 
+}
+
+#widget-circular-music .float-btn {
+    position: absolute; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    border: none; 
+    cursor: pointer; 
+    z-index: 5;
+    box-shadow: var(--md-sys-elevation-2);
+    transition: 0.2s cubic-bezier(0.2, 0, 0, 1);
+}
+
+#widget-circular-music .float-btn:hover { 
+    box-shadow: var(--md-sys-elevation-3); 
+}
+
+#widget-circular-music .play-pause {
+    width: 80px; 
+    height: 80px;
+    background: var(--md-sys-color-primary); /* Strong Primary */
+    color: var(--md-sys-color-on-primary);
+    border-radius: 24px; 
+    bottom: 14.65%; 
+    left: 14.65%;
+    transform: translate(-50%, 50%); 
+}
+
+#widget-circular-music .play-pause:hover {
+    transform: translate(-50%, 50%) scale(1.1);
+}
+
+#widget-circular-music .play-pause:active {
+    transform: translate(-50%, 50%) scale(0.95);
+}
+
+#widget-circular-music .play-pause span { 
+    font-size: 36px; 
+}
+
+#widget-circular-music .repeat-btn {
+    width: 56px; 
+    height: 56px;
+    background: var(--md-sys-color-secondary-container); /* Distinctive Secondary */
+    color: var(--md-sys-color-on-secondary-container);
+    border-radius: 50%;
+    top: 14.65%; 
+    right: 14.65%;
+    transform: translate(50%, -50%); 
+}
+
+#widget-circular-music .repeat-btn:hover {
+    transform: translate(50%, -50%) scale(1.1);
+}
+
+#widget-circular-music .repeat-btn:active {
+    transform: translate(50%, -50%) scale(0.95);
+}
+
+#widget-circular-music .repeat-btn span { 
+    font-size: 24px; 
+}
+
+
+/* --- 4. Music Player (Compact) --- */
+#widget-compact-music .card-music-compact {
+    display: flex; 
+    flex-direction: row; 
+    align-items: center; 
+    padding: 12px 16px !important;
+    min-height: 88px; 
+    border-radius: 24px;
+    background: var(--md-sys-color-surface-container-highest); /* Elevated */
+    color: var(--md-sys-color-on-surface);
+    box-shadow: none;
+}
+
+#widget-compact-music .card-media {
+    width: 64px; 
+    height: 64px; 
+    border-radius: 16px;
+    background: var(--md-sys-color-primary-container); /* Vibrant */
+    color: var(--md-sys-color-on-primary-container);
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+#widget-compact-music .card-media span { 
+    font-size: 32px; 
+    line-height: 0; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+}
+
+#widget-compact-music .card-content { 
+    flex: 1; 
+    padding: 0 16px; 
+    min-width: 0; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+}
+
+#widget-compact-music .card-content h3 { 
+    font-size: 18px; 
+    margin: 0; 
+    line-height: 1.1; 
+    font-weight: 600; 
+    color: var(--md-sys-color-primary); /* Vibrant Title */
+}
+
+#widget-compact-music .card-content p { 
+    font-size: 14px; 
+    margin: 4px 0 0 0; 
+    line-height: 1.1; 
+    color: var(--md-sys-color-on-surface-variant); 
+}
+
+#widget-compact-music .icon-btn { 
+    flex-shrink: 0; 
+}

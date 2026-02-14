@@ -1,10 +1,23 @@
 # Material Design Changelog
 
 > **Project:** Material Design  
-> **Version:** 1.3.8
+> **Version:** 1.3.9
 > **Last Updated:** 2026-02-14
 
 ---
+
+## [1.3.9] - 2026-02-14
+
+### Fixed
+-   **Daily Mix Color Scheme:** Replaced hardcoded Daily Mix widget colors with `md-sys-color` tokens to ensure proper dynamic theming and Dark Mode support.
+-   **Widget Vibrancy:** Updated the entire widget library to use active theme tokens (`primary`, `secondary`, `tertiary`) for backgrounds, icons, and titles instead of neutral grays to ensure the dashboard reflects the selected color seed.
+-   **Adaptive Grid:** Implemented a responsive grid system that enforces a minimum of 5 columns but dynamically scales down cell sizes on smaller screens to maintain a perfect square aspect ratio without horizontal scrolling.
+-   **UI Refinement:** Moved color swatches from the top app bar to the widget header for better accessibility and included all available color options from the settings page.
+-   **Expressive Input:** Fixed a double border issue on the Expressive Floating Label input component caused by conflict with global focus styles.
+-   **Continuous Slider:** Added a fill color to the standard continuous slider track to visually indicate progress, matching the system's design language.
+
+### Refactored
+-   **Widget CSS:** Modularized `widgets.css` into specific modules (`structure.css`, `music.css`, `utilities.css`, `content.css`) for better maintainability.
 
 ## [1.3.8] - 2026-02-14
 
@@ -22,7 +35,7 @@
 -   **Visual Refinements:**
     -   Removed redundant title/artist text from the Circular Music Player for a cleaner aesthetic.
     -   Corrected grid size labels in `widgets.html` and their corresponding CSS classes.
-    -   Fixed color token usage to ensuring proper theming across all widget backgrounds.
+    -   Fixed color token usage to ensure proper theming across all widget backgrounds.
 
 ## [1.3.7] - 2026-02-14
 
@@ -46,24 +59,20 @@
     -   **Battery Status 2x1:** Live level indicator.
 -   **Grid Visibility System:** Implemented a perfect square 100x100px grid for the Widgets dashboard with a dedicated "Show Grid" toggle in the header.
 -   **Container Architecture:** Split the Widgets header and content into distinct containers with rounded perimeters and 28px corners.
+-   **Functional Widgets:** Implemented `src/js/components/widgets.js` to bring the music player widgets to life.
+    -   Supported Play/Pause, Shuffle toggles, and multi-state Repeat (None, All, One).
+    -   Added interactivity to the "Daily Mix" list items.
+-   **Dashboard Expansion:** Added a direct "Widgets" navigation card to the `index.html` dashboard.
 
 ### Fixed & Improved
 -   **Design Restoration:** Restored original widget aesthetics (Card, Daily Mix, Circular, Compact) as per user feedback and reference images.
 -   **Refined Labeling:** Added grid size metadata (e.g., 4x2, 2x2) directly into widget titles for better layout clarity.
 -   **Layout Consistency:** Reverted to section-based grid layout for improved readability and structure.
-
-### Fixed & Improved
 -   **Widget Refinements:**
     -   Implemented infinite state cycling (Repeat None -> All -> One) for the repeat button.
     -   Added high-fidelity "press" animations to all music widget buttons.
     -   Enhanced component targeting to ensure the Compact Music Widget's controls are fully functional.
     -   Added visual feedback for Daily Mix list item selection.
-
-### Added
--   **Functional Widgets:** Implemented `src/js/components/widgets.js` to bring the music player widgets to life.
-    -   Supported Play/Pause, Shuffle toggles, and multi-state Repeat (None, All, One).
-    -   Added interactivity to the "Daily Mix" list items.
--   **Dashboard Expansion:** Added a direct "Widgets" navigation card to the `index.html` dashboard.
 
 ### Refactored
 -   **Component Organization:** Extracted the "Widgets" section from the Cards page into its own dedicated page (`src/widgets.html`).

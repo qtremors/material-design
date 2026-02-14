@@ -45,10 +45,12 @@
     transition: border-color 0.2s;
 }
 
-.expressive-text-field:focus {
+.expressive-text-field:focus,
+.expressive-text-field:focus-visible {
     border-color: var(--md-sys-color-primary);
     border-width: 2px;
     padding: 0 15px; /* Adjust for border width change */
+    outline: none;
 }
 
 .expressive-input-label {
@@ -124,12 +126,12 @@
 /* TRACK */
 .md-slider::-webkit-slider-runnable-track {
     width: 100%; height: 4px; cursor: pointer;
-    background: var(--md-sys-color-surface-container-highest);
+    background: linear-gradient(to right, var(--md-sys-color-primary) var(--slider-value, 0%), var(--md-sys-color-surface-container-highest) var(--slider-value, 0%));
     border-radius: 2px;
 }
 .md-slider::-moz-range-track {
     width: 100%; height: 4px; cursor: pointer;
-    background: var(--md-sys-color-surface-container-highest);
+    background: linear-gradient(to right, var(--md-sys-color-primary) var(--slider-value, 0%), var(--md-sys-color-surface-container-highest) var(--slider-value, 0%));
     border-radius: 2px;
 }
 

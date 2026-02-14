@@ -37,31 +37,26 @@
             <span class="material-symbols-rounded menu-trigger" role="button" tabindex="0" aria-label="Open menu" style="margin-right: 16px; cursor: pointer; display: none;">menu</span>
             <h2>Widgets</h2>
             <div style="flex: 1"></div>
-             <!-- Color Seeds -->
-            <div class="actions" style="display: flex; gap: 8px; align-items: center;">
-                <div class="color-swatch active" data-seed="blue" style="background: #2962FF;" title="Blue"></div>
-                <div class="color-swatch" data-seed="purple" style="background: #6750A4;" title="Purple"></div>
-                <div class="color-swatch" data-seed="green" style="background: #006C51;" title="Key Lime"></div>
-                <div class="color-swatch" data-seed="teal" style="background: #006A6A;" title="Teal"></div>
-                <div class="color-swatch" data-seed="red" style="background: #B3261E;" title="Red"></div>
-            </div>
         </div>
 
         <div class="container">
             <!-- WIDGETS DASHBOARD -->
             <section id="widgets" class="section-entrance widgets-section">
-                <div class="widgets-header-container" style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 48px; gap: 16px; flex-wrap: wrap;">
-                    <div class="header-text" style="flex: 1; min-width: 280px;">
-                        <h2 class="widgets-header" style="margin: 0; display: flex; align-items: center; gap: 12px;">
-                            <span class="material-symbols-rounded">widgets</span>
-                            Widgets
-                        </h2>
-                        <p class="widgets-description" style="margin: 8px 0 0 0;">
-                            A collection of high-fidelity components and functional app gadgets.
-                        </p>
+                <div class="widgets-header-container">
+                    <!-- Color Swatches -->
+                    <div class="actions" style="display: flex; gap: 8px; align-items: center;">
+                        <div class="color-swatch" style="background: #2962FF;" title="Blue" onclick="setThemeConfig('seed', 'blue')" data-seed="blue"></div>
+                        <div class="color-swatch" style="background: #6750A4;" title="Purple" onclick="setThemeConfig('seed', 'purple')" data-seed="purple"></div>
+                        <div class="color-swatch" style="background: #006C51;" title="Green" onclick="setThemeConfig('seed', 'green')" data-seed="green"></div>
+                        <div class="color-swatch" style="background: #006A6A;" title="Teal" onclick="setThemeConfig('seed', 'teal')" data-seed="teal"></div>
+                        <div class="color-swatch" style="background: #0097A7;" title="Cyan" onclick="setThemeConfig('seed', 'cyan')" data-seed="cyan"></div>
+                        <div class="color-swatch" style="background: #6D5E00;" title="Yellow" onclick="setThemeConfig('seed', 'yellow')" data-seed="yellow"></div>
+                        <div class="color-swatch" style="background: #8B5000;" title="Orange" onclick="setThemeConfig('seed', 'orange')" data-seed="orange"></div>
+                        <div class="color-swatch" style="background: #BC004B;" title="Pink" onclick="setThemeConfig('seed', 'pink')" data-seed="pink"></div>
+                        <div class="color-swatch" style="background: #B3261E;" title="Red" onclick="setThemeConfig('seed', 'red')" data-seed="red"></div>
                     </div>
                     
-                    <div class="grid-toggle-wrapper" style="display: flex; align-items: center; gap: 12px; background: var(--md-sys-color-surface-container-high); padding: 8px 16px; border-radius: 100px; height: fit-content; margin-bottom: 4px;">
+                    <div class="grid-toggle-wrapper" style="display: flex; align-items: center; gap: 12px; background: var(--md-sys-color-surface-container-high); padding: 8px 16px; border-radius: 100px; height: fit-content;">
                         <!-- Labels Toggle -->
                         <span style="font: var(--md-sys-typescale-label-large); color: var(--md-sys-color-on-surface-variant); cursor: pointer; white-space: nowrap;" onclick="document.getElementById('labelsToggle').click()">Show Labels</span>
                         <label class="switch" style="margin: 0; transform: scale(0.85); transform-origin: right center;">

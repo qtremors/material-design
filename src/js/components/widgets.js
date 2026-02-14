@@ -154,11 +154,20 @@ function initWidgets() {
         
         // Calculate max columns that fit in the parent
         // Subtract 2px for borders
-        const cols = Math.floor((parentWidth - 2) / 100);
+        const availableCols = Math.floor((parentWidth - 2) / 100);
         
-        // Enforce strict width
-        const strictWidth = (cols * 100) + 2;
-        contentContainer.style.width = `${strictWidth}px`;
+        // Enforce minimum of 5 columns as per user request
+        const cols = Math.max(5, availableCols);
+        
+        // Calculate dynamic cell size to fit width perfectly without scroll
+        const cellSize = (parentWidth - 2) / cols;
+
+        // Set CSS Variables for Grid and Background
+        contentContainer.style.setProperty('--grid-cols', cols);
+        contentContainer.style.setProperty('--grid-cell-size', `${cellSize}px`);
+        
+        // Remove strict width (let it fill container)
+        contentContainer.style.width = '100%';
     };
 
     if (contentContainer) {
@@ -212,7 +221,10 @@ function initWidgets() {
         const paddingLeft = parseFloat(styles.paddingLeft) || 0;
         const paddingRight = parseFloat(styles.paddingRight) || 0;
         const availableWidth = container.clientWidth - paddingLeft - paddingRight;
-        const cols = Math.floor(availableWidth / 100);
+        
+        // Use the same logic as snapToGrid
+        const availableCols = Math.floor(availableWidth / 100);
+        const cols = Math.max(5, availableCols);
         
         if (cols <= 0) return;
 
