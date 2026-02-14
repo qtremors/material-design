@@ -1,17 +1,33 @@
 # Material Design Changelog
 
 > **Project:** Material Design  
-> **Version:** 1.3.7
+> **Version:** 1.3.8
 > **Last Updated:** 2026-02-14
 
 ---
 
+## [1.3.8] - 2026-02-14
+
+### Added
+-   **Widget Features:**
+    -   **Labels Toggle:** Added a "Show Labels" toggle to the Widgets dashboard, allowing users to hide widget titles for a cleaner, image-focused layout.
+    -   **Unique IDs:** Assigned unique IDs (e.g., `#widget-music-card`, `#widget-daily-mix`) to all widgets for granular styling and layout control.
+-   **Documentation:** Added a fundamental "Create New Widgets" guide to `DEVELOPMENT.md` covering structure, scoping, and interactivity.
+
+### Fixed & Improved
+-   **Widget Redesigns:**
+    -   **Daily Mix:** Overhauled the Daily Mix widget to a 4x5 vertical layout with a two-tone background (Light Blue/Grey) and a floating song list card, matching the new design language.
+    -   **Circular Music Player:** Refined the circular player with a larger 240px album art container and diagonally positioned floating buttons that sit precisely on the border.
+-   **Interaction Polish:** Fixed a layout shift issue where music player buttons would jump position during hover and click states.
+-   **Visual Refinements:**
+    -   Removed redundant title/artist text from the Circular Music Player for a cleaner aesthetic.
+    -   Corrected grid size labels in `widgets.html` and their corresponding CSS classes.
+    -   Fixed color token usage to ensuring proper theming across all widget backgrounds.
+
 ## [1.3.7] - 2026-02-14
 
 ### Added
-- **Universal Perfect Square Grid:** Implemented a robust snapping system that ensures grid lines are always perfect squares on all screen sizes.
-    - **Desktop:** 100px grid units.
-    - **Mobile:** 64px grid units to guarantee at least 5 columns on narrow viewports.
+- **Visual Grid System:** Implemented a non-destructive background grid for the widgets page that provides a 5-column visualization without impacting the original styling and sizing of the widgets.
 - **Refined Grid Toggle:** Enhanced the "Show Grid" toggle with an elevated capsule design and improved vertical alignment in the dashboard header.
 
 ### Fixed & Improved

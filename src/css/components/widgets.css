@@ -21,8 +21,16 @@
 }
 
 .widgets-grid {
-    align-items: flex-start;
-    gap: 48px;
+    display: grid;
+    /* Strict 100px columns */
+    grid-template-columns: repeat(auto-fill, 100px);
+    grid-auto-rows: 100px;
+    grid-auto-flow: dense; /* Help fill gaps */
+    gap: 0; /* Remove gap so cells touch grid lines */
+    justify-content: start; /* Start grid from left */
+    padding: 0; /* Remove inner padding so grid starts at edge */
+    width: 100%;
+    margin: 0 auto;
 }
 
 .widgets-header-container {
@@ -34,29 +42,37 @@
 .widgets-content-container {
     margin: 0 auto;
     width: 100%;
-    /* Default Desktop: 100px units */
-    max-width: 1200px; 
-    padding: 100px; 
+    /* Strict width to ensure perfect 100px alignment */
+    /* width is set by JS now */
+    max-width: 100%;
+    
+    padding: 0; /* Remove padding to maximize grid area */
     
     background-image: none;
-    background-size: 100px 100px;
-    background-position: -1px -1px;
+    background-color: var(--md-sys-color-surface);
     
     border: 1px solid var(--md-sys-color-outline-variant);
     border-radius: var(--md-sys-shape-corner-extra-large); 
     box-sizing: border-box;
-    transition: max-width 0.4s cubic-bezier(0.2, 0, 0, 1);
+    transition: width 0.4s cubic-bezier(0.2, 0, 0, 1);
     overflow: hidden; 
+    position: relative;
+    min-height: 800px;
 }
 
-/* MOBILE REFINEMENTS (64px squares to ensure 5+ columns) */
+/* THE VISUAL GRID BACKGROUND */
+.widgets-content-container.grid-active {
+    background-image: 
+        linear-gradient(var(--md-sys-color-outline-variant) 1px, transparent 1px),
+        linear-gradient(90deg, var(--md-sys-color-outline-variant) 1px, transparent 1px);
+    background-size: 100px 100px; /* Force 100px strict */
+    background-position: 0 0;
+}
+
+
+/* MOBILE REFINEMENTS (Dynamic Grid naturally scale) */
 @media (max-width: 720px) {
     .widgets-content-container {
-        padding: 64px; /* Multiple of 64 */
-        background-size: 64px 64px;
-        /* Minimum width for 5 columns: 5 * 64 + 2 for borders (?) */
-        /* Let's be precise: max-width should be total pixels of grid blocks */
-        max-width: 322px; 
         border-radius: 16px;
     }
     
@@ -72,12 +88,6 @@
         justify-content: space-between;
     }
 
-    /* Small Mobile Snapping (64px intervals) */
-    @media (min-width: 386px) { .widgets-content-container { max-width: 386px; } } /* 6 blocks */
-    @media (min-width: 450px) { .widgets-content-container { max-width: 450px; } } /* 7 blocks */
-    @media (min-width: 514px) { .widgets-content-container { max-width: 514px; } } /* 8 blocks */
-    @media (min-width: 578px) { .widgets-content-container { max-width: 578px; } } /* 9 blocks */
-    @media (min-width: 642px) { .widgets-content-container { max-width: 642px; } } /* 10 blocks */
 }
 
 .widgets-content-container.grid-active {
@@ -86,29 +96,103 @@
         linear-gradient(90deg, var(--md-sys-color-outline-variant) 1px, transparent 1px);
 }
 
-/* Desktop Snapping (100px intervals) */
-/* accounts for rail space and margins */
+/* Desktop Snapping handled by JS for perfect 100px precision */
 @media (min-width: 721px) {
-    @media (max-width: 1380px) { .widgets-content-container { max-width: 1100px; } }
-    @media (max-width: 1280px) { .widgets-content-container { max-width: 1000px; } }
-    @media (max-width: 1180px) { .widgets-content-container { max-width: 900px; } }
-    @media (max-width: 1080px) { .widgets-content-container { max-width: 800px; } }
-    @media (max-width: 980px) { .widgets-content-container { max-width: 700px; } }
-    @media (max-width: 880px) { .widgets-content-container { max-width: 600px; } }
+    /* Base styles or specific overrides if needed */
 }
 
 .widget-wrapper {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    padding: 0; /* Remove padding from wrapper to align header strictly */
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
 }
 
-.widget-wrapper-full {
-    grid-column: 1 / -1;
+/* Strict Grid Positioning */
+.w-5x4 { grid-column: span 5; grid-row: span 4; }
+.w-5x3 { grid-column: span 5; grid-row: span 3; }
+.w-5x2 { grid-column: span 5; grid-row: span 2; }
+.w-5x1 { grid-column: span 5; grid-row: span 1; }
+
+.w-4x5 { grid-column: span 4; grid-row: span 5; } /* New for 4x4 + label */
+.w-4x4 { grid-column: span 4; grid-row: span 4; }
+.w-4x3 { grid-column: span 4; grid-row: span 3; }
+.w-4x2 { grid-column: span 4; grid-row: span 2; }
+.w-4x1 { grid-column: span 4; grid-row: span 1; }
+
+.w-3x4 { grid-column: span 3; grid-row: span 4; } /* New for 3x3 + label */
+.w-3x3 { grid-column: span 3; grid-row: span 3; }
+.w-3x2 { grid-column: span 3; grid-row: span 2; }
+.w-3x1 { grid-column: span 3; grid-row: span 1; }
+
+/* Grid classes are now handled by JS auto-placement based on w-NxM conventions */
+
+.widget-wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 0; /* No padding between widget edge and cell edge */
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
 }
 
-.widget-title {
-    margin-bottom: 16px;
+/* Default: Labels are visible */
+.widget-wrapper > h3 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--md-sys-color-on-surface-variant);
+    
+    /* Strict Label Row: 100px height */
+    height: 100px;
+    flex-shrink: 0;
+    display: flex; 
+    align-items: center; 
+    padding-left: 16px; 
+    box-sizing: border-box;
+    align-items: flex-end;
+    padding-bottom: 24px;
+    transition: height 0.3s cubic-bezier(0.2, 0, 0, 1), opacity 0.2s;
+}
+
+/* Hidden state */
+.widgets-grid.labels-hidden .widget-wrapper > h3 {
+    height: 0;
+    opacity: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.grid-label {
+    margin-left: 8px;
+    opacity: 0.6;
+    font-weight: 400;
+    font-size: 12px;
+}
+
+.widget-wrapper .md-card {
+    margin: 2px; /* 2px spacing on all sides */
+    width: auto; /* Allow margin to determine width */
+    flex: 1; /* Fill remaining space naturally */
+    height: auto;
+    max-width: none !important;
+    max-height: none !important;
+    overflow: hidden; /* Prevent content overflow leaking from cards */
+}
+
+/* Global Reset for all headings and paragraphs inside a widget to avoid style leakage from base.css */
+.widget-wrapper .md-card h1,
+.widget-wrapper .md-card h2,
+.widget-wrapper .md-card h3,
+.widget-wrapper .md-card h4,
+.widget-wrapper .md-card h5,
+.widget-wrapper .md-card h6,
+.widget-wrapper .md-card p {
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box;
 }
 
 /* --- BASE STYLES --- */
@@ -126,23 +210,27 @@
 }
 
 
-/* --- MUSIC WIDGETS --- */
+/* ==========================================================================
+   INVIDIDUAL WIDGET STYLES
+   ========================================================================== */
 
-/* 1. Card Variant (Full Controls) */
-.card-music-widget {
+/* --- 1. Music Player (Card) --- */
+#widget-music-card .card-music-widget {
     display: flex; 
     flex-direction: row; 
     align-items: center; 
     padding: 0 !important;
     overflow: hidden; 
-    max-width: 680px; 
-    border-radius: 28px;
-    background: var(--md-sys-color-surface-container-high);
+    border-radius: var(--md-sys-shape-corner-extra-large);
+    background: var(--md-sys-color-surface-container-low);
+    color: var(--md-sys-color-on-surface);
+    height: 100% !important;
+    box-sizing: border-box;
 }
 
-.card-music-widget .card-media {
-    width: 100px; 
-    height: 100px; 
+#widget-music-card .card-media {
+    width: 96px; 
+    height: 100%; 
     aspect-ratio: 1/1;
     margin: 0; 
     border-radius: 0; 
@@ -150,59 +238,207 @@
     display: flex; 
     align-items: center; 
     justify-content: center;
-    background: var(--md-sys-color-surface-container-highest);
+    background: var(--md-sys-color-surface-container-high);
     color: var(--md-sys-color-primary);
 }
 
-.card-music-widget .card-media span { 
+#widget-music-card .card-media span { 
     font-size: 40px; 
 }
 
-.card-music-widget .card-content { 
-    padding: 0 24px; 
+#widget-music-card .card-content { 
+    padding: 0 20px; 
     flex: 1; 
     min-width: 0; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    overflow: hidden;
 }
 
-.card-music-widget .widget-controls { 
+#widget-music-card .widget-controls { 
     display: flex; 
     align-items: center; 
-    gap: 4px; 
-    padding: 16px; 
+    gap: 8px; 
+    padding: 0 16px; 
 }
 
-.card-music-widget .widget-controls .play-btn {
+#widget-music-card .widget-controls .play-btn {
     background: var(--md-sys-color-primary-container);
     color: var(--md-sys-color-on-primary-container);
+    width: 40px; height: 40px;
+    border-radius: 50%;
 }
 
-.card-music-widget .card-content h3 { margin: 0; }
-.card-music-widget .card-content p { margin: 0; color: var(--md-sys-color-on-surface-variant); }
+#widget-music-card .card-content h3 { 
+    margin: 0; 
+    padding: 0;
+    font-size: 16px; 
+    line-height: 1.2; 
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+}
 
-/* 2. Circular Variant (Hi-Fi Floating Controls) */
-.widget-circular-wrapper {
+#widget-music-card .card-content p { 
+    margin: 0; 
+    padding: 0;
+    font-size: 13px; 
+    line-height: 1.2; 
+    color: var(--md-sys-color-on-surface-variant); 
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+}
+
+
+/* --- 2. Music Player (Daily Mix) --- */
+#widget-daily-mix .daily-mix-media {
+    background: #D7E3FF; /* Light blue from image */
+    height: 35%; /* Top section */
+    margin: 0;
+    border-radius: 0;
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    color: #001D35; /* Dark navy icon */
+}
+
+#widget-daily-mix .daily-mix-media span {
+     font-size: 64px;
+}
+
+#widget-daily-mix .card-daily-mix {
+    padding: 0; 
+    overflow: hidden; 
+    background: #E2E2E2; /* Light grey/beige from image */
+    border-radius: 28px;
+    display: flex;
+    flex-direction: column;
+}
+
+#widget-daily-mix .daily-mix-content {
+    padding: 24px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+#widget-daily-mix .daily-mix-title {
+    font-size: 28px; 
+    margin-bottom: 4px;
+    color: #191C1E;
+    font-weight: 400;
+}
+
+#widget-daily-mix .daily-mix-subtitle {
+     color: #444749; 
+     margin-bottom: 24px; 
+     font-size: 14px;
+}
+
+#widget-daily-mix .daily-mix-list {
+    background: #FFFFFF !important;
+    border-radius: 24px; 
+    padding: 8px; 
+    margin-top: auto; /* Push to bottom if space */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+[data-theme="dark"] #widget-daily-mix .daily-mix-list {
+    background: #2C2C2C !important;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+#widget-daily-mix .daily-mix-list .list-item { 
+    padding: 16px !important; 
+    border-radius: 16px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #F0F0F0;
+}
+
+[data-theme="dark"] #widget-daily-mix .daily-mix-list .list-item {
+     border-bottom: 1px solid #3C3C3C;
+}
+
+#widget-daily-mix .daily-mix-list .list-item:last-child {
+    border-bottom: none;
+}
+
+#widget-daily-mix .daily-mix-list .list-item:hover {
+    background-color: rgba(0,0,0,0.03);
+}
+
+[data-theme="dark"] #widget-daily-mix .daily-mix-list .list-item:hover {
+    background-color: rgba(255,255,255,0.05);
+}
+
+#widget-daily-mix .daily-mix-item-content {
+    margin-left: 16px;
+}
+
+#widget-daily-mix .daily-mix-item-title {
+    font-weight: 500; 
+    font-size: 16px;
+    color: #191C1E;
+}
+
+[data-theme="dark"] #widget-daily-mix .daily-mix-item-title {
+    color: #E2E2E2;
+}
+
+#widget-daily-mix .daily-mix-item-artist {
+    font-size: 12px;
+    color: #444749;
+    margin-top: 2px;
+}
+
+[data-theme="dark"] #widget-daily-mix .daily-mix-item-artist {
+    color: #C4C7C9;
+}
+
+
+/* --- 3. Music Player (Circular) --- */
+#widget-circular-music .widget-circular-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 16px;
+    height: 100%;
 }
 
-.card-music-circular {
-    width: 200px; 
-    height: 200px;
+#widget-circular-music .card-music-circular {
+    width: 100%; 
+    height: 100%;
     position: relative; 
-    margin: 40px; /* Space for floating buttons */
+    margin: 0; 
     background: transparent; 
     border: none; 
     cursor: default;
+    display: flex;
+    align-items: center; 
+    justify-content: center;
 }
 
-.card-music-circular .album-art { 
+#widget-circular-music .music-circle-container {
+    position: relative;
+    width: 240px; 
+    height: 240px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Calculated for 45deg on circle: 1 - sin(45) * 0.5 = ~14.64% from edge */
+}
+
+#widget-circular-music .album-art { 
     width: 100%; 
     height: 100%; 
     border-radius: 50%;
     overflow: hidden; 
-    background: var(--md-sys-color-surface-container-highest);
+    background: var(--md-sys-color-secondary-container);
     display: flex; 
     align-items: center; 
     justify-content: center;
@@ -211,14 +447,13 @@
     z-index: 1;
 }
 
-.card-music-circular .album-art span { 
+#widget-circular-music .album-art span { 
     font-size: 80px; 
     color: var(--md-sys-color-primary); 
     opacity: 0.5; 
 }
 
-/* Floating Controls */
-.card-music-circular .float-btn {
+#widget-circular-music .float-btn {
     position: absolute; 
     display: flex; 
     align-items: center; 
@@ -230,93 +465,93 @@
     transition: 0.2s cubic-bezier(0.2, 0, 0, 1);
 }
 
-.card-music-circular .float-btn:hover { 
+#widget-circular-music .float-btn:hover { 
     box-shadow: var(--md-sys-elevation-3); 
-    transform: scale(1.1); 
 }
 
-.card-music-circular .float-btn:active { 
-    transform: scale(0.95); 
-}
 
-.card-music-circular .play-pause {
-    width: 72px; 
-    height: 72px;
-    background: var(--md-sys-color-success-container);
-    color: var(--md-sys-color-on-success-container);
-    border-radius: 24px; /* Squircle */
-    left: -20px; 
-    bottom: -10px;
-}
 
-.card-music-circular .play-pause span { 
-    font-size: 32px; 
-}
-
-.card-music-circular .repeat-btn {
-    width: 56px; 
-    height: 56px;
+#widget-circular-music .play-pause {
+    width: 80px; 
+    height: 80px;
     background: var(--md-sys-color-primary-container);
     color: var(--md-sys-color-on-primary-container);
-    border-radius: 50%; /* Pure Circle */
-    right: -10px; 
-    top: -10px;
+    border-radius: 24px; 
+    bottom: 14.65%; 
+    left: 14.65%;
+    transform: translate(-50%, 50%); /* Center on the border point */
 }
 
-.card-music-circular .repeat-btn span { 
+#widget-circular-music .play-pause:hover {
+    transform: translate(-50%, 50%) scale(1.1);
+}
+
+#widget-circular-music .play-pause:active {
+    transform: translate(-50%, 50%) scale(0.95);
+}
+
+#widget-circular-music .play-pause span { 
+    font-size: 36px; 
+}
+
+#widget-circular-music .repeat-btn {
+    width: 56px; 
+    height: 56px;
+    background: var(--md-sys-color-tertiary-container);
+    color: var(--md-sys-color-on-tertiary-container);
+    border-radius: 50%;
+    top: 14.65%; 
+    right: 14.65%;
+    transform: translate(50%, -50%); /* Center on the border point */
+}
+
+#widget-circular-music .repeat-btn:hover {
+    transform: translate(50%, -50%) scale(1.1);
+}
+
+#widget-circular-music .repeat-btn:active {
+    transform: translate(50%, -50%) scale(0.95);
+}
+
+#widget-circular-music .repeat-btn span { 
     font-size: 24px; 
 }
 
-.widget-circular-text {
-    text-align: center;
-}
 
-.widget-circular-text h4 {
-    margin: 0;
-    font-size: 16px;
-}
-
-.widget-circular-text p {
-    margin: 4px 0 0 0;
-    font-size: 14px;
-    color: var(--md-sys-color-on-surface-variant);
-}
-
-
-/* 3. Compact Card Variant */
-.card-music-compact {
+/* --- 4. Music Player (Compact) --- */
+#widget-compact-music .card-music-compact {
     display: flex; 
     flex-direction: row; 
     align-items: center; 
     padding: 12px 16px !important;
-    max-width: 440px; 
     min-height: 88px; 
     border-radius: 24px;
-    background: var(--md-sys-color-surface-container-low);
-    box-shadow: var(--md-sys-elevation-1);
+    background: var(--md-sys-color-surface-container);
+    color: var(--md-sys-color-on-surface);
+    box-shadow: none;
 }
 
-.card-music-compact .card-media {
+#widget-compact-music .card-media {
     width: 64px; 
     height: 64px; 
     border-radius: 16px;
-    background: var(--md-sys-color-primary-container);
-    color: var(--md-sys-color-primary);
+    background: var(--md-sys-color-secondary-container);
+    color: var(--md-sys-color-on-secondary-container);
     display: flex; 
     align-items: center; 
     justify-content: center;
     flex-shrink: 0;
 }
 
-.card-music-compact .card-media span { 
+#widget-compact-music .card-media span { 
     font-size: 32px; 
-    line-height: 0; /* Remove baseline space */
+    line-height: 0; 
     display: flex; 
     align-items: center; 
     justify-content: center;
 }
 
-.card-music-compact .card-content { 
+#widget-compact-music .card-content { 
     flex: 1; 
     padding: 0 16px; 
     min-width: 0; 
@@ -325,104 +560,28 @@
     justify-content: center; 
 }
 
-.card-music-compact .card-content h3 { 
+#widget-compact-music .card-content h3 { 
     font-size: 18px; 
     margin: 0; 
     line-height: 1.1; 
     font-weight: 600; 
 }
 
-.card-music-compact .card-content p { 
+#widget-compact-music .card-content p { 
     font-size: 14px; 
     margin: 4px 0 0 0; 
     line-height: 1.1; 
     color: var(--md-sys-color-on-surface-variant); 
 }
 
-.card-music-compact .icon-btn { 
+#widget-compact-music .icon-btn { 
     flex-shrink: 0; 
 }
 
-/* 4. Daily Mix */
-.card-daily-mix {
-    padding: 0; 
-    overflow: hidden; 
-    max-width: 340px;
-}
 
-.card-daily-mix .daily-mix-media {
-    background: var(--md-sys-color-secondary-container);
-    height: 160px;
-    margin: 0;
-    border-radius: 0;
-    display: flex; 
-    align-items: center; 
-    justify-content: center;
-    color: var(--md-sys-color-on-surface-variant); 
-}
-
-.card-daily-mix .daily-mix-media span {
-     font-size: 56px;
-}
-
-.card-daily-mix .daily-mix-content {
-    padding: 24px;
-}
-
-.card-daily-mix .daily-mix-title {
-    font-size: 24px; 
-    margin-bottom: 4px;
-}
-
-.card-daily-mix .daily-mix-subtitle {
-     color: var(--md-sys-color-on-surface-variant); 
-     margin-bottom: 16px; 
-     font-size: 14px;
-}
-
-
-.daily-mix-list {
-    background: rgba(255, 255, 255, 0.9) !important;
-    border-radius: 16px; 
+/* --- 5. Digital Clock --- */
+#widget-clock .widget-clock-card {
     padding: 8px; 
-    margin-top: 16px;
-}
-
-[data-theme="dark"] .daily-mix-list {
-    background: rgba(var(--md-sys-color-surface-container-highest-rgb), 0.3) !important;
-}
-
-.daily-mix-list .list-item { 
-    padding: 12px !important; 
-    border-radius: 12px;
-    margin: 2px 0;
-    display: flex;
-    align-items: center;
-}
-
-.daily-mix-list .list-item:hover {
-    background-color: var(--md-sys-color-surface-container-highest);
-}
-
-.daily-mix-item-content {
-    margin-left: 12px;
-}
-
-.daily-mix-item-title {
-    font-weight: 500; 
-    font-size: 14px;
-}
-
-.daily-mix-item-artist {
-    font-size: 11px;
-}
-
-
-/* --- UTILITY WIDGETS --- */
-
-/* Clock */
-.widget-clock-card {
-    padding: 32px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -431,65 +590,81 @@
     color: var(--md-sys-color-on-primary-container);
 }
 
-.widget-clock-time {
-    font-size: 48px;
+#widget-clock .widget-clock-time {
+    font-size: 32px;
     font-weight: 700;
+    line-height: 1.1;
 }
 
-.widget-clock-date {
+#widget-clock .widget-clock-date {
     font-size: 16px;
     opacity: 0.8;
     margin-top: 4px;
 }
 
-/* Weather */
-.widget-weather-card {
-    padding: 32px;
+
+/* --- 6. Weather --- */
+#widget-weather .widget-weather-card {
+    padding: 8px;
     background: linear-gradient(135deg, var(--md-sys-color-tertiary-container), var(--md-sys-color-primary-container));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
-.widget-weather-city {
+#widget-weather .widget-weather-city {
     font-size: 18px;
     font-weight: 500;
 }
 
-.widget-weather-temp {
-    font-size: 56px;
+#widget-weather .widget-weather-temp {
+    font-size: 40px;
     font-weight: 700;
-    margin: 8px 0;
+    margin: 2px 0;
+    line-height: 1.1;
 }
 
-.widget-weather-condition {
+#widget-weather .widget-weather-condition {
     display: flex;
     align-items: center;
     gap: 8px;
     font-size: 16px;
 }
 
-/* Stopwatch & Battery Base */
-.widget-row-card {
-    padding: 24px;
+
+/* --- 7. Stopwatch --- */
+#widget-stopwatch .widget-row-card {
+    padding: 0 16px;
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 12px;
 }
 
-.widget-stopwatch-time {
+#widget-stopwatch .widget-stopwatch-time {
     font-size: 24px;
     font-weight: 700;
     flex: 1;
 }
 
-.widget-battery-icon {
+
+/* --- 8. Battery --- */
+#widget-battery .widget-row-card {
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+#widget-battery .widget-battery-icon {
     color: var(--md-sys-color-success);
 }
 
-.widget-battery-text {
+#widget-battery .widget-battery-text {
     font-size: 20px;
     font-weight: 700;
 }
 
-.widget-battery-bar-container {
+#widget-battery .widget-battery-bar-container {
     flex: 1;
     height: 12px;
     background: var(--md-sys-color-surface-container);
@@ -497,21 +672,22 @@
     overflow: hidden;
 }
 
-.widget-battery-bar-fill {
+#widget-battery .widget-battery-bar-fill {
     width: 85%;
     height: 100%;
     background: var(--md-sys-color-success);
 }
 
-/* News Widget */
-.widget-news-card {
+
+/* --- 9. News Widget --- */
+#widget-news .widget-news-card {
     padding: 0;
     display: flex;
     flex-direction: row;
     overflow: hidden;
 }
 
-.widget-news-media {
+#widget-news .widget-news-media {
     width: 40%;
     background: var(--md-sys-color-surface-container-highest);
     display: flex;
@@ -519,16 +695,19 @@
     justify-content: center;
 }
 
-.widget-news-media span {
+#widget-news .widget-news-media span {
     font-size: 64px;
 }
 
-.widget-news-content {
+#widget-news .widget-news-content {
     flex: 1;
-    padding: 32px;
+    padding: 4px 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
-.widget-news-tag {
+#widget-news .widget-news-tag {
     color: var(--md-sys-color-primary);
     font-weight: 700;
     text-transform: uppercase;
@@ -536,36 +715,39 @@
     letter-spacing: 1px;
 }
 
-.widget-news-title {
-    font-size: 28px;
-    margin: 8px 0 16px;
+#widget-news .widget-news-title {
+    font-size: 18px;
+    margin: 4px 0;
+    line-height: 1.2;
 }
 
-.widget-news-summary {
+#widget-news .widget-news-summary {
     color: var(--md-sys-color-on-surface-variant);
-    margin-bottom: 24px;
+    margin-bottom: 8px;
+    font-size: 13px;
 }
 
-.widget-news-btn {
+#widget-news .widget-news-btn {
     width: fit-content;
 }
 
-/* Calendar Widget */
-.widget-calendar-card {
+
+/* --- 10. Calendar Widget --- */
+#widget-calendar .widget-calendar-card {
     padding: 24px;
 }
 
-.widget-calendar-header {
+#widget-calendar .widget-calendar-header {
     display: flex;
     justify-content: space-between;
     margin-bottom: 16px;
 }
 
-.widget-calendar-header h3 {
+#widget-calendar .widget-calendar-header h3 {
     margin: 0;
 }
 
-.widget-calendar-event {
+#widget-calendar .widget-calendar-event {
     display: flex;
     gap: 12px;
     align-items: center;
@@ -575,38 +757,39 @@
     margin-bottom: 8px;
 }
 
-.widget-calendar-event:last-child {
+#widget-calendar .widget-calendar-event:last-child {
     margin-bottom: 0;
 }
 
-.widget-calendar-time {
+#widget-calendar .widget-calendar-time {
     font-weight: 700;
     color: var(--md-sys-color-primary);
 }
 
-/* Contacts Widget */
-.widget-contacts-card {
+
+/* --- 11. Recent Contacts --- */
+#widget-contacts .widget-contacts-card {
     margin: 0;
     padding: 0;
 }
 
-.widget-contacts-list {
+#widget-contacts .widget-contacts-list {
     background: transparent;
 }
 
-.avatar-a { background: #FFD8E4; color: #31111D; }
-.avatar-b { background: #E8DEF8; color: #1D192B; }
-.avatar-c { background: #C2E8FB; color: #001F29; }
+#widget-contacts .avatar-a { background: var(--md-sys-color-primary-container); color: var(--md-sys-color-on-primary-container); }
+#widget-contacts .avatar-b { background: var(--md-sys-color-secondary-container); color: var(--md-sys-color-on-secondary-container); }
+#widget-contacts .avatar-c { background: var(--md-sys-color-tertiary-container); color: var(--md-sys-color-on-tertiary-container); }
 
-.contact-info {
+#widget-contacts .contact-info {
     flex: 1;
 }
 
-.contact-name {
+#widget-contacts .contact-name {
     font-weight: 600;
 }
 
-.contact-meta {
+#widget-contacts .contact-meta {
     font-size: 13px;
     color: var(--md-sys-color-on-surface-variant);
 }

@@ -8,6 +8,9 @@ function initWidgets() {
     document.querySelectorAll('.card-music-widget, .card-music-circular, .card-music-compact').forEach(player => {
         // Universal button click animation
         player.querySelectorAll('button').forEach(btn => {
+            // Skip buttons that rely on CSS transforms for positioning
+            if (btn.classList.contains('float-btn')) return;
+            
             btn.addEventListener('click', () => {
                 btn.style.transform = 'scale(0.9)';
                 setTimeout(() => btn.style.transform = '', 100);
@@ -128,14 +131,180 @@ function initWidgets() {
         });
     });
 
-    // 5. Grid Visibility Toggle
+    // 5. Grid Visibility Toggle & Labels Toggle
     const gridToggle = document.getElementById('gridToggle');
+    const labelsToggle = document.getElementById('labelsToggle');
     const contentContainer = document.querySelector('.widgets-content-container');
-    if (gridToggle && contentContainer) {
-        gridToggle.addEventListener('change', () => {
-            contentContainer.classList.toggle('grid-active', gridToggle.checked);
-        });
+    const widgetsGrid = document.querySelector('.widgets-grid');
+    
+    // Strict Grid Resizing Logic
+    const snapToGrid = () => {
+        if (!contentContainer) return;
+        
+        // Calculate available width (accounting for main margins if any)
+        const main = document.querySelector('main');
+        const mainStyle = window.getComputedStyle(main);
+        const marginLeft = parseFloat(mainStyle.marginLeft) || 0;
+        
+        // Determine number of 100px columns that fit
+        const parentContainer = contentContainer.parentElement; // .container
+        if (!parentContainer) return;
+
+        const parentWidth = parentContainer.getBoundingClientRect().width;
+        
+        // Calculate max columns that fit in the parent
+        // Subtract 2px for borders
+        const cols = Math.floor((parentWidth - 2) / 100);
+        
+        // Enforce strict width
+        const strictWidth = (cols * 100) + 2;
+        contentContainer.style.width = `${strictWidth}px`;
+    };
+
+    if (contentContainer) {
+        // Run on load and resize
+        snapToGrid();
+        window.addEventListener('resize', snapToGrid);
+        
+        if (gridToggle) {
+            // Load saved state
+            const isGridActive = localStorage.getItem('mdWidgetsGridActive') === 'true';
+            gridToggle.checked = isGridActive;
+            contentContainer.classList.toggle('grid-active', isGridActive);
+
+            gridToggle.addEventListener('change', () => {
+                const isActive = gridToggle.checked;
+                contentContainer.classList.toggle('grid-active', isActive);
+                localStorage.setItem('mdWidgetsGridActive', isActive);
+            });
+        }
+        
+        if (labelsToggle && widgetsGrid) {
+            // Labels OFF by default as per request
+            // Only use saved state if explicitly set, otherwise default to false
+            const savedState = localStorage.getItem('mdWidgetsLabelsVisible');
+            const isLabelsVisible = savedState === 'true'; 
+            
+            labelsToggle.checked = isLabelsVisible;
+            widgetsGrid.classList.toggle('labels-hidden', !isLabelsVisible); // toggle class based on !visible
+
+            labelsToggle.addEventListener('change', () => {
+                const isVisible = labelsToggle.checked;
+                widgetsGrid.classList.toggle('labels-hidden', !isVisible);
+                localStorage.setItem('mdWidgetsLabelsVisible', isVisible);
+                
+                // Trigger repack
+                packWidgets();
+            });
+        }
     }
+
+    // 6. Bin-Packing Layout Engine
+    const packWidgets = () => {
+        const container = document.querySelector('.widgets-grid');
+        if (!container) return;
+
+        // Check if labels are hidden
+        const areLabelsHidden = container.classList.contains('labels-hidden');
+
+        // 1. Calculate Available Columns
+        const styles = window.getComputedStyle(container);
+        const paddingLeft = parseFloat(styles.paddingLeft) || 0;
+        const paddingRight = parseFloat(styles.paddingRight) || 0;
+        const availableWidth = container.clientWidth - paddingLeft - paddingRight;
+        const cols = Math.floor(availableWidth / 100);
+        
+        if (cols <= 0) return;
+
+        // 2. Initialize Occupied Map
+        const occupied = new Set();
+        const isOccupied = (r, c, w, h) => {
+            for (let i = 0; i < h; i++) {
+                for (let j = 0; j < w; j++) {
+                    const checkRow = r + i;
+                    const checkCol = c + j;
+                    if (checkCol > cols) return true; // Out of bounds
+                    if (occupied.has(`${checkRow},${checkCol}`)) return true;
+                }
+            }
+            return false;
+        };
+        const markOccupied = (r, c, w, h) => {
+            for (let i = 0; i < h; i++) {
+                for (let j = 0; j < w; j++) {
+                    occupied.add(`${r + i},${c + j}`);
+                }
+            }
+        };
+
+        // 3. Process Widgets
+        document.querySelectorAll('.widget-wrapper').forEach(widget => {
+             // Parse Size from Class
+             const match = Array.from(widget.classList).find(cls => cls.match(/^w-(\d+)x(\d+)$/));
+             if (!match) return;
+             
+             const [_, wStr, hStr] = match.match(/^w-(\d+)x(\d+)$/);
+             const w = parseInt(wStr);
+             let h = parseInt(hStr); 
+             
+             // +1 for Label Row ONLY if labels are visible
+             if (!areLabelsHidden) {
+                h += 1;
+             }
+
+             // Check for Forced Position (inline style)
+             const getStyle = (prop) => {
+                 if (!widget.dataset[`original${prop}`]) {
+                     widget.dataset[`original${prop}`] = widget.style[prop] || 'none';
+                 }
+                 return widget.dataset[`original${prop}`] !== 'none' ? parseInt(widget.dataset[`original${prop}`]) : null;
+             };
+
+             const forcedCol = getStyle('gridColumnStart');
+             const forcedRow = getStyle('gridRowStart');
+
+             // Find Position
+             let placed = false;
+             let row = 1;
+             while (!placed && row < 1000) {
+                 // If forced row, only check that row
+                 if (forcedRow && row !== forcedRow) {
+                     row++;
+                     continue;
+                 }
+
+                 for (let col = 1; col <= cols - w + 1; col++) {
+                     // If forced col, skip others
+                     if (forcedCol && col !== forcedCol) continue;
+
+                     if (!isOccupied(row, col, w, h)) {
+                         // Place it
+                         widget.style.gridColumnStart = col;
+                         widget.style.gridRowStart = row;
+                         widget.style.gridColumnEnd = `span ${w}`;
+                         widget.style.gridRowEnd = `span ${h}`;
+                         
+                         markOccupied(row, col, w, h);
+                         placed = true;
+                         break;
+                     }
+                 }
+                 if (!placed) row++;
+             }
+        });
+    };
+
+    // Run on init and resize
+    // Wait for DOM to handle visibility classes before first pack
+    requestAnimationFrame(() => {
+        packWidgets();
+    });
+    
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(packWidgets, 100);
+    });
 }
 
 window.initWidgets = initWidgets;

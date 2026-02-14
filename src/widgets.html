@@ -62,6 +62,19 @@
                     </div>
                     
                     <div class="grid-toggle-wrapper" style="display: flex; align-items: center; gap: 12px; background: var(--md-sys-color-surface-container-high); padding: 8px 16px; border-radius: 100px; height: fit-content; margin-bottom: 4px;">
+                        <!-- Labels Toggle -->
+                        <span style="font: var(--md-sys-typescale-label-large); color: var(--md-sys-color-on-surface-variant); cursor: pointer; white-space: nowrap;" onclick="document.getElementById('labelsToggle').click()">Show Labels</span>
+                        <label class="switch" style="margin: 0; transform: scale(0.85); transform-origin: right center;">
+                            <input type="checkbox" id="labelsToggle">
+                            <span class="switch-track">
+                                <span class="switch-handle"></span>
+                            </span>
+                            <span class="material-symbols-rounded switch-icon" style="transform: translateX(18px) scale(0.9);">check</span>
+                        </label>
+                        
+                        <div style="width: 1px; height: 16px; background: var(--md-sys-color-outline-variant); margin: 0 4px;"></div>
+
+                        <!-- Grid Toggle -->
                         <span style="font: var(--md-sys-typescale-label-large); color: var(--md-sys-color-on-surface-variant); cursor: pointer; white-space: nowrap;" onclick="document.getElementById('gridToggle').click()">Show Grid</span>
                         <label class="switch" style="margin: 0; transform: scale(0.85); transform-origin: right center;">
                             <input type="checkbox" id="gridToggle">
@@ -75,9 +88,8 @@
 
                 <div class="widgets-content-container">
                     <div class="section-grid widgets-grid">
-                        <!-- 1. Full Card Music Widget 4x2 -->
-                    <div class="widget-wrapper widget-wrapper-full">
-                        <h3 class="widget-title">Music Player (Card) 4x2</h3>
+                    <div id="widget-music-card" class="widget-wrapper w-5x1" style="grid-column-start: 1; grid-row-start: 1;">
+                        <h3>Music Player (Card) <span class="grid-label">5x1</span></h3>
                         <div class="md-card card-music-widget card-outlined ripple-target" style="animation-delay: 0.1s;">
                             <div class="card-media">
                                 <span class="material-symbols-rounded">music_note</span>
@@ -96,9 +108,9 @@
                         </div>
                     </div>
 
-                    <!-- 2. Daily Mix Widget 2x2 -->
-                    <div class="widget-wrapper">
-                        <h3>Music Player (Daily Mix) 2x2</h3>
+                    <!-- 2. Daily Mix Widget 4x5 -->
+                    <div id="widget-daily-mix" class="widget-wrapper w-4x5">
+                        <h3>Music Player (Daily Mix) <span class="grid-label">4x5</span></h3>
                         <div class="md-card card-filled card-daily-mix ripple-target">
                             <div class="daily-mix-media">
                                 <span class="material-symbols-rounded">music_note</span>
@@ -126,25 +138,23 @@
                         </div>
                     </div>
 
-                    <!-- 3. High-Fidelity Circular Widget 2x2 -->
-                    <div class="widget-circular-wrapper">
-                        <h3>Music Player (Circular) 2x2</h3>
+                    <!-- 3. High-Fidelity Circular Widget 3x4 -->
+                    <div id="widget-circular-music" class="widget-wrapper w-3x3">
+                        <h3>Music Player (Circular) <span class="grid-label">3x3</span></h3>
                         <div class="card-music-circular">
-                            <div class="album-art">
-                                <span class="material-symbols-rounded">music_note</span>
+                            <div class="music-circle-container">
+                                <div class="album-art">
+                                    <span class="material-symbols-rounded">music_note</span>
+                                </div>
+                                <button class="float-btn repeat-btn ripple-target"><span class="material-symbols-rounded">repeat</span></button>
+                                <button class="float-btn play-pause ripple-target"><span class="material-symbols-rounded">pause</span></button>
                             </div>
-                            <button class="float-btn repeat-btn ripple-target"><span class="material-symbols-rounded">repeat</span></button>
-                            <button class="float-btn play-pause ripple-target"><span class="material-symbols-rounded">pause</span></button>
-                        </div>
-                        <div class="widget-circular-text">
-                            <h4>Try Me</h4>
-                            <p>The Weeknd</p>
                         </div>
                     </div>
 
-                    <!-- 4. Compact Music Widget 2x1 -->
-                    <div class="widget-wrapper">
-                        <h3>Music Player (Compact) 2x1</h3>
+                    <!-- 4. Compact Music Widget 3x2 -->
+                    <div id="widget-compact-music" class="widget-wrapper w-3x1">
+                        <h3>Music Player (Compact) <span class="grid-label">3x1</span></h3>
                         <div class="card-music-compact ripple-target">
                             <div class="card-media">
                                 <span class="material-symbols-rounded">music_note</span>
@@ -160,8 +170,8 @@
                     </div>
 
                     <!-- 5. Clock Widget 2x2 -->
-                    <div class="widget-wrapper">
-                        <h3>Digital Clock 2x2</h3>
+                    <div id="widget-clock" class="widget-wrapper w-2x1">
+                        <h3>Digital Clock <span class="grid-label">2x1</span></h3>
                         <div class="md-card card-filled widget-clock-card ripple-target">
                             <div id="clockTime" class="widget-clock-time">12:00</div>
                             <div id="clockDate" class="widget-clock-date">Monday, Feb 24</div>
@@ -169,8 +179,8 @@
                     </div>
 
                     <!-- 6. Weather Widget 2x2 -->
-                    <div class="widget-wrapper">
-                        <h3>Weather 2x2</h3>
+                    <div id="widget-weather" class="widget-wrapper w-2x1">
+                        <h3>Weather <span class="grid-label">2x1</span></h3>
                         <div class="md-card card-filled widget-weather-card ripple-target">
                             <div class="widget-weather-city">San Francisco</div>
                             <div class="widget-weather-temp">72°</div>
@@ -181,9 +191,9 @@
                         </div>
                     </div>
 
-                    <!-- 7. Stopwatch Widget 2x1 -->
-                    <div class="widget-wrapper">
-                        <h3>Stopwatch 2x1</h3>
+                    <!-- 7. Stopwatch Widget 2x2 -->
+                    <div id="widget-stopwatch" class="widget-wrapper w-2x1">
+                        <h3>Stopwatch <span class="grid-label">2x1</span></h3>
                         <div class="md-card card-outlined widget-row-card ripple-target">
                             <span class="material-symbols-rounded">timer</span>
                             <div id="stopwatchTime" class="widget-stopwatch-time">00:00.0</div>
@@ -192,9 +202,9 @@
                         </div>
                     </div>
 
-                    <!-- 8. Battery Widget 2x1 -->
-                    <div class="widget-wrapper">
-                        <h3>Battery Status 2x1</h3>
+                    <!-- 8. Battery Widget 2x2 -->
+                    <div id="widget-battery" class="widget-wrapper w-2x1">
+                        <h3>Battery Status <span class="grid-label">2x1</span></h3>
                         <div class="md-card card-outlined widget-row-card ripple-target">
                             <span class="material-symbols-rounded widget-battery-icon">battery_full</span>
                             <div class="widget-battery-text">85%</div>
@@ -204,9 +214,9 @@
                         </div>
                     </div>
 
-                    <!-- 9. News Widget 4x2 -->
-                    <div class="widget-wrapper widget-wrapper-full">
-                        <h3>Featured News 4x2</h3>
+                    <!-- 9. News Widget 5x3 -->
+                    <div id="widget-news" class="widget-wrapper w-5x2">
+                        <h3>Featured News <span class="grid-label">5x2</span></h3>
                         <div class="md-card card-filled widget-news-card ripple-target">
                             <div class="widget-news-media">
                                 <span class="material-symbols-rounded">newspaper</span>
@@ -220,9 +230,8 @@
                         </div>
                     </div>
 
-                    <!-- 10. Calendar Widget 2x2 -->
-                    <div class="widget-wrapper">
-                        <h3>Calendar 2x2</h3>
+                    <div id="widget-calendar" class="widget-wrapper w-5x3">
+                        <h3>Calendar <span class="grid-label">5x3</span></h3>
                         <div class="md-card card-outlined widget-calendar-card ripple-target">
                             <div class="widget-calendar-header">
                                 <h3>February</h3>
@@ -239,9 +248,8 @@
                         </div>
                     </div>
 
-                    <!-- 11. Contacts Widget 2x2 -->
-                    <div class="widget-wrapper">
-                        <h3>Recent Contacts 2x2</h3>
+                    <div id="widget-contacts" class="widget-wrapper w-4x3">
+                        <h3>Recent Contacts <span class="grid-label">4x3</span></h3>
                         <div class="md-card card-outlined widget-contacts-card ripple-target">
                             <div class="list widget-contacts-list">
                                 <div class="list-item">
