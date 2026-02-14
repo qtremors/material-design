@@ -3,6 +3,7 @@ const NAV_ITEMS = [
     { label: 'Buttons', icon: 'smart_button', url: 'buttons.html' },
     { label: 'Inputs', icon: 'text_fields', url: 'inputs.html' },
     { label: 'Cards', icon: 'view_quilt', url: 'cards.html' },
+    { label: 'Widgets', icon: 'widgets', url: 'widgets.html' },
     { label: 'Navigation', icon: 'menu_open', url: 'navigation.html' },
     { label: 'Feedback', icon: 'campaign', url: 'feedback.html' },
     { label: 'Typography', icon: 'text_format', url: 'typography.html' },

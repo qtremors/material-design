@@ -1,10 +1,43 @@
 # Material Design Changelog
 
 > **Project:** Material Design  
-> **Version:** 1.3.5
+> **Version:** 1.3.6
 > **Last Updated:** 2026-02-14
 
 ---
+
+## [1.3.6] - 2026-02-14
+
+### Added
+-   **Widget Library Expansion:** Introduced new functional widgets with grid size labels:
+    -   **Digital Clock 2x2:** Real-time clock with dynamic updates.
+    -   **Stopwatch 2x1:** Fully functional timer.
+    -   **Weather 2x2:** Visual forecast widget.
+    -   **Featured News 4x2:** Expandable news card.
+    -   **Calendar 2x2:** Schedule overview.
+    -   **Battery Status 2x1:** Live level indicator.
+
+### Fixed & Improved
+-   **Design Restoration:** Restored original widget aesthetics (Card, Daily Mix, Circular, Compact) as per user feedback and reference images.
+-   **Refined Labeling:** Added grid size metadata (e.g., 4x2, 2x2) directly into widget titles for better layout clarity.
+-   **Layout Consistency:** Reverted to section-based grid layout for improved readability and structure.
+
+### Fixed & Improved
+-   **Widget Refinements:**
+    -   Implemented infinite state cycling (Repeat None -> All -> One) for the repeat button.
+    -   Added high-fidelity "press" animations to all music widget buttons.
+    -   Enhanced component targeting to ensure the Compact Music Widget's controls are fully functional.
+    -   Added visual feedback for Daily Mix list item selection.
+
+### Added
+-   **Functional Widgets:** Implemented `src/js/components/widgets.js` to bring the music player widgets to life.
+    -   Supported Play/Pause, Shuffle toggles, and multi-state Repeat (None, All, One).
+    -   Added interactivity to the "Daily Mix" list items.
+-   **Dashboard Expansion:** Added a direct "Widgets" navigation card to the `index.html` dashboard.
+
+### Refactored
+-   **Component Organization:** Extracted the "Widgets" section from the Cards page into its own dedicated page (`src/widgets.html`).
+-   **Navigation:** Added "Widgets" to the global Navigation Rail and Drawer for direct access to specialized components (Music Players, Contacts Widget).
 
 ## [1.3.5] - 2026-02-14
 
@@ -85,6 +118,8 @@
     - **Component Alignment:** Fixed vertical centering for toast icons and M2 switch handles (z-index and offset correction).
     - **Visual Polish:** Fixed musical note alignment in the Compact Music Widget (pixel-perfect centering) and restored the high-contrast Daily Mix list style.
     - **Expressive Slider CSS:** Consolidated all slider styles from page-level overrides into the global `styles.css`.
+
+---
 
 ## [1.2.7] - 2026-02-13
 
@@ -173,7 +208,6 @@
 ### Changed
 -   **Refactor:** Updated `navigation.js` path detection to be environment-agnostic using script tag inspection.
 
----
 
 ## [1.1.0] - 2026-02-13
 

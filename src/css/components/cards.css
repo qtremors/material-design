@@ -124,7 +124,17 @@
 [data-theme="dark"] .daily-mix-list {
     background: rgba(var(--md-sys-color-surface-container-highest-rgb), 0.3) !important;
 }
-.daily-mix-list .list-item { padding: 12px !important; }
+.daily-mix-list .list-item { 
+    padding: 12px !important; 
+    border-radius: 12px;
+    margin: 2px 0;
+}
+.daily-mix-list .list-item:hover {
+    background-color: var(--md-sys-color-surface-container-highest);
+}
+
+
+/* --- EXPRESSIVE & SEMANTIC CARDS --- */
 
 
 /* --- EXPRESSIVE & SEMANTIC CARDS --- */

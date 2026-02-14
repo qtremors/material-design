@@ -1,7 +1,7 @@
 # Material Design - Tasks
 
 > **Project:** Material Design  
-> **Version:** 1.3.5
+> **Version:** 1.3.6
 > **Last Updated:** 2026-02-14
 
 ---
@@ -37,30 +37,6 @@ Focus on maturing the showcase from a component list to a professional design sy
 - [ ] **Shapes & Motion Showcase**:
     - [ ] New page dedicated to the "Feel" of the system.
     - [ ] Interactive demos for Spring Easing and Corner Radius tokens.
-
----
-
-## 🔨 PR Review Fixes
-### Accessibility & CSS Foundations
-- [x] **Accessibility**: Restore focus indicators by replacing global `outline: none` with `:focus-visible` styles on interactive elements.
-- [x] **Layout**: Consolidate redundant padding on `.container` in `base.css`.
-- [x] **Linting**: Normalize `currentColor` to `currentcolor` in `buttons.css` and `navigation.css`.
-- [x] **Naming**: Rename `cardFadeIn` keyframes to `card-fade-in` (kebab-case) in `cards.css`.
-- [x] **Aesthetics**: Replace hardcoded chip hover background with the state-layer pattern (`::before` overlay).
-- [x] **Bugs**: Fix `.text-field-container` collapsing to 2px on focus by targeting the pseudo-element correctly.
-
-### JS Stability & Logic
-- [x] **Interactions**: Add null guards for `setThemeConfig`, `closeDialog`, and `closeSheet` to prevent crashes when modules aren't loaded.
-- [x] **Inputs**: Ensure all interactive chips have proper ARIA roles and keyboard focus (`tabindex="0"`).
-- [x] **Inputs**: Remove inline style assignments for check icons in favor of CSS.
-- [x] **Sliders**: Add division-by-zero protection in `updateSlider` for min == max edge cases.
-- [x] **Tabs**: Use `document.getElementById` or `CSS.escape` for safe element lookup with special characters.
-- [x] **Tabs**: Clean up unused `contentId` parameter in `switchTab`.
-- [x] **Feedback**: Prevent overlapping snackbar timeouts by clearing existing timers on new calls.
-
-### HTML Structure
-- [x] **Settings**: Fix "Generic Container" and "On Container" labels to use "Primary" nomenclature.
-- [x] **Typography**: Insert missing `</main>` tag to properly close the landmarks.
 
 ---
 
