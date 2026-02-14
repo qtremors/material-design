@@ -1,0 +1,82 @@
+/* ==========================================================================
+   NAVIGATION
+   ========================================================================== */
+
+.md-top-app-bar, .top-app-bar {
+    position: fixed; top: 0; left: 0; right: 0; height: 64px;
+    background-color: var(--md-sys-color-surface); z-index: 100;
+    display: flex; align-items: center; padding: 0 16px;
+}
+.md-top-app-bar h1, .md-top-app-bar h2, .md-top-app-bar h3,
+.top-app-bar h1, .top-app-bar h2, .top-app-bar h3 {
+    margin: 0;
+}
+.md-nav-rail, .nav-rail {
+    position: fixed; top: 0; left: 0; bottom: 0; width: 80px;
+    background-color: var(--md-sys-color-surface); border-right: 1px solid var(--md-sys-color-outline-variant);
+    display: flex; flex-direction: column; align-items: center; padding-top: 24px; z-index: 90;
+}
+.md-drawer, .md-drawer-overlay {
+    position: fixed; transition: 0.3s;
+}
+.md-drawer {
+    left: 0; top: 0; bottom: 0; width: 300px;
+    background: var(--md-sys-color-surface-container);
+    transform: translateX(-100%); z-index: 201; padding: 12px;
+    border-top-right-radius: 16px; border-bottom-right-radius: 16px;
+}
+.md-drawer.open { transform: translateX(0); }
+.md-drawer-overlay { inset: 0; background: rgba(0,0,0,0.5); z-index: 200; opacity: 0; pointer-events: none; }
+.md-drawer-overlay.open { opacity: 1; pointer-events: auto; }
+
+/* Rail Items */
+.md-rail-item {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    width: 80px; height: 56px; margin-bottom: 12px;
+    color: var(--md-sys-color-on-surface-variant);
+    text-decoration: none; transition: 0.2s;
+    cursor: pointer; position: relative;
+    border-radius: 16px;
+}
+.md-rail-item .icon-container {
+    width: 56px; height: 32px;
+    border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    transition: 0.2s; margin-bottom: 4px;
+    position: relative; overflow: hidden;
+}
+.md-rail-item .icon-container::before {
+    content: ""; position: absolute; inset: 0; background-color: currentColor; opacity: 0;
+    transition: opacity 200ms; pointer-events: none;
+}
+.md-rail-item:hover .icon-container::before { opacity: var(--md-sys-state-hover); }
+
+.md-rail-item.active .icon-container { 
+    background-color: var(--md-sys-color-secondary-container); 
+    color: var(--md-sys-color-on-secondary-container); 
+}
+.md-rail-item.active { color: var(--md-sys-color-on-surface); background-color: transparent; }
+
+.md-rail-item .label { font-size: 12px; font-weight: 500; text-align: center; }
+.md-rail-item .material-symbols-rounded { font-size: 24px; }
+
+/* Drawer items */
+.drawer-item { 
+    display: flex; align-items: center; gap: 12px; height: 56px; padding: 0 16px 0 24px;
+    border-radius: 28px; color: var(--md-sys-color-on-surface-variant); text-decoration: none;
+    margin: 0 12px 4px 12px; font-weight: 500;
+    position: relative; overflow: hidden;
+}
+.drawer-item::before {
+    content: ""; position: absolute; inset: 0; background-color: currentColor; opacity: 0;
+    transition: opacity 200ms; pointer-events: none;
+}
+.drawer-item:hover::before { opacity: var(--md-sys-state-hover); }
+.drawer-item.active { background: var(--md-sys-color-secondary-container); color: var(--md-sys-color-on-secondary-container); }
+
+/* Mobile Nav Toggle */
+@media (max-width: 720px) {
+    .md-nav-rail { display: none; }
+    .top-app-bar .menu-trigger { display: inline-block !important; }
+    #mobileThemeToggle { display: inline-flex !important; }
+}

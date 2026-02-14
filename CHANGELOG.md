@@ -1,10 +1,19 @@
 # Material Design Changelog
 
 > **Project:** Material Design  
-> **Version:** 1.3.1
-> **Last Updated:** 2026-02-13
+> **Version:** 1.3.2
+> **Last Updated:** 2026-02-14
 
 ---
+
+## [1.3.2] - 2026-02-14
+
+### Refactored
+-   **CSS Architecture:** Completely modularized the monolithic `styles.css` into a component-based structure.
+    -   Created `src/css/base.css` for core foundations (Reset, Typography, Layouts).
+    -   Created `src/css/components/` directory for granular styles (`buttons.css`, `cards.css`, `inputs.css`, `navigation.css`, `feedback.css`, `chips.css`, `fab.css`).
+    -   Updated all HTML files to link these new modules.
+    -   **Zero Regression:** Verified pixel-perfect match with original styles.
 
 ## [1.3.1] - 2026-02-13
 

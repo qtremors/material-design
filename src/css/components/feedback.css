@@ -1,0 +1,123 @@
+/* ==========================================================================
+   FEEDBACK COMPONENTS
+   ========================================================================== */
+
+/* --- DIALOGS --- */
+.dialog-backdrop {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 500;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none; transition: 0.3s;
+}
+.dialog-backdrop.open { opacity: 1; pointer-events: auto; }
+.dialog {
+    background: var(--md-sys-color-surface-container-high); padding: 24px;
+    border-radius: 28px; width: 90%; max-width: 400px;
+    transform: scale(0.9); transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1);
+}
+.dialog-backdrop.open .dialog { transform: scale(1); }
+
+/* --- SNACKBAR / TOAST --- */
+.snackbar {
+    position: fixed; bottom: 24px; left: 50%; transform: translate(-50%, 100px);
+    background: var(--md-sys-color-inverse-surface); color: var(--md-sys-color-inverse-on-surface); padding: 12px 24px; border-radius: 9999px;
+    box-shadow: var(--md-sys-elevation-3); z-index: 600;
+    display: flex; align-items: center; transition: 0.4s; min-width: 320px; justify-content: space-between;
+    gap: 12px; height: 56px;
+}
+.snackbar .content { 
+    display: flex; align-items: center; gap: 12px; flex: 1;
+    font: var(--md-sys-typescale-body-medium);
+}
+.snackbar .material-symbols-rounded { flex-shrink: 0; }
+.snackbar.show { transform: translate(-50%, 0); }
+
+/* Toast Variants */
+.toast-success { background: var(--md-sys-color-success) !important; color: var(--md-sys-color-on-success) !important; }
+.toast-error { background: var(--md-sys-color-error) !important; color: var(--md-sys-color-on-error) !important; }
+.toast-info { background: var(--md-sys-color-primary) !important; color: var(--md-sys-color-on-primary) !important; }
+.toast-warning { background: var(--md-sys-color-warning) !important; color: var(--md-sys-color-on-warning) !important; }
+
+/* --- BOTTOM SHEET --- */
+.bottom-sheet {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    margin: 0 auto; width: 100%; max-width: 640px;
+    background: var(--md-sys-color-surface-container);
+    border-radius: 28px 28px 0 0;
+    padding: 32px; z-index: 600;
+    transform: translateY(100%); transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+}
+.bottom-sheet.open { transform: translateY(0); }
+.drag-handle { width: 32px; height: 4px; background: var(--md-sys-color-outline-variant); margin: -16px auto 24px auto; border-radius: 2px; }
+.sheet-scrim {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 599;
+    opacity: 0; pointer-events: none; transition: 0.3s;
+}
+
+/* --- BANNERS --- */
+.md-banner {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 16px;
+    padding: 16px 24px; background: var(--md-sys-color-surface);
+    color: var(--md-sys-color-on-surface);
+    border-bottom: 1px solid var(--md-sys-color-outline-variant);
+    animation: bannerSlideIn 0.3s cubic-bezier(0, 0, 0.2, 1);
+}
+.md-banner-icon { color: var(--md-sys-color-primary); flex-shrink: 0; }
+.md-banner-text { flex: 1; min-width: 200px; font: var(--md-sys-typescale-body-medium); line-height: 1.5; }
+.md-banner-actions { display: flex; gap: 8px; margin-left: auto; padding-top: 4px; }
+
+@keyframes bannerSlideIn {
+    from { transform: translateY(-100%); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* --- PROGRESS INDICATORS --- */
+
+/* Wavy Progress (High-Fidelity MD3 Squiggly) */
+.progress-wavy {
+    width: 100%; height: 10px;
+    background: transparent;
+    position: relative; overflow: hidden;
+    --wave-mask: url("data:image/svg+xml,%3Csvg width='40' height='10' viewBox='0 0 40 10' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 5 Q 10 0 20 5 T 40 5' stroke='black' stroke-width='3' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
+.progress-wavy::before {
+    content: ""; position: absolute; inset: 0;
+    background: var(--md-sys-color-surface-container-highest);
+    mask-image: var(--wave-mask);
+    -webkit-mask-image: var(--wave-mask);
+    mask-size: 40px 100%; -webkit-mask-size: 40px 100%;
+    opacity: 0.3; /* Subtle track */
+}
+
+.progress-wavy .bar {
+    position: absolute; top:0; left:0; bottom:0; width: 0%; 
+    background: var(--md-sys-color-primary);
+    mask-image: var(--wave-mask);
+    -webkit-mask-image: var(--wave-mask);
+    mask-size: 40px 100%; -webkit-mask-size: 40px 100%;
+    transition: width 0.5s var(--md-sys-motion-standard-easing);
+    animation: wave-slide 2s linear infinite;
+}
+
+@keyframes wave-slide {
+    from { mask-position: 0px center; -webkit-mask-position: 0px center; }
+    to { mask-position: 40px center; -webkit-mask-position: 40px center; }
+}
+
+.progress-wavy.indeterminate .bar {
+    width: 100% !important;
+    animation: wave-slide 1s linear infinite;
+}
+
+/* Segmented Progress */
+.progress-segmented {
+    display: flex; gap: 4px; width: 100%; height: 4px;
+}
+.progress-segmented .segment {
+    flex: 1; height: 100%; background: var(--md-sys-color-surface-container-highest);
+    border-radius: 2px; transition: background-color 0.3s;
+}
+.progress-segmented .segment.filled {
+    background: var(--md-sys-color-primary);
+}
