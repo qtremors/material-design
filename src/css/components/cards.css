@@ -146,10 +146,10 @@
 .card-error { border-left-color: var(--md-sys-color-error); background: var(--md-sys-color-error-container); color: var(--md-sys-color-on-error-container); }
 
 .card-entrance {
-    animation: cardFadeIn 0.6s cubic-bezier(0.2, 0, 0, 1) both;
+    animation: card-fade-in 0.6s cubic-bezier(0.2, 0, 0, 1) both;
 }
 
-@keyframes cardFadeIn {
+@keyframes card-fade-in {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
 }
@@ -180,7 +180,7 @@
     position: relative; overflow: hidden;
 }
 .list-item::before {
-    content: ""; position: absolute; inset: 0; background-color: currentColor; opacity: 0;
+    content: ""; position: absolute; inset: 0; background-color: currentcolor; opacity: 0;
     transition: opacity 200ms; pointer-events: none;
 }
 .list-item:hover::before { opacity: var(--md-sys-state-hover); }

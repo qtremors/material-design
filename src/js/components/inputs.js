@@ -5,7 +5,8 @@
 function initSelectionControls() {
     document.querySelectorAll('.chip').forEach(chip => {
 
-        if(chip.classList.contains('active') || chip.getAttribute('data-toggle') === 'true') {
+        const isToggle = chip.getAttribute('data-toggle') === 'true' || chip.classList.contains('filter-chip');
+        if(isToggle) {
              chip.setAttribute('role', 'button');
              chip.setAttribute('tabindex', '0');
         }
@@ -31,9 +32,6 @@ function toggleChip(chip) {
                 const newIcon = document.createElement('span');
                 newIcon.className = 'material-symbols-rounded check-icon';
                 newIcon.innerText = 'check';
-                newIcon.style.fontSize = '18px';
-                newIcon.style.marginRight = '8px';
-                newIcon.style.marginLeft = '-4px';
                 chip.prepend(newIcon);
             }
         } else {

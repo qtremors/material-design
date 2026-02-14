@@ -23,10 +23,18 @@ function initSheets() {
     }
 }
 
+let snackbarTimeoutId = null;
+
 function showSnackbar(text, type = 'info') {
     const snackbar = document.getElementById('snackbar');
     if(!snackbar) return;
     
+    // Clear any existing timeout to avoid early hiding
+    if (snackbarTimeoutId) {
+        clearTimeout(snackbarTimeoutId);
+        snackbarTimeoutId = null;
+    }
+
     // Reset classes
     snackbar.classList.remove('toast-success', 'toast-error', 'toast-info', 'toast-warning');
     if(type !== 'default') snackbar.classList.add(`toast-${type}`);
@@ -56,8 +64,9 @@ function showSnackbar(text, type = 'info') {
     
     snackbar.classList.add('show');
     
-    setTimeout(() => {
+    snackbarTimeoutId = setTimeout(() => {
         snackbar.classList.remove('show');
+        snackbarTimeoutId = null;
     }, 3000);
 }
 

@@ -1,10 +1,15 @@
 # Material Design Changelog
 
 > **Project:** Material Design  
-> **Version:** 1.3.4
+> **Version:** 1.3.5
 > **Last Updated:** 2026-02-14
 
 ---
+
+## [1.3.5] - 2026-02-14
+
+### Fixed & Improved
+-   **PR Review Fixes:** Implemented 15+ refinements across accessibility (focus indicators), JS stability (null guards, safe lookups), and structural HTML validation.
 
 ## [1.3.4] - 2026-02-14
 

@@ -9,8 +9,14 @@
     background: transparent; color: var(--md-sys-color-on-surface-variant);
     font: var(--md-sys-typescale-label-large); font-weight: 500;
     cursor: pointer; transition: 0.2s; user-select: none;
+    position: relative; overflow: hidden;
 }
-.chip:hover { background-color: rgba(0,0,0,0.04); }
+.chip::before {
+    content: ""; position: absolute; inset: 0;
+    background-color: var(--md-sys-color-on-surface); opacity: 0;
+    pointer-events: none; border-radius: inherit; transition: opacity 200ms;
+}
+.chip:hover::before { opacity: var(--md-sys-state-hover); }
 .chip.active {
     background-color: var(--md-sys-color-secondary-container);
     color: var(--md-sys-color-on-secondary-container); border-color: transparent;

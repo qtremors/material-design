@@ -46,7 +46,7 @@
     position: relative; overflow: hidden;
 }
 .md-rail-item .icon-container::before {
-    content: ""; position: absolute; inset: 0; background-color: currentColor; opacity: 0;
+    content: ""; position: absolute; inset: 0; background-color: currentcolor; opacity: 0;
     transition: opacity 200ms; pointer-events: none;
 }
 .md-rail-item:hover .icon-container::before { opacity: var(--md-sys-state-hover); }
@@ -68,7 +68,7 @@
     position: relative; overflow: hidden;
 }
 .drawer-item::before {
-    content: ""; position: absolute; inset: 0; background-color: currentColor; opacity: 0;
+    content: ""; position: absolute; inset: 0; background-color: currentcolor; opacity: 0;
     transition: opacity 200ms; pointer-events: none;
 }
 .drawer-item:hover::before { opacity: var(--md-sys-state-hover); }

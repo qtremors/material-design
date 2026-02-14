@@ -1,12 +1,12 @@
 # Material Design - Tasks
 
 > **Project:** Material Design  
-> **Version:** 1.3.4
+> **Version:** 1.3.5
 > **Last Updated:** 2026-02-14
 
 ---
 
-## 🚀 v1.3 Planned Roadmap: "Selling the System"
+## 🚀 v1.4 Planned Roadmap: "Selling the System"
 Focus on maturing the showcase from a component list to a professional design system portal.
 
 ### 1. Developer Mode & DX Tools
@@ -40,21 +40,27 @@ Focus on maturing the showcase from a component list to a professional design sy
 
 ---
 
-- **Logic**: Managed in `theme.js` via `updateSettingsUI()` and `setThemeConfig()` (exposed globally).
+## 🔨 PR Review Fixes
+### Accessibility & CSS Foundations
+- [x] **Accessibility**: Restore focus indicators by replacing global `outline: none` with `:focus-visible` styles on interactive elements.
+- [x] **Layout**: Consolidate redundant padding on `.container` in `base.css`.
+- [x] **Linting**: Normalize `currentColor` to `currentcolor` in `buttons.css` and `navigation.css`.
+- [x] **Naming**: Rename `cardFadeIn` keyframes to `card-fade-in` (kebab-case) in `cards.css`.
+- [x] **Aesthetics**: Replace hardcoded chip hover background with the state-layer pattern (`::before` overlay).
+- [x] **Bugs**: Fix `.text-field-container` collapsing to 2px on focus by targeting the pseudo-element correctly.
 
-### Fixes & Improvements
-### Fixes & Improvements
-- [x] **CSS Variables**: Add missing RGB tokens for surface containers.
-- [x] **Hardcoded Values**: Replace hex codes in `.snackbar` with design tokens.
-- [x] **Safety**: Wrap `localStorage` access in try/catch blocks.
-- [x] **Security**: Sanitize snackbar content inputs to prevent XSS.
+### JS Stability & Logic
+- [x] **Interactions**: Add null guards for `setThemeConfig`, `closeDialog`, and `closeSheet` to prevent crashes when modules aren't loaded.
+- [x] **Inputs**: Ensure all interactive chips have proper ARIA roles and keyboard focus (`tabindex="0"`).
+- [x] **Inputs**: Remove inline style assignments for check icons in favor of CSS.
+- [x] **Sliders**: Add division-by-zero protection in `updateSlider` for min == max edge cases.
+- [x] **Tabs**: Use `document.getElementById` or `CSS.escape` for safe element lookup with special characters.
+- [x] **Tabs**: Clean up unused `contentId` parameter in `switchTab`.
+- [x] **Feedback**: Prevent overlapping snackbar timeouts by clearing existing timers on new calls.
 
-## 📋 Ongoing & Past
-- [x] v1.3.1: Color Palette Viewer & Codebase Health Fixes.
-- [x] v1.2.7: PR refinements (elevation-4, motion easing, RGB seeds).
-- [x] v1.2.6: Deep polish (semantic cards, clear buttons, selection logic).
-- [x] v1.2.5: Stability & Safety (null guards, deterministic pathing).
-- [x] v1.2.0 - v1.2.4: M3 Expressive (Squiggly UI, FAB Morphing, Drawer).
+### HTML Structure
+- [x] **Settings**: Fix "Generic Container" and "On Container" labels to use "Primary" nomenclature.
+- [x] **Typography**: Insert missing `</main>` tag to properly close the landmarks.
 
 ---
 
