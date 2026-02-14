@@ -9,7 +9,6 @@
     background: transparent; color: var(--md-sys-color-on-surface-variant);
     font: var(--md-sys-typescale-label-large); font-weight: 500;
     cursor: pointer; transition: 0.2s; user-select: none;
-    margin-right: 8px; margin-bottom: 8px;
 }
 .chip:hover { background-color: rgba(0,0,0,0.04); }
 .chip.active {

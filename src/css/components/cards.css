@@ -10,8 +10,10 @@
     transition: 0.2s;
     margin-bottom: 16px;
     border: 1px solid transparent;
-    width: 100%; max-width: 480px; /* Constrain stretching */
+    width: 100%; max-width: 100%; 
+    margin-inline: 0; 
 }
+.card-wide { max-width: 100% !important; }
 .card-outlined { background: var(--md-sys-color-surface); border-color: var(--md-sys-color-outline-variant); box-shadow: none; }
 .card-filled { background: var(--md-sys-color-surface-container-highest); box-shadow: none; }
 .card-elevated { 
