@@ -172,11 +172,24 @@ function initInteractions() {
         }
 
 
-        // Generic Theme Toggle (Used by Mobile Toggle)
+        // Generic Theme Toggle (Used by Mobile Toggle & Rail)
         const themeToggle = e.target.closest('#themeToggle, #mobileThemeToggle');
         if (themeToggle) {
-             const current = document.documentElement.getAttribute('data-theme');
-             const next = current === 'dark' ? 'light' : 'dark';
+             const current = document.documentElement.getAttribute('data-theme') || 'light';
+             const prev = document.documentElement.getAttribute('data-prev-theme') || 'light';
+             
+             let next = 'dark';
+
+             // Cycle: Light -> Dark -> OLED -> Dark -> Light
+             if (current === 'light') {
+                 next = 'dark';
+             } else if (current === 'dark') {
+                 if (prev === 'light') next = 'oled';
+                 else next = 'light';
+             } else if (current === 'oled') {
+                 next = 'dark';
+             }
+
              if (typeof window.setThemeConfig === 'function') {
                  window.setThemeConfig('theme', next);
              }
