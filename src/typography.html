@@ -26,27 +26,8 @@
     <link rel="stylesheet" href="css/components/chips.css">
     <link rel="stylesheet" href="css/components/fab.css">
     
-    <style>
-        .type-row {
-            display: flex; align-items: baseline; gap: 32px;
-            padding: 24px 24px; border-bottom: 1px solid var(--md-sys-color-outline-variant);
-            justify-content: space-between;
-            margin: 0 -24px;
-        }
-        .type-row:last-child { border-bottom: none; }
-        .type-label {
-            color: var(--md-sys-color-on-surface-variant); font-size: 11px; font-family: monospace; 
-            width: auto; flex-shrink: 0; opacity: 0.7;
-        }
-        @media (max-width: 600px) {
-            .type-row { flex-direction: column; align-items: flex-start; gap: 12px; }
-            .type-label { width: 100%; margin-bottom: 4px; }
-        }
-        /* Fix: Use seed color for typography samples */
-        .type-row > span:not(.type-label) {
-            color: var(--md-sys-color-primary);
-        }
-    </style>
+    <!-- Page Specific Styles -->
+    <link rel="stylesheet" href="css/components/typography_page.css">
 </head>
 <body>
 
@@ -54,16 +35,24 @@
 
     <main>
         <div class="top-app-bar">
-            <span class="material-symbols-rounded menu-trigger" role="button" tabindex="0" aria-label="Open menu" style="margin-right: 16px; cursor: pointer; display: none;">menu</span>
+            <a href="../index.html" class="header-logo ripple-target" title="Home">
+                <img src="assets/material-design.png" alt="Material Design Logo">
+            </a>
             <h2>Typography</h2>
             <div style="flex: 1"></div>
-             <!-- Color Seeds -->
-            <div class="actions" style="display: flex; gap: 8px; align-items: center;">
-                <div class="color-swatch active" data-seed="blue" style="background: #2962FF;" title="Blue"></div>
-                <div class="color-swatch" data-seed="purple" style="background: #6750A4;" title="Purple"></div>
-                <div class="color-swatch" data-seed="green" style="background: #006C51;" title="Key Lime"></div>
-                <div class="color-swatch" data-seed="teal" style="background: #006A6A;" title="Teal"></div>
-                <div class="color-swatch" data-seed="red" style="background: #B3261E;" title="Red"></div>
+            <div class="actions">
+                <div class="swatch-row desktop-only" style="display: flex; gap: 8px;">
+                    <div class="color-swatch" data-seed="blue" style="background: #2962FF;" title="Blue"></div>
+                    <div class="color-swatch" data-seed="monochrome" style="background: #5F6368;" title="Monochrome"></div>
+                    <div class="color-swatch" data-seed="purple" style="background: #6750A4;" title="Purple"></div>
+                    <div class="color-swatch" data-seed="green" style="background: #006C51;" title="Key Lime"></div>
+                    <div class="color-swatch" data-seed="teal" style="background: #006A6A;" title="Teal"></div>
+                    <div class="color-swatch" data-seed="cyan" style="background: #0097A7;" title="Cyan"></div>
+                    <div class="color-swatch" data-seed="yellow" style="background: #6D5E00;" title="Yellow"></div>
+                    <div class="color-swatch" data-seed="orange" style="background: #8B5000;" title="Orange"></div>
+                    <div class="color-swatch" data-seed="pink" style="background: #BC004B;" title="Pink"></div>
+                    <div class="color-swatch" data-seed="red" style="background: #B3261E;" title="Red"></div>
+                </div>
             </div>
         </div>
 

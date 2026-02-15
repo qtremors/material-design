@@ -7,6 +7,7 @@ const NAV_ITEMS = [
     { label: 'Navigation', icon: 'menu_open', url: 'navigation.html' },
     { label: 'Feedback', icon: 'campaign', url: 'feedback.html' },
     { label: 'Typography', icon: 'text_format', url: 'typography.html' },
+    { label: 'Playground', icon: 'science', url: 'playground.html' },
     { label: 'Settings', icon: 'settings', url: 'settings.html' }
 ];
 
@@ -116,7 +117,7 @@ function renderNavigation() {
                 <span class="material-symbols-rounded">${escapeHtml(item.icon)}</span> ${escapeHtml(item.label)}
             </a>
         `;
-        if (item.label === 'Navigation') {
+        if (item.label === 'Typography') {
              drawerHtml += `<hr style="border: 0; border-top: 1px solid var(--md-sys-color-outline-variant); margin: 8px 0;">`;
         }
     });
@@ -126,21 +127,56 @@ function renderNavigation() {
     </aside>
     `;
 
+    // COLOR SELECTION SHEET (MOBILE)
+    const colorSheetHtml = `
+    <div id="sheet-scrim" class="sheet-scrim" data-action="close-sheet"></div>
+    <div id="colorSheet" class="bottom-sheet">
+        <div class="sheet-content">
+            <div class="sheet-header">
+                <div class="sheet-handle"></div>
+                <h3>Select Theme Color</h3>
+            </div>
+            <div class="color-sheet-grid">
+                <div class="color-swatch" data-seed="monochrome" style="background: #5F6368;" title="Monochrome"></div>
+                <div class="color-swatch" data-seed="blue" style="background: #2962FF;" title="Blue"></div>
+                <div class="color-swatch" data-seed="purple" style="background: #6750A4;" title="Purple"></div>
+                <div class="color-swatch" data-seed="green" style="background: #006C51;" title="Green"></div>
+                <div class="color-swatch" data-seed="teal" style="background: #006A6A;" title="Teal"></div>
+                <div class="color-swatch" data-seed="cyan" style="background: #0097A7;" title="Cyan"></div>
+                <div class="color-swatch" data-seed="yellow" style="background: #6D5E00;" title="Yellow"></div>
+                <div class="color-swatch" data-seed="orange" style="background: #8B5000;" title="Orange"></div>
+                <div class="color-swatch" data-seed="pink" style="background: #BC004B;" title="Pink"></div>
+                <div class="color-swatch" data-seed="red" style="background: #B3261E;" title="Red"></div>
+            </div>
+            <div style="height: 24px;"></div>
+        </div>
+    </div>
+    `;
+
     document.body.insertAdjacentHTML('afterbegin', drawerHtml);
     document.body.insertAdjacentHTML('afterbegin', railHtml);
+    document.body.insertAdjacentHTML('beforeend', colorSheetHtml);
 
-    // MOBILE TOP BAR THEME TOGGLE
+    // MOBILE TOP BAR UI
     const topBar = document.querySelector('.top-app-bar');
-    if (topBar && !topBar.querySelector('#mobileThemeToggle')) {
-        const toggleHtml = `
-            <button id="mobileThemeToggle" class="md-btn icon-btn ripple-target" aria-label="Toggle theme" style="margin-left: 8px; display: none;">
-                <span class="material-symbols-rounded">dark_mode</span>
-            </button>
-        `;
-        const actions = topBar.querySelector('.actions');
-        if (actions) {
-            actions.insertAdjacentHTML('afterend', toggleHtml);
-        } else {
+    if (topBar) {
+        // Ensure color menu toggle exists
+        if (!topBar.querySelector('[data-target="colorSheet"]')) {
+            const paletteToggleField = `
+                <button class="md-btn icon-btn ripple-target mobile-only" data-action="open-sheet" data-target="colorSheet" title="Select Color" style="margin-left: 8px;">
+                    <span class="material-symbols-rounded">palette</span>
+                </button>
+            `;
+            topBar.insertAdjacentHTML('beforeend', paletteToggleField);
+        }
+
+        // Ensure theme toggle exists
+        if (!topBar.querySelector('#mobileThemeToggle')) {
+            const toggleHtml = `
+                <button id="mobileThemeToggle" class="md-btn icon-btn ripple-target" aria-label="Toggle theme" style="margin-left: 8px; display: none;">
+                    <span class="material-symbols-rounded">dark_mode</span>
+                </button>
+            `;
             topBar.insertAdjacentHTML('beforeend', toggleHtml);
         }
     }

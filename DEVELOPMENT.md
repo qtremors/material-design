@@ -1,8 +1,8 @@
-# Material Design Development Guide (v1.4.0)
+# Material Design Development Guide (v1.4.1)
 
 > Comprehensive documentation for developers working on Material Design.
 
-**Version:** 1.4.0 | **Last Updated:** 2026-02-14
+**Version:** 1.4.1 | **Last Updated:** 2026-02-15
 
 ---
 
@@ -29,7 +29,7 @@
                               ▼
 ┌──────────────────────────────────────────────────────────────┐
 │                    JavaScript Modules                        │
-│         (Navigation Injection, Theme Engine, Ripples)        │
+│ (Orchestrator, Global Interactions, Theme Engine, Ripples)   │
 └──────────────────────────────────────────────────────────────┘
                               │
                               ▼
@@ -52,8 +52,9 @@
 ## Project Structure
 
 ```
-material-design/
 ├── src/                  # Source code
+│   ├── assets/           # Static images/icons
+│   │   └── material-design.png # Branding Logo (Transparent)
 │   ├── css/
 │   │   ├── components/       # Component-specific styles
 │   │   │   ├── buttons.css
@@ -61,22 +62,22 @@ material-design/
 │   │   │   ├── inputs.css
 │   │   │   └── ...
 │   │   ├── base.css          # Core foundations (Reset, Typography)
-│   │   └── variables.css     # Design tokens (colors, type, elevation)
+│   │   ├── variables.css     # Design tokens (colors, type, elevation)
 │   │   └── widgets/          # Widget-specific styles
 │   │       ├── structure.css
 │   │       ├── music.css
 │   │       └── ...
 │   ├── js/
 │   │   ├── components/       # Component logic
+│   │   │   ├── interactions.js   # Global Event Delegation
 │   │   │   ├── ripples.js
-│   │   │   ├── tabs.js
-│   │   │   ├── dialogs.js
+│   │   │   ├── widgets.js
 │   │   │   └── ...
 │   │   ├── theme.js          # Theme abstraction and persistence
 │   │   ├── navigation.js     # Navigation Rail/Drawer injection
 │   │   └── scripts.js        # Main entry point / Orchestrator
-│   ├── assets/               # Static images/icons
-│   └── *.html                # Individual component showcases
+├── buttons.html
+├── cards.html
 ├── index.html            # Entry point
 ├── README.md             # User-facing documentation
 ├── DEVELOPMENT.md        # This file
@@ -90,10 +91,10 @@ material-design/
 
 ### Theme Engine (`src/js/theme.js`)
 
-Manages the application state for Theme (Light/Dark) and Color Seeds.
+Manages the application state for Theme (Light/Dark/OLED) and Color Seeds.
 
 -   **Persistence:** Uses `localStorage` and `window.name` (for session sync).
--   **Application:** Sets `data-theme` and `data-seed` attributes on the `<html>` element.
+-   **Application:** Sets `data-theme` (light/dark/oled) and `data-seed` attributes on the `<html>` element.
 
 | Method/Function | Description |
 |-----------------|-------------|
@@ -101,22 +102,43 @@ Manages the application state for Theme (Light/Dark) and Color Seeds.
 | `ThemeEngine.load()` | Retrieves state from storage or window.name. |
 | `ThemeEngine.apply()` | Updates DOM attributes based on current state. |
 
-### Navigation (`src/js/navigation.js`)
-
 Injects the Navigation Rail (desktop) and Drawer (mobile) into the DOM.
+
+> [!NOTE]
+> The **Top App Bar** (Header) is currently **static** inside each HTML file to allow for page-specific titles and actions. It is NOT dynamically injected.
 
 | Method/Function | Description |
 |-----------------|-------------|
 | `renderNavigation()` | Generates HTML for nav rail/drawer and appends to `body`. |
 
-### Ripples (`src/js/scripts.js`)
+### Global Interactions (`src/js/components/interactions.js`)
+
+**CRITICAL:** This file handles 90% of the application's interactivity via **Event Delegation**. Instead of attaching listeners to individual elements, a global listener captures clicks on elements with `data-action` attributes.
+
+#### Common Data Actions:
+- `data-action="toggle-loading"`: Toggles loading state on buttons.
+- `data-action="open-dialog"` / `data-action="close-dialog"`: Manages dialog visibility.
+- `data-action="segment-pick"`: Handles segmented button selection.
+- `data-action="morph"`: Triggers FAB morphing animations.
+
+### Ripples (`src/js/components/ripples.js`)
 
 Custom implementation of the material ink ripple.
 
 | Method/Function | Description |
 |-----------------|-------------|
-| `initRipples()` | Attaches click listeners to `.ripple-target` elements. |
+| `initRipples()` | Attaches global click listener for `.ripple-target` elements. |
 | `createRipple(e, el)` | Calculates exact position and animates the ripple span. |
+
+### Playground (`src/js/components/playground.js`)
+
+A developer tool for auditing the design system and testing themes.
+
+- **Dual-Pane Layout**:
+    - **Live Preview ('Lab')**: Real-time rendering of buttons, cards, and inputs to test the current seed/theme.
+    - **Full Matrix**: A searchable grid of *all* 300+ CSS variables derived from the current seed.
+- **Deep Inspection**: Clicking any color token in the Matrix copies its hex code. Clicking the token name copies the variable name (e.g., `--md-sys-color-primary`).
+- **Color Naming Engine**: Integrated logic (based on `ntc.js`) to provide human-readable names for every generated color.
 
 
 ---
@@ -145,10 +167,24 @@ All new additions to this library **must** strictly adhere to the following Mate
 ## How to Create New Components
 
 ### 1. Create the HTML Page
-Create a new file (e.g., `my-component.html`) in the `src/` directory.
-> **Tip:** Copy `src/buttons.html` or `src/cards.html` to use as a template. This ensures you have the correct `<head>` logic, viewport meta tags, and script imports.
+Create a new file (e.g., `my-component.html`) in the **root** or **src/** directory.
+> **Tip:** Copy `src/buttons.html` or `src/cards.html` to use as a template. This ensures you have the correct `<head>` logic, viewport meta tags, header branding, and script imports.
 
-### 2. Add Styles
+### 2. Include the Header Branding
+Every page must have a `top-app-bar` with the branding logo linking to the dashboard:
+
+```html
+<div class="top-app-bar">
+    <a href="index.html" class="header-logo ripple-target" title="Home">
+        <img src="src/assets/material-design.png" alt="Material Design Logo">
+    </a>
+    <h2>My Component</h2>
+    <div style="flex: 1"></div>
+</div>
+```
+*(Use `../index.html` and `assets/material-design.png` if the file is in `src/`)*
+
+### 3. Add Styles
 Create a new CSS file in `src/css/components/` (e.g., `my-component.css`) and link it in your HTML file.
 -   **Strictly use CSS variables** from `src/css/variables.css` for colors (`--md-sys-color-*`), typography (`--md-sys-typescale-*`), and shapes.
 -   Do not hardcode hex values or pixel sizes unless absolutely necessary.

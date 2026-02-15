@@ -26,49 +26,8 @@
     <link rel="stylesheet" href="css/components/chips.css">
     <link rel="stylesheet" href="css/components/fab.css">
     
-    <style>
-        /* Tabs */
-        .tabs-container {
-            display: flex; border-bottom: 1px solid var(--md-sys-color-outline-variant); margin-bottom: 24px;
-        }
-        .md-tab {
-            flex: 1; height: 48px; display: flex; align-items: center; justify-content: center;
-            font: var(--md-sys-typescale-title-medium); color: var(--md-sys-color-on-surface-variant);
-            cursor: pointer; position: relative; transition: 0.2s;
-        }
-        .md-tab:hover { background: rgba(0,0,0,0.04); }
-        .md-tab.active { color: var(--md-sys-color-primary); }
-        .md-tab.active::after {
-            content: ""; position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
-            background: var(--md-sys-color-primary); border-radius: 3px 3px 0 0;
-        }
-        .tab-panel { display: none; padding: 24px 0; }
-        .tab-panel.active { display: block; animation: fadeUp 0.3s ease; }
-        @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* Bottom Sheet */
-        .bottom-sheet {
-            position: fixed; bottom: 0; left: 0; right: 0; max-height: 80vh; 
-            background: var(--md-sys-color-surface-container-low); border-radius: 28px 28px 0 0;
-            z-index: 600; padding: 24px; transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1);
-            box-shadow: var(--md-sys-elevation-3);
-        }
-        .bottom-sheet.open { transform: translateY(0); }
-        .sheet-scrim {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 599;
-            opacity: 0; pointer-events: none; transition: opacity 0.3s;
-        }
-        .drag-handle {
-            width: 32px; height: 4px; background: var(--md-sys-color-outline-variant);
-            margin: 0 auto 16px; border-radius: 2px;
-        }
-
-        /* Nav Rail Demo Only overrides */
-        .demo-rail-container {
-            height: 400px; border: 1px solid var(--md-sys-color-outline-variant);
-            display: flex; overflow: hidden; position: relative; border-radius: 16px;
-        }
-    </style>
+    <!-- Page Specific Styles -->
+    <link rel="stylesheet" href="css/components/navigation_page.css">
 </head>
 <body>
 
@@ -76,16 +35,24 @@
 
     <main>
         <div class="top-app-bar">
-            <span class="material-symbols-rounded menu-trigger" role="button" tabindex="0" aria-label="Open menu" style="margin-right: 16px; cursor: pointer; display: none;">menu</span>
+            <a href="../index.html" class="header-logo ripple-target" title="Home">
+                <img src="assets/material-design.png" alt="Material Design Logo">
+            </a>
             <h2>Navigation</h2>
             <div style="flex: 1"></div>
-             <!-- Color Seeds -->
-            <div class="actions" style="display: flex; gap: 8px; align-items: center;">
-                <div class="color-swatch active" data-seed="blue" style="background: #2962FF;" title="Blue"></div>
-                <div class="color-swatch" data-seed="purple" style="background: #6750A4;" title="Purple"></div>
-                <div class="color-swatch" data-seed="green" style="background: #006C51;" title="Key Lime"></div>
-                <div class="color-swatch" data-seed="teal" style="background: #006A6A;" title="Teal"></div>
-                <div class="color-swatch" data-seed="red" style="background: #B3261E;" title="Red"></div>
+            <div class="actions">
+                <div class="swatch-row desktop-only" style="display: flex; gap: 8px;">
+                    <div class="color-swatch" data-seed="blue" style="background: #2962FF;" title="Blue"></div>
+                    <div class="color-swatch" data-seed="monochrome" style="background: #5F6368;" title="Monochrome"></div>
+                    <div class="color-swatch" data-seed="purple" style="background: #6750A4;" title="Purple"></div>
+                    <div class="color-swatch" data-seed="green" style="background: #006C51;" title="Key Lime"></div>
+                    <div class="color-swatch" data-seed="teal" style="background: #006A6A;" title="Teal"></div>
+                    <div class="color-swatch" data-seed="cyan" style="background: #0097A7;" title="Cyan"></div>
+                    <div class="color-swatch" data-seed="yellow" style="background: #6D5E00;" title="Yellow"></div>
+                    <div class="color-swatch" data-seed="orange" style="background: #8B5000;" title="Orange"></div>
+                    <div class="color-swatch" data-seed="pink" style="background: #BC004B;" title="Pink"></div>
+                    <div class="color-swatch" data-seed="red" style="background: #B3261E;" title="Red"></div>
+                </div>
             </div>
         </div>
 

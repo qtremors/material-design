@@ -202,6 +202,8 @@ function initInteractions() {
             const seed = swatch.getAttribute('data-seed');
             if (typeof window.setThemeConfig === 'function') {
                 window.setThemeConfig('seed', seed);
+                // Also close sheet if it was open (mobile)
+                if (typeof window.closeSheet === 'function') window.closeSheet();
             }
             return;
         }

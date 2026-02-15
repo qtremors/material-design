@@ -1,0 +1,29 @@
+/* Typography Page Specific Styles */
+.type-row {
+    display: flex; 
+    align-items: baseline; 
+    gap: 32px;
+    padding: 24px 24px; 
+    border-bottom: 1px solid var(--md-sys-color-outline-variant);
+    justify-content: space-between;
+    margin: 0 -24px;
+}
+.type-row:last-child { border-bottom: none; }
+.type-label {
+    color: var(--md-sys-color-on-surface-variant); 
+    font-size: 11px; 
+    font-family: monospace; 
+    width: auto; 
+    flex-shrink: 0; 
+    opacity: 0.7;
+}
+
+@media (max-width: 600px) {
+    .type-row { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .type-label { width: 100%; margin-bottom: 4px; }
+}
+
+/* Fix: Use seed color for typography samples */
+.type-row > span:not(.type-label) {
+    color: var(--md-sys-color-primary);
+}

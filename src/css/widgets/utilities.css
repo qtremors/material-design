@@ -5,56 +5,61 @@
 
 /* --- 5. Digital Clock --- */
 #widget-clock .widget-clock-card {
-    padding: 8px; 
+    padding: 12px; 
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: var(--md-sys-color-primary-container);
-    color: var(--md-sys-color-on-primary-container);
+    background: var(--md-sys-color-surface-container-highest);
+    color: var(--md-sys-color-on-surface);
 }
 
 #widget-clock .widget-clock-time {
-    font-size: 32px;
-    font-weight: 700;
-    line-height: 1.1;
+    font-size: 36px;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -1px;
+    font-family: 'Roboto Flex', sans-serif;
+    font-variation-settings: 'wght' 800, 'wdth' 100;
 }
 
 #widget-clock .widget-clock-date {
-    font-size: 16px;
-    opacity: 0.8;
+    font: var(--md-sys-typescale-label-medium);
     margin-top: 4px;
-    color: var(--md-sys-color-on-primary-container);
+    color: var(--md-sys-color-primary);
+    font-weight: 600;
 }
 
 
 /* --- 6. Weather --- */
 #widget-weather .widget-weather-card {
-    padding: 8px;
-    background: linear-gradient(135deg, var(--md-sys-color-tertiary-container), var(--md-sys-color-primary-container));
+    padding: 16px;
+    background: linear-gradient(135deg, var(--md-sys-color-primary-container), var(--md-sys-color-tertiary-container));
     display: flex;
     flex-direction: column;
     justify-content: center;
+    gap: 8px;
     color: var(--md-sys-color-on-primary-container);
 }
 
 #widget-weather .widget-weather-city {
-    font-size: 18px;
-    font-weight: 500;
+    font: var(--md-sys-typescale-label-medium);
+    font-weight: 600;
+    opacity: 0.9;
 }
 
 #widget-weather .widget-weather-temp {
-    font-size: 40px;
-    font-weight: 700;
-    margin: 2px 0;
-    line-height: 1.1;
+    font-size: 36px;
+    font-weight: 800;
+    line-height: 1;
 }
 
 #widget-weather .widget-weather-condition {
     display: flex;
     align-items: center;
     gap: 8px;
-    font-size: 16px;
+    font: var(--md-sys-typescale-label-small);
+    font-weight: 600;
 }
 
 
@@ -110,28 +115,61 @@
 /* --- 10. Calendar Widget --- */
 #widget-calendar .widget-calendar-card {
     padding: 24px;
+    display: flex;
+    flex-direction: column;
 }
 
 #widget-calendar .widget-calendar-header {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     margin-bottom: 16px;
 }
 
-#widget-calendar .widget-calendar-header h3 {
+.calendar-header-titles h3 {
     margin: 0;
+    font: var(--md-sys-typescale-title-medium);
     color: var(--md-sys-color-primary);
+    font-weight: 700;
+}
+
+.calendar-header-titles p {
+    margin: 0;
+    font: var(--md-sys-typescale-label-medium);
+    color: var(--md-sys-color-on-surface-variant);
+}
+
+#widget-calendar .widget-calendar-header .material-symbols-rounded {
+    color: var(--md-sys-color-primary);
+    font-size: 28px;
+}
+
+.calendar-events-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 12px;
 }
 
 #widget-calendar .widget-calendar-event {
     display: flex;
-    gap: 12px;
-    align-items: center;
-    padding: 12px;
-    border-radius: 12px;
-    background: var(--md-sys-color-tertiary-container); /* Vibrant Event */
-    color: var(--md-sys-color-on-tertiary-container);
-    margin-bottom: 8px;
+    flex-direction: column;
+    gap: 4px;
+    padding: 10px 16px;
+    border-radius: 16px;
+    background: var(--md-sys-color-surface-container-high);
+    border-left: 4px solid var(--md-sys-color-primary);
+    margin-bottom: 0;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+    position: relative;
+    overflow: hidden;
+}
+
+#widget-calendar .widget-calendar-event:hover {
+    background-color: var(--md-sys-color-surface-container-highest);
+    transform: scale(1.02);
 }
 
 #widget-calendar .widget-calendar-event:last-child {
@@ -139,6 +177,14 @@
 }
 
 #widget-calendar .widget-calendar-time {
+    font: var(--md-sys-typescale-label-medium);
     font-weight: 700;
     color: var(--md-sys-color-primary);
+    text-transform: uppercase;
+}
+
+#widget-calendar .widget-calendar-event > div:last-child {
+    font: var(--md-sys-typescale-body-medium);
+    font-weight: 600;
+    color: var(--md-sys-color-on-surface);
 }

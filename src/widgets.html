@@ -34,28 +34,31 @@
 
     <main>
         <div class="top-app-bar">
-            <span class="material-symbols-rounded menu-trigger" role="button" tabindex="0" aria-label="Open menu" style="margin-right: 16px; cursor: pointer; display: none;">menu</span>
+            <a href="../index.html" class="header-logo ripple-target" title="Home">
+                <img src="assets/material-design.png" alt="Material Design Logo">
+            </a>
             <h2>Widgets</h2>
             <div style="flex: 1"></div>
+            <div class="actions">
+                <div class="swatch-row desktop-only" style="display: flex; gap: 8px;">
+                    <div class="color-swatch" data-seed="blue" style="background: #2962FF;" title="Blue"></div>
+                    <div class="color-swatch" data-seed="monochrome" style="background: #5F6368;" title="Monochrome"></div>
+                    <div class="color-swatch" data-seed="purple" style="background: #6750A4;" title="Purple"></div>
+                    <div class="color-swatch" data-seed="green" style="background: #006C51;" title="Key Lime"></div>
+                    <div class="color-swatch" data-seed="teal" style="background: #006A6A;" title="Teal"></div>
+                    <div class="color-swatch" data-seed="cyan" style="background: #0097A7;" title="Cyan"></div>
+                    <div class="color-swatch" data-seed="yellow" style="background: #6D5E00;" title="Yellow"></div>
+                    <div class="color-swatch" data-seed="orange" style="background: #8B5000;" title="Orange"></div>
+                    <div class="color-swatch" data-seed="pink" style="background: #BC004B;" title="Pink"></div>
+                    <div class="color-swatch" data-seed="red" style="background: #B3261E;" title="Red"></div>
+                </div>
+            </div>
         </div>
 
         <div class="container">
             <!-- WIDGETS DASHBOARD -->
             <section id="widgets" class="section-entrance widgets-section">
                 <div class="widgets-header-container">
-                    <!-- Color Swatches -->
-                    <div class="actions" style="display: flex; gap: 8px; align-items: center;">
-                        <div class="color-swatch" style="background: #2962FF;" title="Blue" onclick="setThemeConfig('seed', 'blue')" data-seed="blue"></div>
-                        <div class="color-swatch" style="background: #6750A4;" title="Purple" onclick="setThemeConfig('seed', 'purple')" data-seed="purple"></div>
-                        <div class="color-swatch" style="background: #006C51;" title="Green" onclick="setThemeConfig('seed', 'green')" data-seed="green"></div>
-                        <div class="color-swatch" style="background: #006A6A;" title="Teal" onclick="setThemeConfig('seed', 'teal')" data-seed="teal"></div>
-                        <div class="color-swatch" style="background: #0097A7;" title="Cyan" onclick="setThemeConfig('seed', 'cyan')" data-seed="cyan"></div>
-                        <div class="color-swatch" style="background: #6D5E00;" title="Yellow" onclick="setThemeConfig('seed', 'yellow')" data-seed="yellow"></div>
-                        <div class="color-swatch" style="background: #8B5000;" title="Orange" onclick="setThemeConfig('seed', 'orange')" data-seed="orange"></div>
-                        <div class="color-swatch" style="background: #BC004B;" title="Pink" onclick="setThemeConfig('seed', 'pink')" data-seed="pink"></div>
-                        <div class="color-swatch" style="background: #B3261E;" title="Red" onclick="setThemeConfig('seed', 'red')" data-seed="red"></div>
-                    </div>
-                    
                     <div class="grid-toggle-wrapper" style="display: flex; align-items: center; gap: 12px; background: var(--md-sys-color-surface-container-high); padding: 8px 16px; border-radius: 100px; height: fit-content;">
                         <!-- Labels Toggle -->
                         <span style="font: var(--md-sys-typescale-label-large); color: var(--md-sys-color-on-surface-variant); cursor: pointer; white-space: nowrap;" onclick="document.getElementById('labelsToggle').click()">Show Labels</span>
@@ -150,7 +153,7 @@
                     <!-- 4. Compact Music Widget 3x2 -->
                     <div id="widget-compact-music" class="widget-wrapper w-3x1">
                         <h3>Music Player (Compact) <span class="grid-label">3x1</span></h3>
-                        <div class="card-music-compact ripple-target">
+                        <div class="md-card card-music-compact ripple-target">
                             <div class="card-media">
                                 <span class="material-symbols-rounded">music_note</span>
                             </div>
@@ -229,16 +232,25 @@
                         <h3>Calendar <span class="grid-label">5x3</span></h3>
                         <div class="md-card card-outlined widget-calendar-card ripple-target">
                             <div class="widget-calendar-header">
-                                <h3>February</h3>
+                                <div class="calendar-header-titles">
+                                    <h3 id="widgetDay">Monday</h3>
+                                    <p id="widgetDate">February 24</p>
+                                </div>
                                 <span class="material-symbols-rounded">calendar_month</span>
                             </div>
-                            <div class="widget-calendar-event">
-                                <div class="widget-calendar-time">10:00</div>
-                                <div>Design Sync</div>
-                            </div>
-                            <div class="widget-calendar-event">
-                                <div class="widget-calendar-time">14:30</div>
-                                <div>PR Review</div>
+                            <div class="calendar-events-container">
+                                <div class="widget-calendar-event ripple-target">
+                                    <div class="widget-calendar-time">10:00</div>
+                                    <div>Design Sync</div>
+                                </div>
+                                <div class="widget-calendar-event ripple-target">
+                                    <div class="widget-calendar-time">14:30</div>
+                                    <div>PR Review</div>
+                                </div>
+                                <div class="widget-calendar-event ripple-target">
+                                    <div class="widget-calendar-time">16:00</div>
+                                    <div>Weekly Sync</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -253,6 +265,9 @@
                                         <div class="contact-name">Ali Connors</div>
                                         <div class="contact-meta">Mobile • 5 min ago</div>
                                     </div>
+                                    <button class="md-btn icon-btn contact-action ripple-target">
+                                        <span class="material-symbols-rounded">chat_bubble</span>
+                                    </button>
                                 </div>
                                 <div class="list-item">
                                     <div class="avatar avatar-b">B</div>
@@ -260,6 +275,9 @@
                                         <div class="contact-name">Ben Dover</div>
                                         <div class="contact-meta">Work • Yesterday</div>
                                     </div>
+                                    <button class="md-btn icon-btn contact-action ripple-target">
+                                        <span class="material-symbols-rounded">call</span>
+                                    </button>
                                 </div>
                                 <div class="list-item">
                                     <div class="avatar avatar-c">C</div>
@@ -267,6 +285,9 @@
                                         <div class="contact-name">Charlie</div>
                                         <div class="contact-meta">Home • Mon</div>
                                     </div>
+                                    <button class="md-btn icon-btn contact-action ripple-target">
+                                        <span class="material-symbols-rounded">grade</span>
+                                    </button>
                                 </div>
                             </div>
                         </div>

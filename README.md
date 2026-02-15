@@ -34,6 +34,7 @@
 | 🌊 **Ripple Effect** | Custom JavaScript implementation of the material ripple interaction. |
 | 🧩 **Components** | Buttons, Cards, Inputs, Dialogs, Sheets, Chips, and more. |
 | 🧭 **Navigation** | Responsive Navigation Rail and Drawer injected dinamically. |
+| 🧪 **Playground** | Built-in inspection tool to visualize all 300+ design tokens. |
 | ⚡ **Zero Deps** | No build tools, no frameworks, just pure web technologies. |
 
 ---
@@ -75,6 +76,7 @@ Visit **http://localhost:8000**
 ```
 material-design/
 ├── src/                  # Source code
+│   ├── assets/           # Static assets
 │   ├── css/              # Design tokens and component styles
 │   │   ├── components/   # Modular CSS files
 │   │   ├── base.css
@@ -85,11 +87,18 @@ material-design/
 │   │       └── ...
 │   ├── js/               # Application logic
 │   │   ├── components/   # Modular JS files
+│   │   │   ├── interactions.js # Global Events
+│   │   │   ├── ...
 │   │   ├── theme.js      
 │   │   ├── navigation.js 
 │   │   └── scripts.js    # Orchestrator    
-│   ├── assets/           # Static assets
-│   └── *.html            # Component pages
+├── buttons.html          # Component pages
+├── cards.html
+├── navigation.html
+├── playground.html       # Theme testing lab
+├── settings.html
+├── typography.html
+├── widgets.html
 ├── index.html            # Entry point
 ├── Templates/            # Documentation templates
 ├── DEVELOPMENT.md        # Developer documentation

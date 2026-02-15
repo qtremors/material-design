@@ -8,17 +8,22 @@
     padding: 0;
     display: flex;
     flex-direction: row;
+    align-items: center; /* Center media and text vertically */
     overflow: hidden;
     background: var(--md-sys-color-surface-container-low);
 }
 
 #widget-news .widget-news-media {
-    width: 40%;
-    background: var(--md-sys-color-secondary-container); /* Vibrant */
+    width: 32%; /* Sized for 5x2 aspect */
+    background: var(--md-sys-color-secondary-container-lowest, var(--md-sys-color-surface-container-high));
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--md-sys-color-on-secondary-container);
+    color: var(--md-sys-color-primary);
+    padding: 24px;
+    margin: 16px; /* Increased margin */
+    border-radius: 20px;
+    aspect-ratio: 1/1; /* Keeps it square inside the flex row */
 }
 
 #widget-news .widget-news-media span {
@@ -27,32 +32,36 @@
 
 #widget-news .widget-news-content {
     flex: 1;
-    padding: 4px 12px;
+    padding: 24px;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    min-width: 0;
+    gap: 4px;
 }
 
 #widget-news .widget-news-tag {
-    color: var(--md-sys-color-tertiary); /* Distinct Tag Color */
-    font-weight: 700;
+    color: var(--md-sys-color-tertiary);
+    font: var(--md-sys-typescale-label-small);
     text-transform: uppercase;
-    font-size: 12px;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
 }
 
 #widget-news .widget-news-title {
-    font-size: 18px;
+    font: var(--md-sys-typescale-title-medium);
     margin: 4px 0;
-    line-height: 1.2;
-    color: var(--md-sys-color-primary); /* Vibrant Title */
-    font-weight: 600;
+    color: var(--md-sys-color-on-surface);
+    font-weight: 700;
 }
 
 #widget-news .widget-news-summary {
     color: var(--md-sys-color-on-surface-variant);
-    margin-bottom: 8px;
-    font-size: 13px;
+    margin-bottom: 12px;
+    font: var(--md-sys-typescale-body-small);
+    line-height: 1.5;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* Removed strict line clamp to allow more text if space allows */
 }
 
 #widget-news .widget-news-btn {
@@ -68,22 +77,60 @@
 
 #widget-contacts .widget-contacts-list {
     background: transparent;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
-#widget-contacts .avatar-a { background: var(--md-sys-color-primary-container); color: var(--md-sys-color-on-primary-container); }
-#widget-contacts .avatar-b { background: var(--md-sys-color-secondary-container); color: var(--md-sys-color-on-secondary-container); }
-#widget-contacts .avatar-c { background: var(--md-sys-color-tertiary-container); color: var(--md-sys-color-on-tertiary-container); }
+#widget-contacts .widget-contacts-list .list-item {
+    flex: 1;
+    padding: 0 24px;
+    border-bottom: 1px solid var(--md-sys-color-outline-variant);
+    transition: background-color 0.2s;
+    display: flex;
+    align-items: center;
+}
+
+#widget-contacts .widget-contacts-list .list-item:last-child {
+    border-bottom: none;
+}
+
+#widget-contacts .widget-contacts-list .list-item:hover {
+    background-color: var(--md-sys-color-surface-container-high);
+}
+
+#widget-contacts .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 16px;
+    margin-right: 16px;
+}
+
+#widget-contacts .avatar-a { background: #FFDDE1; color: #4A1217; } /* Soft Pink */
+#widget-contacts .avatar-b { background: #E2E1F9; color: #1B1B33; } /* Soft Purple */
+#widget-contacts .avatar-c { background: #C3E7FF; color: #001D33; } /* Soft Blue */
 
 #widget-contacts .contact-info {
     flex: 1;
 }
 
 #widget-contacts .contact-name {
-    font-weight: 600;
-    color: var(--md-sys-color-primary); /* Vibrant Name */
+    font: var(--md-sys-typescale-title-small);
+    font-weight: 700;
+    color: var(--md-sys-color-on-surface);
 }
 
 #widget-contacts .contact-meta {
-    font-size: 13px;
+    font: var(--md-sys-typescale-body-small);
     color: var(--md-sys-color-on-surface-variant);
+}
+
+#widget-contacts .contact-action {
+    color: var(--md-sys-color-primary);
+    margin-left: 8px;
 }

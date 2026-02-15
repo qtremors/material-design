@@ -1,0 +1,69 @@
+/* Specific Styles for Index Dashboard */
+.hero-card {
+    background-color: var(--md-sys-color-primary-container);
+    color: var(--md-sys-color-on-primary-container);
+    padding: 48px;
+    border-radius: var(--md-sys-shape-corner-extra-large);
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    overflow: hidden;
+    position: relative;
+}
+.hero-text { flex: 1; z-index: 2; }
+.hero-text h1 { margin-bottom: 16px; }
+.hero-image { font-size: 120px; opacity: 0.2; flex-shrink: 0; }
+
+@media (max-width: 900px) {
+    .hero-card { padding: 32px; }
+    .hero-image { font-size: 100px; }
+}
+
+@media (max-width: 600px) {
+    .hero-card { 
+        flex-direction: column; 
+        text-align: center; 
+        padding: 48px 24px;
+        align-items: center;
+        min-height: 320px;
+        justify-content: center;
+    }
+    .hero-text { margin-bottom: 0; position: relative; z-index: 2; }
+    .hero-actions { justify-content: center; }
+    .hero-image { 
+        position: absolute;
+        font-size: 180px; 
+        opacity: 0.1; 
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+        pointer-events: none;
+    }
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+}
+
+.nav-card {
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.nav-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--md-sys-elevation-2);
+}
+.nav-card-icon {
+    font-size: 48px;
+    color: var(--md-sys-color-primary);
+    margin-bottom: 16px;
+}
