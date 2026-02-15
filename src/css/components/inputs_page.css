@@ -1,0 +1,68 @@
+/* --- Checkbox & Radio Styles for Inputs Page --- */
+.selection-control {
+    display: inline-flex; 
+    align-items: center; 
+    cursor: pointer; 
+    margin-right: 24px;
+    position: relative;
+}
+.selection-control input { opacity: 0; width: 0; height: 0; position: absolute; }
+
+/* Checkbox */
+.checkbox-box {
+    width: 18px; 
+    height: 18px; 
+    border: 2px solid var(--md-sys-color-on-surface-variant);
+    border-radius: 2px; 
+    display: inline-flex; 
+    align-items: center; 
+    justify-content: center;
+    margin-right: 12px; 
+    transition: 0.2s; 
+    background: transparent;
+}
+.selection-control input:checked + .checkbox-box {
+    background-color: var(--md-sys-color-primary); 
+    border-color: var(--md-sys-color-primary);
+}
+.checkbox-box .material-symbols-rounded {
+    font-size: 14px; 
+    color: var(--md-sys-color-on-primary); 
+    transform: scale(0); 
+    transition: 0.2s;
+}
+.selection-control input:checked + .checkbox-box .material-symbols-rounded { transform: scale(1); }
+
+/* Radio */
+.radio-circle {
+    width: 20px; 
+    height: 20px; 
+    border: 2px solid var(--md-sys-color-on-surface-variant);
+    border-radius: 50%; 
+    display: inline-flex; 
+    align-items: center; 
+    justify-content: center;
+    margin-right: 12px; 
+    transition: 0.2s;
+}
+.selection-control input:checked + .radio-circle {
+    border-color: var(--md-sys-color-primary);
+}
+.radio-circle::after {
+    content: ""; 
+    width: 10px; 
+    height: 10px; 
+    background-color: var(--md-sys-color-primary);
+    border-radius: 50%; 
+    transform: scale(0); 
+    transition: 0.2s;
+}
+.selection-control input:checked + .radio-circle::after { transform: scale(1); }
+
+/* --- Chips --- */
+.chip-set { 
+    display: flex; 
+    gap: 8px; 
+    flex-wrap: wrap; 
+    margin-bottom: 24px; 
+}

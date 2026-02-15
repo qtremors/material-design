@@ -1,0 +1,82 @@
+/* Specific Button Styles for Buttons Page */
+.btn-row { 
+    display: flex; 
+    flex-wrap: wrap; 
+    gap: 16px; 
+    align-items: center; 
+    margin-bottom: 24px; 
+}
+
+/* FAB Variants */
+.fab {
+    display: inline-flex; 
+    align-items: center; 
+    justify-content: center;
+    width: 56px; 
+    height: 56px; 
+    border-radius: 16px;
+    background-color: var(--md-sys-color-primary-container);
+    color: var(--md-sys-color-on-primary-container);
+    box-shadow: var(--md-sys-elevation-3);
+    cursor: pointer; 
+    transition: 0.2s; 
+    border: none;
+}
+.fab:hover { box-shadow: 0 6px 10px rgba(0,0,0,0.2); transform: translateY(-1px); }
+.fab-small { width: 40px; height: 40px; border-radius: 12px; }
+.fab-large { width: 96px; height: 96px; border-radius: 28px; }
+.fab-large .material-symbols-rounded { font-size: 36px; }
+.fab-extended { width: auto; padding: 0 24px 0 16px; gap: 12px; border-radius: 16px; font-weight: 500; }
+
+/* Icon Buttons */
+.icon-btn {
+    width: 40px; 
+    height: 40px; 
+    border-radius: 50%;
+    display: inline-flex; 
+    align-items: center; 
+    justify-content: center;
+    color: var(--md-sys-color-on-surface-variant);
+    background: transparent; 
+    border: none; 
+    cursor: pointer; 
+    transition: 0.2s;
+}
+.icon-btn:hover { background-color: rgba(0,0,0,0.08); }
+.icon-btn-filled { background-color: var(--md-sys-color-primary); color: var(--md-sys-color-on-primary); }
+.icon-btn-filled:hover { background-color: var(--md-sys-color-primary); filter: brightness(1.1); }
+.icon-btn-tonal { background-color: var(--md-sys-color-secondary-container); color: var(--md-sys-color-on-secondary-container); }
+.icon-btn-outlined { border: 1px solid var(--md-sys-color-outline); }
+
+/* Segmented Buttons */
+.segmented-btn-group {
+    display: inline-flex; 
+    border: 1px solid var(--md-sys-color-outline); 
+    border-radius: 100px;
+    overflow: hidden; 
+    height: 40px;
+}
+.segmented-btn {
+    background: transparent; 
+    color: var(--md-sys-color-on-surface); 
+    border: none;
+    padding: 0 16px; 
+    height: 100%; 
+    display: flex; 
+    align-items: center; 
+    gap: 8px;
+    font-size: 14px; 
+    font-weight: 500; 
+    cursor: pointer; 
+    border-right: 1px solid var(--md-sys-color-outline-variant);
+    transition: 0.2s; 
+    position: relative;
+}
+.segmented-btn:last-child { border-right: none; }
+.segmented-btn:hover { background-color: rgba(0,0,0,0.04); }
+.segmented-btn.selected {
+    background-color: var(--md-sys-color-secondary-container);
+    color: var(--md-sys-color-on-secondary-container);
+}
+.segmented-btn .check-icon { font-size: 18px; display: none; }
+.segmented-btn.selected .check-icon { display: inline-block; }

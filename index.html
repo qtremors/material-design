@@ -27,76 +27,8 @@
     <link rel="stylesheet" href="src/css/components/chips.css">
     <link rel="stylesheet" href="src/css/components/fab.css">
     
-    <style>
-        /* Specific Styles for Index Dashboard */
-        .hero-card {
-            background-color: var(--md-sys-color-primary-container);
-            color: var(--md-sys-color-on-primary-container);
-            padding: 48px;
-            border-radius: var(--md-sys-shape-corner-extra-large);
-            margin-bottom: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            overflow: hidden;
-            position: relative;
-        }
-        .hero-text { flex: 1; z-index: 2; }
-        .hero-text h1 { margin-bottom: 16px; }
-        .hero-image { font-size: 120px; opacity: 0.2; flex-shrink: 0; }
-        
-        @media (max-width: 900px) {
-            .hero-card { padding: 32px; }
-            .hero-image { font-size: 100px; }
-        }
-
-        @media (max-width: 600px) {
-            .hero-card { 
-                flex-direction: column; 
-                text-align: center; 
-                padding: 48px 24px;
-                align-items: center;
-                min-height: 320px;
-                justify-content: center;
-            }
-            .hero-text { margin-bottom: 0; position: relative; z-index: 2; }
-            .hero-image { 
-                position: absolute;
-                font-size: 180px; 
-                opacity: 0.1; 
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                z-index: 1;
-                pointer-events: none;
-            }
-        }
-        
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 24px;
-        }
-        
-        .nav-card {
-            cursor: pointer;
-            text-decoration: none;
-            color: inherit;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        .nav-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--md-sys-elevation-2);
-        }
-        .nav-card-icon {
-            font-size: 48px;
-            color: var(--md-sys-color-primary);
-            margin-bottom: 16px;
-        }
-    </style>
+    <!-- Page Specific Styles -->
+    <link rel="stylesheet" href="src/css/index.css">
 </head>
 <body>
 
@@ -105,15 +37,23 @@
     <!-- MAIN CONTENT -->
     <main>
         <div class="top-app-bar">
-            <span class="material-symbols-rounded menu-trigger" style="margin-right: 16px; cursor: pointer; display: none;">menu</span>
+            <a href="index.html" class="header-logo ripple-target" title="Home">
+                <img src="src/assets/material-design.png" alt="Material Design Logo">
+            </a>
             <h2 style="margin: 0; flex: 1;">Dashboard</h2>
-            <!-- Color Seeds -->
-            <div class="actions" style="display: flex; gap: 8px; align-items: center;">
-                <div class="color-swatch" data-seed="blue" style="background: #2962FF;" title="Blue"></div>
-                <div class="color-swatch" data-seed="purple" style="background: #6750A4;" title="Purple"></div>
-                <div class="color-swatch" data-seed="green" style="background: #006C51;" title="Key Lime"></div>
-                <div class="color-swatch" data-seed="teal" style="background: #006A6A;" title="Teal"></div>
-                <div class="color-swatch" data-seed="red" style="background: #B3261E;" title="Red"></div>
+            <div class="actions">
+                <div class="swatch-row desktop-only" style="display: flex; gap: 8px;">
+                    <div class="color-swatch" data-seed="blue" style="background: #2962FF;" title="Blue"></div>
+                    <div class="color-swatch" data-seed="monochrome" style="background: #5F6368;" title="Monochrome"></div>
+                    <div class="color-swatch" data-seed="purple" style="background: #6750A4;" title="Purple"></div>
+                    <div class="color-swatch" data-seed="green" style="background: #006C51;" title="Key Lime"></div>
+                    <div class="color-swatch" data-seed="teal" style="background: #006A6A;" title="Teal"></div>
+                    <div class="color-swatch" data-seed="cyan" style="background: #0097A7;" title="Cyan"></div>
+                    <div class="color-swatch" data-seed="yellow" style="background: #6D5E00;" title="Yellow"></div>
+                    <div class="color-swatch" data-seed="orange" style="background: #8B5000;" title="Orange"></div>
+                    <div class="color-swatch" data-seed="pink" style="background: #BC004B;" title="Pink"></div>
+                    <div class="color-swatch" data-seed="red" style="background: #B3261E;" title="Red"></div>
+                </div>
             </div>
         </div>
 
@@ -122,13 +62,13 @@
             <div class="hero-card">
                 <div class="hero-text">
                     <h1>Welcome to Material Design</h1>
-                    <p>Explore a comprehensive set of Material Design components implemented in pure HTML, CSS, and JS.</p>
-                    <div style="display: flex; gap: 16px; margin-top: 24px;">
-                         <a href="src/buttons.html" class="md-btn md-btn-filled ripple-target" style="text-decoration: none;">
+                    <p>Experience the pixel-perfect implementation of <b>Material Design 3</b>, <b>Material You</b> dynamic theming, and <b>MD3 Expressive</b> layouts — built with zero dependencies using pure HTML, CSS, and Vanilla JS.</p>
+                    <div class="hero-actions" style="display: flex; gap: 16px; margin-top: 24px;">
+                         <a href="#components" class="md-btn md-btn-filled ripple-target" style="text-decoration: none;">
                             Get Started
                         </a>
-                        <a href="https://m3.material.io/" target="_blank" rel="noopener noreferrer" class="md-btn md-btn-outlined ripple-target" style="text-decoration: none;">
-                            Read Guidelines <span class="material-symbols-rounded" style="font-size: 18px; margin-left: 4px;">open_in_new</span>
+                        <a href="src/playground.html" class="md-btn md-btn-outlined ripple-target" style="text-decoration: none;">
+                            Enter Playground <span class="material-symbols-rounded" style="font-size: 18px; margin-left: 4px;">science</span>
                         </a>
                     </div>
                 </div>
@@ -136,7 +76,7 @@
             </div>
 
             <!-- Grid -->
-            <div class="dashboard-grid">
+            <div id="components" class="dashboard-grid">
                 <a href="src/buttons.html" class="md-card nav-card ripple-target">
                     <span class="material-symbols-rounded nav-card-icon">smart_button</span>
                     <h3>Buttons</h3>
@@ -177,6 +117,12 @@
                     <span class="material-symbols-rounded nav-card-icon">text_format</span>
                     <h3>Typography</h3>
                     <p>Type scale and font weights.</p>
+                </a>
+
+                <a href="src/playground.html" class="md-card nav-card ripple-target">
+                    <span class="material-symbols-rounded nav-card-icon">science</span>
+                    <h3>Playground</h3>
+                    <p>Experiment with components and themes.</p>
                 </a>
             </div>
         </div>

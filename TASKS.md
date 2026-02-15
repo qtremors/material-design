@@ -2,63 +2,30 @@
 
 > **Project:** Material Design  
 > **Version:** 1.4.0
-> **Last Updated:** 2026-02-14
+> **Last Updated:** 2026-02-15
 
 ---
 
-## 🚀 v1.4 Planned Roadmap: "Selling the System"
-Focus on maturing the showcase from a component list to a professional design system portal.
+## Maintenance & Refactoring (Deep Analysis)
 
-### 1. Developer Mode & DX Tools
-- [ ] **Implementation**: Add a "Developer Mode" toggle in `settings.html` (persisted in `localStorage`).
-- [ ] **Copy-to-Code**: 
-    - [ ] Add "Copy HTML" buttons to all component demo blocks.
-    - [ ] These buttons should only be visible when "Developer Mode" is ON.
-    - [ ] Implement global clipboard logic in `scripts.js`.
-- [ ] **Dependency Stats**: Show a small dashboard/badge showing 0 dependencies and total CSS/JS byte size (only in Dev Mode).
+### 🟡 Architecture & Logic
+- [ ] **Consolidate Theme Logic**: 
+    - [ ] Move fallback logic from `scripts.js` (lines 30-39) to `theme.js` to create a single source of truth.
+    - [ ] **Logic Conflict**: Resolve duplicate `keydown` listeners between `scripts.js` (lines 96-110) and `interactions.js` (lines 210-218). Both listen for 'Enter'/'Space' on similar elements.
+- [ ] **Automate Seeds & Navigation**: 
+    - [ ] Create a `layout.js` to inject `color-swatch` HTML (currently hardcoded in `index.html` lines 112-117) via JS.
+    - [ ] Move `NAV_ITEMS` to a JSON config.
+- [ ] **Widget Grid Robustness**: 
+    - [ ] Refactor `widgets.js` `snapToGrid` (lines 141-171) and `packWidgets`.
+    - [ ] Remove hardcoded `100` divisor for columns. Use `ResizeObserver` to determine cell size dynamically based on container width.
 
-### 2. Layouts & Templates
-- [ ] **Architecture**: Create a `/templates` folder in the root.
-- [ ] **Mock Shell - Inbox**: Rail + Fixed Top Bar + Adaptive List + FAB.
-- [ ] **Mock Shell - Dashboard**: Grid Layout + Cards + Filter Chips + Search.
-- [ ] **Mock Shell - Settings**: Hierarchical settings list + responsive preview area.
+#### ⚪ Code Quality & Style
+- [ ] **CSS Scoping**: 
+    - [ ] Move global animations from `buttons.css` to `motion.css`.
+- [ ] **Linting**: Add `.eslintrc`.
 
-### 3. Navigation & Discovery
-- [ ] **Command Search (Ctrl+K)**: 
-    - [ ] Build a modal overlay for site-wide search.
-    - [ ] Index existing component pages via `navigation.js`.
-- [ ] **Navigation Refinement**: Consolidate rail and drawer interactions for better template support.
-
-### 4. Documentation & Education
-- [ ] **Get Started Page**: 
-    - [ ] Implementation of content for `index.html` (the button exists but target is empty/missing).
-    - [ ] Instructions for linking `styles.css` and `scripts.js`.
-    - [ ] Explanation of CSS variable theming (`data-seed`, `data-theme`).
-- [ ] **Shapes & Motion Showcase**:
-    - [ ] New page dedicated to the "Feel" of the system.
-    - [ ] Interactive demos for Spring Easing and Corner Radius tokens.
-
----
-
-## 🧠 Technical Context & Specs (For Future Reference)
-*Keep this section updated to prevent context loss between sessions.*
-
-### Theming Architecture
-- **Attributes**: The system is driven by `data-*` attributes on `<html>`:
-    - `data-theme`: `light` | `dark`
-    - `data-seed`: `purple` | `teal` | `red` | `green` | `pink` | `orange` | `yellow` | `cyan`
-    - `data-radius`: `small` | `medium` | `large` | `full`
-    - `data-style`: `standard` | `expressive`
-
-### Navigation Data
-- **Source**: `navigation.js` contains the source-of-truth for the Rail and Drawer items.
-- **Search Indexing**: The Ctrl+K search should consume the `items` array from this file.
-
-### Component Requirements
-- **Interactive Elements**: Must use `ripple-target` class for the vanilla ripple effect.
-- **Pathing**: `navigation.js` contains deterministic path detection logic to work across different subfolder depths.
-- **Safety**: Always use null-guards for DOM queries as the system is used across multiple disparate HTML pages.
-
-### Developer Mode (v1.3 Specs)
-- **State**: `localStorage.getItem('devMode') === 'true'`.
-- **Visibility**: Use a CSS class (e.g., `.dev-only`) controlled by the body attribute `data-dev-mode="true"` to toggle snippet buttons.
+### Documentation & Consistency Gaps
+- [ ] **Missing Interactions Doc**: `src/js/components/interactions.js` is the core event delegate but is completely missing from `DEVELOPMENT.md` "Key Components".
+- [ ] **Incorrect References**: `DEVELOPMENT.md` implies `initRipples` is in `scripts.js`. It is actually in `src/js/components/ripples.js`.
+- [ ] **Widgets Documentation**: The bin-packing logic in `widgets.js` is complex and undocumented in code or markdown.
+- [ ] **Orchestration Clarity**: Clarify in docs that `scripts.js` is purely an orchestrator and does not contain component logic.

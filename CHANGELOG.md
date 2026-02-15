@@ -1,8 +1,62 @@
 # Material Design Changelog
 
 > **Project:** Material Design  
-> **Version:** 1.4.0
-> **Last Updated:** 2026-02-14
+> **Version:** 1.4.5
+> **Last Updated:** 2026-02-15
+
+---
+
+## [1.4.5] - 2026-02-15
+
+### Added & Improved
+-   **Universal Color Selection**: Standardized the theme color picker across all pages.
+    -   **Desktop**: Integrated a clean row of all 10 color seeds directly into the header.
+    -   **Mobile**: Implemented a responsive "Palette" icon and Modal Bottom Sheet via `navigation.js`.
+-   **Widget Polish**: 
+    -   **Calendar Enhancement**: Added Day/Date header and interactivity (ripples/hover) to events.
+    -   **Alignment**: Fixed overflows in Clock/Weather and vertically centered News media.
+    -   **Density**: Balanced list item spacing in Contacts and removed "dead space" at the bottom of the dashboard.
+-   **User Control**: Moved "Show Labels/Grid" controls to the right side of the header for better reach.
+
+---
+
+## [1.4.4] - 2026-02-15
+
+### Added
+-   **Monochrome Theme**: Introduced a neutral grey-scale color seed for high-contrast accessibility.
+-   **Theme Propagation**: Integrated the Monochrome swatch project-wide across all component demonstration pages.
+
+---
+
+## [1.4.3] - 2026-02-15
+
+### Added
+-   **Branding**: Integrated a transparent project logo into the Top App Bar project-wide.
+-   **Documentation & Standards**: 
+    -   Created `materialdesign-skill.md` for AI-driven development guidance.
+    -   Updated `DEVELOPMENT.md` with OLED mode and branding requirements.
+    -   Defined detailed Typography & Hierarchy standards using `Roboto Flex` variations.
+
+---
+
+## [1.4.2] - 2026-02-15
+
+### Added & Fixed
+-   **Playground Overhaul**: 
+    -   **Color Matrix**: Searchable grid displaying all 300+ generated design tokens.
+    -   **Live Lab**: Interactive area for testing buttons, cards, and inputs.
+    -   **Side Panel**: Persistent theme mode and accent seed controls.
+-   **Settings Cleanup**: Removed redundant "Customisation" (Corner Radius) section as controls moved to the Playground.
+-   **UI Fixes**: Resolved layout regressions in side panels and the palette color naming engine.
+
+---
+
+## [1.4.1] - 2026-02-15
+
+### Refactored & Polished
+-   **Modularity Refactor**: Extracted all internal `<style>` and `<script>` blocks from HTML files into modular project files in `src/`.
+-   **Hero Section Polish**: Updated dashboard copy to focus on MD3/Material You technical traits.
+-   **Settings Migration**: Retired legacy "Live Preview" logic to focus on the unified theme engine.
 
 ---
 

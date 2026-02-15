@@ -37,23 +37,6 @@
 .toast-info { background: var(--md-sys-color-primary) !important; color: var(--md-sys-color-on-primary) !important; }
 .toast-warning { background: var(--md-sys-color-warning) !important; color: var(--md-sys-color-on-warning) !important; }
 
-/* --- BOTTOM SHEET --- */
-.bottom-sheet {
-    position: fixed; bottom: 0; left: 0; right: 0;
-    margin: 0 auto; width: 100%; max-width: 640px;
-    background: var(--md-sys-color-surface-container);
-    border-radius: 28px 28px 0 0;
-    padding: 32px; z-index: 600;
-    transform: translateY(100%); transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
-}
-.bottom-sheet.open { transform: translateY(0); }
-.drag-handle { width: 32px; height: 4px; background: var(--md-sys-color-outline-variant); margin: -16px auto 24px auto; border-radius: 2px; }
-.sheet-scrim {
-    position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 599;
-    opacity: 0; pointer-events: none; transition: 0.3s;
-}
-
 /* --- BANNERS --- */
 .md-banner {
     display: flex; flex-wrap: wrap; align-items: center; gap: 16px;

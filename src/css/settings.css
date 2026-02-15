@@ -1,0 +1,126 @@
+.settings-container {
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding-bottom: 80px;
+}
+
+.settings-card {
+    background: var(--md-sys-color-surface-container-low);
+    border-radius: var(--md-sys-shape-corner-large);
+    padding: clamp(16px, 4vw, 24px);
+    border: 1px solid var(--md-sys-color-outline-variant);
+}
+
+.settings-header {
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.settings-header h3 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+/* Compact Control Rows */
+.control-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+}
+
+.control-row:last-child {
+    margin-bottom: 0;
+}
+
+.control-label {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--md-sys-color-on-surface);
+}
+
+.control-desc {
+    font-size: 14px;
+    color: var(--md-sys-color-on-surface-variant);
+    margin-top: 4px;
+}
+
+/* Color Grid - Tighter */
+.color-grid {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.color-option {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.color-option:hover {
+    transform: scale(1.1);
+    box-shadow: var(--md-sys-elevation-1);
+}
+
+.color-option.active {
+    border-color: var(--md-sys-color-on-surface);
+    transform: scale(1.15);
+}
+
+.color-option .material-symbols-rounded {
+    color: #fff;
+    font-size: 20px;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: 0.2s;
+}
+
+.color-option.active .material-symbols-rounded {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Segmented-ish Toggle for Radius/Fonts */
+.toggle-group {
+    display: inline-flex;
+    background: var(--md-sys-color-surface-container-highest);
+    border-radius: 99px;
+    padding: 4px;
+    gap: 4px;
+}
+
+.toggle-btn {
+    padding: 8px 16px;
+    border-radius: 99px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    border: none;
+    background: transparent;
+    color: var(--md-sys-color-on-surface-variant);
+    transition: 0.2s;
+}
+
+.toggle-btn:hover {
+    background: rgba(0, 0, 0, 0.05);
+    color: var(--md-sys-color-on-surface);
+}
+
+.toggle-btn.active {
+    background: var(--md-sys-color-primary);
+    color: var(--md-sys-color-on-primary);
+    box-shadow: var(--md-sys-elevation-1);
+}

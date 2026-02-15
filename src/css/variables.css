@@ -150,6 +150,16 @@
     --md-sys-color-tertiary-container: #D3E4FF;
     --md-sys-color-on-tertiary-container: #041C35;
 }
+/* MONOCHROME */
+[data-seed="monochrome"] {
+    --md-sys-color-primary: #5F6368;
+    --md-sys-color-primary-rgb: 95, 99, 104;
+    --md-sys-color-on-primary: #FFFFFF;
+    --md-sys-color-primary-container: #F1F3F4;
+    --md-sys-color-on-primary-container: #202124;
+    --md-sys-color-secondary-container: #E8EAED;
+    --md-sys-color-on-secondary-container: #3C4043;
+}
 /* RED */
 [data-seed="red"] {
     --md-sys-color-primary: #B3261E;
@@ -329,6 +339,15 @@
     --md-sys-color-on-primary: #00363D;
     --md-sys-color-primary-container: #004F58;
     --md-sys-color-on-primary-container: #97F0FF;
+}
+[data-theme="dark"][data-seed="monochrome"], [data-theme="oled"][data-seed="monochrome"] {
+    --md-sys-color-primary: #E8EAED;
+    --md-sys-color-primary-rgb: 232, 234, 237;
+    --md-sys-color-on-primary: #202124;
+    --md-sys-color-primary-container: #3C4043;
+    --md-sys-color-on-primary-container: #F1F3F4;
+    --md-sys-color-secondary-container: #44474F;
+    --md-sys-color-on-secondary-container: #C4C7D0;
 }
 
 /* --- EXPRESSIVE STYLE OVERRIDES --- */

@@ -26,102 +26,8 @@
     <link rel="stylesheet" href="css/components/chips.css">
     <link rel="stylesheet" href="css/components/fab.css">
     
-    <style>
-        .settings-container {
-            max-width: 900px; margin: 0 auto;
-            display: grid; grid-template-columns: 1fr; gap: 24px;
-            padding-bottom: 80px;
-        }
-
-        .settings-card {
-            background: var(--md-sys-color-surface-container-low);
-            border-radius: var(--md-sys-shape-corner-large);
-            padding: clamp(16px, 4vw, 24px);
-            border: 1px solid var(--md-sys-color-outline-variant);
-        }
-
-        .settings-header {
-            margin-bottom: 24px;
-            display: flex; align-items: center; justify-content: space-between;
-        }
-        .settings-header h3 { margin: 0; font-size: 20px; font-weight: 500; }
-
-        /* Compact Control Rows */
-        .control-row {
-            display: flex; align-items: center; justify-content: space-between;
-            margin-bottom: 24px;
-        }
-        .control-row:last-child { margin-bottom: 0; }
-        .control-label { font-size: 16px; font-weight: 500; color: var(--md-sys-color-on-surface); }
-        .control-desc { font-size: 14px; color: var(--md-sys-color-on-surface-variant); margin-top: 4px;}
-
-        /* Color Grid - Tighter */
-        .color-grid { display: flex; gap: 12px; flex-wrap: wrap; }
-        .color-option {
-            width: 40px; height: 40px; border-radius: 50%; cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
-            border: 2px solid transparent; transition: all 0.2s ease;
-        }
-        .color-option:hover { transform: scale(1.1); box-shadow: var(--md-sys-elevation-1); }
-        .color-option.active { border-color: var(--md-sys-color-on-surface); transform: scale(1.15); }
-        .color-option .material-symbols-rounded { 
-            color: #fff; font-size: 20px; opacity: 0; transform: scale(0.5); transition: 0.2s;
-        }
-        .color-option.active .material-symbols-rounded { opacity: 1; transform: scale(1); }
-
-        /* Segmented-ish Toggle for Radius/Fonts */
-        .toggle-group {
-            display: inline-flex; background: var(--md-sys-color-surface-container-highest);
-            border-radius: 99px; padding: 4px; gap: 4px;
-        }
-        .toggle-btn {
-            padding: 8px 16px; border-radius: 99px; cursor: pointer;
-            font-size: 14px; font-weight: 500; border: none; background: transparent;
-            color: var(--md-sys-color-on-surface-variant); transition: 0.2s;
-        }
-        .toggle-btn:hover { background: rgba(0,0,0,0.05); color: var(--md-sys-color-on-surface); }
-        .toggle-btn.active {
-            background: var(--md-sys-color-primary); color: var(--md-sys-color-on-primary);
-            box-shadow: var(--md-sys-elevation-1);
-        }
-
-        /* Preview Area */
-        .preview-section {
-            background: var(--md-sys-color-surface);
-            border: 1px dashed var(--md-sys-color-outline-variant);
-            border-radius: 12px; padding: 24px;
-            display: flex; gap: 24px; flex-wrap: wrap; align-items: center;
-            justify-content: center;
-        }
-        
-        .md-card-preview {
-            width: 240px;
-            background: var(--md-sys-color-surface-container);
-            padding: 16px; border-radius: var(--md-sys-shape-corner-medium);
-        }
-
-        /* Palette Viewer */
-        .palette-section {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-            gap: 16px;
-        }
-        .palette-item {
-            display: flex; flex-direction: column; gap: 8px;
-        }
-        .palette-swatch {
-            height: 60px; width: 100%;
-            border-radius: 12px;
-            border: 1px solid var(--md-sys-color-outline-variant);
-        }
-        .palette-info {
-            display: flex; flex-direction: column;
-        }
-        .palette-token { font-size: 11px; font-weight: 600; color: var(--md-sys-color-on-surface); }
-        .palette-hex { font-size: 11px; color: var(--md-sys-color-on-surface-variant); font-family: 'Space Mono', monospace; }
-        
-        .role-group { grid-column: 1 / -1; font-size: 12px; font-weight: 600; color: var(--md-sys-color-primary); margin-top: 16px; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid var(--md-sys-color-outline-variant); padding-bottom: 4px; }
-    </style>
+    <!-- Page Specific Styles -->
+    <link rel="stylesheet" href="css/settings.css">
 </head>
 <body>
 
@@ -129,9 +35,25 @@
 
     <main>
         <div class="top-app-bar">
-            <span class="material-symbols-rounded menu-trigger" role="button" tabindex="0" aria-label="Open menu" style="margin-right: 16px; cursor: pointer; display: none;">menu</span>
+            <a href="../index.html" class="header-logo ripple-target" title="Home">
+                <img src="assets/material-design.png" alt="Material Design Logo">
+            </a>
             <h2>Settings</h2>
             <div style="flex: 1"></div>
+            <div class="actions">
+                <div class="swatch-row desktop-only" style="display: flex; gap: 8px;">
+                    <div class="color-swatch" data-seed="blue" style="background: #2962FF;" title="Blue"></div>
+                    <div class="color-swatch" data-seed="monochrome" style="background: #5F6368;" title="Monochrome"></div>
+                    <div class="color-swatch" data-seed="purple" style="background: #6750A4;" title="Purple"></div>
+                    <div class="color-swatch" data-seed="green" style="background: #006C51;" title="Key Lime"></div>
+                    <div class="color-swatch" data-seed="teal" style="background: #006A6A;" title="Teal"></div>
+                    <div class="color-swatch" data-seed="cyan" style="background: #0097A7;" title="Cyan"></div>
+                    <div class="color-swatch" data-seed="yellow" style="background: #6D5E00;" title="Yellow"></div>
+                    <div class="color-swatch" data-seed="orange" style="background: #8B5000;" title="Orange"></div>
+                    <div class="color-swatch" data-seed="pink" style="background: #BC004B;" title="Pink"></div>
+                    <div class="color-swatch" data-seed="red" style="background: #B3261E;" title="Red"></div>
+                </div>
+            </div>
         </div>
 
         <div class="container settings-container">
@@ -170,6 +92,9 @@
                     </div>
                     <div class="color-grid" style="max-width: 400px; justify-content: flex-end;">
                         <!-- Standard -->
+                        <div class="color-option" data-color="monochrome" style="background: #5F6368;" data-action="set-theme-seed" data-value="monochrome">
+                            <span class="material-symbols-rounded">check</span>
+                        </div>
                         <div class="color-option" data-color="blue" style="background: #2962FF;" data-action="set-theme-seed" data-value="blue">
                             <span class="material-symbols-rounded">check</span>
                         </div>
@@ -198,152 +123,9 @@
                             <span class="material-symbols-rounded">check</span>
                         </div>
                     </div>
-                </div>
-            </div>
+            </div> <!-- End of Appearance Card -->
 
-            <!-- Active Palette Viewer -->
-            <div class="settings-card">
-                <div class="settings-header">
-                    <h3>Active Tokens</h3>
-                    <button class="icon-btn ripple-target" onclick="updatePaletteHexCodes()" title="Refresh values"><span class="material-symbols-rounded">refresh</span></button>
-                </div>
-                
-                <div class="palette-section">
-                    <!-- Primary -->
-                    <div class="role-group">Primary</div>
-                    <div class="palette-item">
-                        <div class="palette-swatch" style="background: var(--md-sys-color-primary)"></div>
-                        <div class="palette-info"><span class="palette-token">Primary</span><span class="palette-hex">...</span></div>
-                    </div>
-                    <div class="palette-item">
-                        <div class="palette-swatch" style="background: var(--md-sys-color-on-primary)"></div>
-                        <div class="palette-info"><span class="palette-token">On Primary</span><span class="palette-hex">...</span></div>
-                    </div>
-                    <div class="palette-item">
-                        <div class="palette-swatch" style="background: var(--md-sys-color-primary-container)"></div>
-                        <div class="palette-info"><span class="palette-token">Primary Container</span><span class="palette-hex">...</span></div>
-                    </div>
-                     <div class="palette-item">
-                        <div class="palette-swatch" style="background: var(--md-sys-color-on-primary-container)"></div>
-                        <div class="palette-info"><span class="palette-token">On Primary Container</span><span class="palette-hex">...</span></div>
-                    </div>
-
-                    <!-- Secondary -->
-                    <div class="role-group">Secondary</div>
-                     <div class="palette-item">
-                        <div class="palette-swatch" style="background: var(--md-sys-color-secondary)"></div>
-                        <div class="palette-info"><span class="palette-token">Secondary</span><span class="palette-hex">...</span></div>
-                    </div>
-                    <div class="palette-item">
-                        <div class="palette-swatch" style="background: var(--md-sys-color-on-secondary)"></div>
-                        <div class="palette-info"><span class="palette-token">On Secondary</span><span class="palette-hex">...</span></div>
-                    </div>
-                    <div class="palette-item">
-                        <div class="palette-swatch" style="background: var(--md-sys-color-secondary-container)"></div>
-                        <div class="palette-info"><span class="palette-token">Sec Container</span><span class="palette-hex">...</span></div>
-                    </div>
-                     <div class="palette-item">
-                        <div class="palette-swatch" style="background: var(--md-sys-color-on-secondary-container)"></div>
-                        <div class="palette-info"><span class="palette-token">On Sec Cont</span><span class="palette-hex">...</span></div>
-                    </div>
-
-                    <!-- Tertiary -->
-                    <div class="role-group">Tertiary</div>
-                     <div class="palette-item">
-                        <div class="palette-swatch" style="background: var(--md-sys-color-tertiary)"></div>
-                        <div class="palette-info"><span class="palette-token">Tertiary</span><span class="palette-hex">...</span></div>
-                    </div>
-                     <div class="palette-item">
-                        <div class="palette-swatch" style="background: var(--md-sys-color-on-tertiary)"></div>
-                        <div class="palette-info"><span class="palette-token">On Tertiary</span><span class="palette-hex">...</span></div>
-                    </div>
-                    <div class="palette-item">
-                        <div class="palette-swatch" style="background: var(--md-sys-color-tertiary-container)"></div>
-                        <div class="palette-info"><span class="palette-token">Ter Container</span><span class="palette-hex">...</span></div>
-                    </div>
-
-                    <!-- Surface -->
-                    <div class="role-group">Surface</div>
-                    <div class="palette-item">
-                        <div class="palette-swatch" style="background: var(--md-sys-color-surface)"></div>
-                        <div class="palette-info"><span class="palette-token">Surface</span><span class="palette-hex">...</span></div>
-                    </div>
-                    <div class="palette-item">
-                        <div class="palette-swatch" style="background: var(--md-sys-color-on-surface)"></div>
-                        <div class="palette-info"><span class="palette-token">On Surface</span><span class="palette-hex">...</span></div>
-                    </div>
-                    <div class="palette-item">
-                        <div class="palette-swatch" style="background: var(--md-sys-color-surface-variant)"></div>
-                        <div class="palette-info"><span class="palette-token">Surface Var</span><span class="palette-hex">...</span></div>
-                    </div>
-                     <div class="palette-item">
-                        <div class="palette-swatch" style="background: var(--md-sys-color-outline)"></div>
-                        <div class="palette-info"><span class="palette-token">Outline</span><span class="palette-hex">...</span></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Customization Card -->
-            <div class="settings-card">
-                <div class="settings-header">
-                    <h3>Customization</h3>
-                </div>
-
-                <!-- Border Radius -->
-                <div class="control-row">
-                    <div>
-                        <div class="control-label">Corner Radius</div>
-                        <div class="control-desc">Adjust the roundness of components</div>
-                    </div>
-                    <div class="toggle-group">
-                        <button class="toggle-btn ripple-target" data-action="set-radius" data-value="small" data-radius="small">Small</button>
-                        <button class="toggle-btn ripple-target" data-action="set-radius" data-value="medium" data-radius="medium">Medium</button>
-                        <button class="toggle-btn ripple-target" data-action="set-radius" data-value="large" data-radius="large">Large</button>
-                        <button class="toggle-btn ripple-target" data-action="set-radius" data-value="full" data-radius="full">Full</button>
-                    </div>
-
-                <!-- Typography Removed per user request -->
-            </div>
-
-
-            <!-- Live Preview -->
-            <div class="settings-card">
-                <div class="settings-header">
-                    <h3>Live Preview</h3>
-                </div>
-                <div class="preview-section">
-                    
-                    <!-- Card Preview -->
-                    <div class="md-card-preview md-elevation-1">
-                        <div style="font-weight: 500; font-size: 16px; margin-bottom: 8px;">Card Title</div>
-                        <div style="font-size: 14px; color: var(--md-sys-color-on-surface-variant); margin-bottom: 16px;">
-                            This is how a card looks with your current settings.
-                        </div>
-                        <button class="md-btn md-btn-filled" style="width:100%">Action</button>
-                    </div>
-
-                    <!-- Inputs Preview -->
-                    <div style="display:flex; flex-direction:column; gap: 16px; min-width: 250px;">
-                        <button class="md-btn md-btn-tonal">
-                            <span class="material-symbols-rounded">star</span> Tonal Button
-                        </button>
-                        <div class="md-field">
-                            <input type="text" placeholder=" ">
-                            <label>Text Field</label>
-                        </div>
-                        <div style="display:flex; align-items:center;">
-                            <label class="switch ripple-target">
-                                <input type="checkbox" checked>
-                                <span class="switch-track"><span class="switch-handle"></span></span>
-                            </label>
-                            <span style="margin-left:12px; font-size:14px;">Switch Toggle</span>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-            
-            <div style="text-align: center;">
+            <div style="text-align: center; margin-top: 32px;">
                 <button class="md-btn md-btn-text ripple-target" data-action="reset-settings" style="color: var(--md-sys-color-error);">
                     Reset Settings
                 </button>
@@ -363,106 +145,8 @@
     <script src="js/components/sliders.js"></script>
     <script src="js/components/motion.js"></script>
     <script src="js/components/interactions.js"></script>
+    <script src="js/components/settings.js"></script>
 
     <script src="js/scripts.js"></script>
-    <script>
-        // Settings Page Logic
-        
-        window.updateSettingsUI = function() {
-            const root = document.documentElement;
-            
-            // Theme
-            const currentTheme = root.getAttribute('data-theme') || 'light';
-            document.querySelectorAll('[id^="btn-theme-"]').forEach(btn => {
-                if(btn.id.includes(currentTheme)) btn.classList.add('active');
-                else btn.classList.remove('active');
-            });
-
-            // Seed
-            const currentSeed = root.getAttribute('data-seed') || 'blue';
-            document.querySelectorAll('.color-option').forEach(opt => {
-                if(opt.dataset.color === currentSeed) opt.classList.add('active');
-                else opt.classList.remove('active');
-            });
-
-            // Radius
-            const currentRadius = root.getAttribute('data-radius') || 'medium';
-            document.querySelectorAll('button[data-radius]').forEach(btn => {
-                if(btn.dataset.radius === currentRadius) btn.classList.add('active');
-                else btn.classList.remove('active');
-            });
-        }
-        
-        // Interaction Delegation for Settings
-        document.addEventListener('click', (e) => {
-            const target = e.target;
-            
-            const modeBtn = target.closest('[data-action="set-theme-mode"]');
-            if(modeBtn) {
-                window.setThemeConfig('theme', modeBtn.dataset.value);
-                if(window.refreshSettingsPreview) window.refreshSettingsPreview();
-                return;
-            }
-
-            const seedBtn = target.closest('[data-action="set-theme-seed"]');
-            if(seedBtn) {
-                window.setThemeConfig('seed', seedBtn.dataset.value);
-                if(window.refreshSettingsPreview) window.refreshSettingsPreview();
-                return;
-            }
-            
-            const radiusBtn = target.closest('[data-action="set-radius"]');
-            if(radiusBtn) {
-                window.setThemeConfig('radius', radiusBtn.dataset.value);
-                if(window.refreshSettingsPreview) window.refreshSettingsPreview();
-                return;
-            }
-            
-            const resetBtn = target.closest('[data-action="reset-settings"]');
-            if(resetBtn) {
-                localStorage.removeItem('theme');
-                localStorage.removeItem('seed');
-                localStorage.removeItem('radius');
-                
-                window.name = ''; 
-                location.reload();
-                return;
-            }
-        });
-
-        // Palette Hex Updater
-        function updatePaletteHexCodes() {
-            document.querySelectorAll('.palette-item').forEach(item => {
-                const swatch = item.querySelector('.palette-swatch');
-                const hexLabel = item.querySelector('.palette-hex');
-                if(swatch && hexLabel) {
-                    const bgColor = getComputedStyle(swatch).backgroundColor;
-                    // Convert RGB to Hex
-                    const hex = rgbToHex(bgColor);
-                    hexLabel.innerText = hex.toUpperCase();
-                }
-            });
-        }
-
-        function rgbToHex(rgb) {
-            if(!rgb) return '';
-            const rgbValues = rgb.match(/\d+/g);
-            if(!rgbValues) return rgb;
-            return "#" + ((1 << 24) + (parseInt(rgbValues[0]) << 16) + (parseInt(rgbValues[1]) << 8) + parseInt(rgbValues[2])).toString(16).slice(1);
-        }
-
-        // Hook into updateSettingsUI
-        const originalUpdate = window.updateSettingsUI;
-        window.updateSettingsUI = function() {
-            if(originalUpdate) originalUpdate();
-            updatePaletteHexCodes();
-        };
-        
-        // Initial Run
-        updatePaletteHexCodes();
-
-
-
-    </script>
 </body>
 </html>

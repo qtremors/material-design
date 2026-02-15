@@ -27,58 +27,8 @@
     <link rel="stylesheet" href="css/components/chips.css">
     <link rel="stylesheet" href="css/components/fab.css">
     
-    <style>
-        /* Specific Button Styles */
-        .btn-row { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; margin-bottom: 24px; }
-        
-        /* FAB Variants */
-        .fab {
-            display: inline-flex; align-items: center; justify-content: center;
-            width: 56px; height: 56px; border-radius: 16px;
-            background-color: var(--md-sys-color-primary-container);
-            color: var(--md-sys-color-on-primary-container);
-            box-shadow: var(--md-sys-elevation-3);
-            cursor: pointer; transition: 0.2s; border: none;
-        }
-        .fab:hover { box-shadow: 0 6px 10px rgba(0,0,0,0.2); transform: translateY(-1px); }
-        .fab-small { width: 40px; height: 40px; border-radius: 12px; }
-        .fab-large { width: 96px; height: 96px; border-radius: 28px; }
-        .fab-large .material-symbols-rounded { font-size: 36px; }
-        .fab-extended { width: auto; padding: 0 24px 0 16px; gap: 12px; border-radius: 16px; font-weight: 500; }
-        
-        /* Icon Buttons */
-        .icon-btn {
-            width: 40px; height: 40px; border-radius: 50%;
-            display: inline-flex; align-items: center; justify-content: center;
-            color: var(--md-sys-color-on-surface-variant);
-            background: transparent; border: none; cursor: pointer; transition: 0.2s;
-        }
-        .icon-btn:hover { background-color: rgba(0,0,0,0.08); }
-        .icon-btn-filled { background-color: var(--md-sys-color-primary); color: var(--md-sys-color-on-primary); }
-        .icon-btn-filled:hover { background-color: var(--md-sys-color-primary); filter: brightness(1.1); }
-        .icon-btn-tonal { background-color: var(--md-sys-color-secondary-container); color: var(--md-sys-color-on-secondary-container); }
-        .icon-btn-outlined { border: 1px solid var(--md-sys-color-outline); }
-        
-        /* Segmented Buttons */
-        .segmented-btn-group {
-            display: inline-flex; border: 1px solid var(--md-sys-color-outline); border-radius: 100px;
-            overflow: hidden; height: 40px;
-        }
-        .segmented-btn {
-            background: transparent; color: var(--md-sys-color-on-surface); border: none;
-            padding: 0 16px; height: 100%; display: flex; align-items: center; gap: 8px;
-            font-size: 14px; font-weight: 500; cursor: pointer; border-right: 1px solid var(--md-sys-color-outline-variant);
-            transition: 0.2s; position: relative;
-        }
-        .segmented-btn:last-child { border-right: none; }
-        .segmented-btn:hover { background-color: rgba(0,0,0,0.04); }
-        .segmented-btn.selected {
-            background-color: var(--md-sys-color-secondary-container);
-            color: var(--md-sys-color-on-secondary-container);
-        }
-        .segmented-btn .check-icon { font-size: 18px; display: none; }
-        .segmented-btn.selected .check-icon { display: inline-block; }
-    </style>
+    <!-- Page Specific Styles -->
+    <link rel="stylesheet" href="css/components/buttons_page.css">
 </head>
 <body>
 
@@ -86,16 +36,24 @@
 
     <main>
         <div class="top-app-bar">
-            <span class="material-symbols-rounded menu-trigger" role="button" tabindex="0" aria-label="Open menu" style="margin-right: 16px; cursor: pointer; display: none;">menu</span>
+            <a href="../index.html" class="header-logo ripple-target" title="Home">
+                <img src="assets/material-design.png" alt="Material Design Logo">
+            </a>
             <h2>Buttons</h2>
             <div style="flex: 1"></div>
-             <!-- Color Seeds -->
-            <div class="actions" style="display: flex; gap: 8px; align-items: center;">
-                <div class="color-swatch active" data-seed="blue" style="background: #2962FF;" title="Blue"></div>
-                <div class="color-swatch" data-seed="purple" style="background: #6750A4;" title="Purple"></div>
-                <div class="color-swatch" data-seed="green" style="background: #006C51;" title="Key Lime"></div>
-                <div class="color-swatch" data-seed="teal" style="background: #006A6A;" title="Teal"></div>
-                <div class="color-swatch" data-seed="red" style="background: #B3261E;" title="Red"></div>
+            <div class="actions">
+                <div class="swatch-row desktop-only" style="display: flex; gap: 8px;">
+                    <div class="color-swatch" data-seed="blue" style="background: #2962FF;" title="Blue"></div>
+                    <div class="color-swatch" data-seed="monochrome" style="background: #5F6368;" title="Monochrome"></div>
+                    <div class="color-swatch" data-seed="purple" style="background: #6750A4;" title="Purple"></div>
+                    <div class="color-swatch" data-seed="green" style="background: #006C51;" title="Key Lime"></div>
+                    <div class="color-swatch" data-seed="teal" style="background: #006A6A;" title="Teal"></div>
+                    <div class="color-swatch" data-seed="cyan" style="background: #0097A7;" title="Cyan"></div>
+                    <div class="color-swatch" data-seed="yellow" style="background: #6D5E00;" title="Yellow"></div>
+                    <div class="color-swatch" data-seed="orange" style="background: #8B5000;" title="Orange"></div>
+                    <div class="color-swatch" data-seed="pink" style="background: #BC004B;" title="Pink"></div>
+                    <div class="color-swatch" data-seed="red" style="background: #B3261E;" title="Red"></div>
+                </div>
             </div>
         </div>
 
@@ -295,8 +253,5 @@
     <script src="js/components/interactions.js"></script>
 
     <script src="js/scripts.js"></script>
-    <script>
-        // Segmented Button Logic handled by global script
-    </script>
 </body>
 </html>
