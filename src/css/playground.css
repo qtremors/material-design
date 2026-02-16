@@ -1,4 +1,4 @@
-/* Playground Layout */
+/* --- PLAYGROUND LAYOUT --- */
 .playground-layout {
     display: grid;
     grid-template-columns: 310px 1fr;
@@ -16,7 +16,7 @@
     padding-bottom: 24px;
 }
 
-/* Mirror Settings Page Patterns */
+/* --- SETTINGS CARD PATTERNS --- */
 .settings-card {
     background: var(--md-sys-color-surface-container-low);
     border-radius: var(--md-sys-shape-corner-large);
@@ -104,7 +104,7 @@
     overflow-y: auto;
 }
 
-/* Sidebar Active Palette */
+/* --- SIDEBAR ACTIVE PALETTE --- */
 .sidebar-palette-section {
     margin-top: 0;
     display: flex;
@@ -152,7 +152,7 @@
     border-color: var(--md-sys-color-primary);
 }
 
-/* Matrix Search */
+/* --- MATRIX SEARCH --- */
 .matrix-search-container {
     position: sticky;
     top: 0;
@@ -182,7 +182,7 @@
     outline: none;
 }
 
-/* Matrix Content */
+/* --- MATRIX CONTENT --- */
 .matrix-header {
     font: var(--md-sys-typescale-headline-small);
     color: var(--md-sys-color-on-surface-variant);
@@ -196,7 +196,7 @@
     margin-bottom: 24px;
 }
 
-/* Token Cards */
+/* --- TOKEN CARDS --- */
 .token-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
@@ -230,36 +230,38 @@
     content: ""; position: absolute; inset: 0;
     border: 1px solid rgba(0,0,0,0.05);
     pointer-events: none;
+    border-radius: 20px 20px 0 0;
 }
 
 .token-badge {
     position: absolute; top: 8px; right: 8px;
-    font-size: 9px; font-weight: 700;
-    background: rgba(0,0,0,0.5);
-    backdrop-filter: blur(4px);
-    color: white;
-    padding: 2px 6px; border-radius: 4px;
+    font-size: 10px; font-weight: 700;
+    background: var(--md-sys-color-surface);
+    color: var(--md-sys-color-on-surface);
+    padding: 4px 10px; border-radius: 99px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    box-shadow: var(--md-sys-elevation-1);
+    opacity: 0.9;
 }
 
 .token-info { padding: 12px; }
-.token-color-name { font-weight: 700; color: var(--md-sys-color-on-surface); font-size: 14px; margin-bottom: 2px; }
-.token-role-name { font-size: 11px; color: var(--md-sys-color-on-surface-variant); margin-bottom: 12px; opacity: 0.8; }
+.token-color-name { font-weight: 700; color: var(--md-sys-color-on-surface); font-size: 14px; margin-bottom: 4px; }
+.token-hex-code { font-size: 11px; color: var(--md-sys-color-on-surface-variant); font-weight: 500; font-family: monospace; opacity: 0.8; margin-bottom: 12px; }
 .token-var-name {
     font-family: 'JetBrains Mono', 'Roboto Mono', monospace; font-size: 10px;
     color: var(--md-sys-color-on-surface-variant);
     background: var(--md-sys-color-surface-container-high);
     padding: 4px 10px; border-radius: 6px;
-    cursor: pointer; margin-bottom: 8px;
+    cursor: pointer; margin-bottom: 0;
     word-break: break-all; display: block;
     border: 1px solid var(--md-sys-color-outline-variant);
     transition: 0.2s;
 }
 .token-var-name:hover { background: var(--md-sys-color-primary-container); color: var(--md-sys-color-primary); border-color: var(--md-sys-color-primary); }
-.token-hex-code { font-size: 10px; color: var(--md-sys-color-on-surface-variant); font-weight: 500; font-family: monospace; opacity: 0.6; }
 
-/* Toast */
+
+/* --- TOAST --- */
 .pg-toast {
     position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(100px);
     background: var(--md-sys-color-inverse-surface); color: var(--md-sys-color-inverse-on-surface);
@@ -269,7 +271,7 @@
 }
 .pg-toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
 
-/* Tabs Styles */
+/* --- TABS --- */
 .tabs-container {
     display: flex; 
     border-bottom: 1px solid var(--md-sys-color-outline-variant); 
@@ -299,10 +301,10 @@
     background: var(--md-sys-color-primary); border-radius: 3px 3px 0 0;
 }
 .tab-panel { display: none; padding: 32px; }
-.tab-panel.active { display: block; animation: fadeUp 0.3s ease; }
-@keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.tab-panel.active { display: block; animation: fade-up 0.3s ease; }
+@keyframes fade-up { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-/* Lab Layout */
+/* --- LAB LAYOUT --- */
 .screenshot-layout {
     display: grid;
     grid-template-columns: 140px 1fr 1fr;
@@ -443,7 +445,7 @@
     cursor: pointer;
 }
 
-/* Responsive Sidebar */
+/* --- RESPONSIVE SIDEBAR --- */
 @media (max-width: 900px) {
     .playground-layout {
         grid-template-columns: 1fr;
@@ -466,11 +468,7 @@
     }
 }
 
-.menu-trigger {
-    display: none;
-    margin-right: 16px;
-    cursor: pointer;
-}
+
 
 .matrix-section-reference {
     margin-top: 48px;

@@ -1,4 +1,4 @@
-/* Card Specifics for Cards Page */
+/* --- CARDS PAGE STYLES --- */
 .card-media {
     height: 180px; 
     background-color: var(--md-sys-color-surface-container-highest);
@@ -17,13 +17,13 @@
     margin-top: 16px;
 }
 
-/* Music Note Styling */
+/* --- MUSIC NOTE STYLING --- */
 .card-horizontal .card-media span {
     font-size: 32px;
     opacity: 0.8;
 }
 
-/* Masonry Grid */
+/* --- MASONRY GRID --- */
 .masonry-grid {
     column-count: 3; 
     column-gap: 24px;
@@ -36,7 +36,7 @@
 @media (max-width: 900px) { .masonry-grid { column-count: 2; } }
 @media (max-width: 600px) { .masonry-grid { column-count: 1; } }
 
-/* Semantic Cards */
+/* --- SEMANTIC CARDS --- */
 .card-semantic { border-left: 4px solid; }
 .card-success { border-color: var(--md-sys-color-success); background: var(--md-sys-color-success-container); color: var(--md-sys-color-on-success-container); }
 .card-error { border-color: var(--md-sys-color-error); background: var(--md-sys-color-error-container); color: var(--md-sys-color-on-error-container); }

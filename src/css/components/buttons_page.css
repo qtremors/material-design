@@ -1,4 +1,4 @@
-/* Specific Button Styles for Buttons Page */
+/* --- BUTTONS PAGE STYLES --- */
 .btn-row { 
     display: flex; 
     flex-wrap: wrap; 
@@ -7,7 +7,7 @@
     margin-bottom: 24px; 
 }
 
-/* FAB Variants */
+/* --- FAB VARIANTS --- */
 .fab {
     display: inline-flex; 
     align-items: center; 
@@ -28,7 +28,7 @@
 .fab-large .material-symbols-rounded { font-size: 36px; }
 .fab-extended { width: auto; padding: 0 24px 0 16px; gap: 12px; border-radius: 16px; font-weight: 500; }
 
-/* Icon Buttons */
+/* --- ICON BUTTONS --- */
 .icon-btn {
     width: 40px; 
     height: 40px; 
@@ -48,7 +48,7 @@
 .icon-btn-tonal { background-color: var(--md-sys-color-secondary-container); color: var(--md-sys-color-on-secondary-container); }
 .icon-btn-outlined { border: 1px solid var(--md-sys-color-outline); }
 
-/* Segmented Buttons */
+/* --- SEGMENTED BUTTONS --- */
 .segmented-btn-group {
     display: inline-flex; 
     border: 1px solid var(--md-sys-color-outline); 

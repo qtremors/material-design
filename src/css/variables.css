@@ -89,7 +89,7 @@
     --md-sys-color-warning-container: #fef3c7;
     --md-sys-color-on-warning-container: #451a03;
 
-    /* State Layer Opacities */
+    /* --- STATE LAYER OPACITIES --- */
     --md-sys-state-hover: 0.08;
     --md-sys-state-focus: 0.12;
     --md-sys-state-pressed: 0.12;
@@ -219,13 +219,14 @@
     --md-sys-color-surface-container-low: #191c20;
     --md-sys-color-surface-container-highest: #333537;
     --md-sys-color-surface-container-highest-rgb: 51, 53, 55;
+    --md-sys-color-shadow: 0, 0, 0;
     --md-sys-color-outline: #8D9199;
     --md-sys-color-outline-variant: #44474F;
     --md-sys-color-on-surface: #E2E2E6;
     --md-sys-color-on-surface-variant: #C4C7D0;
     --md-sys-color-inverse-surface: #E2E2E6;
     --md-sys-color-inverse-on-surface: #2F3033;
-    --md-sys-color-inverse-primary: #6750A4;
+    /* --md-sys-color-inverse-primary: DEFINED PER SEED BELOW */
 
     --md-sys-color-primary: #B0C5FF; /* Default Blue Dark */
     --md-sys-color-primary-rgb: 176, 197, 255;
@@ -235,6 +236,7 @@
     --md-sys-color-secondary-container: #3E4450;
     --md-sys-color-on-secondary-container: #DDE2F0;
     --md-sys-color-secondary-rgb: 90, 93, 114; /* Corrected to match dark secondary */
+    --md-sys-color-inverse-primary: #2962FF;
 
     --md-sys-color-error: #FFB4AB;
     --md-sys-color-on-error: #690005;
@@ -244,7 +246,14 @@
     --md-sys-color-success: #75db8b;
     --md-sys-color-on-success: #003912;
     --md-sys-color-success-container: #00531e;
-    --md-sys-color-on-success-container: #91f8a7;
+    --md-sys-color-on-success-container: #bcebe0; /* Improved readability */
+
+
+    /* --- WARNING COLORS (DARK) --- */
+    --md-sys-color-warning: #EFB041;
+    --md-sys-color-on-warning: #452B00;
+    --md-sys-color-warning-container: #633F00;
+    --md-sys-color-on-warning-container: #FFDDAE;
 
     --md-sys-elevation-1: none;
     --md-sys-elevation-2: none;
@@ -266,7 +275,8 @@
 }
 
 /* Force borders on cards in OLED mode because elevation is invisible */
-[data-theme="oled"] .md-card, 
+/* Exclude cards that have their own background colors (semantic, filled, etc) */
+[data-theme="oled"] .md-card:not(.card-semantic):not(.card-filled):not(.card-colorful), 
 [data-theme="oled"] .settings-card,
 [data-theme="oled"] .widget-card {
     border: 1px solid var(--md-sys-color-outline-variant);
@@ -278,6 +288,7 @@
     --md-sys-color-on-primary: #381E72;
     --md-sys-color-primary-container: #4F378B;
     --md-sys-color-on-primary-container: #EADDFF;
+    --md-sys-color-inverse-primary: #6750A4;
     --md-sys-color-secondary-container: #4A4458;
     --md-sys-color-on-secondary-container: #E8DEF8;
     --md-sys-color-tertiary: #EFB8C8;
@@ -290,6 +301,7 @@
     --md-sys-color-on-primary: #003920;
     --md-sys-color-primary-container: #005230;
     --md-sys-color-on-primary-container: #93F9B9;
+    --md-sys-color-inverse-primary: #006C51;
     --md-sys-color-secondary-container: #364B3B;
     --md-sys-color-on-secondary-container: #D8E7CC;
     --md-sys-color-tertiary: #A6CCE0;
@@ -303,6 +315,7 @@
     --md-sys-color-on-primary: #003737;
     --md-sys-color-primary-container: #005050;
     --md-sys-color-on-primary-container: #6FF7F6;
+    --md-sys-color-inverse-primary: #006A6A;
     --md-sys-color-secondary-container: #3F4949;
     --md-sys-color-on-secondary-container: #CCE8E7;
 }
@@ -311,6 +324,7 @@
     --md-sys-color-on-primary: #601410;
     --md-sys-color-primary-container: #8C1D18;
     --md-sys-color-on-primary-container: #F9DEDC;
+    --md-sys-color-inverse-primary: #B3261E;
     --md-sys-color-secondary-container: #5C403E;
     --md-sys-color-on-secondary-container: #F4DDDB;
 }
@@ -319,6 +333,7 @@
     --md-sys-color-on-primary: #650025;
     --md-sys-color-primary-container: #900037;
     --md-sys-color-on-primary-container: #FFD9DE;
+    --md-sys-color-inverse-primary: #BC004B;
     --md-sys-color-secondary-container: #49454F; /* Fallback */
     --md-sys-color-on-secondary-container: #E8DEF8;
 }
@@ -327,18 +342,21 @@
     --md-sys-color-on-primary: #4A2800;
     --md-sys-color-primary-container: #693C00;
     --md-sys-color-on-primary-container: #FFDCBE;
+    --md-sys-color-inverse-primary: #8B5000;
 }
 [data-theme="dark"][data-seed="yellow"], [data-theme="oled"][data-seed="yellow"] {
     --md-sys-color-primary: #DEC600;
     --md-sys-color-on-primary: #393000;
     --md-sys-color-primary-container: #524700;
     --md-sys-color-on-primary-container: #FFE24B;
+    --md-sys-color-inverse-primary: #6D5E00;
 }
 [data-theme="dark"][data-seed="cyan"], [data-theme="oled"][data-seed="cyan"] {
     --md-sys-color-primary: #4FD8EB;
     --md-sys-color-on-primary: #00363D;
     --md-sys-color-primary-container: #004F58;
     --md-sys-color-on-primary-container: #97F0FF;
+    --md-sys-color-inverse-primary: #0097A7;
 }
 [data-theme="dark"][data-seed="monochrome"], [data-theme="oled"][data-seed="monochrome"] {
     --md-sys-color-primary: #E8EAED;
@@ -346,6 +364,7 @@
     --md-sys-color-on-primary: #202124;
     --md-sys-color-primary-container: #3C4043;
     --md-sys-color-on-primary-container: #F1F3F4;
+    --md-sys-color-inverse-primary: #5F6368;
     --md-sys-color-secondary-container: #44474F;
     --md-sys-color-on-secondary-container: #C4C7D0;
 }

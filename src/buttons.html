@@ -6,17 +6,17 @@
     <title>Buttons | Material Design</title>
     <link rel="icon" type="image/png" href="assets/material-design.png">
     
-    <!-- Fonts & Icons -->
+    <!-- SECTION: Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Flex:opsz,wdth,wght@8..144,100,100..400&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
 
-    <!-- Theme Engine -->
+    <!-- SECTION: Theme Engine -->
     <script src="js/theme.js"></script>
 
-    <!-- Styles -->
+    <!-- SECTION: Styles -->
     <link rel="stylesheet" href="css/variables.css">
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/components/navigation.css">
@@ -32,8 +32,9 @@
 </head>
 <body>
 
-    <!-- Navigation injected by js/navigation.js -->
+    <!-- SECTION: Navigation -->
 
+    <!-- SECTION: Main Content -->
     <main>
         <div class="top-app-bar">
             <a href="../index.html" class="header-logo ripple-target" title="Home">
@@ -42,24 +43,13 @@
             <h2>Buttons</h2>
             <div style="flex: 1"></div>
             <div class="actions">
-                <div class="swatch-row desktop-only" style="display: flex; gap: 8px;">
-                    <div class="color-swatch" data-seed="blue" style="background: #2962FF;" title="Blue"></div>
-                    <div class="color-swatch" data-seed="monochrome" style="background: #5F6368;" title="Monochrome"></div>
-                    <div class="color-swatch" data-seed="purple" style="background: #6750A4;" title="Purple"></div>
-                    <div class="color-swatch" data-seed="green" style="background: #006C51;" title="Key Lime"></div>
-                    <div class="color-swatch" data-seed="teal" style="background: #006A6A;" title="Teal"></div>
-                    <div class="color-swatch" data-seed="cyan" style="background: #0097A7;" title="Cyan"></div>
-                    <div class="color-swatch" data-seed="yellow" style="background: #6D5E00;" title="Yellow"></div>
-                    <div class="color-swatch" data-seed="orange" style="background: #8B5000;" title="Orange"></div>
-                    <div class="color-swatch" data-seed="pink" style="background: #BC004B;" title="Pink"></div>
-                    <div class="color-swatch" data-seed="red" style="background: #B3261E;" title="Red"></div>
-                </div>
+                <div class="swatch-row desktop-only"></div>
             </div>
         </div>
 
         <div class="container">
             
-            <!-- Standard Buttons -->
+            <!-- SECTION: Standard Buttons -->
             <section style="margin-bottom: 48px;">
                 <h3>Common Buttons</h3>
                 <p>Five types of common buttons: filled, tonal, outlined, text, and elevated.</p>
@@ -77,7 +67,7 @@
                 </div>
             </section>
 
-            <!-- FABs -->
+            <!-- SECTION: FABs -->
             <section style="margin-bottom: 48px;">
                 <h3>Floating Action Buttons</h3>
                 <p>Standard and extended floating action buttons.</p>
@@ -92,12 +82,12 @@
                 <!-- FAB Demos Grid -->
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 48px; margin-top: 48px; align-items: start;">
                     
-                    <!-- 1. Horizontal Drawer (Swapped to 1st) -->
+                    <!-- Horizontal Speed Dial (Swapped to 1st) -->
                     <div style="display: flex; flex-direction: column; align-items: flex-start;">
-                        <p style="margin-bottom: 24px; font-weight: 500; padding-left: 4px;">Horizontal Drawer</p>
-                        <div class="horizontal-drawer-container" style="position: relative; height: 56px; width: 56px; display: flex; align-items: center; justify-content: flex-start;">
-                            <!-- Drawer Content (Absolute) -->
-                            <div class="horizontal-drawer" style="position: absolute; left: 28px; top: 0; background: var(--md-sys-color-surface-container-low); border: 1px solid var(--md-sys-color-outline-variant); border-radius: 28px; height: 56px; display: flex; align-items: center; padding-left: 28px; overflow: hidden; width: 0; opacity: 0; transition: all 0.5s cubic-bezier(0.2, 0, 0, 1); z-index: 1; box-shadow: var(--md-sys-elevation-1);">
+                        <p style="margin-bottom: 24px; font-weight: 500; padding-left: 4px;">Horizontal Speed Dial</p>
+                        <div class="horizontal-speed-dial-container" style="position: relative; height: 56px; width: 56px; display: flex; align-items: center; justify-content: flex-start;">
+                            <!-- Speed Dial Content -->
+                            <div class="horizontal-speed-dial" style="position: absolute; left: 28px; top: 0; background: var(--md-sys-color-surface-container-low); border: 1px solid var(--md-sys-color-outline-variant); border-radius: 28px; height: 56px; display: flex; align-items: center; padding-left: 28px; overflow: hidden; width: 0; opacity: 0; transition: all 0.5s cubic-bezier(0.2, 0, 0, 1); z-index: 1; box-shadow: var(--md-sys-elevation-1);">
                                 <div style="display: flex; gap: 4px; padding-right: 16px; min-width: max-content;">
                                     <button class="icon-btn ripple-target"><span class="material-symbols-rounded">check_circle</span></button>
                                     <button class="icon-btn ripple-target"><span class="material-symbols-rounded">favorite</span></button>
@@ -106,13 +96,13 @@
                                 </div>
                             </div>
                             <!-- Trigger Button -->
-                            <button class="fab fab-expressive-medium ripple-target" data-action="toggle-horizontal-drawer" style="background: var(--md-sys-color-primary-container); color: var(--md-sys-color-on-primary-container); border-radius: 16px; z-index: 2; position: relative;">
+                            <button class="fab fab-expressive-medium ripple-target" data-action="toggle-horizontal-speed-dial" style="background: var(--md-sys-color-primary-container); color: var(--md-sys-color-on-primary-container); border-radius: 16px; z-index: 2; position: relative;">
                                 <span class="material-symbols-rounded" style="font-size: 24px; transition: 0.3s;">add</span>
                             </button>
                         </div>
                     </div>
 
-                    <!-- 2. Vertical Speed Dial (Swapped to 2nd) -->
+                    <!-- Vertical Speed Dial -->
                     <div style="display: flex; flex-direction: column; align-items: flex-start;">
                         <p style="margin-bottom: 24px; font-weight: 500; padding-left: 4px;">Vertical Speed Dial</p>
                         <div class="speed-dial-container">
@@ -136,7 +126,7 @@
                         </div>
                     </div>
 
-                    <!-- 3. Morphing Shapes -->
+                    <!-- Morphing Shapes -->
                     <div style="display: flex; flex-direction: column; align-items: flex-start;">
                         <p style="margin-bottom: 24px; font-weight: 500; padding-left: 4px;">Morphing Shapes</p>
                          <div class="btn-row" style="align-items: center; gap: 16px; margin: 0; justify-content: flex-start;">
@@ -148,7 +138,7 @@
                 </div>
             </section>
 
-            <!-- Icon Buttons -->
+            <!-- SECTION: Icon Buttons -->
             <section style="margin-bottom: 48px;">
                 <h3>Icon Buttons</h3>
                 <div class="btn-row">
@@ -173,7 +163,7 @@
                 </div>
             </section>
 
-            <!-- Segmented Buttons -->
+            <!-- SECTION: Segmented Buttons -->
             <section style="margin-bottom: 48px;">
                 <h3>Segmented Buttons</h3>
                 <div class="btn-row">
@@ -221,17 +211,17 @@
                 </div>
             </section>
 
-            <!-- Loading States -->
+            <!-- SECTION: Loading States -->
             <section style="margin-bottom: 48px;">
                 <h3>Loading States</h3>
                 <div class="btn-row">
                     <button class="md-btn md-btn-filled ripple-target" data-action="toggle-loading">
-                        <span class="spinner" style="display:none"></span>
+                        <span class="circular-progress" style="display:none"></span>
                         <span class="btn-text">Click to Load</span>
                     </button>
                     
                     <button class="md-btn md-btn-tonal ripple-target" data-action="toggle-loading">
-                        <div class="typing-dots" style="display:none"><span></span><span></span><span></span></div>
+                        <div class="dots-loader" style="display:none"><span></span><span></span><span></span></div>
                         <span class="btn-text">With Dots</span>
                     </button>
                 </div>
@@ -242,7 +232,7 @@
 
     <script src="js/navigation.js"></script>
     
-    <!-- Components -->
+    <!-- SECTION: Scripts -->
     <script src="js/components/ripples.js"></script>
     <script src="js/components/tabs.js"></script>
     <script src="js/components/dialogs.js"></script>

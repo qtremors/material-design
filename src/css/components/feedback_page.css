@@ -1,5 +1,5 @@
-/* Feedback Page Specific Styles */
-/* Linear Progress */
+/* --- FEEDBACK PAGE STYLES --- */
+/* --- LINEAR PROGRESS --- */
 .linear-progress {
     position: relative; 
     width: 100%; 
@@ -17,14 +17,11 @@
     width: 100%;
     background-color: var(--md-sys-color-primary);
     transform-origin: left center; 
-    animation: linearIndeterminate 2s infinite linear;
+    animation: linear-indeterminate 2s infinite linear;
 }
 
-@keyframes linearIndeterminate {
+@keyframes linear-indeterminate {
     0% { transform: translateX(0) scaleX(0); }
     40% { transform: translateX(0) scaleX(0.4); }
     100% { transform: translateX(100%) scaleX(0.5); }
 }
-
-/* Spinner animation */
-@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }

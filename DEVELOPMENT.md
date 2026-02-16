@@ -1,8 +1,8 @@
-# Material Design Development Guide (v1.4.1)
+# Material Design Development Guide
 
 > Comprehensive documentation for developers working on Material Design.
 
-**Version:** 1.4.1 | **Last Updated:** 2026-02-15
+**Version:** 1.5.0 | **Last Updated:** 2026-02-15
 
 ---
 
@@ -76,8 +76,9 @@
 │   │   ├── theme.js          # Theme abstraction and persistence
 │   │   ├── navigation.js     # Navigation Rail/Drawer injection
 │   │   └── scripts.js        # Main entry point / Orchestrator
-├── buttons.html
-├── cards.html
+│   ├── buttons.html          # Component pages
+│   ├── cards.html
+│   ├── ...
 ├── index.html            # Entry point
 ├── README.md             # User-facing documentation
 ├── DEVELOPMENT.md        # This file
@@ -167,7 +168,7 @@ All new additions to this library **must** strictly adhere to the following Mate
 ## How to Create New Components
 
 ### 1. Create the HTML Page
-Create a new file (e.g., `my-component.html`) in the **root** or **src/** directory.
+Create a new file (e.g., `my-component.html`) in the **src/** directory.
 > **Tip:** Copy `src/buttons.html` or `src/cards.html` to use as a template. This ensures you have the correct `<head>` logic, viewport meta tags, header branding, and script imports.
 
 ### 2. Include the Header Branding
@@ -175,14 +176,14 @@ Every page must have a `top-app-bar` with the branding logo linking to the dashb
 
 ```html
 <div class="top-app-bar">
-    <a href="index.html" class="header-logo ripple-target" title="Home">
-        <img src="src/assets/material-design.png" alt="Material Design Logo">
+    <a href="../index.html" class="header-logo ripple-target" title="Home">
+        <img src="assets/material-design.png" alt="Material Design Logo">
     </a>
     <h2>My Component</h2>
     <div style="flex: 1"></div>
 </div>
 ```
-*(Use `../index.html` and `assets/material-design.png` if the file is in `src/`)*
+*(Paths assume the file is in `src/`. Adjust if placed elsewhere)*
 
 ### 3. Add Styles
 Create a new CSS file in `src/css/components/` (e.g., `my-component.css`) and link it in your HTML file.

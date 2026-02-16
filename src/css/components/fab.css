@@ -2,7 +2,7 @@
    FAB & SPEED DIAL
    ========================================================================== */
 
-/* Expressive FABs base */
+/* --- EXPRESSIVE FABS --- */
 .fab {
     display: inline-flex; align-items: center; justify-content: center;
     width: 56px; height: 56px;
@@ -28,7 +28,7 @@
     font-size: 24px;
 }
 
-/* Expressive Variants */
+/* --- EXPRESSIVE VARIANTS --- */
 .fab-expressive-large {
     width: 96px; height: 96px;
     border-radius: 28px;
@@ -46,7 +46,7 @@
     border-top-right-radius: 4px;
 }
 
-/* Speed Dial */
+/* --- SPEED DIAL --- */
 .speed-dial-container { position: relative; z-index: 10; display: flex; justify-content: flex-start; }
 .speed-dial-actions {
     position: absolute; bottom: 80px; left: 0; transform: translateY(20px) scale(0.9);
@@ -62,7 +62,7 @@
     transform: translateY(0) scale(1);
 }
 
-/* Staggered Animation for Speed Dial Items */
+/* --- STAGGERED ANIMATION --- */
 .speed-dial-actions button {
     opacity: 0; transform: translateY(10px);
     transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
@@ -82,7 +82,7 @@
 }
 .speed-dial-container.open .fab span { transform: none; }
 
-/* FAB Morphing */
+/* --- FAB MORPHING --- */
 .fab-morph { transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
 .fab-morph.square { border-radius: 4px !important; }
 .fab-morph.circle { border-radius: 50% !important; }

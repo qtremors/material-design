@@ -11,7 +11,7 @@
     outline-offset: 4px;
 }
 
-/* Specific elements for clarity */
+
 button:focus-visible, 
 a:focus-visible, 
 input:focus-visible, 
@@ -123,6 +123,7 @@ p { font: var(--md-sys-typescale-body-large); margin-bottom: 24px; line-height: 
     padding: 32px; z-index: 600;
     transform: translateY(100%); transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1);
     box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+    border: 1px solid var(--md-sys-color-outline-variant);
 }
 .bottom-sheet.open { transform: translateY(0); }
 .drag-handle { width: 32px; height: 4px; background: var(--md-sys-color-outline-variant); margin: -16px auto 24px auto; border-radius: 2px; }
@@ -132,16 +133,16 @@ p { font: var(--md-sys-typescale-body-large); margin-bottom: 24px; line-height: 
 }
 
 /* --- RESPONSIVE UTILITIES --- */
-@media (max-width: 600px) {
+@media (max-width: 720px) {
     .desktop-only { display: none !important; }
     .mobile-only { display: flex !important; }
 }
-@media (min-width: 601px) {
+@media (min-width: 721px) {
     .desktop-only { display: flex !important; }
     .mobile-only { display: none !important; }
 }
 
-/* Color Sheet Grid */
+/* --- COLOR SHEET GRID --- */
 .color-sheet-grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);

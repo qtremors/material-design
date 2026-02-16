@@ -2,6 +2,9 @@
    INPUTS & SELECTION CONTROLS
    ========================================================================== */
 
+/**
+ * Initializes selection controls (chips).
+ */
 function initSelectionControls() {
     document.querySelectorAll('.chip').forEach(chip => {
 
@@ -21,6 +24,10 @@ function initSelectionControls() {
     });
 }
 
+/**
+ * Toggles the state of a chip.
+ * @param {HTMLElement} chip - The chip element to toggle.
+ */
 function toggleChip(chip) {
     if(chip.getAttribute('data-toggle') === 'true' || chip.classList.contains('filter-chip')) {
         chip.classList.toggle('active');

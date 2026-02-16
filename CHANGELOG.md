@@ -1,8 +1,59 @@
 # Material Design Changelog
 
 > **Project:** Material Design  
-> **Version:** 1.4.5
+> **Version:** 1.5.0
 > **Last Updated:** 2026-02-15
+
+---
+
+## [1.5.0] - 2026-02-16
+
+### Added & Improved
+-   **Settings Layout Overhaul**:
+    -   **Responsive Design**: Implemented a robust side-by-side layout for desktop and a centered, vertical stack for mobile (< 600px).
+    -   **Color Grid**: Standardized the color palette to a clean 5-column grid.
+    -   **Mobile Experience**: Enhanced the mobile color selection sheet with centered headers and subtle borders for visibility in dark modes.
+-   **Navigation Polish**:
+    -   **Swatch Consistency**: Centralized header color swatches in `navigation.js` and enforced "Monochrome First" ordering across Dashboard, Settings, and Playground.
+    -   **OLED Logic**: Fixed the top-bar theme toggle to correctly cycle through Light -> Dark -> OLED -> Dark, displaying the correct 'contrast' icon for OLED availability.
+-   **Playground Enhancements**:
+    -   **Dynamic Sorting**: Implemented semantic visual sorting for active tokens (Matrix & Sidebar) to prioritize Neutrals, then Hue, then Lightness, replacing arbitrary CSS order.
+    -   **Navigation Fix**: Removed a conflicting global `.menu-trigger` style that was hiding the navigation rail's menu button and shifting items up on the Playground page.
+    -   **Global Z-Index**: Lowered Navigation Rail `z-index` to `90` to ensure it sits cleanly behind the Top App Bar, hiding the internal rail menu trigger on desktop.
+    -   **Ripple Logic**: Implemented support for `data-ripple-color` to allow custom ripple colors (e.g., on-primary) defined in HTML.
+    -   **Semantic Contrast**: Added missing Dark/OLED theme overrides for the "Warning" color role and optimized "Success" tokens to ensure semantic cards have accessible text contrast in dark modes.
+    -   **OLED Borders**: Refined the global OLED border rule in `variables.css` to exclude semantic, filled, and colorful cards, ensuring their native styles (backgroundColor, colored borders) are preserved without interference.
+    -   **Token Parity**: Audited and fixed `variables.css` to ensure full parity across all 3 theme modes. Added missing `inverse-primary` and `RGB` tokens to all Dark/OLED seeds.
+
+### Fixed (PR & Stability)
+-   **Critical Interaction Fixes**:
+    -   **Mobile Sheet**: Fixed a bug where the color palette wouldn't close when clicking the background scrim. Implemented a singleton scrim pattern (`#sheet-scrim`) to prevent DOM duplication.
+    -   **Theme State**: Exposed `ThemeEngine` globally to ensure the mobile palette correctly highlights the active color upon opening.
+-   **Code Quality (PR Review)**:
+    -   **CSS**: Renamed camelCase keyframes (`fadeUp`, `linearIndeterminate`) to kebab-case for standard compliance.
+    -   **Accessibility**: Added `:focus-visible` styles to hidden input siblings and improved logo visibility on dark themes.
+    -   **Cleanup**: Removed duplicate `</head>` tags and hardcoded hex values in Settings/Widgets.
+    -   **Logic**: Guarded `window.setThemeConfig` calls and optimized `syncSelectionState` in the Playground to prevent race conditions.
+    -   **Refactor**: Extracted repeated swatch row HTML into a shared generator in `navigation.js`, removing hardcoded duplication from all HTML pages.
+    -   **Playground Polish**: 
+        -   **Token Cards**: Redesigned the token card layout to remove redundant role names and reordered fields (Color Name -> Hex -> Variable) for better scanning.
+        -   **Visuals**: Updated accent badges to a pill-shaped design with consistent theming and fixed square-corner artifacts on inactive card swatches.
+    -   **Matrix Refactor**:
+        -   **Logic**: Split the color matrix into distinct "Active System Roles" and "Inactive Color Palettes" to eliminate redundancy.
+        -   **Blue Seed**: Implemented custom logic to extract Default Blue tokens from `:root` variables to ensure accurate palette visualization when inactive.
+    -   **Codebase Polish**:
+        -   **Cards**: Removed conflicting `overflow: hidden` from list items to fix border-radius clipping on rounded lists.
+        -   **Music Widgets**: Explicitly matched child border-radii for album art and daily mix headers to their parent containers to prevent background bleeding during transitions.
+        -   **Naming Audit**: 
+            -   Renamed `.spinner` to `.circular-progress` and `.typing-dots` to `.dots-loader` across HTML/CSS for consistency.
+            -   Renamed "Horizontal Drawer" to "Horizontal Speed Dial" in JS/HTML to avoid ambiguity with Navigation Drawers.
+            -   Added missing `.card-colorful` demo to `cards.html`.
+    -   **Navigation Bugs**:
+        -   **Z-Index Layering**: Lowered Navigation Rail z-index to `90` to ensure it sits cleanly behind the Top App Bar, allowing the header logo to be fully visible and hiding the internal rail menu trigger on desktop.
+        -   **Color Swatch Initialization**: Fixed a race condition where the active color swatch wasn't highlighted on page load by optimizing the initialization order in `navigation.js`.
+    -   **Navigation Rail Improvements**:
+        -   **Scrollable Layout**: Implemented a Flexbox-based scrollable container for navigation items, ensuring accessibility on small screens while keeping the Menu Trigger and Theme Toggle fixed.
+        -   **Compact Spacing**: Removed excess top padding (`0px`) and minimized bottom margins (`8px`) to maximize vertical space for navigation links.
 
 ---
 
@@ -18,15 +69,11 @@
     -   **Density**: Balanced list item spacing in Contacts and removed "dead space" at the bottom of the dashboard.
 -   **User Control**: Moved "Show Labels/Grid" controls to the right side of the header for better reach.
 
----
-
 ## [1.4.4] - 2026-02-15
 
 ### Added
 -   **Monochrome Theme**: Introduced a neutral grey-scale color seed for high-contrast accessibility.
 -   **Theme Propagation**: Integrated the Monochrome swatch project-wide across all component demonstration pages.
-
----
 
 ## [1.4.3] - 2026-02-15
 
@@ -36,8 +83,6 @@
     -   Created `materialdesign-skill.md` for AI-driven development guidance.
     -   Updated `DEVELOPMENT.md` with OLED mode and branding requirements.
     -   Defined detailed Typography & Hierarchy standards using `Roboto Flex` variations.
-
----
 
 ## [1.4.2] - 2026-02-15
 
@@ -49,16 +94,12 @@
 -   **Settings Cleanup**: Removed redundant "Customisation" (Corner Radius) section as controls moved to the Playground.
 -   **UI Fixes**: Resolved layout regressions in side panels and the palette color naming engine.
 
----
-
 ## [1.4.1] - 2026-02-15
 
 ### Refactored & Polished
 -   **Modularity Refactor**: Extracted all internal `<style>` and `<script>` blocks from HTML files into modular project files in `src/`.
 -   **Hero Section Polish**: Updated dashboard copy to focus on MD3/Material You technical traits.
 -   **Settings Migration**: Retired legacy "Live Preview" logic to focus on the unified theme engine.
-
----
 
 ## [1.4.0] - 2026-02-14
 

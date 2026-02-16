@@ -87,7 +87,7 @@
 .switch input:checked + .switch-track .switch-handle {
     transform: translateX(20px); background-color: var(--md-sys-color-on-primary); width: 24px; height: 24px; bottom: 2px; left: 2px;
 }
-/* Switch Icons */
+/* --- SWITCH ICONS --- */
 .switch-icon {
     position: absolute; color: var(--md-sys-color-on-primary-container);
     font-size: 16px; top: 6px; left: 6px; opacity: 0; transition: 0.3s; pointer-events: none;
@@ -123,7 +123,7 @@
     outline: none; padding: 0; margin: 0; cursor: pointer;
 }
 
-/* TRACK */
+/* --- TRACK --- */
 .md-slider::-webkit-slider-runnable-track {
     height: 4px; cursor: pointer;
     background: linear-gradient(to right, var(--md-sys-color-primary) var(--slider-value, 0%), var(--md-sys-color-surface-container-highest) var(--slider-value, 0%));
@@ -135,7 +135,7 @@
     border-radius: 2px;
 }
 
-/* THUMB - Webkit */
+/* --- THUMB (WEBKIT) --- */
 .md-slider::-webkit-slider-thumb {
     -webkit-appearance: none; appearance: none;
     width: 20px; height: 20px; border-radius: 50%;
@@ -149,7 +149,7 @@
     box-shadow: 0 0 0 10px rgba(var(--md-sys-color-primary-rgb), 0.1), 0 1px 3px rgba(0,0,0,0.3);
 }
 
-/* THUMB - Moz */
+/* --- THUMB (MOZ) --- */
 .md-slider::-moz-range-thumb {
     width: 20px; height: 20px; border: none; border-radius: 50%;
     background: var(--md-sys-color-primary);
@@ -161,7 +161,7 @@
     box-shadow: 0 0 0 10px rgba(var(--md-sys-color-primary-rgb), 0.1), 0 1px 3px rgba(0,0,0,0.3);
 }
 
-/* Expressive Variant - Thick Track & Bar Thumb */
+/* --- EXPRESSIVE VARIANT --- */
 .slider-expressive .md-slider::-webkit-slider-runnable-track { 
     height: 16px; border-radius: 8px; 
     background: linear-gradient(to right, var(--md-sys-color-primary) var(--slider-value, 0%), var(--md-sys-color-surface-container-highest) var(--slider-value, 0%));
@@ -182,14 +182,14 @@
     border: none;
 }
 
-/* Squiggly Slider (High-Fidelity MD3) */
+/* --- SQUIGGLY SLIDER --- */
 .slider-squiggly {
     position: relative;
     padding: 18px 0;
     --wave-mask: url("data:image/svg+xml,%3Csvg width='40' height='10' viewBox='0 0 40 10' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 5 Q 10 0 20 5 T 40 5' stroke='black' stroke-width='4' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
 }
 
-/* Base Track (Inactive - Straight, starts from thumb) */
+/* --- BASE TRACK --- */
 .slider-squiggly::before {
     content: "";
     position: absolute;
@@ -200,7 +200,7 @@
     border-radius: 2px;
 }
 
-/* Active Track (Squiggly & Animated) */
+/* --- ACTIVE TRACK --- */
 .slider-squiggly::after {
     content: "";
     position: absolute;

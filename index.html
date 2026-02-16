@@ -6,17 +6,17 @@
     <title>Material Design</title>
     <link rel="icon" type="image/png" href="src/assets/material-design.png">
     
-    <!-- Fonts & Icons -->
+    <!-- SECTION: Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Flex:opsz,wdth,wght@8..144,100,100..400&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
 
-    <!-- Theme Engine -->
+    <!-- SECTION: Theme Engine -->
     <script src="src/js/theme.js"></script>
     
-    <!-- Styles -->
+    <!-- SECTION: Styles -->
     <link rel="stylesheet" href="src/css/variables.css">
     <link rel="stylesheet" href="src/css/base.css">
     <link rel="stylesheet" href="src/css/components/navigation.css">
@@ -32,9 +32,9 @@
 </head>
 <body>
 
-    <!-- Navigation injected by js/navigation.js -->
+    <!-- SECTION: Navigation -->
 
-    <!-- MAIN CONTENT -->
+    <!-- SECTION: Main Content -->
     <main>
         <div class="top-app-bar">
             <a href="index.html" class="header-logo ripple-target" title="Home">
@@ -42,18 +42,7 @@
             </a>
             <h2 style="margin: 0; flex: 1;">Dashboard</h2>
             <div class="actions">
-                <div class="swatch-row desktop-only" style="display: flex; gap: 8px;">
-                    <div class="color-swatch" data-seed="blue" style="background: #2962FF;" title="Blue"></div>
-                    <div class="color-swatch" data-seed="monochrome" style="background: #5F6368;" title="Monochrome"></div>
-                    <div class="color-swatch" data-seed="purple" style="background: #6750A4;" title="Purple"></div>
-                    <div class="color-swatch" data-seed="green" style="background: #006C51;" title="Key Lime"></div>
-                    <div class="color-swatch" data-seed="teal" style="background: #006A6A;" title="Teal"></div>
-                    <div class="color-swatch" data-seed="cyan" style="background: #0097A7;" title="Cyan"></div>
-                    <div class="color-swatch" data-seed="yellow" style="background: #6D5E00;" title="Yellow"></div>
-                    <div class="color-swatch" data-seed="orange" style="background: #8B5000;" title="Orange"></div>
-                    <div class="color-swatch" data-seed="pink" style="background: #BC004B;" title="Pink"></div>
-                    <div class="color-swatch" data-seed="red" style="background: #B3261E;" title="Red"></div>
-                </div>
+                <div class="swatch-row desktop-only" style="display: flex; gap: 8px;"></div>
             </div>
         </div>
 
@@ -75,7 +64,7 @@
                 <span class="material-symbols-rounded hero-image">design_services</span>
             </div>
 
-            <!-- Grid -->
+            <!-- Components Grid -->
             <div id="components" class="dashboard-grid">
                 <a href="src/buttons.html" class="md-card nav-card ripple-target">
                     <span class="material-symbols-rounded nav-card-icon">smart_button</span>
@@ -130,7 +119,7 @@
 
     <script src="src/js/navigation.js"></script>
     
-    <!-- Components -->
+    <!-- SECTION: Scripts -->
     <script src="src/js/components/ripples.js"></script>
     <script src="src/js/components/widgets.js"></script>
     <script src="src/js/components/tabs.js"></script>

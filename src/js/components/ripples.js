@@ -24,6 +24,16 @@ function createRipple(event, element) {
     circle.style.top = `${event.clientY - rect.top - radius}px`;
     circle.classList.add("ripple");
 
+    // Check for custom ripple color
+    const customColor = element.getAttribute('data-ripple-color');
+    if (customColor) {
+        if (customColor.startsWith('on-') || customColor.startsWith('primary') || customColor.startsWith('secondary') || customColor.startsWith('tertiary') || customColor.startsWith('error')) {
+             circle.style.backgroundColor = `var(--md-sys-color-${customColor})`;
+        } else {
+             circle.style.backgroundColor = customColor;
+        }
+    }
+
     const existingRipple = element.querySelector('.ripple');
     if (existingRipple) existingRipple.remove();
 
@@ -31,6 +41,6 @@ function createRipple(event, element) {
     element.appendChild(circle);
 }
 
-// Expose to global scope for scripts.js to call
+// Expose for global usage
 window.initRipples = initRipples;
 window.createRipple = createRipple;

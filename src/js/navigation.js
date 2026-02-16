@@ -45,7 +45,8 @@ function renderNavigation() {
         if (src.includes('src/js/navigation.js')) {
             isInSrc = false;
         } else if (src.endsWith('js/navigation.js')) {
-            isInSrc = true;
+            // Check location pathname as secondary verification
+            isInSrc = window.location.pathname.includes('/src/') || src.includes('../');
         }
     }
 
@@ -55,9 +56,10 @@ function renderNavigation() {
     // RAIL HTML
     let railHtml = `
     <nav class="md-nav-rail">
-        <div class="menu-trigger ripple-target" role="button" tabindex="0" aria-label="Open menu" style="padding: 12px; margin-bottom: 24px; cursor: pointer;">
+        <div class="menu-trigger ripple-target" role="button" tabindex="0" aria-label="Open menu" style="padding: 12px; margin-top: 4px; margin-bottom: 8px; cursor: pointer;">
             <span class="material-symbols-rounded">menu</span>
         </div>
+        <div class="nav-scroll-container">
     `;
 
     NAV_ITEMS.forEach(item => {
@@ -84,8 +86,8 @@ function renderNavigation() {
     });
 
     railHtml += `
-        <div style="flex:1"></div>
-        <button id="themeToggle" class="md-rail-item" aria-label="Toggle theme" style="background: transparent; border: none; padding: 0;">
+        </div>
+        <button id="themeToggle" class="md-rail-item" aria-label="Toggle theme" style="background: transparent; border: none; padding: 0; margin-top: auto; flex-shrink: 0; margin-bottom: 8px;">
              <div class="icon-container"><span class="material-symbols-rounded">dark_mode</span></div>
         </button>
     </nav>
@@ -129,12 +131,11 @@ function renderNavigation() {
 
     // COLOR SELECTION SHEET (MOBILE)
     const colorSheetHtml = `
-    <div id="sheet-scrim" class="sheet-scrim" data-action="close-sheet"></div>
     <div id="colorSheet" class="bottom-sheet">
         <div class="sheet-content">
             <div class="sheet-header">
                 <div class="sheet-handle"></div>
-                <h3>Select Theme Color</h3>
+                <h3 style="text-align: center;">Select Theme Color</h3>
             </div>
             <div class="color-sheet-grid">
                 <div class="color-swatch" data-seed="monochrome" style="background: #5F6368;" title="Monochrome"></div>
@@ -155,12 +156,27 @@ function renderNavigation() {
 
     document.body.insertAdjacentHTML('afterbegin', drawerHtml);
     document.body.insertAdjacentHTML('afterbegin', railHtml);
+    
+    // Inject Scrim only if not present (Singleton)
+    if (!document.getElementById('sheet-scrim')) {
+        const scrimHtml = `<div id="sheet-scrim" class="sheet-scrim"></div>`;
+        document.body.insertAdjacentHTML('beforeend', scrimHtml);
+    }
+    
     document.body.insertAdjacentHTML('beforeend', colorSheetHtml);
 
     // MOBILE TOP BAR UI
     const topBar = document.querySelector('.top-app-bar');
     if (topBar) {
-        // Ensure color menu toggle exists
+        if (!topBar.querySelector('.menu-trigger')) {
+            const menuBtn = `
+                <button class="md-btn icon-btn ripple-target menu-trigger mobile-only" aria-label="Open menu">
+                    <span class="material-symbols-rounded">menu</span>
+                </button>
+            `;
+            topBar.insertAdjacentHTML('afterbegin', menuBtn);
+        }
+
         if (!topBar.querySelector('[data-target="colorSheet"]')) {
             const paletteToggleField = `
                 <button class="md-btn icon-btn ripple-target mobile-only" data-action="open-sheet" data-target="colorSheet" title="Select Color" style="margin-left: 8px;">
@@ -170,7 +186,6 @@ function renderNavigation() {
             topBar.insertAdjacentHTML('beforeend', paletteToggleField);
         }
 
-        // Ensure theme toggle exists
         if (!topBar.querySelector('#mobileThemeToggle')) {
             const toggleHtml = `
                 <button id="mobileThemeToggle" class="md-btn icon-btn ripple-target" aria-label="Toggle theme" style="margin-left: 8px; display: none;">
@@ -181,6 +196,44 @@ function renderNavigation() {
         }
     }
 
-    // Sync icons with current theme state
+    // Auto-render swatch row if container exists
+    renderSwatchRow();
+
+    // Sync icons with current theme state (and active swatch)
     if (window.ThemeEngine) ThemeEngine.updateUI();
+}
+
+/**
+ * Generator for the color swatch row (replaces duplicated HTML)
+ */
+function renderSwatchRow() {
+    // Find all swatch-row containers that are empty
+    const containers = document.querySelectorAll('.swatch-row');
+    
+    // Define the swatches data (source of truth)
+    const swatches = [
+        { seed: 'monochrome', color: '#5F6368', title: 'Monochrome' },
+        { seed: 'blue', color: '#2962FF', title: 'Blue' },
+        { seed: 'purple', color: '#6750A4', title: 'Purple' },
+        { seed: 'green', color: '#006C51', title: 'Green' },
+        { seed: 'teal', color: '#006A6A', title: 'Teal' },
+        { seed: 'cyan', color: '#0097A7', title: 'Cyan' },
+        { seed: 'yellow', color: '#6D5E00', title: 'Yellow' },
+        { seed: 'orange', color: '#8B5000', title: 'Orange' },
+        { seed: 'pink', color: '#BC004B', title: 'Pink' },
+        { seed: 'red', color: '#B3261E', title: 'Red' }
+    ];
+
+    containers.forEach(container => {
+        if (container.children.length > 0) return;
+        
+        if (!container.style.gap) container.style.gap = '8px';
+        if (!container.style.display) container.style.display = 'flex';
+
+        let html = '';
+        swatches.forEach(s => {
+            html += `<div class="color-swatch" data-seed="${s.seed}" style="background: ${s.color};" title="${s.title}"></div>`;
+        });
+        container.innerHTML = html;
+    });
 }

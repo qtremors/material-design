@@ -27,13 +27,17 @@ document.addEventListener('click', (e) => {
     
     const modeBtn = target.closest('[data-action="set-theme-mode"]');
     if(modeBtn) {
-        window.setThemeConfig('theme', modeBtn.dataset.value);
+        if (typeof window.setThemeConfig === 'function') {
+            window.setThemeConfig('theme', modeBtn.dataset.value);
+        }
         return;
     }
 
     const seedBtn = target.closest('[data-action="set-theme-seed"]');
     if(seedBtn) {
-        window.setThemeConfig('seed', seedBtn.dataset.value);
+        if (typeof window.setThemeConfig === 'function') {
+            window.setThemeConfig('seed', seedBtn.dataset.value);
+        }
         return;
     }
     

@@ -27,7 +27,7 @@
     font-weight: 500;
 }
 
-/* Compact Control Rows */
+/* --- CONTROL ROWS --- */
 .control-row {
     display: flex;
     align-items: center;
@@ -38,6 +38,8 @@
 .control-row:last-child {
     margin-bottom: 0;
 }
+
+
 
 .control-label {
     font-size: 16px;
@@ -51,11 +53,29 @@
     margin-top: 4px;
 }
 
-/* Color Grid - Tighter */
+/* --- COLOR GRID --- */
 .color-grid {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(5, 40px);
     gap: 12px;
-    flex-wrap: wrap;
+}
+
+@media (max-width: 600px) {
+    .settings-header {
+        justify-content: center;
+    }
+
+    .control-row {
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        text-align: center;
+    }
+
+    .color-grid {
+        margin-top: 8px;
+        justify-content: center;
+    }
 }
 
 .color-option {
@@ -81,7 +101,7 @@
 }
 
 .color-option .material-symbols-rounded {
-    color: #fff;
+    color: var(--md-sys-color-on-primary);
     font-size: 20px;
     opacity: 0;
     transform: scale(0.5);
@@ -93,7 +113,7 @@
     transform: scale(1);
 }
 
-/* Segmented-ish Toggle for Radius/Fonts */
+/* --- TOGGLE GROUP --- */
 .toggle-group {
     display: inline-flex;
     background: var(--md-sys-color-surface-container-highest);
@@ -115,7 +135,7 @@
 }
 
 .toggle-btn:hover {
-    background: rgba(0, 0, 0, 0.05);
+    background: var(--md-sys-state-hover-on-surface, rgba(0, 0, 0, 0.05));
     color: var(--md-sys-color-on-surface);
 }
 

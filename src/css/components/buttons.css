@@ -11,7 +11,7 @@
     overflow: hidden; white-space: nowrap;
 }
 
-/* States */
+/* --- STATES --- */
 .md-btn::before, .btn::before {
     content: ""; position: absolute; inset: 0; background-color: currentcolor; opacity: 0;
     transform: scale(0.6); transition: opacity 200ms, transform 200ms; pointer-events: none; border-radius: inherit; z-index: -1;
@@ -19,7 +19,7 @@
 .md-btn:hover::before, .btn:hover::before { opacity: var(--md-sys-state-hover); transform: scale(1); }
 .md-btn:active::before, .btn:active::before { opacity: var(--md-sys-state-pressed); transform: scale(1); }
 
-/* Variants */
+/* --- VARIANTS --- */
 .md-btn-filled, .btn-filled { 
     background: var(--md-sys-color-primary); 
     color: var(--md-sys-color-on-primary);
@@ -43,25 +43,25 @@
     font-size: 24px;
 }
 
-/* Animations */
+/* --- ANIMATIONS --- */
 .btn-anim-scale:hover { transform: scale(1.05); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
 .btn-anim-glow:hover { box-shadow: 0 0 15px var(--md-sys-color-primary); border-color: transparent; }
 
-/* Loading */
-.spinner {
+/* --- LOADING --- */
+.circular-progress {
     width: 18px; height: 18px; border: 2px solid; border-color: currentcolor; border-bottom-color: transparent;
     border-radius: 50%; display: inline-block; animation: rotation 1s linear infinite;
 }
 @keyframes rotation { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-.typing-dots { display: flex; gap: 3px; }
-.typing-dots span { width: 5px; height: 5px; background: currentcolor; border-radius: 50%; animation: bounce 1.4s infinite ease-in-out both; }
-.typing-dots span:nth-child(1) { animation-delay: -0.32s; }
-.typing-dots span:nth-child(2) { animation-delay: -0.16s; }
+.dots-loader { display: flex; gap: 3px; }
+.dots-loader span { width: 5px; height: 5px; background: currentcolor; border-radius: 50%; animation: bounce 1.4s infinite ease-in-out both; }
+.dots-loader span:nth-child(1) { animation-delay: -0.32s; }
+.dots-loader span:nth-child(2) { animation-delay: -0.16s; }
 @keyframes bounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
 .md-btn.is-loading .btn-text, .md-btn.is-loading .material-symbols-rounded { display: none; }
-.md-btn.is-loading .spinner, .md-btn.is-loading .typing-dots { display: flex !important; }
+.md-btn.is-loading .circular-progress, .md-btn.is-loading .dots-loader { display: flex !important; }
 
-/* Icon Toolbar */
+/* --- ICON TOOLBAR --- */
 .icon-toolbar {
     display: inline-flex; align-items: center; gap: 4px;
     padding: 8px; background: var(--md-sys-color-surface-container-high);

@@ -102,7 +102,6 @@ let allTokensBySeed = {}; // { 'blue': [ {name, value}, ... ] }
 let activeTokens = []; // Array of tokens parsed from :root
 
 async function initPlayground() {
-    // Override global UI sync to include playground swatches
     window.updateSettingsUI = syncSelectionState;
     
     syncSelectionState();
@@ -124,8 +123,12 @@ function syncSelectionState() {
     };
 
     // Update Sidebar state (labels/active tabs)
+    const actionsToSync = ['set-theme-mode', 'set-theme-seed', 'set-radius'];
+    
     document.querySelectorAll('[data-action]').forEach(btn => {
         const action = btn.dataset.action;
+        if (!actionsToSync.includes(action)) return;
+
         const value = btn.dataset.value;
         if (action === 'set-theme-mode' && state.theme === value) btn.classList.add('active');
         else if (action === 'set-theme-seed' && state.seed === value) btn.classList.add('active');
@@ -136,7 +139,8 @@ function syncSelectionState() {
     // Update matrix if visible
     const matrixPanel = document.getElementById('palette-panel');
     if (matrixPanel && matrixPanel.classList.contains('active')) {
-        renderMatrixContents(document.getElementById('token-search').value);
+        const tokenInput = document.getElementById('token-search');
+        renderMatrixContents(tokenInput ? tokenInput.value : '');
     }
 
     renderSidebarPalette();
@@ -148,7 +152,10 @@ function renderSidebarPalette() {
 
     container.innerHTML = '';
     
-    activeTokens.forEach(token => {
+    // Sort visually before rendering
+    const sortedTokens = visualSort([...activeTokens]);
+    
+    sortedTokens.forEach(token => {
         // Only show color roles, ignore typography/elevation vars
         if (!token.name.includes('-color-') && !token.name.includes('surface') && !token.name.includes('outline')) return;
         if (token.name.includes('-rgb')) return;
@@ -168,7 +175,6 @@ function renderSidebarPalette() {
         container.appendChild(circle);
     });
 }
-
 async function loadCSSVars() {
     try {
         const response = await fetch('css/variables.css');
@@ -179,6 +185,22 @@ async function loadCSSVars() {
         if (rootMatch) {
             activeTokens = parseTokenBlock(rootMatch[1]);
             allTokensBySeed['base'] = activeTokens;
+            
+            // Extract 'blue' (default) tokens from base
+            allTokensBySeed['blue'] = activeTokens.filter(t => {
+                const name = t.name;
+                const isColorRole = name.includes('primary') || 
+                                  name.includes('secondary') || 
+                                  name.includes('tertiary') ||
+                                  name.includes('surface-variant');
+                
+                const isSemantic = name.includes('error') || 
+                                 name.includes('success') || 
+                                 name.includes('warning') ||
+                                 name.includes('inverse');
+                                 
+                return isColorRole && !isSemantic;
+            });
         }
 
         // Parse individual seeds
@@ -224,6 +246,7 @@ function toHex(color) {
     }
     return color;
 }
+
 
 function renderMatrixContents(filter = '') {
     const query = filter.toLowerCase().trim();
@@ -273,32 +296,38 @@ function renderMatrixContents(filter = '') {
 
     // 1. ACTIVE SYSTEM ROLES
     // Filter down to unique tokens (sometimes parsed multiple times)
-    const uniqueActive = [];
+    let uniqueActive = [];
     const seenActive = new Set();
     activeTokens.forEach(t => {
         if (!seenActive.has(t.name)) {
-            const meta = getFullMetadata(t, 'active');
-            if (matchesQuery(meta)) {
-                activeGrid.appendChild(createTokenCard(meta));
-                uniqueActive.push(t);
-                seenActive.add(t.name);
-            }
+            uniqueActive.push(t);
+            seenActive.add(t.name);
+        }
+    });
+
+    // Sort Visually
+    uniqueActive = visualSort(uniqueActive);
+
+    uniqueActive.forEach(t => {
+        const meta = getFullMetadata(t, 'active');
+        if (matchesQuery(meta)) {
+            activeGrid.appendChild(createTokenCard(meta));
         }
     });
     
     document.getElementById('active-count').innerText = `${seenActive.size}`;
 
-    // 2. PROJECT REFERENCE
-    // Base Tokens first
-    (allTokensBySeed['base'] || []).forEach(t => {
-        const meta = getFullMetadata(t, 'base');
-        if (matchesQuery(meta)) {
-            refGrid.appendChild(createTokenCard(meta));
-        }
-    });
+    // 2. INACTIVE PALETTES (Previously Global)
+    document.querySelector('.matrix-section-reference .matrix-header').innerText = "Inactive Color Palettes";
+    document.querySelector('.matrix-section-reference .matrix-subheader').innerText = "Comparison of other available color seeds not currently active.";
 
-    // Seeded Tokens
+    // Get current seed directly from DOM to filter
+    const currentSeed = document.documentElement.getAttribute('data-seed') || 'blue';
+
+    // Seeded Tokens (Skip current)
     SEEDS.forEach(seed => {
+        if (seed.name === currentSeed) return;
+
         const tokens = allTokensBySeed[seed.name] || [];
         tokens.forEach(t => {
             const meta = getFullMetadata(t, seed.name);
@@ -324,12 +353,45 @@ function createTokenCard(meta) {
         </div>
         <div class="token-info">
             <div class="token-color-name">${meta.colorName}</div>
-            <div class="token-role-name">${meta.roleName}</div>
-            <div class="token-var-name" onclick="copyVal('${meta.tokenName}', 'Token copied!')">${meta.tokenName}</div>
             <div class="token-hex-code">${meta.hex}</div>
+            <div class="token-var-name" onclick="copyVal('${meta.tokenName}', 'Token copied!')">${meta.tokenName}</div>
         </div>
     `;
     return card;
+}
+
+/**
+ * Sort tokens visually: Neutrals -> Hue -> Lightness
+ */
+function visualSort(tokens) {
+    return tokens.sort((a, b) => {
+        // Get Computed Values
+        const valA = getComputedStyle(document.documentElement).getPropertyValue(a.name).trim();
+        const valB = getComputedStyle(document.documentElement).getPropertyValue(b.name).trim();
+        
+        const hexA = toHex(valA);
+        const hexB = toHex(valB);
+        
+        const hslA = ColorNamer.hsl(hexA); // [h, s, l] (0-255)
+        const hslB = ColorNamer.hsl(hexB);
+        
+        const isNeutralA = hslA[1] < 25; // Saturation < ~10%
+        const isNeutralB = hslB[1] < 25;
+        
+        // 1. Neutrals First
+        if (isNeutralA && !isNeutralB) return -1;
+        if (!isNeutralA && isNeutralB) return 1;
+        
+        // 2. Sort by Hue (if both chromatic)
+        if (!isNeutralA && !isNeutralB) {
+            if (Math.abs(hslA[0] - hslB[0]) > 10) { // Tolerance for similar hues
+                return hslA[0] - hslB[0];
+            }
+        }
+        
+        // 3. Sort by Lightness (Dark to Light)
+        return hslA[2] - hslB[2];
+    });
 }
 
 // --- GLOBAL INTERACTIONS ---

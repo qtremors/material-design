@@ -8,7 +8,7 @@ function initExpressiveAnimations() {
     if (wavyBars.length > 0) {
         setInterval(() => {
             wavyBars.forEach(bar => {
-                const width = Math.random() * 60 + 20; // Random between 20-80%
+                const width = Math.random() * 60 + 20;
                 bar.style.width = `${width}%`;
             });
         }, 2000);
@@ -16,7 +16,7 @@ function initExpressiveAnimations() {
 
     // Segmented Progress Loop
     const segments = document.querySelectorAll('.progress-segmented .segment');
-    let segmentIndex = 1; // Start at 1 (first filled)
+    let segmentIndex = 1;
     
     if(segments.length > 0) {
         setInterval(() => {
@@ -25,7 +25,7 @@ function initExpressiveAnimations() {
                 if(segments[i]) segments[i].classList.add('filled');
             }
             segmentIndex++;
-            if(segmentIndex > segments.length) segmentIndex = 0; // Reset
+            if(segmentIndex > segments.length) segmentIndex = 0;
         }, 1000);
     }
 }
@@ -41,7 +41,7 @@ function initScrollAnimations() {
     }, { threshold: 0.1 });
 
     document.querySelectorAll('.md-card, .expressive-card, .hero-card').forEach(el => {
-        el.classList.remove('card-entrance'); // Remove load-time animation
+        el.classList.remove('card-entrance');
         observer.observe(el);
     });
 }

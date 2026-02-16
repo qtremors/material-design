@@ -29,7 +29,6 @@ function showSnackbar(text, type = 'info') {
     const snackbar = document.getElementById('snackbar');
     if(!snackbar) return;
     
-    // Clear any existing timeout to avoid early hiding
     if (snackbarTimeoutId) {
         clearTimeout(snackbarTimeoutId);
         snackbarTimeoutId = null;
@@ -50,7 +49,7 @@ function showSnackbar(text, type = 'info') {
 
     const content = snackbar.querySelector('.content') || snackbar.querySelector('span');
     if(content) {
-        content.innerHTML = ''; // Clear existing
+        content.innerHTML = '';
         if(icon) {
             const iconSpan = document.createElement('span');
             iconSpan.className = 'material-symbols-rounded';

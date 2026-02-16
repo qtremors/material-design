@@ -6,17 +6,17 @@
     <title>Playground | Material Design</title>
     <link rel="icon" type="image/png" href="assets/material-design.png">
     
-    <!-- Fonts & Icons -->
+    <!-- SECTION: Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Flex:opsz,wdth,wght@8..144,100,100..400&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
 
-    <!-- Theme Engine -->
+    <!-- SECTION: Theme Engine -->
     <script src="js/theme.js"></script>
 
-    <!-- Styles -->
+    <!-- SECTION: Styles -->
     <link rel="stylesheet" href="css/variables.css">
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/components/navigation.css">
@@ -30,8 +30,9 @@
 </head>
 <body>
 
-    <!-- Navigation injected by js/navigation.js -->
+    <!-- SECTION: Navigation -->
 
+    <!-- SECTION: Main Content -->
     <main>
         <div class="top-app-bar">
             <a href="../index.html" class="header-logo ripple-target" title="Home">
@@ -40,24 +41,13 @@
             <h2>Playground</h2>
             <div style="flex: 1"></div>
             <div class="actions">
-                <div class="swatch-row desktop-only" style="display: flex; gap: 8px;">
-                    <div class="color-swatch" data-seed="blue" style="background: #2962FF;" title="Blue"></div>
-                    <div class="color-swatch" data-seed="monochrome" style="background: #5F6368;" title="Monochrome"></div>
-                    <div class="color-swatch" data-seed="purple" style="background: #6750A4;" title="Purple"></div>
-                    <div class="color-swatch" data-seed="green" style="background: #006C51;" title="Key Lime"></div>
-                    <div class="color-swatch" data-seed="teal" style="background: #006A6A;" title="Teal"></div>
-                    <div class="color-swatch" data-seed="cyan" style="background: #0097A7;" title="Cyan"></div>
-                    <div class="color-swatch" data-seed="yellow" style="background: #6D5E00;" title="Yellow"></div>
-                    <div class="color-swatch" data-seed="orange" style="background: #8B5000;" title="Orange"></div>
-                    <div class="color-swatch" data-seed="pink" style="background: #BC004B;" title="Pink"></div>
-                    <div class="color-swatch" data-seed="red" style="background: #B3261E;" title="Red"></div>
-                </div>
+                <div class="swatch-row desktop-only" style="display: flex; gap: 8px;"></div>
             </div>
         </div>
 
         <div class="container">
             <div class="playground-layout">
-                <!-- Sidebar -->
+                <!-- SECTION: Sidebar -->
                 <aside class="playground-sidebar">
                     <div class="settings-card">
                         <!-- Theme Mode -->
@@ -134,7 +124,7 @@
                     </div>
                 </aside>
 
-                <!-- Main Content Area -->
+                <!-- SECTION: Main Content Area -->
                 <section class="playground-content">
                     <!-- Tabs Header -->
                     <div class="tabs-container">
@@ -218,8 +208,8 @@
 
                             <!-- Section 2: Reference -->
                             <div class="matrix-section matrix-section-reference">
-                                <h3 class="matrix-header">Project Reference (Global Lookup)</h3>
-                                <p class="matrix-subheader">Exhaustive list of tokens across all available color seeds for comparison.</p>
+                                <h3 class="matrix-header">Inactive Color Palettes</h3>
+                                <p class="matrix-subheader">Comparison of other available color seeds not currently active.</p>
                                 <div id="reference-matrix" class="token-grid"></div>
                             </div>
                         </div>
@@ -229,12 +219,12 @@
         </div>
     </main>
 
-    <!-- Toast for copy actions -->
+    <!-- SECTION: Toast Overlay -->
     <div id="pg-toast" class="pg-toast">Message Copied</div>
 
     <script src="js/navigation.js"></script>
     
-    <!-- Components -->
+    <!-- SECTION: Scripts -->
     <script src="js/components/ripples.js"></script>
     <script src="js/components/tabs.js"></script>
     <script src="js/components/dialogs.js"></script>
