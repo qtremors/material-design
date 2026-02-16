@@ -189,6 +189,7 @@ function initWidgets() {
         }
         
         if (labelsToggle && widgetsGrid) {
+            const savedState = localStorage.getItem('mdWidgetsLabelsVisible');
             const isLabelsVisible = savedState === 'true'; 
             
             labelsToggle.checked = isLabelsVisible;
