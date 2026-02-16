@@ -98,26 +98,26 @@ function initInteractions() {
              return;
          }
 
-         // Horizontal Drawer Toggle
-         const hDrawerTrigger = e.target.closest('[data-action="toggle-horizontal-drawer"]');
-         if (hDrawerTrigger) {
-             const container = hDrawerTrigger.closest('.horizontal-drawer-container');
+         // Horizontal Speed Dial Toggle
+         const hSpeedDialTrigger = e.target.closest('[data-action="toggle-horizontal-speed-dial"]');
+         if (hSpeedDialTrigger) {
+             const container = hSpeedDialTrigger.closest('.horizontal-speed-dial-container');
              if (!container) return;
 
-             const drawer = container.querySelector('.horizontal-drawer');
-             const icon = hDrawerTrigger.querySelector('span');
+             const speedDial = container.querySelector('.horizontal-speed-dial');
+             const icon = hSpeedDialTrigger.querySelector('span');
              
-             if (!drawer || !icon) return;
+             if (!speedDial || !icon) return;
 
              // Check computed style or inline style
-             if (drawer.style.width === '0px' || drawer.style.width === '' || drawer.style.width === '0') {
-                 drawer.style.width = '240px'; 
-                 drawer.style.opacity = '1';
+             if (speedDial.style.width === '0px' || speedDial.style.width === '' || speedDial.style.width === '0') {
+                 speedDial.style.width = '240px'; 
+                 speedDial.style.opacity = '1';
                  icon.innerText = 'close';
                  icon.style.transform = 'rotate(180deg)';
              } else {
-                 drawer.style.width = '0';
-                 drawer.style.opacity = '0';
+                 speedDial.style.width = '0';
+                 speedDial.style.opacity = '0';
                  icon.innerText = 'add';
                  icon.style.transform = 'rotate(0deg)';
              }

@@ -22,7 +22,7 @@
     height: 100%; 
     aspect-ratio: 1/1;
     margin: 0; 
-    border-radius: 0; 
+    border-radius: var(--md-sys-shape-corner-extra-large) 0 0 var(--md-sys-shape-corner-extra-large);
     flex-shrink: 0;
     display: flex; 
     align-items: center; 
@@ -90,7 +90,7 @@
     background: var(--md-sys-color-primary-container);
     height: 35%; /* Top section */
     margin: 0;
-    border-radius: 0;
+    border-radius: 28px 28px 0 0;
     display: flex; 
     align-items: center; 
     justify-content: center;

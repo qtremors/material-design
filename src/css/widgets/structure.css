@@ -132,6 +132,7 @@
     height: 100%;
 }
 
+/* Specificity fix: Ensure direct child wins over general descendant rule below */
 .widget-wrapper > .md-card {
     height: 100%;
     box-sizing: border-box;
@@ -172,7 +173,7 @@
     font-size: 12px;
 }
 
-.widget-wrapper .md-card {
+.widget-wrapper .md-card:not(.widget-root-card) {
     margin: 2px; /* 2px spacing on all sides */
     width: auto; /* Allow margin to determine width */
     flex: 1; /* Fill remaining space naturally */

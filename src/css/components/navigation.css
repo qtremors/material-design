@@ -5,7 +5,7 @@
 .md-top-app-bar, .top-app-bar {
     position: fixed; top: 0; left: 0; right: 0; height: 64px;
     background-color: var(--md-sys-color-surface); z-index: 100;
-    display: flex; align-items: center; padding: 0 16px;
+    display: flex; align-items: center; padding: 0 20px;
 }
 .top-app-bar h1, .top-app-bar h2, .top-app-bar h3 {
     margin: 0;
@@ -25,7 +25,29 @@
     flex-shrink: 0;
 }
 .header-logo:hover {
-    background-color: rgba(0,0,0,0.05);
+    background-color: currentcolor;
+    color: var(--md-sys-color-on-surface); /* Contextual color will be used */
+}
+/* Use pseudo element for opacity control to match rail items interaction */
+.header-logo {
+    position: relative;
+    overflow: hidden;
+}
+.header-logo::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: currentcolor;
+    opacity: 0;
+    transition: opacity 0.2s;
+    pointer-events: none;
+    border-radius: 50%;
+}
+.header-logo:hover::before {
+    opacity: var(--md-sys-state-hover);
+}
+.header-logo:hover {
+    background-color: transparent !important; /* Override previous naive hover */
 }
 .header-logo img {
     height: 32px;
@@ -35,7 +57,25 @@
 .md-nav-rail, .nav-rail {
     position: fixed; top: 0; left: 0; bottom: 0; width: 80px;
     background-color: var(--md-sys-color-surface); border-right: 1px solid var(--md-sys-color-outline-variant);
-    display: flex; flex-direction: column; align-items: center; padding-top: 24px; z-index: 90;
+    display: flex; flex-direction: column; align-items: center; padding-top: 0px; z-index: 90;
+    overflow: hidden; /* Prevent rail itself from scrolling */
+}
+
+/* Scrollable Container for Rail (Middle Section) */
+.nav-scroll-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    overflow-y: auto;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+    padding-bottom: 8px;
+    /* Masking for better visual scrolling behind fixed elements? Optional. */
+}
+.nav-scroll-container::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
 }
 .md-drawer, .md-drawer-overlay {
     position: fixed; transition: 0.3s;
@@ -96,8 +136,15 @@
 .drawer-item.active { background: var(--md-sys-color-secondary-container); color: var(--md-sys-color-on-secondary-container); }
 
 /* Mobile Nav Toggle */
+.top-app-bar .menu-trigger { 
+    display: none; 
+    margin-right: 8px; /* Standard spacing from leading icon to next element */
+}
+
 @media (max-width: 720px) {
+    .top-app-bar { padding: 0 16px; }
     .md-nav-rail { display: none; }
-    .top-app-bar .menu-trigger { display: inline-block !important; }
+    .top-app-bar .menu-trigger { display: inline-flex !important; }
+    .top-app-bar .header-logo { margin-right: 8px; } /* Tighten logo spacing on mobile */
     #mobileThemeToggle { display: inline-flex !important; }
 }

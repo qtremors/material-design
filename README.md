@@ -33,7 +33,7 @@
 | 🎨 **Theme Engine** | Dynamic Light/Dark mode and color seed generation (Blue, Purple, Green, etc.). |
 | 🌊 **Ripple Effect** | Custom JavaScript implementation of the material ripple interaction. |
 | 🧩 **Components** | Buttons, Cards, Inputs, Dialogs, Sheets, Chips, and more. |
-| 🧭 **Navigation** | Responsive Navigation Rail and Drawer injected dinamically. |
+| 🧭 **Navigation** | Responsive Navigation Rail and Drawer injected dynamically. |
 | 🧪 **Playground** | Built-in inspection tool to visualize all 300+ design tokens. |
 | ⚡ **Zero Deps** | No build tools, no frameworks, just pure web technologies. |
 
@@ -92,13 +92,13 @@ material-design/
 │   │   ├── theme.js      
 │   │   ├── navigation.js 
 │   │   └── scripts.js    # Orchestrator    
-├── buttons.html          # Component pages
-├── cards.html
-├── navigation.html
-├── playground.html       # Theme testing lab
-├── settings.html
-├── typography.html
-├── widgets.html
+├── src/buttons.html      # Component pages
+├── src/cards.html
+├── src/navigation.html
+├── src/playground.html   # Theme testing lab
+├── src/settings.html
+├── src/typography.html
+├── src/widgets.html
 ├── index.html            # Entry point
 ├── Templates/            # Documentation templates
 ├── DEVELOPMENT.md        # Developer documentation

@@ -71,6 +71,7 @@
     -webkit-mask-image: var(--wave-mask);
     mask-size: 40px 100%; -webkit-mask-size: 40px 100%;
     opacity: 0.3; /* Subtle track */
+    animation: wave-slide 2s linear infinite;
 }
 
 .progress-wavy .bar {
