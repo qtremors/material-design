@@ -1,4 +1,4 @@
-/* Playground Layout */
+/* --- PLAYGROUND LAYOUT --- */
 .playground-layout {
     display: grid;
     grid-template-columns: 310px 1fr;
@@ -16,7 +16,7 @@
     padding-bottom: 24px;
 }
 
-/* Mirror Settings Page Patterns */
+/* --- SETTINGS CARD PATTERNS --- */
 .settings-card {
     background: var(--md-sys-color-surface-container-low);
     border-radius: var(--md-sys-shape-corner-large);
@@ -104,7 +104,7 @@
     overflow-y: auto;
 }
 
-/* Sidebar Active Palette */
+/* --- SIDEBAR ACTIVE PALETTE --- */
 .sidebar-palette-section {
     margin-top: 0;
     display: flex;
@@ -152,7 +152,7 @@
     border-color: var(--md-sys-color-primary);
 }
 
-/* Matrix Search */
+/* --- MATRIX SEARCH --- */
 .matrix-search-container {
     position: sticky;
     top: 0;
@@ -182,7 +182,7 @@
     outline: none;
 }
 
-/* Matrix Content */
+/* --- MATRIX CONTENT --- */
 .matrix-header {
     font: var(--md-sys-typescale-headline-small);
     color: var(--md-sys-color-on-surface-variant);
@@ -196,7 +196,7 @@
     margin-bottom: 24px;
 }
 
-/* Token Cards */
+/* --- TOKEN CARDS --- */
 .token-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
@@ -261,7 +261,7 @@
 .token-var-name:hover { background: var(--md-sys-color-primary-container); color: var(--md-sys-color-primary); border-color: var(--md-sys-color-primary); }
 
 
-/* Toast */
+/* --- TOAST --- */
 .pg-toast {
     position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(100px);
     background: var(--md-sys-color-inverse-surface); color: var(--md-sys-color-inverse-on-surface);
@@ -271,7 +271,7 @@
 }
 .pg-toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
 
-/* Tabs Styles */
+/* --- TABS --- */
 .tabs-container {
     display: flex; 
     border-bottom: 1px solid var(--md-sys-color-outline-variant); 
@@ -304,7 +304,7 @@
 .tab-panel.active { display: block; animation: fade-up 0.3s ease; }
 @keyframes fade-up { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-/* Lab Layout */
+/* --- LAB LAYOUT --- */
 .screenshot-layout {
     display: grid;
     grid-template-columns: 140px 1fr 1fr;
@@ -445,7 +445,7 @@
     cursor: pointer;
 }
 
-/* Responsive Sidebar */
+/* --- RESPONSIVE SIDEBAR --- */
 @media (max-width: 900px) {
     .playground-layout {
         grid-template-columns: 1fr;

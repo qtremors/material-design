@@ -31,7 +31,7 @@
 .snackbar .material-symbols-rounded { flex-shrink: 0; }
 .snackbar.show { transform: translate(-50%, 0); }
 
-/* Toast Variants */
+/* --- TOAST VARIANTS --- */
 .toast-success { background: var(--md-sys-color-success) !important; color: var(--md-sys-color-on-success) !important; }
 .toast-error { background: var(--md-sys-color-error) !important; color: var(--md-sys-color-on-error) !important; }
 .toast-info { background: var(--md-sys-color-primary) !important; color: var(--md-sys-color-on-primary) !important; }
@@ -56,7 +56,7 @@
 
 /* --- PROGRESS INDICATORS --- */
 
-/* Wavy Progress (High-Fidelity MD3 Squiggly) */
+/* --- WAVY PROGRESS --- */
 .progress-wavy {
     width: 100%; height: 10px;
     background: transparent;
@@ -94,7 +94,7 @@
     animation: wave-slide 1s linear infinite;
 }
 
-/* Segmented Progress */
+/* --- SEGMENTED PROGRESS --- */
 .progress-segmented {
     display: flex; gap: 4px; width: 100%; height: 4px;
 }

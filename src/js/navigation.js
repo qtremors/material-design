@@ -168,7 +168,6 @@ function renderNavigation() {
     // MOBILE TOP BAR UI
     const topBar = document.querySelector('.top-app-bar');
     if (topBar) {
-        // Ensure menu trigger exists (Mobile Hamburger)
         if (!topBar.querySelector('.menu-trigger')) {
             const menuBtn = `
                 <button class="md-btn icon-btn ripple-target menu-trigger mobile-only" aria-label="Open menu">
@@ -178,7 +177,6 @@ function renderNavigation() {
             topBar.insertAdjacentHTML('afterbegin', menuBtn);
         }
 
-        // Ensure color menu toggle exists
         if (!topBar.querySelector('[data-target="colorSheet"]')) {
             const paletteToggleField = `
                 <button class="md-btn icon-btn ripple-target mobile-only" data-action="open-sheet" data-target="colorSheet" title="Select Color" style="margin-left: 8px;">
@@ -188,7 +186,6 @@ function renderNavigation() {
             topBar.insertAdjacentHTML('beforeend', paletteToggleField);
         }
 
-        // Ensure theme toggle exists
         if (!topBar.querySelector('#mobileThemeToggle')) {
             const toggleHtml = `
                 <button id="mobileThemeToggle" class="md-btn icon-btn ripple-target" aria-label="Toggle theme" style="margin-left: 8px; display: none;">
@@ -218,7 +215,7 @@ function renderSwatchRow() {
         { seed: 'monochrome', color: '#5F6368', title: 'Monochrome' },
         { seed: 'blue', color: '#2962FF', title: 'Blue' },
         { seed: 'purple', color: '#6750A4', title: 'Purple' },
-        { seed: 'green', color: '#006C51', title: 'Key Lime' },
+        { seed: 'green', color: '#006C51', title: 'Green' },
         { seed: 'teal', color: '#006A6A', title: 'Teal' },
         { seed: 'cyan', color: '#0097A7', title: 'Cyan' },
         { seed: 'yellow', color: '#6D5E00', title: 'Yellow' },
@@ -228,10 +225,8 @@ function renderSwatchRow() {
     ];
 
     containers.forEach(container => {
-        // Skip if already populated (e.g. manually in HTML, though we're removing those)
         if (container.children.length > 0) return;
-
-        // Ensure gap layout if missing (though CSS class should handle it, inline style was common)
+        
         if (!container.style.gap) container.style.gap = '8px';
         if (!container.style.display) container.style.display = 'flex';
 

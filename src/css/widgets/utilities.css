@@ -3,7 +3,7 @@
    Functional widgets (Clock, Weather, etc.)
    ========================================================================== */
 
-/* --- 5. Digital Clock --- */
+/* --- DIGITAL CLOCK --- */
 #widget-clock .widget-clock-card {
     padding: 12px; 
     display: flex;
@@ -31,7 +31,7 @@
 }
 
 
-/* --- 6. Weather --- */
+/* --- WEATHER --- */
 #widget-weather .widget-weather-card {
     padding: 16px;
     background: linear-gradient(135deg, var(--md-sys-color-primary-container), var(--md-sys-color-tertiary-container));
@@ -63,7 +63,7 @@
 }
 
 
-/* --- 7. Stopwatch --- */
+/* --- STOPWATCH --- */
 #widget-stopwatch .widget-row-card {
     padding: 0 16px;
     display: flex;
@@ -79,7 +79,7 @@
 }
 
 
-/* --- 8. Battery --- */
+/* --- BATTERY --- */
 #widget-battery .widget-row-card {
     padding: 0 16px;
     display: flex;
@@ -112,7 +112,7 @@
 }
 
 
-/* --- 10. Calendar Widget --- */
+/* --- CALENDAR WIDGET --- */
 #widget-calendar .widget-calendar-card {
     padding: 24px;
     display: flex;

@@ -152,6 +152,8 @@ function initWidgets() {
 
         const parentWidth = parentContainer.getBoundingClientRect().width;
         
+
+        
         // Calculate max columns that fit in the parent
         // Subtract 2px for borders
         const availableCols = Math.floor((parentWidth - 2) / 100);
@@ -162,11 +164,9 @@ function initWidgets() {
         // Calculate dynamic cell size to fit width perfectly without scroll
         const cellSize = (parentWidth - 2) / cols;
 
-        // Set CSS Variables for Grid and Background
         contentContainer.style.setProperty('--grid-cols', cols);
         contentContainer.style.setProperty('--grid-cell-size', `${cellSize}px`);
         
-        // Remove strict width (let it fill container)
         contentContainer.style.width = '100%';
     };
 
@@ -189,13 +189,10 @@ function initWidgets() {
         }
         
         if (labelsToggle && widgetsGrid) {
-            // Labels OFF by default as per request
-            // Only use saved state if explicitly set, otherwise default to false
-            const savedState = localStorage.getItem('mdWidgetsLabelsVisible');
             const isLabelsVisible = savedState === 'true'; 
             
             labelsToggle.checked = isLabelsVisible;
-            widgetsGrid.classList.toggle('labels-hidden', !isLabelsVisible); // toggle class based on !visible
+            widgetsGrid.classList.toggle('labels-hidden', !isLabelsVisible);
 
             labelsToggle.addEventListener('change', () => {
                 const isVisible = labelsToggle.checked;

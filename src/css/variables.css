@@ -89,7 +89,7 @@
     --md-sys-color-warning-container: #fef3c7;
     --md-sys-color-on-warning-container: #451a03;
 
-    /* State Layer Opacities */
+    /* --- STATE LAYER OPACITIES --- */
     --md-sys-state-hover: 0.08;
     --md-sys-state-focus: 0.12;
     --md-sys-state-pressed: 0.12;
@@ -236,6 +236,7 @@
     --md-sys-color-secondary-container: #3E4450;
     --md-sys-color-on-secondary-container: #DDE2F0;
     --md-sys-color-secondary-rgb: 90, 93, 114; /* Corrected to match dark secondary */
+    --md-sys-color-inverse-primary: #2962FF;
 
     --md-sys-color-error: #FFB4AB;
     --md-sys-color-on-error: #690005;
@@ -247,12 +248,8 @@
     --md-sys-color-success-container: #00531e;
     --md-sys-color-on-success-container: #bcebe0; /* Improved readability */
 
-    --md-sys-color-warning: #CCC2DC;
-    --md-sys-color-on-warning: #332D41;
-    --md-sys-color-warning-container: #4A4458;
-    --md-sys-color-on-warning-container: #E8DEF8;
 
-    /* REVISED WARNING COLORS FOR DARK MODE */
+    /* --- WARNING COLORS (DARK) --- */
     --md-sys-color-warning: #EFB041;
     --md-sys-color-on-warning: #452B00;
     --md-sys-color-warning-container: #633F00;

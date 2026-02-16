@@ -1,4 +1,4 @@
-/* --- Checkbox & Radio Styles for Inputs Page --- */
+/* --- INPUTS PAGE STYLES --- */
 .selection-control {
     display: inline-flex; 
     align-items: center; 
@@ -13,7 +13,7 @@
     outline-offset: 2px;
 }
 
-/* Checkbox */
+/* --- CHECKBOX --- */
 .checkbox-box {
     width: 18px; 
     height: 18px; 
@@ -38,7 +38,7 @@
 }
 .selection-control input:checked + .checkbox-box .material-symbols-rounded { transform: scale(1); }
 
-/* Radio */
+/* --- RADIO --- */
 .radio-circle {
     width: 20px; 
     height: 20px; 
@@ -64,7 +64,7 @@
 }
 .selection-control input:checked + .radio-circle::after { transform: scale(1); }
 
-/* --- Chips --- */
+/* --- CHIPS --- */
 .chip-set { 
     display: flex; 
     gap: 8px; 

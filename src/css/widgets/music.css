@@ -3,7 +3,7 @@
    Music player related widget styles.
    ========================================================================== */
 
-/* --- 1. Music Player (Card) --- */
+/* --- MUSIC PLAYER (CARD) --- */
 #widget-music-card .card-music-widget {
     display: flex; 
     flex-direction: row; 
@@ -85,7 +85,7 @@
 }
 
 
-/* --- 2. Music Player (Daily Mix) --- */
+/* --- MUSIC PLAYER (DAILY MIX) --- */
 #widget-daily-mix .daily-mix-media {
     background: var(--md-sys-color-primary-container);
     height: 35%; /* Top section */
@@ -179,7 +179,7 @@
 }
 
 
-/* --- 3. Music Player (Circular) --- */
+/* --- MUSIC PLAYER (CIRCULAR) --- */
 #widget-circular-music .widget-circular-wrapper {
     display: flex;
     flex-direction: column;
@@ -293,7 +293,7 @@
 }
 
 
-/* --- 4. Music Player (Compact) --- */
+/* --- MUSIC PLAYER (COMPACT) --- */
 #widget-compact-music .card-music-compact {
     display: flex; 
     flex-direction: row; 

@@ -4,7 +4,7 @@
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Navigation Injection (if not present)
+    // 1. Navigation Injection
     if (!document.querySelector('.md-nav-rail')) {
         if (typeof renderNavigation === 'function') renderNavigation();
     }
@@ -13,7 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initPersistence();
 
     // 3. Initialize Components
-    // Check if functions exist (loaded via scripts) and call them
     if (window.initRipples) window.initRipples();
     if (window.initNavigation) window.initNavigation(); // Key-binds for drawer
     if (window.initTabs) window.initTabs();
@@ -49,7 +48,11 @@ window.refreshSettingsPreview = function() {
     console.log(`Settings Refreshed: ${theme}, ${seed}, ${radius}, ${style}`);
 }
 
-/* --- 2. NAVIGATION (Drawer, Rail logic overridden in navigation.js, but Keybinds here) --- */
+/** 
+ * NAVIGATION LOGIC 
+ * Drawer and Rail logic is handled by navigation.js and interactions.js.
+ * This section handles global keybinds and toggle state.
+ */
 function initNavigation() {
     const menuBtns = document.querySelectorAll('#menuBtn, .menu-trigger');
     const overlay = document.getElementById('drawerOverlay');
@@ -92,7 +95,9 @@ function toggleDrawer() {
 window.initNavigation = initNavigation;
 window.toggleDrawer = toggleDrawer;
 
-/* --- 3. THEME TOGGLING KEYBINDS --- */
+/** 
+ * THEME TOGGLING KEYBINDS 
+ */
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' || e.key === ' ') {
         const themeToggle = e.target.closest('#themeToggle');

@@ -54,7 +54,7 @@
     min-height: 800px;
 }
 
-/* THE VISUAL GRID BACKGROUND */
+/* --- VISUAL GRID BACKGROUND --- */
 .widgets-content-container.grid-active {
     background-image: 
         linear-gradient(var(--md-sys-color-outline-variant) 1px, transparent 1px),
@@ -64,7 +64,7 @@
 }
 
 
-/* MOBILE REFINEMENTS (Dynamic Grid naturally scale) */
+/* --- MOBILE REFINEMENTS --- */
 @media (max-width: 720px) {
     .widgets-content-container {
         border-radius: 16px;
@@ -90,7 +90,7 @@
         linear-gradient(90deg, var(--md-sys-color-outline-variant) 1px, transparent 1px);
 }
 
-/* Desktop Snapping handled by JS for perfect 100px precision */
+/* --- DESKTOP SNAPPING --- */
 @media (min-width: 721px) {
     /* Base styles or specific overrides if needed */
 }
@@ -104,7 +104,7 @@
     height: 100%;
 }
 
-/* Strict Grid Positioning */
+/* --- GRID POSITIONING --- */
 .w-5x4 { grid-column: span 5; grid-row: span 4; }
 .w-5x3 { grid-column: span 5; grid-row: span 3; }
 .w-5x2 { grid-column: span 5; grid-row: span 2; }
@@ -132,14 +132,14 @@
     height: 100%;
 }
 
-/* Specificity fix: Ensure direct child wins over general descendant rule below */
+/* --- SPECIFICITY FIXES --- */
 .widget-wrapper > .md-card {
     height: 100%;
     box-sizing: border-box;
     margin: 0; /* Cards inside widgets shouldn't have margins */
 }
 
-/* Default: Labels are visible */
+/* --- LABELS VISIBILITY --- */
 .widget-wrapper > h3 {
     margin: 0;
     font-size: 14px;
@@ -158,7 +158,7 @@
     transition: height 0.3s cubic-bezier(0.2, 0, 0, 1), opacity 0.2s;
 }
 
-/* Hidden state */
+/* --- HIDDEN STATE --- */
 .widgets-grid.labels-hidden .widget-wrapper > h3 {
     height: 0;
     opacity: 0;
@@ -183,7 +183,7 @@
     overflow: hidden; /* Prevent content overflow leaking from cards */
 }
 
-/* Global Reset for all headings and paragraphs inside a widget to avoid style leakage from base.css */
+/* --- GLOBAL RESET --- */
 .widget-wrapper .md-card h1,
 .widget-wrapper .md-card h2,
 .widget-wrapper .md-card h3,

@@ -7,7 +7,7 @@ const ThemeEngine = {
     // Default Config
     state: {
         theme: 'light',
-        previousTheme: 'light', // For 4-step cycle
+        previousTheme: 'light', 
         seed: 'blue',
         radius: 'medium'
     },
@@ -59,7 +59,6 @@ const ThemeEngine = {
         }
 
         // 2. Try window.name (file sync support)
-        // Checks if the window name contains a valid JSON config from a previous page
         try {
             if (window.name && window.name.startsWith('{')) {
                 const sessionState = JSON.parse(window.name);
@@ -136,20 +135,15 @@ const ThemeEngine = {
         toggles.forEach(btn => {
             const icon = btn.querySelector('.material-symbols-rounded, .material-symbols-outlined');
             if (icon) {
-                // Light -> Next is Dark (Moon)
-                // Dark (from Light) -> Next is OLED (Contrast)
-                // OLED -> Next is Dark (Moon)
-                // Dark (from OLED) -> Next is Light (Sun)
-                
                 if (this.state.theme === 'light') {
                     icon.innerText = 'dark_mode';
                 } else if (this.state.theme === 'oled') {
                     icon.innerText = 'dark_mode';
                 } else if (this.state.theme === 'dark') {
                     if (this.state.previousTheme === 'light') {
-                        icon.innerText = 'contrast'; // Next is OLED
+                        icon.innerText = 'contrast';
                     } else {
-                        icon.innerText = 'light_mode'; // Next is Light
+                        icon.innerText = 'light_mode'; 
                     }
                 }
             }

@@ -3,7 +3,7 @@
    Content-heavy widgets (News, Contacts)
    ========================================================================== */
 
-/* --- 9. News Widget --- */
+/* --- NEWS WIDGET --- */
 #widget-news .widget-news-card {
     padding: 0;
     display: flex;
@@ -69,7 +69,7 @@
 }
 
 
-/* --- 11. Recent Contacts --- */
+/* --- RECENT CONTACTS --- */
 #widget-contacts .widget-contacts-card {
     margin: 0;
     padding: 0;

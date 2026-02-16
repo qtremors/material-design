@@ -37,7 +37,7 @@
     font-size: 12px; font-weight: 600;
 }
 
-/* Chip Set Wrapper */
+/* --- CHIP SET WRAPPER --- */
 .chip-set {
     display: flex;
     flex-wrap: wrap;

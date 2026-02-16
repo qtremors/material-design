@@ -11,7 +11,7 @@
     outline-offset: 4px;
 }
 
-/* Specific elements for clarity */
+
 button:focus-visible, 
 a:focus-visible, 
 input:focus-visible, 
@@ -142,7 +142,7 @@ p { font: var(--md-sys-typescale-body-large); margin-bottom: 24px; line-height: 
     .mobile-only { display: none !important; }
 }
 
-/* Color Sheet Grid */
+/* --- COLOR SHEET GRID --- */
 .color-sheet-grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);

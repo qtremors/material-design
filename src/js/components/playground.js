@@ -102,7 +102,6 @@ let allTokensBySeed = {}; // { 'blue': [ {name, value}, ... ] }
 let activeTokens = []; // Array of tokens parsed from :root
 
 async function initPlayground() {
-    // Override global UI sync to include playground swatches
     window.updateSettingsUI = syncSelectionState;
     
     syncSelectionState();
@@ -124,7 +123,6 @@ function syncSelectionState() {
     };
 
     // Update Sidebar state (labels/active tabs)
-    // Optimization: Filter for relevant actions only
     const actionsToSync = ['set-theme-mode', 'set-theme-seed', 'set-radius'];
     
     document.querySelectorAll('[data-action]').forEach(btn => {
@@ -189,18 +187,13 @@ async function loadCSSVars() {
             allTokensBySeed['base'] = activeTokens;
             
             // Extract 'blue' (default) tokens from base
-            // Blue doesn't have its own block in CSS, it lives in :root
             allTokensBySeed['blue'] = activeTokens.filter(t => {
                 const name = t.name;
-                // Only include tokens that strictly define the color personality
-                // (Matches what other seeds typically override)
                 const isColorRole = name.includes('primary') || 
                                   name.includes('secondary') || 
                                   name.includes('tertiary') ||
                                   name.includes('surface-variant');
                 
-                // Exclude global semantics (Error/Success/Warning are shared)
-                // Exclude inverse-primary (usually not overridden in light mode seeds)
                 const isSemantic = name.includes('error') || 
                                  name.includes('success') || 
                                  name.includes('warning') ||

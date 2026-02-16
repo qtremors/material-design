@@ -69,12 +69,11 @@ function initInteractions() {
 
              if(toolbar.classList.contains('collapsed')) {
                  toolbar.classList.remove('collapsed');
-                 return; // Handled opening
+                 return;
              } else if (isTriggerClick) {
                  toolbar.classList.add('collapsed');
-                 return; // Handled closing
+                 return;
              }
-             // If open and NOT clicking trigger, let it fall through to selection logic below
         }
 
          // FAB Morph
@@ -133,7 +132,7 @@ function initInteractions() {
             container.querySelectorAll('.drawer-item').forEach(item => item.classList.remove('active'));
             drawerItem.classList.add('active');
             
-            // Optional: Update content area text for demo
+            // Update content area text for demo
             if (container.parentElement) {
                 const contentArea = container.parentElement.querySelector('div[style*="absolute"] span');
                 if(contentArea) {
@@ -153,7 +152,6 @@ function initInteractions() {
                 if (input) {
                     input.value = '';
                     input.focus();
-                    // Manually trigger input event if needed for listeners
                     input.dispatchEvent(new Event('input', { bubbles: true }));
                 }
             }
@@ -202,7 +200,6 @@ function initInteractions() {
             const seed = swatch.getAttribute('data-seed');
             if (typeof window.setThemeConfig === 'function') {
                 window.setThemeConfig('seed', seed);
-                // Also close sheet if it was open (mobile)
                 if (typeof window.closeSheet === 'function') window.closeSheet();
             }
             return;

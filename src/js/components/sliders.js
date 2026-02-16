@@ -17,7 +17,7 @@ function initSliders() {
 
     document.querySelectorAll('.md-slider').forEach(slider => {
         slider.addEventListener('input', () => updateSlider(slider));
-        updateSlider(slider); // Initial state
+        updateSlider(slider);
     });
 }
 

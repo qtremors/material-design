@@ -92,13 +92,13 @@ material-design/
 │   │   ├── theme.js      
 │   │   ├── navigation.js 
 │   │   └── scripts.js    # Orchestrator    
-├── src/buttons.html      # Component pages
-├── src/cards.html
-├── src/navigation.html
-├── src/playground.html   # Theme testing lab
-├── src/settings.html
-├── src/typography.html
-├── src/widgets.html
+│   ├── buttons.html      # Component pages
+│   ├── cards.html
+│   ├── navigation.html
+│   ├── playground.html   # Theme testing lab
+│   ├── settings.html
+│   ├── typography.html
+│   ├── widgets.html
 ├── index.html            # Entry point
 ├── Templates/            # Documentation templates
 ├── DEVELOPMENT.md        # Developer documentation

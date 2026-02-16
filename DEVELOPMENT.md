@@ -177,7 +177,7 @@ Every page must have a `top-app-bar` with the branding logo linking to the dashb
 ```html
 <div class="top-app-bar">
     <a href="../index.html" class="header-logo ripple-target" title="Home">
-        <img src="../src/assets/material-design.png" alt="Material Design Logo">
+        <img src="assets/material-design.png" alt="Material Design Logo">
     </a>
     <h2>My Component</h2>
     <div style="flex: 1"></div>

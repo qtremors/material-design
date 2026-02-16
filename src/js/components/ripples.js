@@ -27,14 +27,11 @@ function createRipple(event, element) {
     // Check for custom ripple color
     const customColor = element.getAttribute('data-ripple-color');
     if (customColor) {
-        // Map common role names to tokens, or use raw value
         if (customColor.startsWith('on-') || customColor.startsWith('primary') || customColor.startsWith('secondary') || customColor.startsWith('tertiary') || customColor.startsWith('error')) {
              circle.style.backgroundColor = `var(--md-sys-color-${customColor})`;
         } else {
              circle.style.backgroundColor = customColor;
         }
-        // Ensure opacity override if needed, though usually handled by ::before/::after states. 
-        // For the ripple span itself, we might want to keep the .12 opacity defined in CSS base.css
     }
 
     const existingRipple = element.querySelector('.ripple');
@@ -44,6 +41,6 @@ function createRipple(event, element) {
     element.appendChild(circle);
 }
 
-// Expose to global scope for scripts.js to call
+// Expose for global usage
 window.initRipples = initRipples;
 window.createRipple = createRipple;

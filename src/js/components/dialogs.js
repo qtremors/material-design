@@ -3,7 +3,10 @@
    ========================================================================== */
 
 function initDialogs() {
-    // Generic closer
+    /**
+     * Opens a specific dialog by ID.
+     * @param {string} id - The ID of the dialog to open.
+     */
     window.openDialog = (id) => {
         const dialog = document.getElementById(id || 'defaultDialog');
         if(!dialog) return;
@@ -17,6 +20,11 @@ function initDialogs() {
         }
     }
 
+    /**
+     * Closes the dialog.
+     * @param {Event} [event] - The event that triggered the close.
+     * @param {string} [id] - Specific dialog ID to close.
+     */
     window.closeDialog = (event, id) => {
         if(event) event.stopPropagation();
         const backdrop = id ? document.getElementById(id) : document.querySelector('.dialog-backdrop.open');
@@ -24,5 +32,5 @@ function initDialogs() {
     }
 }
 
-// Global Interaction Handler helper (can be called directly if needed)
+// Expose for global usage
 window.initDialogs = initDialogs;

@@ -19,7 +19,7 @@
 -   **Playground Enhancements**:
     -   **Dynamic Sorting**: Implemented semantic visual sorting for active tokens (Matrix & Sidebar) to prioritize Neutrals, then Hue, then Lightness, replacing arbitrary CSS order.
     -   **Navigation Fix**: Removed a conflicting global `.menu-trigger` style that was hiding the navigation rail's menu button and shifting items up on the Playground page.
-    -   **Global Z-Index**: Increased Navigation Rail `z-index` to `101` to ensure it sits above the Top App Bar, fixing accessibility of the "Menu" button on desktop.
+    -   **Global Z-Index**: Lowered Navigation Rail `z-index` to `90` to ensure it sits cleanly behind the Top App Bar, hiding the internal rail menu trigger on desktop.
     -   **Ripple Logic**: Implemented support for `data-ripple-color` to allow custom ripple colors (e.g., on-primary) defined in HTML.
     -   **Semantic Contrast**: Added missing Dark/OLED theme overrides for the "Warning" color role and optimized "Success" tokens to ensure semantic cards have accessible text contrast in dark modes.
     -   **OLED Borders**: Refined the global OLED border rule in `variables.css` to exclude semantic, filled, and colorful cards, ensuring their native styles (backgroundColor, colored borders) are preserved without interference.
