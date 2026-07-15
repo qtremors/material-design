@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Material Design monorepo architecture and contribution workflow.">
+  <title>Repository Development</title>
+  <link rel="icon" type="image/png" href="assets/material-design.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,75..125,300..800&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,300..600,0..1,-50..200" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="reference-page">
+  <header class="site-header"><a class="brand" href="./" aria-label="Documentation home"><img src="assets/material-design.png" alt="" width="44" height="44"><span>Material Design</span></a><nav aria-label="Documentation navigation"><a href="projects/android.html">Android</a><a href="projects/web.html">Web</a><a class="nav-action" href="index.html#skills">Skills</a></nav></header>
+  <main class="reference-main">
+    <section class="reference-hero"><p class="eyebrow">Repository architecture</p><h1>Development</h1><p>How the Android app, future web implementation, legacy showcase, documentation, and agent skills remain organized without coupling their runtime code.</p></section>
+    <div class="reference-content">
+      <section><p class="eyebrow">Top-level structure</p><h2>Clear ownership</h2><div class="path-list"><code>material-app/</code><span>Android Material Design implementation</span><code>material-web/</code><span>Future independent vanilla web source</span><code>docs/material-web/</code><span>Reserved published web route</span><code>docs/material-web-legacy/</code><span>Frozen original showcase</span><code>docs/</code><span>Complete GitHub Pages root</span><code>docs/skills/android/</code><span>Android-oriented agent guidance</span><code>docs/skills/web/</code><span>Web-oriented agent guidance</span></div></section>
+      <section><p class="eyebrow">Lifecycle</p><h2>From source to a working Android reference</h2><ol class="workflow-list"><li><span>1</span><div><h3>Build modular source</h3><p>Create a state-hoisted implementation in the matching Material domain without feature, navigation, or persistence dependencies.</p></div></li><li><span>2</span><div><h3>Register exact metadata</h3><p>Add the official name, aliases, API maturity, working demo key, and repository-relative source path to the validated catalog.</p></div></li><li><span>3</span><div><h3>Verify before exposing</h3><p>Check interaction states, semantics, accessibility, adaptive layouts, search, and representative light/dark configurations.</p></div></li><li><span>4</span><div><h3>Publish the reference</h3><p>Only working entries appear in the app. Keep unfinished components in the task backlog and update documentation and the changelog.</p></div></li></ol></section>
+      <section><p class="eyebrow">Local documentation</p><h2>Serve the Pages root</h2><pre class="code-block"><code>cd docs
+python -m http.server 8000</code></pre><p>Open <code>http://localhost:8000/</code> for this documentation and <code>http://localhost:8000/material-web-legacy/</code> for the frozen showcase.</p></section>
+      <section><p class="eyebrow">Change discipline</p><h2>Keep public guidance current</h2><ul class="document-list"><li>Update the root changelog for every user-visible change and preserve its release history.</li><li>Keep release notes user-relevant instead of recording internal experiments.</li><li>Do not change application versions unless explicitly requested.</li><li>Keep browser documentation and relevant HTML skills aligned.</li><li>Document platform differences instead of hiding them behind false parity.</li></ul></section>
+      <section class="next-links"><a href="material-3-expressive-development.html"><strong>Expressive development</strong><span>Learn the complete component workflow →</span></a><a href="site-map.html"><strong>Complete site map</strong><span>Browse every published destination →</span></a></section>
+    </div>
+  </main>
+  <footer><img src="assets/material-design.png" alt="" width="32" height="32"><p>Independent platforms with explicit shared UI/UX intent.</p><a href="./">Documentation home</a></footer>
+</body>
+</html>

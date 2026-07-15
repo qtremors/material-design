@@ -1,0 +1,31 @@
+# Android and Gradle
+.gradle/
+.kotlin/
+**/build/
+local.properties
+captures/
+.externalNativeBuild/
+.cxx/
+*.apk
+output.json
+
+# IDEs
+.idea/
+*.iml
+misc.xml
+deploymentTargetDropDown.xml
+render.experimental.xml
+
+# Signing and local services
+*.jks
+*.keystore
+google-services.json
+
+# Profiling, logs, and generated site staging
+*.hprof
+*.log
+_site/
+
+# Operating systems
+.DS_Store
+Thumbs.db

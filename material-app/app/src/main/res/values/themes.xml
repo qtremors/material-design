@@ -1,0 +1,4 @@
+<resources>
+    <!-- Base application theme. Compose handles all UI; this is just the window chrome. -->
+    <style name="Theme.MaterialDesign" parent="Theme.AppCompat.DayNight.NoActionBar" />
+</resources>

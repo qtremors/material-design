@@ -1,8 +1,21 @@
 # Material Design Changelog
 
 > **Project:** Material Design  
-> **Version:** 1.5.0
-> **Last Updated:** 2026-02-15
+> **Project Version:** 2.0.0
+
+---
+
+## [2.0.0] - 2026-07-15
+
+### Added & Improved
+
+-   Consolidated the Android app, documentation, future independent web project, and frozen 1.5.0 legacy showcase into the Material Design 2.0.0 repository, with neutral forward-looking Material Web status language.
+-   Rebuilt Android as a modular, adaptive, searchable component gallery with Explore, Catalog, stable/experimental APIs, Foundations, bookmarks, recent history, and app settings.
+-   Added validated agent-readable catalog data and working references for Buttons, Split buttons, Floating action buttons, Progress indicators, Segmented list items, Carousels, Floating toolbars, and Typography.
+-   Added deterministic alias search, copyable source paths, exact Material API maturity/version metadata, and unit/UI validation.
+-   Reframed the repository and responsive GitHub Pages guidance around its purpose: helping humans and agents learn Material 3 Expressive from real implementations.
+-   Renamed the merged Android identity to `Material Design`/`dev.qtremors.materialdesign`, corrected edge-to-edge insets, and restored the standalone app's intrinsic floating navigation pill, mixed Material/default transitions, expressive spring motion, and reduced-motion handling across interactive references.
+-   Removed screenshot-baseline tooling and generated reference images in favor of the local compile, test, lint, APK build, and manual app-testing workflow.
 
 ---
 

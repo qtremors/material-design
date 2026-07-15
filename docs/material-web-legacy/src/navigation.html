@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigation | Material Design</title>
+    <link rel="icon" type="image/png" href="../../assets/material-design.png">
+    
+    <!-- SECTION: Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Flex:opsz,wdth,wght@8..144,100,100..400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+
+    <!-- SECTION: Theme Engine -->
+    <script src="js/theme.js"></script>
+
+    <!-- SECTION: Styles -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components/navigation.css">
+    <link rel="stylesheet" href="css/components/buttons.css">
+    <link rel="stylesheet" href="css/components/cards.css">
+    <link rel="stylesheet" href="css/components/inputs.css">
+    <link rel="stylesheet" href="css/components/feedback.css">
+    <link rel="stylesheet" href="css/components/chips.css">
+    <link rel="stylesheet" href="css/components/fab.css">
+    
+    <!-- Page Specific Styles -->
+    <link rel="stylesheet" href="css/components/navigation_page.css">
+</head>
+<body>
+
+    <!-- SECTION: Navigation -->
+
+    <!-- SECTION: Main Content -->
+    <main>
+        <div class="top-app-bar">
+            <a href="../index.html" class="header-logo ripple-target" title="Home">
+                <img src="../../assets/material-design.png" alt="Material Design Logo">
+            </a>
+            <h2>Navigation</h2>
+            <div style="flex: 1"></div>
+            <div class="actions">
+                <div class="swatch-row desktop-only"></div>
+            </div>
+        </div>
+
+        <div class="container">
+            
+            <div class="section-grid">
+                <!-- SECTION: App Bars -->
+                <div class="md-card">
+                    <h3>Top App Bar</h3>
+                    <p>The standard top app bar handles navigation, actions, and title.</p>
+                     <div style="background: var(--md-sys-color-surface-container); height: 60px; display: flex; align-items: center; padding: 0 16px; border-radius: 12px; border: 1px solid var(--md-sys-color-outline-variant); margin-top: 16px;">
+                        <span class="material-symbols-rounded" style="margin-right: 16px; flex-shrink: 0;">menu</span>
+                        <span style="font: var(--md-sys-typescale-title-medium); flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Page Title</span>
+                        <span class="material-symbols-rounded" style="margin-left: 12px; flex-shrink: 0;">search</span>
+                        <span class="material-symbols-rounded" style="margin-left: 12px; flex-shrink: 0;">more_vert</span>
+                     </div>
+                </div>
+
+                <!-- SECTION: Tabs -->
+                <div class="md-card">
+                    <h3>Tabs</h3>
+                    <div class="tabs-container">
+                        <div class="md-tab active ripple-target" data-target="tab1">Item One</div>
+                        <div class="md-tab ripple-target" data-target="tab2">Item Two</div>
+                        <div class="md-tab ripple-target" data-target="tab3">Item Three</div>
+                    </div>
+                    <div id="tab1" class="tab-panel active">
+                        <p>Content for Tab One. Tabs organize content at a high level.</p>
+                    </div>
+                     <div id="tab2" class="tab-panel">
+                        <p>Content for Tab Two. Switch between views easily.</p>
+                    </div>
+                     <div id="tab3" class="tab-panel">
+                        <p>Content for Tab Three. Supports animations.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION: Drawers & Rails -->
+            <div class="md-card card-wide" style="margin-top: 32px;">
+                <h3>Drawer & Rail</h3>
+                <p>Click the buttons below to trigger the actual navigation components.</p>
+                <div class="btn-row">
+                    <button class="md-btn md-btn-filled ripple-target" data-action="toggle-drawer">
+                        Open Navigation Drawer
+                    </button>
+                    <button class="md-btn md-btn-tonal ripple-target" data-action="open-sheet" data-target="demo-sheet">
+                        Open Bottom Sheet
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- SECTION: Bottom Sheet Demo -->
+    <div id="sheet-scrim" class="sheet-scrim"></div>
+    <div id="demo-sheet" class="bottom-sheet">
+        <div class="drag-handle"></div>
+        <h3 style="text-align: center;">Bottom Sheet Title</h3>
+        <p style="text-align: center;">This is a modal bottom sheet. It slides up from the bottom and can contain any content.</p>
+        <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 24px;">
+            <button class="md-btn md-btn-tonal ripple-target" style="width: 100%;">Option 1</button>
+            <button class="md-btn md-btn-tonal ripple-target" style="width: 100%;">Option 2</button>
+            <button class="md-btn md-btn-text ripple-target" style="width: 100%; color: var(--md-sys-color-error);" data-action="close-sheet">Cancel</button>
+        </div>
+    </div>
+
+    <script src="js/navigation.js"></script>
+    
+    <!-- SECTION: Scripts -->
+    <script src="js/components/ripples.js"></script>
+    <script src="js/components/tabs.js"></script>
+    <script src="js/components/dialogs.js"></script>
+    <script src="js/components/sheets.js"></script>
+    <script src="js/components/inputs.js"></script>
+    <script src="js/components/sliders.js"></script>
+    <script src="js/components/motion.js"></script>
+    <script src="js/components/interactions.js"></script>
+
+    <script src="js/scripts.js"></script>
+</body>
+</html>

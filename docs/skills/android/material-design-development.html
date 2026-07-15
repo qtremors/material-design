@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Develop and review the Material Design Android app references, including architecture, demos, terminology, theming, and porting constraints.">
+  <title>Material Design Android Development</title>
+  <link rel="icon" type="image/png" href="../../assets/material-design.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,75..125,300..800&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,300..600,0..1,-50..200" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body class="docs-page skill-page">
+  <header class="site-header">
+    <a class="brand" href="../../" aria-label="Documentation home"><img src="../../assets/material-design.png" alt="" width="44" height="44"><span>Material Design</span></a>
+    <nav aria-label="Skill navigation"><a href="../../projects/android.html">Android project</a><a href="../web/material-expressive-development.html">Web</a><a class="nav-action" href="../../#skills">All skills</a></nav>
+  </header>
+  <main>
+    <section class="docs-hero skill-hero"><p class="eyebrow">Android skill</p><h1>Material Design Android Development</h1><p>Develop and review the Material Design Android app references, including architecture, demos, terminology, theming, and porting constraints.</p></section>
+    <article class="docs-article skill-article"><p>Use this skill for work inside <code>material-app/</code>.</p>
+<h2>Project Context</h2>
+<p>The installed <strong>Material Design</strong> app is a living, searchable Material 3 component gallery. The app is the visual truth and its modular repository source is the code truth. A person should be able to search an official component name, experience it, and give that same name or source path to an agent for reuse.</p>
+<p>This is not a course, package store, documentation wrapper, or full-source browser. There are no simulated installs, ratings, accounts, placeholder catalog cards, or lesson progress.</p>
+<h2>Architecture</h2>
+<ul>
+<li><code>app/</code> is the composition root: activity bootstrap, typed navigation, adaptive application shell, ViewModel, and manual dependency container.</li>
+<li><code>core/catalog/</code> owns the versioned JSON catalog, schema, typed models, validation, and deterministic alias/API search.</li>
+<li><code>core/data/</code> owns local bookmarks, the 20 most recent component IDs, appearance settings, and reduced-motion preference through Preferences DataStore.</li>
+<li><code>core/designsystem/</code> owns the app theme, inherited expressive motion specifications, reduced-motion behavior, and cross-cutting Material presentation.</li>
+<li><code>feature/</code> owns Explore, Catalog/Search, APIs, Foundations, Detail, and Settings surfaces.</li>
+<li><code>samples/</code> owns copyable state-hoisted implementations grouped by official domains: Actions, Communication, Containment, Navigation, and Foundations. Add a new domain module only when its first working reference exists.</li>
+</ul>
+<h2>Component Entry Contract</h2>
+<ol>
+<li>Use the official Material component or foundation name. Put older project terms and common abbreviations only in searchable aliases.</li>
+<li>Keep the reusable composable independent of navigation, persistence, and feature ViewModels. Hoist state and callbacks.</li>
+<li>Build a real interactive reference with relevant variants, states, semantics, adaptive behavior, and increased-font support.</li>
+<li>Add exact API artifact/version metadata. Model stable-artifact versus alpha-only availability separately from stable versus experimental API status.</li>
+<li>Register the demo key and repository-relative source path in the bundled catalog. Every visible entry must map to real source and exactly one working demo.</li>
+<li>Add search, source validation, UI, accessibility, and adaptive light/dark coverage before exposing it.</li>
+</ol>
+<h2>Current Official Names</h2>
+<ul>
+<li><strong>Buttons</strong> — aliases include expressive buttons and morphing buttons.</li>
+<li><strong>Split buttons</strong> — <code>SplitButtonLayout</code>.</li>
+<li><strong>Floating action buttons</strong> — aliases include FAB and extended FAB.</li>
+<li><strong>Progress indicators</strong> — aliases include wavy progress indicators.</li>
+<li><strong>Segmented list items</strong> — aliases include grouped lists and segmented sections.</li>
+<li><strong>Carousels</strong> — multi-browse and uncontained variants.</li>
+<li><strong>Floating toolbars</strong> — horizontal and future vertical variants.</li>
+<li><strong>Typography</strong> — dynamic and variable typography remain searchable aliases.</li>
+</ul>
+<h2>Product-Surface Rules</h2>
+<ul>
+<li>Dogfood Material components where their real interaction purpose fits Explore, search, navigation, filters, settings, and details.</li>
+<li>Do not recreate store fiction. “Featured” is curated, “Recently added” comes from catalog metadata, and “Recently viewed” is local history; never invent popularity metrics.</li>
+<li>Keep search global and deterministic. Exact official names and API symbols outrank aliases, categories, and summaries.</li>
+<li>Use adaptive navigation and layouts across compact, medium, and expanded windows. Carousels do not auto-play.</li>
+<li>Retained custom behavior must be labeled <strong>Project implementation</strong>; never present it as an official API.</li>
+</ul>
+<h2>Motion Contract</h2>
+<p>Use <code>core/designsystem/ExpressiveMotion.kt</code> as the source for every explicit project spring value. It preserves the standalone app's distinct medium-bouncy press response, low-bouncy navigation and fluid layout response, no-bounce shape settling, high-stiffness progress smoothing, and rejected-action shake. Do not replace these with anonymous springs in feature code, and do not force every transition onto one shared spec: the compact navigation intentionally retains Material's default size, fade, expansion, collapse, and exit behavior around its custom low-bouncy lift and slide.</p>
+<ul>
+<li>Pressed content scales to <code>0.94</code>; compact navigation lifts the selected icon by <code>12.dp</code>.</li>
+<li>Hold confirmation keeps its 1.5-second safety interval and loading keeps its 1.2-second example interval.</li>
+<li>Reduced motion snaps decorative movement and fades but preserves state changes, callbacks, haptics, and safety timing.</li>
+<li>Cancel or retarget work safely on release, rapid repeat input, disabled-state changes, recomposition, and disposal. Never leave progress or transformed content stranded.</li>
+<li>Keep official carousel, toolbar, progress-indicator, and navigation physics. Project springs supplement their state feedback; they do not impersonate a different official API.</li>
+</ul>
+<h2>Verification</h2>
+<pre><code class="language-powershell">cd material-app
+.\gradlew.bat testDebugUnitTest lintDebug assembleDebug</code></pre>
+<p>Keep the application label <strong>Material Design</strong>, namespace/application ID <code>dev.qtremors.materialdesign</code>, and public version <code>2.0.0</code> unless an explicit version change is requested. Update the root changelog for user-visible changes.</p>
+</article>
+  </main>
+  <footer><img src="../../assets/material-design.png" alt="" width="32" height="32"><p>Android-specific Material 3 Expressive guidance.</p><a href="../../#skills">All skills</a></footer>
+</body>
+</html>

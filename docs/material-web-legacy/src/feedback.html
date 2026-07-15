@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback | Material Design</title>
+    <link rel="icon" type="image/png" href="../../assets/material-design.png">
+    
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Flex:opsz,wdth,wght@8..144,100,100..400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+
+    <!-- Theme Engine -->
+    <script src="js/theme.js"></script>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components/navigation.css">
+    <link rel="stylesheet" href="css/components/buttons.css">
+    <link rel="stylesheet" href="css/components/cards.css">
+    <link rel="stylesheet" href="css/components/inputs.css">
+    <link rel="stylesheet" href="css/components/feedback.css">
+    <link rel="stylesheet" href="css/components/chips.css">
+    <link rel="stylesheet" href="css/components/fab.css">
+    
+    <!-- Page Specific Styles -->
+    <link rel="stylesheet" href="css/components/feedback_page.css">
+</head>
+<body>
+
+    <!-- Navigation injected by js/navigation.js -->
+
+    <main>
+        <div class="top-app-bar">
+            <a href="../index.html" class="header-logo ripple-target" title="Home">
+                <img src="../../assets/material-design.png" alt="Material Design Logo">
+            </a>
+            <h2>Feedback</h2>
+            <div style="flex: 1"></div>
+            <div class="actions">
+                <div class="swatch-row desktop-only"></div>
+            </div>
+        </div>
+
+        <div class="container">
+            
+            <!-- Banners -->
+            <div class="md-card card-wide" style="margin-bottom: 32px;">
+                <h3>Banners</h3>
+                <p>Banners display important, concise messages and provide actions for users.</p>
+                <div class="md-banner" style="margin-bottom: 16px; border: 1px solid var(--md-sys-color-outline-variant); border-radius: 8px;">
+                    <span class="material-symbols-rounded md-banner-icon">error</span>
+                    <div class="md-banner-text">
+                        Your password was changed. This will affect all devices signed in to this account.
+                    </div>
+                    <div class="md-banner-actions">
+                        <button class="md-btn md-btn-text ripple-target">Learn more</button>
+                        <button class="md-btn md-btn-text ripple-target" style="color: var(--md-sys-color-primary);">OK</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-grid">
+                <!-- Dialogs -->
+                <div class="md-card">
+                    <h3>Dialogs</h3>
+                    <p>Dialogs inform users about a task and can contain critical information.</p>
+                    <div class="btn-row">
+                        <button class="md-btn md-btn-filled ripple-target" data-action="open-dialog" data-target="alert-dialog">Alert Dialog</button>
+                        <button class="md-btn md-btn-tonal ripple-target" data-action="open-dialog" data-target="confirm-dialog">Confirm Dialog</button>
+                    </div>
+                </div>
+
+                <!-- Toasts & Snackbars -->
+                <div class="md-card">
+                    <h3>Toasts & Snackbars</h3>
+                    <p>Brief messages about app processes. Now pill-shaped with variants.</p>
+                    <div class="btn-row">
+                        <button class="md-btn md-btn-outlined ripple-target" onclick="showToast('Success! Data saved', 'success')">Success Toast</button>
+                        <button class="md-btn md-btn-outlined ripple-target" onclick="showToast('Error! Access denied', 'error')">Error Toast</button>
+                        <button class="md-btn md-btn-outlined ripple-target" onclick="showToast('Warning! Storage full', 'warning')">Warning Toast</button>
+                        <button class="md-btn md-btn-outlined ripple-target" onclick="showToast('Info! New update', 'info')">Info Toast</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progress Indicators -->
+            <div class="md-card card-wide" style="margin-top: 32px;">
+                <h3>Progress Indicators</h3>
+                
+                <h4>Linear Progress</h4>
+                <div class="linear-progress"><div class="bar"></div></div>
+
+                <h4 style="margin-top: 24px;">Wavy Progress (Determinate)</h4>
+                <div class="progress-wavy"><div class="bar" style="width: 60%;"></div></div>
+
+                <h4 style="margin-top: 24px;">Wavy Progress (Indeterminate)</h4>
+                <div class="progress-wavy indeterminate"><div class="bar"></div></div>
+
+                <h4 style="margin-top: 24px;">Segmented Progress</h4>
+                <div class="progress-segmented">
+                    <div class="segment filled"></div>
+                    <div class="segment filled"></div>
+                    <div class="segment filled"></div>
+                    <div class="segment"></div>
+                    <div class="segment"></div>
+                </div>
+                
+                <h4 style="margin-top: 24px;">Circular Progress</h4>
+                <div style="display: flex; gap: 24px; align-items: center;">
+                    <div class="circular-progress" style="width: 48px; height: 48px; border-width: 4px; color: var(--md-sys-color-primary);"></div>
+                    <div class="circular-progress" style="width: 32px; height: 32px; border-width: 3px; color: var(--md-sys-color-secondary);"></div>
+                </div>
+
+
+                <h4 style="margin-top: 24px;">Dots Loader</h4>
+                <div class="dots-loader" style="font-size: 10px; color: var(--md-sys-color-primary);">
+                    <span style="width: 12px; height: 12px;"></span>
+                    <span style="width: 12px; height: 12px;"></span>
+                    <span style="width: 12px; height: 12px;"></span>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Dialogs -->
+    <div id="dialog-backdrop" class="dialog-backdrop">
+        <!-- Alert Dialog -->
+        <div id="alert-dialog" class="dialog hidden">
+            <span class="material-symbols-rounded" style="color: var(--md-sys-color-secondary); font-size: 32px; margin-bottom: 16px;">info</span>
+            <h3>Alert</h3>
+            <p>This is a standard alert dialog. It conveys information that requires user acknowledgement.</p>
+            <div style="display: flex; justify-content: flex-end; margin-top: 24px;">
+                <button class="md-btn md-btn-text ripple-target" data-action="close-dialog">OK</button>
+            </div>
+        </div>
+
+        <!-- Confirm Dialog -->
+        <div id="confirm-dialog" class="dialog hidden">
+            <h3>Delete Item?</h3>
+            <p>This action cannot be undone. Are you sure you want to proceed?</p>
+            <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 24px;">
+                <button class="md-btn md-btn-text ripple-target" data-action="close-dialog">Cancel</button>
+                <button class="md-btn md-btn-text ripple-target" style="color: var(--md-sys-color-error);" data-action="close-dialog">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Snackbar -->
+    <div id="snackbar" class="snackbar">
+        <div class="content">Message Text</div>
+        <button class="md-btn md-btn-text ripple-target" style="color: var(--md-sys-color-primary-container); min-width: auto; padding: 0 16px; height: 36px;" onclick="this.parentElement.classList.remove('show')">
+            Close
+        </button>
+    </div>
+
+    <script src="js/navigation.js"></script>
+    
+    <!-- Components -->
+    <script src="js/components/ripples.js"></script>
+    <script src="js/components/tabs.js"></script>
+    <script src="js/components/dialogs.js"></script>
+    <script src="js/components/sheets.js"></script>
+    <script src="js/components/inputs.js"></script>
+    <script src="js/components/sliders.js"></script>
+    <script src="js/components/motion.js"></script>
+    <script src="js/components/interactions.js"></script>
+
+    <script src="js/scripts.js"></script>
+</body>
+</html>

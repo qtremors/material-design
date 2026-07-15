@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Design, style, and review framework-free web interfaces according to Material Design 3 and Material 3 Expressive foundations.">
+  <title>Material Design UI &amp; UX Design Skill · Material Design</title>
+  <link rel="icon" type="image/png" href="../../assets/material-design.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,75..125,300..800&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,300..600,0..1,-50..200" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body class="docs-page skill-page">
+  <header class="site-header">
+    <a class="brand" href="../../" aria-label="Documentation home"><img src="../../assets/material-design.png" alt="" width="44" height="44"><span>Material Design</span></a>
+    <nav aria-label="Skill navigation"><a href="../../projects/web.html">Web project</a><a href="../android/material-design-development.html">Android</a><a class="nav-action" href="../../#skills">All skills</a></nav>
+  </header>
+  <main>
+    <section class="docs-hero skill-hero"><p class="eyebrow">Web skill</p><h1>Material Design UI &amp; UX Design Skill</h1><p>Design, style, and review framework-free web interfaces according to Material Design 3 and Material 3 Expressive foundations.</p></section>
+    <article class="docs-article skill-article"><p>This skill defines the visual language and user-experience standards for the independent web implementation. Use it with <a href="material-expressive-development.html"><code>material-expressive-development.html</code></a> and the <a href="../../material-3-expressive-development.html">web development guide</a>.</p>
+<p>The Android app is a UI/UX reference only. Do not copy Compose APIs, state models, or source code into web components.</p>
+<h2>1. Visual Language &amp; Aesthetics</h2>
+<p>The core aesthetic is <strong>&quot;Material You&quot;</strong> (dynamic/personal) mixed with <strong>&quot;Material 3 Expressive&quot;</strong> (playful/modern).</p>
+<ul>
+<li><strong>The Color System</strong>: Everything is driven by design tokens.<ul>
+<li><strong>Strict Token Compliance</strong>: Never use raw hex codes (<code>#123</code>), <code>rgb()</code>, or CSS named colors.</li>
+<li><strong>Usage</strong>: Components must use <code>--md-sys-color-*</code> tokens (e.g., <code>on-surface-variant</code>, <code>primary-container</code>).</li>
+</ul>
+</li>
+<li><strong>Typography</strong>: Hierarchy is king.<ul>
+<li><strong>Headline/Title</strong>: Use <code>Roboto</code> (Standard) or <code>Roboto Flex</code> (Expressive) for emphasis.</li>
+<li><strong>Body/Label</strong>: Use <code>Roboto</code> for clarity.</li>
+</ul>
+</li>
+<li><strong>Vibrancy</strong>: Use high-contrast surface containers (<code>surface-container-high</code>) for elevated cards.</li>
+<li><strong>Themes</strong>: Support <strong>Light</strong>, <strong>Dark</strong>, and <strong>OLED</strong> (True Black) modes.</li>
+</ul>
+<h2>2. Typography &amp; Hierarchy</h2>
+<p>Typography in MD3 is not just about size; it&#39;s about communicative weight and structure.</p>
+<ul>
+<li><strong>Font Families</strong>:<ul>
+<li><strong>Standard</strong>: <code>Roboto</code> (Default).</li>
+<li><strong>Expressive</strong>: <code>Roboto Flex</code> (Variable). Used when <code>data-style=&quot;expressive&quot;</code> is active.</li>
+</ul>
+</li>
+<li><strong>The Type Scale</strong>:<ul>
+<li><strong>Display</strong>: High-emphasis screens (e.g., Hero headers).</li>
+<li><strong>Headline</strong>: Page titles.</li>
+<li><strong>Title</strong>: Card headers.</li>
+<li><strong>Body</strong>: Readable content (<code>16px</code> base).</li>
+<li><strong>Label</strong>: Small metadata/buttons.</li>
+</ul>
+</li>
+<li><strong>Expressive Type</strong>:<ul>
+<li>Leverage <code>font-variation-settings: &#39;wdth&#39; 115</code> on <code>Roboto Flex</code> for dynamic headers.</li>
+</ul>
+</li>
+</ul>
+<h2>3. Layout &amp; Adaptability</h2>
+<p>Designs must be fluid and adapt across all screen sizes.</p>
+<ul>
+<li><strong>Standard Spacing</strong>:<ul>
+<li>Use 8px grid multiples (8px, 16px, 24px, 32px, 48px).</li>
+</ul>
+</li>
+<li><strong>Adaptive Containers</strong>:<ul>
+<li><strong>Mobile (&lt; 600px)</strong>: Use <strong>Navigation Drawer</strong> (Modal) and Bottom Sheet for actions.</li>
+<li><strong>Tablet (600px - 840px)</strong>: Use <strong>Navigation Rail</strong> (Left).</li>
+<li><strong>Desktop (&gt; 840px)</strong>: Use <strong>Navigation Rail</strong> or <strong>Navigation Drawer</strong> (Standard).</li>
+</ul>
+</li>
+<li><strong>Grid Systems</strong>: Use <code>repeat(auto-fill, minmax(300px, 1fr))</code> for responsive dashboards.</li>
+</ul>
+<h2>4. Shapes &amp; Sizing</h2>
+<p>Material Design 3 uses rounder shapes and larger targets than MD2.</p>
+<ul>
+<li><strong>Corner Radiuses</strong>:<ul>
+<li><strong>Buttons</strong>: Full Round (<code>--md-sys-shape-corner-full</code>).</li>
+<li><strong>Cards</strong>: Extra Large (<code>--md-sys-shape-corner-extra-large</code>).</li>
+<li><strong>Standard</strong>: Medium/Large (<code>--md-sys-shape-corner-medium</code>).</li>
+</ul>
+</li>
+<li><strong>Touch Targets</strong>: Minimum <code>48x48px</code> for accessibility.</li>
+</ul>
+<h2>5. Elevation &amp; Feedback</h2>
+<p>Elevation is communicated through <strong>Shadows</strong> and <strong>State Layers</strong>.
+<em>Note: In OLED/Dark modes, elevation is often replaced or augmented by borders (<code>outline-variant</code>) for contrast.</em></p>
+<ul>
+<li><strong>Elevation Levels</strong>:<ul>
+<li>Level 0-5 using <code>--md-sys-elevation-*</code>.</li>
+</ul>
+</li>
+<li><strong>Interaction Feedback</strong>:<ul>
+<li><strong>The Ripple</strong>: Radial reaction (<code>.ripple-target</code>).</li>
+<li><strong>State Layers</strong> (Overlay Opacity):<ul>
+<li><strong>Hover</strong>: 8% (<code>0.08</code>)</li>
+<li><strong>Focus/Pressed</strong>: 12% (<code>0.12</code>)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2>6. Motion &amp; Feel</h2>
+<p>Motion should feel physical and purposeful.</p>
+<ul>
+<li><strong>Standard Durations</strong>: 200ms (standard), 400ms (medium/complex).</li>
+<li><strong>Easings</strong>:<ul>
+<li><strong>Standard</strong>: <code>cubic-bezier(0.2, 0, 0, 1)</code>.</li>
+<li><strong>Emphasized</strong>: <code>cubic-bezier(0.3, 0, 0.8, 0.15)</code>.</li>
+<li><strong>Spring</strong>: <code>cubic-bezier(0.175, 0.885, 0.32, 1.275)</code> for &quot;Expressive&quot;.</li>
+</ul>
+</li>
+</ul>
+<h2>7. Checklist: The &quot;MD3 Feel Test&quot;</h2>
+<p>Before finalizing a frontend design, ask:</p>
+<ol>
+<li><strong>Does it glow?</strong> (Does the theme seed propagate correctly to all container levels?)</li>
+<li><strong>Does it breathe?</strong> (Is there enough whitespace/padding to meet MD3 standards?)</li>
+<li><strong>Is it soft?</strong> (Are corner radiuses correct, or are there &quot;sharp&quot; corners violating the brand?)</li>
+<li><strong>Is it alive?</strong> (Do ripples trigger on every interaction? Do buttons lift on hover?)</li>
+<li><strong>Is it adaptive?</strong> (Does the layout reorganize cleanly when shrinking to mobile?)</li>
+</ol>
+</article>
+  </main>
+  <footer><img src="../../assets/material-design.png" alt="" width="32" height="32"><p>Web-specific Material 3 Expressive guidance.</p><a href="../../#skills">All skills</a></footer>
+</body>
+</html>

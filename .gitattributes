@@ -1,0 +1,12 @@
+* text=auto
+
+# Keep Unix launchers executable-compatible across Windows checkouts.
+gradlew text eol=lf
+*.sh text eol=lf
+*.bat text eol=crlf
+
+# Do not apply text conversion to packaged or visual assets.
+*.jar binary
+*.png binary
+*.ttf binary
+*.webp binary
