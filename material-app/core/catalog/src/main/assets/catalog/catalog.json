@@ -11,6 +11,14 @@
       "kind": "component",
       "category": "Actions",
       "summary": "Official button styles plus project expressive variants for spring-shaped presses, loading, hold-to-confirm, rejected actions, and fluid toggle groups.",
+      "guidance": {
+        "purpose": "Trigger an immediate action with emphasis proportional to its importance.",
+        "useWhen": ["The user can perform a clear verb such as Save, Continue, or Delete.", "A primary, secondary, or low-emphasis action needs an explicit label."],
+        "avoidWhen": ["The control changes a persistent selected state; use a toggle button or selection control.", "Navigation is the primary purpose; use the appropriate navigation component."],
+        "behavior": ["Pressed feedback begins immediately and never delays the action.", "Loading replaces or accompanies the label without changing the button's meaning or location.", "Destructive or consequential actions require proportionate confirmation."],
+        "accessibility": ["Use a concise verb label and preserve a minimum accessible touch target.", "Expose loading, disabled, and hold progress as semantic state descriptions."],
+        "adaptive": ["Allow labels to grow for translated and large text instead of forcing fixed widths.", "Reflow peer actions vertically when the available width cannot preserve readable labels."]
+      },
       "collections": ["featured", "expressive", "recent"],
       "demoKey": "actions.buttons",
       "sourceLocations": [{"path":"material-app/samples/actions/src/main/java/dev/qtremors/material/samples/actions/ActionSamples.kt","symbols":["ButtonsSample","ExpressiveActionButton","HoldToConfirmButton","FluidToggleButtonGroup","RejectedActionButton"]}],
@@ -30,6 +38,14 @@
       "kind": "component",
       "category": "Actions",
       "summary": "A leading primary action paired with a trailing control for related choices.",
+      "guidance": {
+        "purpose": "Keep a frequent default action adjacent to a menu of closely related alternatives.",
+        "useWhen": ["One action is the expected default and alternatives share the same object and outcome family.", "Repeating the default action should require one tap."],
+        "avoidWhen": ["Every choice is equally important; use a menu, button group, or separate actions.", "The trailing menu would contain unrelated overflow commands."],
+        "behavior": ["The leading region immediately performs the default action.", "The trailing region opens and closes a labelled menu without triggering the default action."],
+        "accessibility": ["Give each region a distinct accessible name and touch target.", "Announce whether the alternatives menu is expanded."],
+        "adaptive": ["Preserve both touch targets at compact widths and shorten the visible label only when its meaning remains clear."]
+      },
       "collections": ["featured", "expressive"],
       "demoKey": "actions.split-buttons",
       "sourceLocations": [{"path":"material-app/samples/actions/src/main/java/dev/qtremors/material/samples/actions/ActionSamples.kt","symbols":["SplitButtonsSample"]}],
@@ -46,6 +62,14 @@
       "kind": "component",
       "category": "Actions",
       "summary": "High-emphasis actions that float above the main content of a screen.",
+      "guidance": {
+        "purpose": "Keep the screen's most important constructive action available above scrolling content.",
+        "useWhen": ["A destination has one frequent, high-value action such as Create.", "The action benefits from remaining visible while content scrolls."],
+        "avoidWhen": ["Several actions have equal priority.", "The action is destructive, uncommon, or already dominant in the app bar."],
+        "behavior": ["The FAB remains visually tied to the current destination.", "Extended labels may collapse on scroll while the icon and meaning remain stable."],
+        "accessibility": ["Use an unambiguous icon with an accessible name.", "Keep the FAB clear of system gestures, navigation, keyboards, and important content."],
+        "adaptive": ["Reposition or replace the FAB when wider layouts provide a persistent action region.", "Account for navigation bars, rails, panes, and display cutouts."]
+      },
       "collections": ["featured", "recent"],
       "demoKey": "actions.fabs",
       "sourceLocations": [{"path":"material-app/samples/actions/src/main/java/dev/qtremors/material/samples/actions/ActionSamples.kt","symbols":["FloatingActionButtonsSample"]}],
@@ -62,6 +86,14 @@
       "kind": "component",
       "category": "Communication",
       "summary": "Determinate and indeterminate linear and circular feedback for ongoing work.",
+      "guidance": {
+        "purpose": "Communicate that work is active and, when measurable, how much remains.",
+        "useWhen": ["An operation takes long enough that immediate completion cannot be assumed.", "Progress can be measured or the user needs reassurance that work continues."],
+        "avoidWhen": ["The operation completes immediately.", "A decorative animation would imply work that is not actually happening."],
+        "behavior": ["Determinate progress moves forward with the real operation and completes exactly once.", "Indeterminate progress stops when work succeeds, fails, or is cancelled.", "Rapid progress updates are smoothed without hiding meaningful stalls."],
+        "accessibility": ["Announce a useful progress value or an indeterminate loading state.", "Do not rely on motion or color alone to communicate completion and failure."],
+        "adaptive": ["Choose linear indicators for available horizontal context and circular indicators for compact isolated regions.", "Reduced motion preserves status while removing decorative wave movement where appropriate."]
+      },
       "collections": ["expressive", "recent"],
       "demoKey": "communication.progress",
       "sourceLocations": [{"path":"material-app/samples/communication/src/main/java/dev/qtremors/material/samples/communication/ProgressSamples.kt","symbols":["ProgressIndicatorsSample"]}],
@@ -78,6 +110,14 @@
       "kind": "component",
       "category": "Containment",
       "summary": "Position-aware list items that visually group related rows into a segmented surface.",
+      "guidance": {
+        "purpose": "Bind a short set of closely related rows into one scannable group while preserving individual interaction states.",
+        "useWhen": ["Rows belong to the same setting, choice set, or conceptual section.", "Position-aware outer and inner shapes clarify the group boundary."],
+        "avoidWhen": ["The list is long, continuously scrolling, or contains unrelated destinations.", "A single card or standard list communicates the hierarchy more simply."],
+        "behavior": ["Only the activated row changes state unless the group represents a single-choice set.", "Shape and supporting content transitions do not move focus or lose selection."],
+        "accessibility": ["Expose radio, checkbox, switch, or button semantics that match the interaction.", "Keep trailing decorations silent unless they perform a separate action."],
+        "adaptive": ["Rows expand vertically for large text and long translations.", "Maintain group order and readable gaps across compact and expanded widths."]
+      },
       "collections": ["featured", "expressive"],
       "demoKey": "containment.segmented-lists",
       "sourceLocations": [{"path":"material-app/samples/containment/src/main/java/dev/qtremors/material/samples/containment/ContainmentSamples.kt","symbols":["SegmentedListItemsSample"]}],
@@ -94,6 +134,14 @@
       "kind": "component",
       "category": "Containment",
       "summary": "Horizontally scrolling collections that emphasize items through adaptive size and shape.",
+      "guidance": {
+        "purpose": "Let users browse a visual collection while previewing that more content continues horizontally.",
+        "useWhen": ["Items are visual, related, and useful to compare by browsing.", "A partial next item can communicate scroll direction."],
+        "avoidWhen": ["Every item must be visible or compared simultaneously.", "The content is primarily text, form input, or a short action set."],
+        "behavior": ["Items resize and mask smoothly as they move through the focal region.", "Scroll position and item identity remain stable during recomposition."],
+        "accessibility": ["Each item has a meaningful accessible name and a predictable traversal order.", "Do not hide essential actions exclusively behind horizontal gestures."],
+        "adaptive": ["Adjust preferred item width and visible item count for the window.", "Provide enough edge preview to signal overflow without clipping labels."]
+      },
       "collections": ["featured", "recent", "expressive"],
       "demoKey": "containment.carousels",
       "sourceLocations": [{"path":"material-app/samples/containment/src/main/java/dev/qtremors/material/samples/containment/ContainmentSamples.kt","symbols":["CarouselsSample"]}],
@@ -110,6 +158,14 @@
       "kind": "component",
       "category": "Navigation",
       "summary": "Expandable horizontal and vertical action groups that float above content.",
+      "guidance": {
+        "purpose": "Keep a contextual set of navigation or editing actions reachable above the active content.",
+        "useWhen": ["Actions belong to the current mode or selection and benefit from persistent proximity.", "The toolbar can float without covering essential content."],
+        "avoidWhen": ["Commands are global app navigation better served by a bar, rail, or drawer.", "The content cannot provide a safe floating region."],
+        "behavior": ["Expansion, collapse, and selection retain the same action order and meaning.", "The toolbar responds to scroll or mode changes without trapping focus."],
+        "accessibility": ["Every icon has an accessible name and selected actions expose state.", "Traversal order follows the visual order in both orientations."],
+        "adaptive": ["Choose horizontal or vertical orientation from available space and content obstruction.", "Respect navigation, keyboard, gesture, and hinge insets."]
+      },
       "collections": ["expressive"],
       "demoKey": "navigation.floating-toolbars",
       "sourceLocations": [{"path":"material-app/samples/navigation/src/main/java/dev/qtremors/material/samples/navigation/NavigationSamples.kt","symbols":["FloatingToolbarsSample"]}],
@@ -126,6 +182,14 @@
       "kind": "foundation",
       "category": "Typography",
       "summary": "Material type roles and interactive variable-font axes inspected as a responsive hierarchy.",
+      "guidance": {
+        "purpose": "Create readable hierarchy, rhythm, and personality while preserving comprehension at every supported text scale.",
+        "useWhen": ["Every screen needs semantic type roles tied to content importance.", "Variable axes improve emphasis or adaptation without replacing the role system."],
+        "avoidWhen": ["A custom size is used only to make an element feel expressive.", "Condensed or decorative settings reduce readability for body content."],
+        "behavior": ["Type roles remain consistent as content and window size change.", "Animated axes transition sparingly and never make reading targets unstable."],
+        "accessibility": ["Support user font scaling, sufficient contrast, and comfortable line length.", "Do not encode hierarchy through size, weight, or color alone."],
+        "adaptive": ["Allow text to wrap and containers to grow before truncating meaningful content.", "Use responsive role choices without disabling system font scaling."]
+      },
       "collections": ["featured"],
       "demoKey": "foundations.typography",
       "sourceLocations": [{"path":"material-app/samples/foundations/src/main/java/dev/qtremors/material/samples/foundations/FoundationSamples.kt","symbols":["TypographySample","VariableTypographyPreview","VariableTypographyAxes"]}],
@@ -137,6 +201,197 @@
       "implementation": "project_implementation",
       "addedIn": "2.0.0",
       "reviewedOn": "2026-07-15"
+    },
+    {
+      "id": "button-groups",
+      "officialName": "Button groups",
+      "aliases": ["button group", "connected buttons", "overflow button group", "grouped actions"],
+      "kind": "component",
+      "category": "Actions",
+      "summary": "Standard and connected groups for related actions, single-choice modes, compatible toggles, and constrained-width overflow.",
+      "guidance": {
+        "purpose": "Present a small set of peer actions or closely related toggle buttons as one coordinated control.",
+        "useWhen": ["Actions operate on the same object or editing context.", "Connected toggles represent one mode or a compatible set of visible tools."],
+        "avoidWhen": ["Actions have different importance or unrelated consequences.", "The group would contain many choices better handled by a menu or selection surface."],
+        "behavior": ["Pressed items expand while neighboring items compress without moving the overall group.", "Standard groups move unavailable actions into an accessible overflow menu.", "Connected single-choice groups always retain one selected option."],
+        "accessibility": ["Expose the group relationship and the correct button, radio, or toggle semantics.", "Keep labels available in overflow and avoid icon-only ambiguity."],
+        "adaptive": ["Use overflow for action groups and reflow connected groups only at meaningful item boundaries.", "Do not compress labels or touch targets below readable and accessible sizes."]
+      },
+      "collections": ["featured", "expressive", "recent"],
+      "demoKey": "actions.button-groups",
+      "sourceLocations": [{"path":"material-app/samples/actions/src/main/java/dev/qtremors/material/samples/actions/ButtonGroupSamples.kt","symbols":["ButtonGroupsSample"]}],
+      "apiReferences": [
+        {"symbol":"androidx.compose.material3.ButtonGroup","artifact":"androidx.compose.material3:material3","reviewedVersion":"1.5.0-alpha23","availability":"alpha_only","stability":"stable","url":"https://developer.android.com/reference/kotlin/androidx/compose/material3/package-summary"},
+        {"symbol":"androidx.compose.material3.ButtonGroupDefaults","artifact":"androidx.compose.material3:material3","reviewedVersion":"1.5.0-alpha23","availability":"alpha_only","stability":"stable","url":"https://developer.android.com/reference/kotlin/androidx/compose/material3/package-summary"}
+      ],
+      "officialUrls": ["https://m3.material.io/components/button-groups/overview"],
+      "implementation": "official_api",
+      "addedIn": "2.0.1",
+      "reviewedOn": "2026-07-16"
+    },
+    {
+      "id": "toggle-buttons",
+      "officialName": "Toggle buttons",
+      "aliases": ["toggle button", "filled toggle", "tonal toggle", "outlined toggle", "selected button"],
+      "kind": "component",
+      "category": "Actions",
+      "summary": "Stateful filled, tonal, elevated, and outlined actions with expressive shape and size transformations.",
+      "guidance": {
+        "purpose": "Switch an action or mode between selected and unselected states while preserving button emphasis.",
+        "useWhen": ["A button-like action has a persistent on or off state.", "The selected state should remain visible after the press ends."],
+        "avoidWhen": ["The control changes a settings value best represented by a switch or checkbox.", "The action is momentary and has no persistent selected state."],
+        "behavior": ["The checked state changes shape, color, icon, and semantics as one response.", "Press feedback remains distinct from the persistent checked state."],
+        "accessibility": ["Expose checked state and keep the label stable across both states.", "Icons supplement rather than replace the accessible label."],
+        "adaptive": ["Scale icon, typography, padding, and shape together when using larger expressive sizes.", "Reflow multiple toggles rather than truncating important labels."]
+      },
+      "collections": ["featured", "expressive", "recent"],
+      "demoKey": "actions.toggle-buttons",
+      "sourceLocations": [{"path":"material-app/samples/actions/src/main/java/dev/qtremors/material/samples/actions/ButtonGroupSamples.kt","symbols":["ToggleButtonsSample"]}],
+      "apiReferences": [
+        {"symbol":"androidx.compose.material3.ToggleButton","artifact":"androidx.compose.material3:material3","reviewedVersion":"1.5.0-alpha23","availability":"alpha_only","stability":"stable","url":"https://developer.android.com/reference/kotlin/androidx/compose/material3/package-summary"},
+        {"symbol":"androidx.compose.material3.ToggleButtonDefaults.shapesFor","artifact":"androidx.compose.material3:material3","reviewedVersion":"1.5.0-alpha23","availability":"alpha_only","stability":"experimental","optInAnnotation":"androidx.compose.material3.ExperimentalMaterial3ExpressiveApi","url":"https://developer.android.com/reference/kotlin/androidx/compose/material3/package-summary"}
+      ],
+      "officialUrls": ["https://m3.material.io/components/buttons/overview"],
+      "implementation": "official_api",
+      "addedIn": "2.0.1",
+      "reviewedOn": "2026-07-16"
+    },
+    {
+      "id": "cards",
+      "officialName": "Cards",
+      "aliases": ["filled card", "elevated card", "outlined card", "selectable card", "responsive card"],
+      "kind": "component",
+      "category": "Containment",
+      "summary": "Filled, elevated, outlined, responsive, selectable, and unavailable containers with deliberate internal hierarchy.",
+      "guidance": {
+        "purpose": "Contain a coherent subject and its supporting information or actions as one scannable unit.",
+        "useWhen": ["Several related elements need a shared boundary and entry point.", "A collection benefits from independently scannable subjects."],
+        "avoidWhen": ["A simple list row or section spacing communicates the structure.", "Nesting cards would create competing boundaries and excessive surface treatment."],
+        "behavior": ["A clickable card has one primary destination or selection action.", "Nested icon actions remain semantically distinct from the card action.", "Selected, disabled, and unavailable states preserve content identity."],
+        "accessibility": ["Merge or order card semantics so the subject is announced before its actions.", "Do not rely on elevation, shape, or color alone to communicate selection."],
+        "adaptive": ["Recompose internal media and text horizontally when width supports it.", "Allow content height to grow for long text instead of clipping the card."]
+      },
+      "collections": ["featured", "recent", "expressive"],
+      "demoKey": "containment.cards",
+      "sourceLocations": [{"path":"material-app/samples/containment/src/main/java/dev/qtremors/material/samples/containment/CardAndListSamples.kt","symbols":["CardsSample"]}],
+      "apiReferences": [
+        {"symbol":"androidx.compose.material3.Card","artifact":"androidx.compose.material3:material3","reviewedVersion":"1.5.0-alpha23","availability":"stable_artifact","stability":"stable","url":"https://developer.android.com/reference/kotlin/androidx/compose/material3/Card"},
+        {"symbol":"androidx.compose.material3.ElevatedCard","artifact":"androidx.compose.material3:material3","reviewedVersion":"1.5.0-alpha23","availability":"stable_artifact","stability":"stable","url":"https://developer.android.com/reference/kotlin/androidx/compose/material3/ElevatedCard"},
+        {"symbol":"androidx.compose.material3.OutlinedCard","artifact":"androidx.compose.material3:material3","reviewedVersion":"1.5.0-alpha23","availability":"stable_artifact","stability":"stable","url":"https://developer.android.com/reference/kotlin/androidx/compose/material3/OutlinedCard"}
+      ],
+      "officialUrls": ["https://m3.material.io/components/cards/overview"],
+      "implementation": "official_api",
+      "addedIn": "2.0.1",
+      "reviewedOn": "2026-07-16"
+    },
+    {
+      "id": "lists",
+      "officialName": "Lists",
+      "aliases": ["list item", "standard list item", "one line list", "two line list", "three line list"],
+      "kind": "component",
+      "category": "Containment",
+      "summary": "Standard and interactive list rows with content-density, grouped, selected, disabled, and trailing-control examples.",
+      "guidance": {
+        "purpose": "Organize vertically scannable information, destinations, or settings with consistent alignment.",
+        "useWhen": ["Items share a predictable structure and should be compared or scanned vertically.", "Rows need one to three lines of text with optional leading or trailing content."],
+        "avoidWhen": ["Subjects need rich visual containment better served by cards.", "The layout is a form whose fields need persistent labels and validation."],
+        "behavior": ["A navigational row owns the full-row click target.", "A trailing switch or icon action has a clear relationship and does not accidentally trigger navigation.", "Selected and disabled rows retain stable alignment."],
+        "accessibility": ["Traversal reads headline, supporting text, and action in a meaningful order.", "Decorative icons are silent and interactive trailing controls have explicit names."],
+        "adaptive": ["Rows expand for large text and preserve leading and trailing alignment.", "Expanded layouts may place lists in panes without stretching text to uncomfortable line lengths."]
+      },
+      "collections": ["featured", "recent"],
+      "demoKey": "containment.lists",
+      "sourceLocations": [{"path":"material-app/samples/containment/src/main/java/dev/qtremors/material/samples/containment/CardAndListSamples.kt","symbols":["ListsSample"]}],
+      "apiReferences": [
+        {"symbol":"androidx.compose.material3.ListItem","artifact":"androidx.compose.material3:material3","reviewedVersion":"1.5.0-alpha23","availability":"stable_artifact","stability":"stable","url":"https://developer.android.com/reference/kotlin/androidx/compose/material3/ListItem"}
+      ],
+      "officialUrls": ["https://m3.material.io/components/lists/overview"],
+      "implementation": "official_api",
+      "addedIn": "2.0.1",
+      "reviewedOn": "2026-07-16"
+    },
+    {
+      "id": "chips",
+      "officialName": "Chips",
+      "aliases": ["assist chip", "filter chip", "input chip", "suggestion chip", "chip group"],
+      "kind": "component",
+      "category": "Selection",
+      "summary": "Assist, suggestion, filter, and input chips with reflow, horizontal overflow, removal, and disabled-state behavior.",
+      "guidance": {
+        "purpose": "Represent compact actions, suggestions, filters, or user-provided values close to related content.",
+        "useWhen": ["A short label can express a contextual action or option.", "Filters or input values benefit from remaining visible as compact objects."],
+        "avoidWhen": ["The choice requires long explanation or a large option set.", "A primary action, persistent setting, or navigation destination needs stronger hierarchy."],
+        "behavior": ["Filter chips toggle independently and retain state during reflow.", "Input chips provide an explicit removal action.", "Overflow preserves every label through scrolling, wrapping, or an accessible menu."],
+        "accessibility": ["Announce the chip role, label, and selected state when applicable.", "Removal and trailing actions have distinct accessible names and touch targets."],
+        "adaptive": ["Reflow multi-line groups or scroll a deliberate single-line group.", "Never shrink chip labels and targets merely to keep every chip on one line."]
+      },
+      "collections": ["featured", "recent", "expressive"],
+      "demoKey": "selection.chips",
+      "sourceLocations": [{"path":"material-app/samples/selection/src/main/java/dev/qtremors/material/samples/selection/SelectionSamples.kt","symbols":["ChipsSample"]}],
+      "apiReferences": [
+        {"symbol":"androidx.compose.material3.AssistChip","artifact":"androidx.compose.material3:material3","reviewedVersion":"1.5.0-alpha23","availability":"stable_artifact","stability":"stable","url":"https://developer.android.com/reference/kotlin/androidx/compose/material3/AssistChip"},
+        {"symbol":"androidx.compose.material3.FilterChip","artifact":"androidx.compose.material3:material3","reviewedVersion":"1.5.0-alpha23","availability":"stable_artifact","stability":"stable","url":"https://developer.android.com/reference/kotlin/androidx/compose/material3/FilterChip"},
+        {"symbol":"androidx.compose.material3.InputChip","artifact":"androidx.compose.material3:material3","reviewedVersion":"1.5.0-alpha23","availability":"stable_artifact","stability":"stable","url":"https://developer.android.com/reference/kotlin/androidx/compose/material3/InputChip"}
+      ],
+      "officialUrls": ["https://m3.material.io/components/chips/overview"],
+      "implementation": "official_api",
+      "addedIn": "2.0.1",
+      "reviewedOn": "2026-07-16"
+    },
+    {
+      "id": "segmented-buttons",
+      "officialName": "Segmented buttons",
+      "aliases": ["segmented button", "single choice segmented button", "multi choice segmented button", "segmented control"],
+      "kind": "component",
+      "category": "Selection",
+      "summary": "Persistent single- and multiple-choice controls with icons, constrained-width handling, and disabled context.",
+      "guidance": {
+        "purpose": "Keep a small, stable set of closely related choices visible with persistent selected state.",
+        "useWhen": ["Users repeatedly switch between two to five views or modes.", "All choices should remain visible for comparison."],
+        "avoidWhen": ["The option set is long, dynamic, or requires supporting descriptions.", "The choices perform immediate commands rather than selecting state."],
+        "behavior": ["Single-choice rows always retain one selection.", "Multi-choice rows allow compatible combinations and enforce any domain minimum.", "Selection does not reorder segments or change their labels."],
+        "accessibility": ["Expose radio semantics for single choice and checkbox semantics for multiple choice.", "Icons are supplementary and the selected state is announced."],
+        "adaptive": ["Keep short segments visible; use controlled horizontal scrolling when labels cannot fit.", "Choose a different selection surface when scrolling would hide critical options."]
+      },
+      "collections": ["featured", "recent"],
+      "demoKey": "selection.segmented-buttons",
+      "sourceLocations": [{"path":"material-app/samples/selection/src/main/java/dev/qtremors/material/samples/selection/SelectionSamples.kt","symbols":["SegmentedButtonsSample"]}],
+      "apiReferences": [
+        {"symbol":"androidx.compose.material3.SegmentedButton","artifact":"androidx.compose.material3:material3","reviewedVersion":"1.5.0-alpha23","availability":"stable_artifact","stability":"stable","url":"https://developer.android.com/reference/kotlin/androidx/compose/material3/SegmentedButton"},
+        {"symbol":"androidx.compose.material3.SingleChoiceSegmentedButtonRow","artifact":"androidx.compose.material3:material3","reviewedVersion":"1.5.0-alpha23","availability":"stable_artifact","stability":"stable","url":"https://developer.android.com/reference/kotlin/androidx/compose/material3/SingleChoiceSegmentedButtonRow"}
+      ],
+      "officialUrls": ["https://m3.material.io/components/segmented-buttons/overview"],
+      "implementation": "official_api",
+      "addedIn": "2.0.1",
+      "reviewedOn": "2026-07-16"
+    },
+    {
+      "id": "selection-controls",
+      "officialName": "Selection controls",
+      "aliases": ["checkbox", "radio button", "switch", "tri state checkbox", "toggle control"],
+      "kind": "component",
+      "category": "Selection",
+      "summary": "Checkbox hierarchies, exclusive radio choices, immediate switches, parent state, and unavailable settings.",
+      "guidance": {
+        "purpose": "Select independent values, one option from a group, or an immediately applied binary setting.",
+        "useWhen": ["Checkboxes represent independent choices, radio buttons represent one exclusive choice, or a switch applies a setting immediately.", "The label and supporting text can clearly explain the value or consequence."],
+        "avoidWhen": ["A momentary command should use a button.", "A compact view mode needs persistent peer visibility better served by segmented or toggle buttons."],
+        "behavior": ["Parent checkboxes reflect on, off, and indeterminate child state.", "Radio groups maintain exactly one selection.", "Switch changes apply immediately without a separate save action."],
+        "accessibility": ["Associate the complete visible label with the control and expose checked state.", "Make the row target clickable where appropriate without creating duplicate semantics."],
+        "adaptive": ["Allow labels and supporting text to wrap while the control remains aligned.", "Stack dense settings into readable groups instead of compressing rows on narrow screens."]
+      },
+      "collections": ["featured", "recent"],
+      "demoKey": "selection.controls",
+      "sourceLocations": [{"path":"material-app/samples/selection/src/main/java/dev/qtremors/material/samples/selection/SelectionSamples.kt","symbols":["SelectionControlsSample"]}],
+      "apiReferences": [
+        {"symbol":"androidx.compose.material3.Checkbox","artifact":"androidx.compose.material3:material3","reviewedVersion":"1.5.0-alpha23","availability":"stable_artifact","stability":"stable","url":"https://developer.android.com/reference/kotlin/androidx/compose/material3/Checkbox"},
+        {"symbol":"androidx.compose.material3.RadioButton","artifact":"androidx.compose.material3:material3","reviewedVersion":"1.5.0-alpha23","availability":"stable_artifact","stability":"stable","url":"https://developer.android.com/reference/kotlin/androidx/compose/material3/RadioButton"},
+        {"symbol":"androidx.compose.material3.Switch","artifact":"androidx.compose.material3:material3","reviewedVersion":"1.5.0-alpha23","availability":"stable_artifact","stability":"stable","url":"https://developer.android.com/reference/kotlin/androidx/compose/material3/Switch"}
+      ],
+      "officialUrls": ["https://m3.material.io/components/checkbox/overview", "https://m3.material.io/components/radio-button/overview", "https://m3.material.io/components/switch/overview"],
+      "implementation": "official_api",
+      "addedIn": "2.0.1",
+      "reviewedOn": "2026-07-16"
     }
   ]
 }

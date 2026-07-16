@@ -43,6 +43,21 @@ object CatalogValidator {
             require(entry.id.matches(Regex("[a-z0-9-]+"))) { "Invalid catalog ID ${entry.id}" }
             require(entry.officialName.isNotBlank())
             require(entry.summary.isNotBlank())
+            require(entry.guidance.purpose.isNotBlank()) { "${entry.id} has no purpose guidance" }
+            require(entry.guidance.useWhen.isNotEmpty()) { "${entry.id} has no use guidance" }
+            require(entry.guidance.avoidWhen.isNotEmpty()) { "${entry.id} has no avoid guidance" }
+            require(entry.guidance.behavior.isNotEmpty()) { "${entry.id} has no behavior guidance" }
+            require(entry.guidance.accessibility.isNotEmpty()) { "${entry.id} has no accessibility guidance" }
+            require(entry.guidance.adaptive.isNotEmpty()) { "${entry.id} has no adaptive guidance" }
+            require(
+                listOf(
+                    entry.guidance.useWhen,
+                    entry.guidance.avoidWhen,
+                    entry.guidance.behavior,
+                    entry.guidance.accessibility,
+                    entry.guidance.adaptive,
+                ).flatten().none(String::isBlank),
+            ) { "${entry.id} contains blank guidance" }
             require(entry.demoKey.isNotBlank()) { "${entry.id} has no working demo" }
             require(entry.sourceLocations.isNotEmpty()) { "${entry.id} has no source location" }
             require(entry.apiReferences.isNotEmpty()) { "${entry.id} has no API reference" }
@@ -67,6 +82,16 @@ object CatalogSearch {
             val aliases = entry.aliases.map(::normalize)
             val category = normalize(entry.category)
             val summary = normalize(entry.summary)
+            val guidance = normalize(
+                buildList {
+                    add(entry.guidance.purpose)
+                    addAll(entry.guidance.useWhen)
+                    addAll(entry.guidance.avoidWhen)
+                    addAll(entry.guidance.behavior)
+                    addAll(entry.guidance.accessibility)
+                    addAll(entry.guidance.adaptive)
+                }.joinToString(" "),
+            )
 
             val score = when {
                 officialName == query -> 1_000
@@ -80,6 +105,7 @@ object CatalogSearch {
                 aliases.any { it.contains(query) } -> 500
                 category.contains(query) -> 300
                 summary.contains(query) -> 100
+                guidance.contains(query) -> 50
                 else -> 0
             }
             score.takeIf { it > 0 }?.let { SearchResult(entry, it) }

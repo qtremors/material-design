@@ -20,6 +20,7 @@ data class CatalogEntry(
     val kind: CatalogKind,
     val category: String,
     val summary: String,
+    val guidance: CatalogGuidance,
     val collections: List<String>,
     val demoKey: String,
     val sourceLocations: List<SourceLocation>,
@@ -28,6 +29,16 @@ data class CatalogEntry(
     val implementation: ImplementationKind,
     val addedIn: String,
     val reviewedOn: String,
+)
+
+@Serializable
+data class CatalogGuidance(
+    val purpose: String,
+    val useWhen: List<String>,
+    val avoidWhen: List<String>,
+    val behavior: List<String>,
+    val accessibility: List<String>,
+    val adaptive: List<String>,
 )
 
 @Serializable

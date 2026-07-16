@@ -12,8 +12,9 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.PrimaryTabRow
-import androidx.compose.material3.Tab
+import androidx.compose.material3.SegmentedButton
+import androidx.compose.material3.SegmentedButtonDefaults
+import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -43,9 +44,18 @@ fun ApisScreen(
             modifier = Modifier.padding(20.dp),
             style = MaterialTheme.typography.titleMedium,
         )
-        PrimaryTabRow(selectedTabIndex = if (selectedStability == ApiStability.STABLE) 0 else 1) {
-            Tab(selected = selectedStability == ApiStability.STABLE, onClick = { onStabilitySelected(ApiStability.STABLE) }, text = { Text("Stable APIs") })
-            Tab(selected = selectedStability == ApiStability.EXPERIMENTAL, onClick = { onStabilitySelected(ApiStability.EXPERIMENTAL) }, text = { Text("Experimental") })
+        SingleChoiceSegmentedButtonRow(
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp),
+        ) {
+            val options = listOf(ApiStability.STABLE to "Stable APIs", ApiStability.EXPERIMENTAL to "Experimental")
+            options.forEachIndexed { index, (stability, label) ->
+                SegmentedButton(
+                    selected = selectedStability == stability,
+                    onClick = { onStabilitySelected(stability) },
+                    shape = SegmentedButtonDefaults.itemShape(index, options.size),
+                    modifier = Modifier.weight(1f),
+                ) { Text(label) }
+            }
         }
         LazyColumn(
             contentPadding = PaddingValues(20.dp),

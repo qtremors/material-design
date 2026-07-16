@@ -12,8 +12,8 @@ android {
         applicationId = "dev.qtremors.materialdesign"
         minSdk = 24
         targetSdk = 37
-        versionCode = 200
-        versionName = "2.0.0"
+        versionCode = 201
+        versionName = "2.0.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -66,6 +66,7 @@ dependencies {
     implementation(project(":samples:containment"))
     implementation(project(":samples:navigation"))
     implementation(project(":samples:foundations"))
+    implementation(project(":samples:selection"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

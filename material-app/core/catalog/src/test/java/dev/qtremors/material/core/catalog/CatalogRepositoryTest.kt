@@ -28,6 +28,28 @@ class CatalogRepositoryTest {
         assertEquals("segmented-list-items", CatalogSearch.search(document.entries, "grouped lists").first().entry.id)
         assertEquals("progress-indicators", CatalogSearch.search(document.entries, "wavy progress").first().entry.id)
         assertEquals("split-buttons", CatalogSearch.search(document.entries, "SplitButtonLayout").first().entry.id)
+        assertEquals("button-groups", CatalogSearch.search(document.entries, "connected buttons").first().entry.id)
+        assertEquals("chips", CatalogSearch.search(document.entries, "input chip").first().entry.id)
+        assertEquals("selection-controls", CatalogSearch.search(document.entries, "tri state checkbox").first().entry.id)
+    }
+
+    @Test
+    fun behaviorAndAccessibilityGuidanceIsSearchable() {
+        assertEquals("progress-indicators", CatalogSearch.search(document.entries, "meaningful stalls").first().entry.id)
+        assertEquals("cards", CatalogSearch.search(document.entries, "nesting cards").first().entry.id)
+        assertEquals("segmented-buttons", CatalogSearch.search(document.entries, "radio semantics").first().entry.id)
+    }
+
+    @Test
+    fun everyEntryContainsCompleteDevelopmentGuidance() {
+        document.entries.forEach { entry ->
+            assertTrue(entry.guidance.purpose.isNotBlank())
+            assertTrue(entry.guidance.useWhen.isNotEmpty())
+            assertTrue(entry.guidance.avoidWhen.isNotEmpty())
+            assertTrue(entry.guidance.behavior.isNotEmpty())
+            assertTrue(entry.guidance.accessibility.isNotEmpty())
+            assertTrue(entry.guidance.adaptive.isNotEmpty())
+        }
     }
 
     @Test

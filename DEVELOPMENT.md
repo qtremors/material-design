@@ -2,7 +2,7 @@
 
 > Comprehensive documentation for the Material Design.
 
-**Project:** 2.0.0 | **Last Updated:** 2026-07-15
+**Project:** 2.0.1 | **Last Updated:** 2026-07-16
 
 ---
 
@@ -53,7 +53,7 @@ Apply these rules to every active surface:
 - **Treat generic UI as unfinished.** Temporary platform defaults or placeholder styling are acceptable during development only when clearly treated as WIP. They must be replaced or deliberately justified before the affected surface is considered ready.
 - **Review the host surface with the demo.** Component review must evaluate both the focused example and the product UI used to reach, configure, understand, and leave that example.
 
-The frozen `docs/material-web-legacy/` showcase is the historical exception: preserve it as older work rather than retrofitting it to the evolving 2.0.0 design system.
+The frozen `docs/material-web-legacy/` showcase is the historical exception: preserve it as older work rather than retrofitting it to the evolving 2.0.1 design system.
 
 ---
 
@@ -61,8 +61,8 @@ The frozen `docs/material-web-legacy/` showcase is the historical exception: pre
 
 | Surface | Current version | Published location |
 |---------|-----------------|--------------------|
-| Android app | 2.0.0, WIP | [GitHub Releases for APK downloads](https://github.com/qtremors/material-design/releases) |
-| Web documentation | 2.0.0 | [https://qtremors.github.io/material-design/](https://qtremors.github.io/material-design/) |
+| Android app | 2.0.1, WIP | [GitHub Releases for APK downloads](https://github.com/qtremors/material-design/releases) |
+| Web documentation | 2.0.1 | [https://qtremors.github.io/material-design/](https://qtremors.github.io/material-design/) |
 | Frozen legacy web | 1.5.0 | [https://qtremors.github.io/material-design/material-web-legacy/](https://qtremors.github.io/material-design/material-web-legacy/) |
 | Future Material Web | Future | [Published project route](https://qtremors.github.io/material-design/material-web/) |
 
@@ -73,8 +73,8 @@ The documentation site is the guidance entry point and the frozen 1.5.0 legacy s
 ## Component Lifecycle
 
 1. Implement a state-hoisted component or official API usage in the matching `material-app/samples/` domain module.
-2. Add its working demo registration, official name, aliases, API maturity, and source path to the validated catalog.
-3. Verify search, behavior, accessibility, and adaptive layouts before exposing it in the app.
+2. Add its working demo registration, official name, aliases, API maturity, source path, purpose, use and avoid rules, behavior, accessibility, and adaptive guidance to the validated catalog.
+3. Verify guidance search, interactive behavior, accessibility, and adaptive layouts before exposing it in the app.
 4. Track unfinished components only in `TASKS.md`; never add placeholder cards to the installed catalog.
 5. Add an independent web counterpart after the Android reference has stabilized.
 
@@ -84,14 +84,14 @@ The documentation site is the guidance entry point and the frozen 1.5.0 legacy s
 
 Material Design is a Kotlin and Jetpack Compose component gallery whose repository source is the implementation reference. `material-app/app/` owns only bootstrap, typed navigation, the adaptive shell, and dependency composition. `core/` owns the validated offline catalog, deterministic search, DataStore preferences, and design system; `feature/` owns product surfaces; `samples/` owns state-hoisted implementations grouped by official Material domains. The Gradle version catalog remains the dependency source of truth.
 
-The bundled JSON catalog records only working entries. It distinguishes API availability (stable artifact or alpha-only) from API stability (stable or experimental), and its tests require exact dependency-version alignment, existing source paths, unique canonical names, and registered demos.
+The bundled JSON catalog records only working entries. It distinguishes API availability (stable artifact or alpha-only) from API stability (stable or experimental), and its tests require exact dependency-version alignment, existing source paths, unique canonical names, complete development guidance, and registered demos. Guidance is part of the product contract: every entry explains purpose, appropriate and inappropriate use, expected behavior, accessibility, and adaptive layout decisions.
 
 ```powershell
 cd material-app
 .\gradlew.bat testDebugUnitTest assembleDebug
 ```
 
-Preserve the `Material Design` application label, namespace/application ID `dev.qtremors.materialdesign`, public version `2.0.0`, and Android assets. Use official component names in UI and catalog metadata; older project terms belong only in aliases when useful for search. Detailed Android references are linked from the [documentation skill index](https://qtremors.github.io/material-design/#skills).
+Preserve the `Material Design` application label, namespace/application ID `dev.qtremors.materialdesign`, public version `2.0.1`, and Android assets. Use official component names in UI and catalog metadata; older project terms belong only in aliases when useful for search. Detailed Android references are linked from the [documentation skill index](https://qtremors.github.io/material-design/#skills).
 
 ### Android motion contract
 

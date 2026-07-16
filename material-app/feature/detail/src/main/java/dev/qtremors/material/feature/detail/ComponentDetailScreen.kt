@@ -19,6 +19,7 @@ import androidx.compose.material.icons.filled.OpenInNew
 import androidx.compose.material.icons.outlined.BookmarkBorder
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -42,7 +43,7 @@ import dev.qtremors.material.core.catalog.ApiStability
 import dev.qtremors.material.core.catalog.CatalogEntry
 import dev.qtremors.material.core.catalog.ImplementationKind
 
-enum class DetailSection(val label: String) { PREVIEW("Preview"), VARIANTS("Variants"), INSPECT("Inspect"), API("API") }
+enum class DetailSection(val label: String) { PREVIEW("Preview"), GUIDANCE("Guidance"), INSPECT("Inspect"), API("API") }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -84,7 +85,7 @@ fun ComponentDetailScreen(
             }
             when (selectedSection) {
                     DetailSection.PREVIEW -> PreviewSection(demo)
-                    DetailSection.VARIANTS -> VariantsSection(entry, demo)
+                    DetailSection.GUIDANCE -> GuidanceSection(entry)
                     DetailSection.INSPECT -> InspectSection(entry)
                     DetailSection.API -> ApiSection(entry)
             }
@@ -104,14 +105,57 @@ private fun PreviewSection(demo: @Composable () -> Unit) {
 }
 
 @Composable
-private fun VariantsSection(entry: CatalogEntry, demo: @Composable () -> Unit) {
+private fun GuidanceSection(entry: CatalogEntry) {
     Column(
         Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(20.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp),
+        verticalArrangement = Arrangement.spacedBy(18.dp),
     ) {
-        Text("Variants and states", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
-        Text("The working sample exposes the variants and interactive states currently implemented for ${entry.officialName}.")
-        Card(Modifier.fillMaxWidth()) { Column(Modifier.padding(20.dp)) { demo() } }
+        Text("Design guidance", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
+        Card(
+            modifier = Modifier.fillMaxWidth(),
+            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
+        ) {
+            Column(Modifier.padding(18.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                Text("Purpose", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary)
+                Text(entry.guidance.purpose, style = MaterialTheme.typography.titleMedium)
+            }
+        }
+        GuidanceList("Use when", entry.guidance.useWhen)
+        GuidanceList("Avoid when", entry.guidance.avoidWhen, caution = true)
+        GuidanceList("Behavior and feeling", entry.guidance.behavior)
+        GuidanceList("Accessibility", entry.guidance.accessibility)
+        GuidanceList("Adaptive layouts", entry.guidance.adaptive)
+    }
+}
+
+@Composable
+private fun GuidanceList(title: String, items: List<String>, caution: Boolean = false) {
+    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        Text(
+            title,
+            style = MaterialTheme.typography.titleMedium,
+            fontWeight = FontWeight.Bold,
+            color = if (caution) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurface,
+        )
+        Card(
+            modifier = Modifier.fillMaxWidth(),
+            colors = CardDefaults.cardColors(
+                containerColor = if (caution) {
+                    MaterialTheme.colorScheme.errorContainer
+                } else {
+                    MaterialTheme.colorScheme.surfaceContainerLow
+                },
+            ),
+        ) {
+            Column(Modifier.padding(horizontal = 18.dp, vertical = 14.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                items.forEach { item ->
+                    Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                        Text("•", fontWeight = FontWeight.Bold)
+                        Text(item, modifier = Modifier.weight(1f))
+                    }
+                }
+            }
+        }
     }
 }
 
