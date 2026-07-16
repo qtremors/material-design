@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings | Material Design</title>
+    <link rel="icon" type="image/png" href="../../assets/material-design.png">
+    
+    <!-- SECTION: Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Flex:opsz,wdth,wght@8..144,100,100..400&family=Open+Sans:wght@400;600&family=Space+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+
+    <!-- SECTION: Theme Engine -->
+    <script src="js/theme.js"></script>
+
+    <!-- SECTION: Styles -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components/navigation.css">
+    <link rel="stylesheet" href="css/components/buttons.css">
+    <link rel="stylesheet" href="css/components/cards.css">
+    <link rel="stylesheet" href="css/components/inputs.css">
+    <link rel="stylesheet" href="css/components/feedback.css">
+    <link rel="stylesheet" href="css/components/chips.css">
+    <link rel="stylesheet" href="css/components/fab.css">
+    
+    <!-- Page Specific Styles -->
+    <link rel="stylesheet" href="css/settings.css">
+</head>
+<body>
+
+    <!-- SECTION: Navigation -->
+
+    <!-- SECTION: Main Content -->
+    <main>
+        <div class="top-app-bar">
+            <a href="../index.html" class="header-logo ripple-target" title="Home">
+                <img src="../../assets/material-design.png" alt="Material Design Logo">
+            </a>
+            <h2>Settings</h2>
+            <div style="flex: 1"></div>
+            <div class="actions">
+                <div class="swatch-row desktop-only" style="display: flex; gap: 8px;"></div>
+            </div>
+        </div>
+
+        <div class="container settings-container">
+            
+            <!-- SECTION: Appearance Card -->
+            <div class="settings-card">
+                <div class="settings-header">
+                    <h3>Appearance</h3>
+                </div>
+
+                <!-- Theme Mode -->
+                <div class="control-row">
+                    <div>
+                        <div class="control-label">Theme Mode</div>
+                        <div class="control-desc">Switch between light and dark themes</div>
+                    </div>
+                    <div class="toggle-group">
+                        <button class="toggle-btn ripple-target" id="btn-theme-light" data-action="set-theme-mode" data-value="light">
+                            <span style="display:flex;align-items:center;gap:6px;"><span class="material-symbols-rounded" style="font-size:18px">light_mode</span> Light</span>
+                        </button>
+                        <button class="toggle-btn ripple-target" id="btn-theme-dark" data-action="set-theme-mode" data-value="dark">
+                            <span style="display:flex;align-items:center;gap:6px;"><span class="material-symbols-rounded" style="font-size:18px">dark_mode</span> Dark</span>
+                        </button>
+                        <button class="toggle-btn ripple-target" id="btn-theme-oled" data-action="set-theme-mode" data-value="oled">
+                            <span style="display:flex;align-items:center;gap:6px;"><span class="material-symbols-rounded" style="font-size:18px">contrast</span> OLED</span>
+                        </button>
+                    </div>
+                </div>
+
+                <hr style="border:0; border-top:1px solid var(--md-sys-color-outline-variant); margin: 24px 0;">
+                <!-- Color Palette -->
+                <div class="control-row accent-color-row">
+                     <div>
+                        <div class="control-label">Accent Color</div>
+                        <div class="control-desc">Select your preferred color seed</div>
+                    </div>
+                    <div class="color-grid">
+                        <!-- Standard -->
+                        <div class="color-option" data-color="monochrome" style="background: #5F6368;" data-action="set-theme-seed" data-value="monochrome">
+                            <span class="material-symbols-rounded">check</span>
+                        </div>
+                        <div class="color-option" data-color="blue" style="background: #2962FF;" data-action="set-theme-seed" data-value="blue">
+                            <span class="material-symbols-rounded">check</span>
+                        </div>
+                        <div class="color-option" data-color="purple" style="background: #6750A4;" data-action="set-theme-seed" data-value="purple">
+                            <span class="material-symbols-rounded">check</span>
+                        </div>
+                        <div class="color-option" data-color="green" style="background: #006C51;" data-action="set-theme-seed" data-value="green">
+                            <span class="material-symbols-rounded">check</span>
+                        </div>
+                        <div class="color-option" data-color="teal" style="background: #006A6A;" data-action="set-theme-seed" data-value="teal">
+                            <span class="material-symbols-rounded">check</span>
+                        </div>
+                        <div class="color-option" data-color="cyan" style="background: #0097A7;" data-action="set-theme-seed" data-value="cyan">
+                            <span class="material-symbols-rounded">check</span>
+                        </div>
+                        <div class="color-option" data-color="yellow" style="background: #6D5E00;" data-action="set-theme-seed" data-value="yellow">
+                            <span class="material-symbols-rounded">check</span>
+                        </div>
+                        <div class="color-option" data-color="orange" style="background: #8B5000;" data-action="set-theme-seed" data-value="orange">
+                            <span class="material-symbols-rounded">check</span>
+                        </div>
+                        <div class="color-option" data-color="pink" style="background: #BC004B;" data-action="set-theme-seed" data-value="pink">
+                            <span class="material-symbols-rounded">check</span>
+                        </div>
+                         <div class="color-option" data-color="red" style="background: #B3261E;" data-action="set-theme-seed" data-value="red">
+                            <span class="material-symbols-rounded">check</span>
+                        </div>
+                    </div>
+            </div> <!-- End of Appearance Card -->
+
+            <div style="text-align: center; margin-top: 32px;">
+                <button class="md-btn md-btn-text ripple-target" data-action="reset-settings" style="color: var(--md-sys-color-error);">
+                    Reset Settings
+                </button>
+            </div>
+
+        </div>
+    </main>
+
+    <script src="js/navigation.js"></script>
+    
+    <!-- SECTION: Scripts -->
+    <script src="js/components/ripples.js"></script>
+    <script src="js/components/tabs.js"></script>
+    <script src="js/components/dialogs.js"></script>
+    <script src="js/components/sheets.js"></script>
+    <script src="js/components/inputs.js"></script>
+    <script src="js/components/sliders.js"></script>
+    <script src="js/components/motion.js"></script>
+    <script src="js/components/interactions.js"></script>
+    <script src="js/components/settings.js"></script>
+
+    <script src="js/scripts.js"></script>
+</body>
+</html>

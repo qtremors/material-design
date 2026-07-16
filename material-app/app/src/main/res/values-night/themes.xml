@@ -1,0 +1,4 @@
+<resources>
+    <!-- Night variant — Compose handles dark mode; no override needed. -->
+    <style name="Theme.MaterialDesign" parent="Theme.AppCompat.DayNight.NoActionBar" />
+</resources>
