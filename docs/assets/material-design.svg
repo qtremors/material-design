@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" role="img" aria-labelledby="title desc">
+  <title id="title">Material Design logo</title>
+  <desc id="desc">Four interlocking blue, red, yellow, and green rounded forms.</desc>
+  <defs>
+    <linearGradient id="red" x1="174" y1="84" x2="392" y2="240" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ef5145"/>
+      <stop offset="0.52" stop-color="#dc4034"/>
+      <stop offset="1" stop-color="#cf392f"/>
+    </linearGradient>
+    <radialGradient id="blue" cx="0" cy="0" r="1" gradientTransform="translate(142 111) rotate(49) scale(205 207)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#4a92f8"/>
+      <stop offset="0.58" stop-color="#3f84f0"/>
+      <stop offset="1" stop-color="#2f70dc"/>
+    </radialGradient>
+    <linearGradient id="green" x1="190" y1="265" x2="390" y2="414" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#19a86c"/>
+      <stop offset="0.56" stop-color="#149b62"/>
+      <stop offset="1" stop-color="#108c58"/>
+    </linearGradient>
+    <radialGradient id="yellow" cx="0" cy="0" r="1" gradientTransform="translate(133 287) rotate(49) scale(211 213)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffc51a"/>
+      <stop offset="0.52" stop-color="#f8b805"/>
+      <stop offset="1" stop-color="#e9a400"/>
+    </radialGradient>
+    <linearGradient id="overlap" x1="252" y1="168" x2="252" y2="332" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#173e91" stop-opacity=".58"/>
+      <stop offset=".48" stop-color="#124c62" stop-opacity=".64"/>
+      <stop offset="1" stop-color="#0b603d" stop-opacity=".58"/>
+    </linearGradient>
+    <clipPath id="top-capsule">
+      <path d="M177 84h153a84 84 0 0 1 0 168H177a84 84 0 0 1 0-168Z"/>
+    </clipPath>
+    <clipPath id="bottom-capsule">
+      <path d="M177 251h153a85 85 0 0 1 0 170H177a85 85 0 0 1 0-170Z"/>
+    </clipPath>
+  </defs>
+
+  <g>
+    <g clip-path="url(#top-capsule)">
+      <path fill="url(#red)" d="M93 84h321v168H93z"/>
+      <path fill="url(#blue)" d="M177 84c43 0 77 35 77 84 0 37 30 71 76 84H93V84Z"/>
+    </g>
+
+    <g clip-path="url(#bottom-capsule)">
+      <path fill="url(#green)" d="M93 251h321v170H93z"/>
+      <path fill="url(#yellow)" d="M177 251c43 0 73 34 73 83 0 43 29 75 80 87H93V251Z"/>
+    </g>
+
+    <rect x="174" y="168" width="156" height="164" rx="78" fill="url(#overlap)" style="mix-blend-mode:multiply"/>
+
+    <path d="M177 84h153a84 84 0 0 1 0 168H177a84 84 0 0 1 0-168Z" fill="none" stroke="#fff" stroke-opacity=".72" stroke-width="1.15"/>
+    <path d="M177 251h153a85 85 0 0 1 0 170H177a85 85 0 0 1 0-170Z" fill="none" stroke="#fff" stroke-opacity=".72" stroke-width="1.15"/>
+  </g>
+</svg>

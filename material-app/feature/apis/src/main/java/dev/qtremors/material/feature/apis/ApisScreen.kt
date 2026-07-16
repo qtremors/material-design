@@ -40,7 +40,7 @@ fun ApisScreen(
         .sortedBy { it.second.symbol }
     Column(modifier.fillMaxSize()) {
         Text(
-            "Compose Material 3 · 1.5.0-alpha23\nStable artifact baseline · 1.4.0",
+            "Compose Material 3 · 1.5.0-alpha23\nCompose UI · 1.12.0-alpha03 · stable Material baseline · 1.4.0",
             modifier = Modifier.padding(20.dp),
             style = MaterialTheme.typography.titleMedium,
         )

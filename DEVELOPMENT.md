@@ -2,7 +2,7 @@
 
 > Comprehensive documentation for the Material Design.
 
-**Project:** 2.0.1 | **Last Updated:** 2026-07-16
+**Project:** 2.0.2 | **Last Updated:** 2026-07-16
 
 ---
 
@@ -53,7 +53,7 @@ Apply these rules to every active surface:
 - **Treat generic UI as unfinished.** Temporary platform defaults or placeholder styling are acceptable during development only when clearly treated as WIP. They must be replaced or deliberately justified before the affected surface is considered ready.
 - **Review the host surface with the demo.** Component review must evaluate both the focused example and the product UI used to reach, configure, understand, and leave that example.
 
-The frozen `docs/material-web-legacy/` showcase is the historical exception: preserve it as older work rather than retrofitting it to the evolving 2.0.1 design system.
+The frozen `docs/material-web-legacy/` showcase is the historical exception: preserve it as older work rather than retrofitting it to the evolving 2.0.2 design system.
 
 ---
 
@@ -61,8 +61,8 @@ The frozen `docs/material-web-legacy/` showcase is the historical exception: pre
 
 | Surface | Current version | Published location |
 |---------|-----------------|--------------------|
-| Android app | 2.0.1, WIP | [GitHub Releases for APK downloads](https://github.com/qtremors/material-design/releases) |
-| Web documentation | 2.0.1 | [https://qtremors.github.io/material-design/](https://qtremors.github.io/material-design/) |
+| Android app | 2.0.2, WIP | [GitHub Releases for APK downloads](https://github.com/qtremors/material-design/releases) |
+| Web documentation | 2.0.2 | [https://qtremors.github.io/material-design/](https://qtremors.github.io/material-design/) |
 | Frozen legacy web | 1.5.0 | [https://qtremors.github.io/material-design/material-web-legacy/](https://qtremors.github.io/material-design/material-web-legacy/) |
 | Future Material Web | Future | [Published project route](https://qtremors.github.io/material-design/material-web/) |
 
@@ -91,7 +91,7 @@ cd material-app
 .\gradlew.bat testDebugUnitTest assembleDebug
 ```
 
-Preserve the `Material Design` application label, namespace/application ID `dev.qtremors.materialdesign`, public version `2.0.1`, and Android assets. Use official component names in UI and catalog metadata; older project terms belong only in aliases when useful for search. Detailed Android references are linked from the [documentation skill index](https://qtremors.github.io/material-design/#skills).
+Preserve the `Material Design` application label, namespace/application ID `dev.qtremors.materialdesign`, public version `2.0.2`, and Android assets. Use official component names in UI and catalog metadata; older project terms belong only in aliases when useful for search. Detailed Android references are linked from the [documentation skill index](https://qtremors.github.io/material-design/#skills).
 
 ### Android motion contract
 

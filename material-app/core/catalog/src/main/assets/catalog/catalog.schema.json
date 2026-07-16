@@ -3,10 +3,11 @@
   "$id": "https://qtremors.github.io/material-design/catalog.schema.json",
   "title": "Material Design Android working catalog",
   "type": "object",
-  "required": ["schemaVersion", "material3Version", "stableBaseline", "reviewedOn", "entries"],
+  "required": ["schemaVersion", "material3Version", "composeUiVersion", "stableBaseline", "reviewedOn", "entries"],
   "properties": {
     "schemaVersion": { "const": 1 },
     "material3Version": { "type": "string" },
+    "composeUiVersion": { "type": "string" },
     "stableBaseline": { "type": "string" },
     "reviewedOn": { "type": "string", "format": "date" },
     "entries": {

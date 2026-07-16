@@ -23,6 +23,7 @@ class BundledCatalogRepository(context: Context) : CatalogRepository {
     companion object {
         const val CATALOG_PATH = "catalog/catalog.json"
         const val MATERIAL3_VERSION = "1.5.0-alpha23"
+        const val COMPOSE_UI_VERSION = "1.12.0-alpha03"
         const val STABLE_BASELINE = "1.4.0"
     }
 }
@@ -32,6 +33,9 @@ object CatalogValidator {
         require(document.schemaVersion == 1) { "Unsupported catalog schema ${document.schemaVersion}" }
         require(document.material3Version == BundledCatalogRepository.MATERIAL3_VERSION) {
             "Catalog Material3 ${document.material3Version} does not match ${BundledCatalogRepository.MATERIAL3_VERSION}"
+        }
+        require(document.composeUiVersion == BundledCatalogRepository.COMPOSE_UI_VERSION) {
+            "Catalog Compose UI ${document.composeUiVersion} does not match ${BundledCatalogRepository.COMPOSE_UI_VERSION}"
         }
         require(document.stableBaseline == BundledCatalogRepository.STABLE_BASELINE)
         require(document.entries.isNotEmpty())

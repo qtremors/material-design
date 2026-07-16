@@ -9,15 +9,28 @@ import dev.qtremors.material.samples.actions.FloatingActionButtonsSample
 import dev.qtremors.material.samples.actions.SplitButtonsSample
 import dev.qtremors.material.samples.actions.ToggleButtonsSample
 import dev.qtremors.material.samples.containment.CardsSample
+import dev.qtremors.material.samples.communication.BottomSheetsSample
+import dev.qtremors.material.samples.communication.DialogsSample
+import dev.qtremors.material.samples.communication.MenusSample
 import dev.qtremors.material.samples.communication.ProgressIndicatorsSample
+import dev.qtremors.material.samples.communication.SnackbarsSample
+import dev.qtremors.material.samples.communication.TooltipsSample
 import dev.qtremors.material.samples.containment.CarouselsSample
 import dev.qtremors.material.samples.containment.ListsSample
 import dev.qtremors.material.samples.containment.SegmentedListItemsSample
 import dev.qtremors.material.samples.foundations.TypographySample
+import dev.qtremors.material.samples.foundations.AccessibilitySample
+import dev.qtremors.material.samples.foundations.ColorSample
+import dev.qtremors.material.samples.foundations.ElevationSample
+import dev.qtremors.material.samples.foundations.LayoutSample
+import dev.qtremors.material.samples.foundations.MotionSample
+import dev.qtremors.material.samples.foundations.ShapeSample
 import dev.qtremors.material.samples.navigation.FloatingToolbarsSample
 import dev.qtremors.material.samples.selection.ChipsSample
 import dev.qtremors.material.samples.selection.SegmentedButtonsSample
 import dev.qtremors.material.samples.selection.SelectionControlsSample
+import dev.qtremors.material.samples.selection.SearchSample
+import dev.qtremors.material.samples.selection.TextFieldsSample
 
 class MaterialDemoRegistry : ComponentDemoRegistry {
     override val registeredKeys: Set<String> = setOf(
@@ -27,6 +40,11 @@ class MaterialDemoRegistry : ComponentDemoRegistry {
         "actions.split-buttons",
         "actions.fabs",
         "communication.progress",
+        "communication.dialogs",
+        "communication.bottom-sheets",
+        "communication.snackbars",
+        "communication.tooltips",
+        "communication.menus",
         "containment.segmented-lists",
         "containment.carousels",
         "containment.cards",
@@ -34,8 +52,16 @@ class MaterialDemoRegistry : ComponentDemoRegistry {
         "selection.chips",
         "selection.segmented-buttons",
         "selection.controls",
+        "selection.text-fields",
+        "selection.search",
         "navigation.floating-toolbars",
         "foundations.typography",
+        "foundations.color",
+        "foundations.shape",
+        "foundations.motion",
+        "foundations.elevation",
+        "foundations.layout",
+        "foundations.accessibility",
     )
 
     @Composable
@@ -47,6 +73,11 @@ class MaterialDemoRegistry : ComponentDemoRegistry {
             "actions.split-buttons" -> SplitButtonsSample()
             "actions.fabs" -> FloatingActionButtonsSample()
             "communication.progress" -> ProgressIndicatorsSample()
+            "communication.dialogs" -> DialogsSample()
+            "communication.bottom-sheets" -> BottomSheetsSample()
+            "communication.snackbars" -> SnackbarsSample()
+            "communication.tooltips" -> TooltipsSample()
+            "communication.menus" -> MenusSample()
             "containment.segmented-lists" -> SegmentedListItemsSample()
             "containment.carousels" -> CarouselsSample()
             "containment.cards" -> CardsSample()
@@ -54,8 +85,16 @@ class MaterialDemoRegistry : ComponentDemoRegistry {
             "selection.chips" -> ChipsSample()
             "selection.segmented-buttons" -> SegmentedButtonsSample()
             "selection.controls" -> SelectionControlsSample()
+            "selection.text-fields" -> TextFieldsSample()
+            "selection.search" -> SearchSample()
             "navigation.floating-toolbars" -> FloatingToolbarsSample()
             "foundations.typography" -> TypographySample()
+            "foundations.color" -> ColorSample()
+            "foundations.shape" -> ShapeSample()
+            "foundations.motion" -> MotionSample()
+            "foundations.elevation" -> ElevationSample()
+            "foundations.layout" -> LayoutSample()
+            "foundations.accessibility" -> AccessibilitySample()
             else -> Text("Missing working demo: $demoKey")
         }
     }

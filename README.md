@@ -11,7 +11,7 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Android-Kotlin%20%2B%20Compose-34A853?logo=android" alt="Android with Kotlin and Compose">
   <img src="https://img.shields.io/badge/Web-HTML%20%2B%20CSS%20%2B%20JS-6750A4" alt="Vanilla HTML, CSS, and JavaScript">
-  <img src="https://img.shields.io/badge/Version-2.0.1-blueviolet" alt="Project version 2.0.1">
+  <img src="https://img.shields.io/badge/Version-2.0.2-blueviolet" alt="Project version 2.0.2">
 </p>
 
 > [!NOTE]
@@ -40,7 +40,7 @@ The goal is to make this repository a concrete reference an agent can inspect: f
 
 | Project | Purpose | Status |
 |---------|---------|--------|
-| [`material-app/`](material-app/) | Searchable Material Design gallery and modular Compose source reference | 2.0.1, active |
+| [`material-app/`](material-app/) | Searchable Material Design gallery and modular Compose source reference | 2.0.2, active |
 | [`docs/material-web-legacy/`](https://qtremors.github.io/material-design/material-web-legacy/) | Current browser showcase and original framework-free implementation | Frozen at 1.5.0 |
 | [`material-web/`](material-web/) | Future independent vanilla HTML/CSS/JS implementation | Future |
 | [`docs/`](https://qtremors.github.io/material-design/) | Responsive documentation and Material 3 Expressive learning site | Active |
@@ -52,8 +52,8 @@ Android and web share UI/UX intent—appearance, states, terminology, interactio
 
 | Surface | Version | Public entry point |
 |---------|---------|--------------------|
-| Android app | 2.0.1, WIP | [APK releases](https://github.com/qtremors/material-design/releases) |
-| Web documentation | 2.0.1 | [Live documentation](https://qtremors.github.io/material-design/) |
+| Android app | 2.0.2, WIP | [APK releases](https://github.com/qtremors/material-design/releases) |
+| Web documentation | 2.0.2 | [Live documentation](https://qtremors.github.io/material-design/) |
 | Legacy web showcase | 1.5.0, frozen | [Live legacy showcase](https://qtremors.github.io/material-design/material-web-legacy/) |
 | Future Material Web | Future | [Project route](https://qtremors.github.io/material-design/material-web/) |
 
@@ -63,7 +63,7 @@ Android and web share UI/UX intent—appearance, states, terminology, interactio
 
 The Android app is a living component gallery rather than a course or code browser. Search official names and aliases, interact with working variants and states, inspect stable versus experimental Compose APIs, and copy repository-relative source paths for agents or developers.
 
-Current working references include Buttons, Button groups, Toggle buttons, Split buttons, Floating action buttons, Progress indicators, Cards, Lists, Segmented list items, Carousels, Chips, Segmented buttons, Selection controls, Floating toolbars, and Typography. Each catalog entry includes searchable purpose, use and avoid rules, behavior, accessibility, adaptive guidance, reviewed API metadata, and source locations. The adaptive shell provides Explore, Catalog, APIs, and Foundations destinations plus local bookmarks, recent history, theme, dynamic-color, and reduced-motion settings.
+Current working references include action, selection, text input, search, containment, progress, dialog, sheet, snackbar, tooltip, menu, floating toolbar, and typography components. Inspectable Color, Shape, Motion, Elevation, Layout, and Accessibility foundations connect the component examples to system-level decisions. Each catalog entry includes searchable purpose, use and avoid rules, behavior, accessibility, adaptive guidance, reviewed API metadata, and source locations. The adaptive shell provides Explore, Catalog, APIs, and Foundations destinations plus local bookmarks, recent history, theme, dynamic-color, and reduced-motion settings.
 
 ## ✨ Legacy Web Features
 

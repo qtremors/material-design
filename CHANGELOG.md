@@ -1,7 +1,17 @@
 # Material Design Changelog
 
 > **Project:** Material Design  
-> **Project Version:** 2.0.1
+> **Project Version:** 2.0.2
+
+---
+
+## [2.0.2] - 2026-07-16
+
+### Added & Improved
+
+- Added independently implemented Text fields, Search, Dialogs, Bottom sheets, Snackbars, Tooltips, and Menus references.
+- Added inspectable Color, Shape, Motion, Elevation, Layout, and Accessibility foundations.
+- Expanded searchable guidance, API metadata, source validation, catalog tests, and accessibility coverage for the new references.
 
 ---
 
@@ -9,7 +19,7 @@
 
 ### Added & Improved
 
-- Added independently implemented references for selection and containment components, backed by searchable design, behavior, accessibility, adaptive, and API guidance.
+- Added independently implemented Button groups, Toggle buttons, Cards, Lists, Chips, Segmented buttons, and Selection controls references.
 - Reworked component details around Preview, Guidance, Inspect, and API/source workflows, and applied the component system to API filters and Settings.
 - Expanded catalog validation and tests for source paths, registered demos, guidance completeness, aliases, API symbols, and guidance search.
 

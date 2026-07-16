@@ -2,7 +2,7 @@
 
 > **Project:** Material Design
 >
-> **Version:** 2.0.1
+> **Version:** 2.0.2
 >
 > **Last Updated:** 2026-07-16
 
@@ -28,10 +28,10 @@ Add an item to the app only after the implementation, interactive demo, official
 - [x] Cards and standard list items
 - [x] Chips and segmented buttons
 - [x] Checkboxes, radio buttons, switches, and parent selection state
-- [ ] Text fields and search
+- [x] Text fields and search
 - [ ] Navigation bars, rails, drawers, and tabs
-- [ ] Dialogs, sheets, snackbars, tooltips, and menus
-- [ ] Color, shape, motion, elevation, layout, and accessibility foundation inspectors
+- [x] Dialogs, sheets, snackbars, tooltips, and menus
+- [x] Color, shape, motion, elevation, layout, and accessibility foundation inspectors
 
 ## Web
 

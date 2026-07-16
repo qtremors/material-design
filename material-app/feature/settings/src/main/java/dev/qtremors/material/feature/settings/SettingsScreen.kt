@@ -138,13 +138,13 @@ fun SettingsScreen(
                 SegmentedListItem(
                     shapes = ListItemDefaults.segmentedShapes(0, 3),
                     leadingContent = { Icon(Icons.Default.Info, contentDescription = null) },
-                    supportingContent = { Text("Version 2.0.1") },
+                    supportingContent = { Text("Version 2.0.2") },
                     content = { Text("Material Design") },
                 )
                 SegmentedListItem(
                     shapes = ListItemDefaults.segmentedShapes(1, 3),
                     leadingContent = { Icon(Icons.Default.Contrast, contentDescription = null) },
-                    supportingContent = { Text("Material 3 1.5.0-alpha23 · stable baseline 1.4.0") },
+                    supportingContent = { Text("Material 3 1.5.0-alpha23 · Compose UI 1.12.0-alpha03") },
                     content = { Text("Catalog snapshot") },
                 )
                 SegmentedListItem(

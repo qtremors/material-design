@@ -7,6 +7,7 @@ import kotlinx.serialization.Serializable
 data class CatalogDocument(
     val schemaVersion: Int,
     val material3Version: String,
+    val composeUiVersion: String,
     val stableBaseline: String,
     val reviewedOn: String,
     val entries: List<CatalogEntry>,
