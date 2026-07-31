@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" role="img" aria-labelledby="title desc">
+  <title id="title">Material Design monochrome logo</title>
+  <desc id="desc">Four interlocking grayscale rounded forms with a dark central overlap.</desc>
+  <defs>
+    <linearGradient id="light-top" x1="174" y1="84" x2="392" y2="240" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#c9c9c9"/>
+      <stop offset=".52" stop-color="#ababab"/>
+      <stop offset="1" stop-color="#919191"/>
+    </linearGradient>
+    <radialGradient id="dark-top" cx="0" cy="0" r="1" gradientTransform="translate(142 111) rotate(49) scale(205 207)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#707070"/>
+      <stop offset=".58" stop-color="#606060"/>
+      <stop offset="1" stop-color="#4d4d4d"/>
+    </radialGradient>
+    <linearGradient id="dark-bottom" x1="190" y1="265" x2="390" y2="414" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#9a9a9a"/>
+      <stop offset=".56" stop-color="#858585"/>
+      <stop offset="1" stop-color="#747474"/>
+    </linearGradient>
+    <radialGradient id="light-bottom" cx="0" cy="0" r="1" gradientTransform="translate(133 287) rotate(49) scale(211 213)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f6f6f6"/>
+      <stop offset=".52" stop-color="#e8e8e8"/>
+      <stop offset="1" stop-color="#d7d7d7"/>
+    </radialGradient>
+    <linearGradient id="overlap" x1="252" y1="168" x2="252" y2="332" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#1f1f1f" stop-opacity=".72"/>
+      <stop offset=".48" stop-color="#292929" stop-opacity=".76"/>
+      <stop offset="1" stop-color="#444" stop-opacity=".68"/>
+    </linearGradient>
+  </defs>
+
+  <g>
+    <path fill="url(#light-top)" d="M177 84h153a84 84 0 0 1 0 168H177a84 84 0 0 1 0-168Z"/>
+    <path fill="url(#dark-top)" d="M177 84c43 0 77 35 77 84 0 37 30 71 76 84H177a84 84 0 0 1 0-168Z"/>
+    <path fill="url(#dark-bottom)" d="M177 251h153a85 85 0 0 1 0 170H177a85 85 0 0 1 0-170Z"/>
+    <path fill="url(#light-bottom)" d="M177 251c43 0 73 34 73 83 0 43 29 75 80 87H177a85 85 0 0 1 0-170Z"/>
+    <rect x="174" y="168" width="156" height="164" rx="78" fill="url(#overlap)"/>
+    <path d="M177 84h153a84 84 0 0 1 0 168H177a84 84 0 0 1 0-168Z" fill="none" stroke="#fff" stroke-opacity=".72" stroke-width="1.15"/>
+    <path d="M177 251h153a85 85 0 0 1 0 170H177a85 85 0 0 1 0-170Z" fill="none" stroke="#fff" stroke-opacity=".72" stroke-width="1.15"/>
+  </g>
+</svg>

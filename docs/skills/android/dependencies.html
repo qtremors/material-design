@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Reference for Material Design Android library versions, Gradle catalog entries, dependency declarations, and plugin updates.">
   <title>Android Libraries and Versions · Material Design</title>
-  <link rel="icon" type="image/png" href="../../assets/material-design.png">
+  <link rel="icon" type="image/svg+xml" href="../../assets/material-design.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,75..125,300..800&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,300..600,0..1,-50..200" rel="stylesheet">
@@ -13,13 +13,13 @@
 </head>
 <body class="docs-page skill-page">
   <header class="site-header">
-    <a class="brand" href="../../" aria-label="Documentation home"><img src="../../assets/material-design.png" alt="" width="44" height="44"><span>Material Design</span></a>
+    <a class="brand" href="../../" aria-label="Documentation home"><img src="../../assets/material-design.svg" alt="" width="44" height="44"><span>Material Design</span></a>
     <nav aria-label="Skill navigation"><a href="../../projects/android.html">Android project</a><a href="../web/material-expressive-development.html">Web</a><a class="nav-action" href="../../#skills">All skills</a></nav>
   </header>
   <main>
     <section class="docs-hero skill-hero"><p class="eyebrow">Android skill</p><h1>Android Libraries and Versions</h1><p>Reference for all library versions, Gradle catalog entries, dependency declarations, and plugins used by the Material Design Android project.</p></section>
     <article class="docs-article skill-article"><p>All version management lives in <code>material-app/gradle/libs.versions.toml</code>.
-Dependencies are declared in <code>material-app/app/build.gradle.kts</code>.</p>
+Dependencies are declared in module <code>build.gradle.kts</code> files. For agent and harness use, see the <a href="https://github.com/qtremors/material-design/blob/main/skills/android/dependencies.md">Markdown version</a>.</p>
 <hr>
 <h2>Toolchain</h2>
 <table>
@@ -31,7 +31,7 @@ Dependencies are declared in <code>material-app/app/build.gradle.kts</code>.</p>
 </thead>
 <tbody><tr>
 <td>Android Gradle Plugin (AGP)</td>
-<td><code>9.2.1</code></td>
+<td><code>9.3.0</code></td>
 </tr>
 <tr>
 <td>Kotlin</td>
@@ -75,7 +75,12 @@ Dependencies are declared in <code>material-app/app/build.gradle.kts</code>.</p>
 <tbody><tr>
 <td><code>android-application</code></td>
 <td><code>com.android.application</code></td>
-<td><code>9.2.1</code></td>
+<td><code>9.3.0</code></td>
+</tr>
+<tr>
+<td><code>android-library</code></td>
+<td><code>com.android.library</code></td>
+<td><code>9.3.0</code></td>
 </tr>
 <tr>
 <td><code>kotlin-android</code></td>
@@ -85,6 +90,11 @@ Dependencies are declared in <code>material-app/app/build.gradle.kts</code>.</p>
 <tr>
 <td><code>kotlin-compose</code></td>
 <td><code>org.jetbrains.kotlin.plugin.compose</code></td>
+<td><code>2.2.10</code></td>
+</tr>
+<tr>
+<td><code>kotlin-serialization</code></td>
+<td><code>org.jetbrains.kotlin.plugin.serialization</code></td>
 <td><code>2.2.10</code></td>
 </tr>
 <tr>
@@ -132,10 +142,12 @@ androidx-compose-ui-tooling              = { group = &quot;androidx.compose.ui&q
 androidx-compose-ui-tooling-preview      = { group = &quot;androidx.compose.ui&quot;,             name = &quot;ui-tooling-preview&quot; }
 androidx-compose-ui-test-manifest        = { group = &quot;androidx.compose.ui&quot;,             name = &quot;ui-test-manifest&quot; }
 androidx-compose-ui-test-junit4          = { group = &quot;androidx.compose.ui&quot;,             name = &quot;ui-test-junit4&quot; }
+androidx-compose-ui-test-junit4-accessibility = { group = &quot;androidx.compose.ui&quot;,        name = &quot;ui-test-junit4-accessibility&quot; }
 androidx-compose-material3               = { group = &quot;androidx.compose.material3&quot;,      name = &quot;material3&quot;,             version.ref = &quot;composeMaterial3&quot; }
 androidx-compose-material3-adaptive      = { group = &quot;androidx.compose.material3.adaptive&quot;, name = &quot;adaptive&quot;,          version.ref = &quot;composeMaterial3Adaptive&quot; }
 androidx-compose-material3-adaptive-layout     = { group = &quot;androidx.compose.material3.adaptive&quot;, name = &quot;adaptive-layout&quot;,     version.ref = &quot;composeMaterial3Adaptive&quot; }
 androidx-compose-material3-adaptive-navigation = { group = &quot;androidx.compose.material3.adaptive&quot;, name = &quot;adaptive-navigation&quot;, version.ref = &quot;composeMaterial3Adaptive&quot; }
+androidx-compose-material3-adaptive-navigation-suite = { group = &quot;androidx.compose.material3&quot;, name = &quot;material3-adaptive-navigation-suite&quot;, version.ref = &quot;composeMaterial3&quot; }
 androidx-compose-material-icons-extended = { group = &quot;androidx.compose.material&quot;,       name = &quot;material-icons-extended&quot; }
 </code></pre>
 <h3>Usage in <code>app/build.gradle.kts</code></h3>
@@ -147,6 +159,7 @@ implementation(libs.androidx.compose.material3)
 implementation(libs.androidx.compose.material3.adaptive)
 implementation(libs.androidx.compose.material3.adaptive.layout)
 implementation(libs.androidx.compose.material3.adaptive.navigation)
+implementation(libs.androidx.compose.material3.adaptive.navigation.suite)
 implementation(libs.androidx.compose.material.icons.extended)
 </code></pre>
 <hr>
@@ -185,6 +198,12 @@ implementation(libs.androidx.compose.material.icons.extended)
 <td><code>2.10.0</code></td>
 </tr>
 <tr>
+<td><code>androidx-lifecycle-viewmodel-compose</code></td>
+<td><code>androidx.lifecycle</code></td>
+<td><code>lifecycle-viewmodel-compose</code></td>
+<td><code>2.10.0</code></td>
+</tr>
+<tr>
 <td><code>androidx-activity-compose</code></td>
 <td><code>androidx.activity</code></td>
 <td><code>activity-compose</code></td>
@@ -195,6 +214,27 @@ implementation(libs.androidx.compose.material.icons.extended)
 <td><code>androidx.navigation</code></td>
 <td><code>navigation-compose</code></td>
 <td><code>2.8.9</code></td>
+</tr>
+</tbody></table>
+<hr>
+<h2>Data and Serialization</h2>
+<table>
+<thead>
+<tr>
+<th>Catalog Alias</th>
+<th>Artifact</th>
+<th>Version</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>androidx-datastore-preferences</code></td>
+<td><code>androidx.datastore:datastore-preferences</code></td>
+<td><code>1.2.0</code></td>
+</tr>
+<tr>
+<td><code>kotlinx-serialization-json</code></td>
+<td><code>org.jetbrains.kotlinx:kotlinx-serialization-json</code></td>
+<td><code>1.9.0</code></td>
 </tr>
 </tbody></table>
 <hr>
@@ -233,6 +273,12 @@ implementation(libs.androidx.compose.material.icons.extended)
 <td><em>(BOM)</em></td>
 </tr>
 <tr>
+<td><code>androidx-compose-ui-test-junit4-accessibility</code></td>
+<td><code>androidx.compose.ui</code></td>
+<td><code>ui-test-junit4-accessibility</code></td>
+<td><em>(BOM)</em></td>
+</tr>
+<tr>
 <td><code>androidx-compose-ui-test-manifest</code></td>
 <td><code>androidx.compose.ui</code></td>
 <td><code>ui-test-manifest</code></td>
@@ -242,22 +288,22 @@ implementation(libs.androidx.compose.material.icons.extended)
 <hr>
 <h2>Adding a New Library</h2>
 <ol>
-<li>Add the version to <code>[versions]</code> in <code>gradle/libs.versions.toml</code>.</li>
+<li>Add the version to <code>[versions]</code> in <code>material-app/gradle/libs.versions.toml</code>.</li>
 <li>Add the library entry to <code>[libraries]</code>.</li>
 <li>Add the dependency to <code>app/build.gradle.kts</code> under the correct scope (<code>implementation</code>, <code>testImplementation</code>, etc.).</li>
-<li>Update the table in this skill file.</li>
-<li>Add an entry to the root <code>CHANGELOG.md</code> for the version that added the library.</li>
+<li>Update both the HTML and Markdown dependency skills.</li>
+<li>Add a concise entry to the current section of the root <code>CHANGELOG.md</code>. Do not bump the app version unless explicitly requested.</li>
 </ol>
 <h2>Bumping a Version</h2>
 <ol>
 <li>Update the version string in <code>[versions]</code>.</li>
 <li>Sync the Gradle project.</li>
 <li>Verify no API breakage in the affected feature demos.</li>
-<li>Update this skill file&#39;s tables.</li>
-<li>Note it in the root <code>CHANGELOG.md</code>.</li>
+<li>Update both dependency skill files.</li>
+<li>Note it in the current section of the root <code>CHANGELOG.md</code> without changing the app version unless explicitly requested.</li>
 </ol>
 </article>
   </main>
-  <footer><img src="../../assets/material-design.png" alt="" width="32" height="32"><p>Android-specific Material 3 Expressive guidance.</p><a href="../../#skills">All skills</a></footer>
+  <footer><img src="../../assets/material-design.svg" alt="" width="32" height="32"><p>Android dependency and toolchain guidance.</p><a href="../../#skills">All skills</a></footer>
 </body>
 </html>

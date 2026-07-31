@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Material Design 3 guidance and inspectable Android and legacy web references for humans, LLMs, and coding agents.">
+  <meta name="description" content="Material Design 3 guidance and inspectable Android and web references for humans, LLMs, and coding agents.">
   <title>Material Design 3 — Guidance and Working References</title>
-  <link rel="icon" type="image/png" href="assets/material-design.png">
+  <link rel="icon" type="image/svg+xml" href="assets/material-design.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,75..125,300..800&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,300..600,0..1,-50..200" rel="stylesheet">
@@ -14,7 +14,7 @@
 <body>
   <header class="site-header">
     <a class="brand" href="./" aria-label="Material Design learning home">
-      <img src="assets/material-design.png" alt="" width="44" height="44">
+      <img src="assets/material-design.svg" alt="" width="44" height="44">
       <span>Material Design</span>
     </a>
     <nav aria-label="Learning navigation">
@@ -52,7 +52,7 @@
         <div class="shape shape-large"></div>
         <div class="shape shape-medium"></div>
         <div class="shape shape-small"></div>
-        <img src="assets/material-design.png" alt="">
+        <img src="assets/material-design.svg" alt="">
       </div>
     </section>
 
@@ -171,29 +171,29 @@
       <div class="section-heading">
         <p class="eyebrow">Inspect working implementations</p>
         <h2 id="paths-title">Use the references available today.</h2>
-        <p>The Android gallery is the active source reference. The frozen 1.5.0 website is the current browser showcase, while Material Web is the future independent implementation.</p>
+        <p>The Android gallery, responsive 1.5.0 browser showcase, and independent Material Web workspace provide complementary ways to study and implement Material Design.</p>
       </div>
       <div class="project-grid">
         <article class="project-card app-card">
           <span class="material-symbols-rounded card-icon" aria-hidden="true">android</span>
-          <div class="status wip">Android · Active reference</div>
+          <div class="status active-reference">Android · Active reference</div>
           <h3>Experience and locate working components</h3>
           <p>Search, interact with, and inspect Material 3 components in the app, then use their canonical names and source paths to find the modular Compose implementation.</p>
           <a href="projects/android.html">Open the Android reference <span aria-hidden="true">→</span></a>
         </article>
-        <article class="project-card legacy-card">
-          <span class="material-symbols-rounded card-icon" aria-hidden="true">history_edu</span>
-          <div class="status frozen">Web 1.5.0 · Current browser showcase</div>
-          <h3>Explore the original web implementation</h3>
-          <p>Use the responsive vanilla HTML, CSS, and JavaScript showcase in a browser. It remains available as older work and receives no new parity changes.</p>
-          <a href="material-web-legacy/">Explore the legacy showcase <span aria-hidden="true">→</span></a>
+        <article class="project-card showcase-card">
+          <span class="material-symbols-rounded card-icon" aria-hidden="true">web</span>
+          <div class="status showcase">Web 1.5.0 · Responsive showcase</div>
+          <h3>Explore the browser implementation</h3>
+          <p>Use the responsive vanilla HTML, CSS, and JavaScript showcase to inspect components, themes, navigation, feedback, and design-token tools.</p>
+          <a href="material-web-legacy/">Explore the web showcase <span aria-hidden="true">→</span></a>
         </article>
         <article class="project-card web-card">
-          <span class="material-symbols-rounded card-icon" aria-hidden="true">schedule</span>
-          <div class="status planned">Material Web · Future</div>
-          <h3>Future independent implementation</h3>
-          <p>The new framework-free web counterpart has no active implementation or start date. Its route remains published only as a transparent status page.</p>
-          <a href="material-web/">Explore the future project <span aria-hidden="true">→</span></a>
+          <span class="material-symbols-rounded card-icon" aria-hidden="true">language</span>
+          <div class="status independent">Material Web · Independent workspace</div>
+          <h3>Build for the browser independently</h3>
+          <p>The framework-free Material Web workspace defines its own architecture, tokens, testing, accessibility, responsive behavior, and release workflow.</p>
+          <a href="material-web/">Explore Material Web <span aria-hidden="true">→</span></a>
         </article>
       </div>
     </section>
@@ -202,7 +202,7 @@
       <div class="section-heading">
         <p class="eyebrow">Reusable study instructions</p>
         <h2 id="skills-title">Deep guidance for people and agents.</h2>
-        <p>These HTML skills turn design principles into focused Android and web development practices.</p>
+        <p>Browsable HTML skills provide focused Android and web practices, with matching Markdown versions in the repository-root <a href="https://github.com/qtremors/material-design/tree/main/skills">skills directory</a> for agents and harnesses.</p>
       </div>
       <div class="reference-list">
         <a href="skills/android/material-design-development.html"><span><strong>Material Design Android Development</strong><small>Architecture, demo conventions, theming, and contribution rules</small></span><span aria-hidden="true">→</span></a>
@@ -223,15 +223,15 @@
         <a href="material-3-expressive-development.html"><span><strong>Material 3 Expressive development</strong><small>The complete foundations-to-verification learning guide</small></span><span aria-hidden="true">→</span></a>
         <a href="https://m3.material.io/"><span><strong>Official Material Design 3 guidance</strong><small>Foundations, styles, components, and patterns</small></span><span aria-hidden="true">↗</span></a>
         <a href="https://developer.android.com/develop/ui/compose/designsystems/material3"><span><strong>Material 3 in Compose</strong><small>Official Android theming and implementation guidance</small></span><span aria-hidden="true">↗</span></a>
-        <a href="parity.html"><span><strong>Implementation status</strong><small>See the working Android references and future independent web counterparts</small></span><span aria-hidden="true">→</span></a>
+        <a href="parity.html"><span><strong>Implementation status</strong><small>See Android references, browser showcase coverage, and Material Web scope</small></span><span aria-hidden="true">→</span></a>
         <a href="https://github.com/qtremors/material-design/releases"><span><strong>Android APK releases</strong><small>Try published versions of the Android component gallery</small></span><span aria-hidden="true">↗</span></a>
-        <a href="site-map.html"><span><strong>Complete site map</strong><small>Every guide, skill, platform page, and legacy example</small></span><span aria-hidden="true">→</span></a>
+        <a href="site-map.html"><span><strong>Complete site map</strong><small>Every guide, skill, platform page, and browser example</small></span><span aria-hidden="true">→</span></a>
       </div>
     </section>
   </main>
 
   <footer>
-    <img src="assets/material-design.png" alt="" width="32" height="32">
+    <img src="assets/material-design.svg" alt="" width="32" height="32">
     <p>Material Design education and inspectable references for humans, LLMs, and coding agents.</p>
     <a href="site-map.html">All resources</a>
   </footer>

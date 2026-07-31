@@ -56,13 +56,13 @@ When describing work, do not imply that referenced projects supplied implementat
 
 `docs/` explains the project, its development contracts, platform status, and Material guidance. It must remain responsive and readable for people and agents.
 
-### Frozen legacy showcase
+### Browser showcase
 
-`docs/material-web-legacy/` is the historical framework-free 1.5.0 browser showcase. Preserve it as frozen work. Do not retrofit active Android changes into it unless explicitly requested.
+`docs/material-web-legacy/` is the responsive framework-free 1.5.0 browser showcase. Keep its established UI and behavior coherent. Make showcase-specific changes only when they are in scope.
 
-### Future independent web implementation
+### Independent Material Web workspace
 
-`material-web/` is reserved for a future independent vanilla HTML/CSS/JavaScript implementation. Do not start it without an explicit project decision. Android and web may share design intent, but never implementation code, tokens, APIs, state management, architecture, or release schedules.
+`material-web/` is the dedicated independent vanilla HTML/CSS/JavaScript implementation workspace. Develop it only when the task explicitly includes Material Web. Android and web may share design intent, but never implementation code, tokens, APIs, state management, architecture, or release schedules.
 
 ## Android Architecture
 
@@ -142,7 +142,7 @@ Official components such as carousels, progress indicators, toolbars, sheets, an
 
 ## Product Language and Honesty
 
-- Use precise, neutral status language: working, refined, experimental, future, or frozen.
+- Use precise, neutral status language: working, refined, experimental, established, scoped, or verified.
 - Never invent popularity, download, ranking, engagement, or store metrics.
 - "Featured" is curated catalog metadata.
 - "Recently added" comes from release metadata.
@@ -247,4 +247,3 @@ A change is done only when:
 - Required tests, lint, compilation, and build checks pass.
 - The version and changelog history obey the release rules.
 - The working tree contains no accidental generated files or unrelated modifications.
-

@@ -2,7 +2,7 @@
 
 > **Project:** Material Design
 >
-> **Version:** 2.0.2
+> **Version:** 2.0.3
 >
 > **Last Updated:** 2026-07-16
 
@@ -35,5 +35,5 @@ Add an item to the app only after the implementation, interactive demo, official
 
 ## Web
 
-- [x] Keep the responsive legacy 1.5.0 showcase available as the current browser implementation.
-- [ ] Start the independent Material Web implementation only after an explicit future project decision.
+- [x] Keep the responsive 1.5.0 showcase available as the browser implementation.
+- [ ] Develop the independent Material Web implementation when explicitly prioritized.

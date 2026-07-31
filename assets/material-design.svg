@@ -27,28 +27,16 @@
       <stop offset=".48" stop-color="#124c62" stop-opacity=".64"/>
       <stop offset="1" stop-color="#0b603d" stop-opacity=".58"/>
     </linearGradient>
-    <clipPath id="top-capsule">
-      <path d="M177 84h153a84 84 0 0 1 0 168H177a84 84 0 0 1 0-168Z"/>
-    </clipPath>
-    <clipPath id="bottom-capsule">
-      <path d="M177 251h153a85 85 0 0 1 0 170H177a85 85 0 0 1 0-170Z"/>
-    </clipPath>
   </defs>
 
   <g>
-    <g clip-path="url(#top-capsule)">
-      <path fill="url(#red)" d="M93 84h321v168H93z"/>
-      <path fill="url(#blue)" d="M177 84c43 0 77 35 77 84 0 37 30 71 76 84H93V84Z"/>
-    </g>
+    <path fill="url(#red)" d="M177 84h153a84 84 0 0 1 0 168H177a84 84 0 0 1 0-168Z"/>
+    <path fill="url(#blue)" d="M177 84c43 0 77 35 77 84 0 37 30 71 76 84H177a84 84 0 0 1 0-168Z"/>
 
-    <g clip-path="url(#bottom-capsule)">
-      <path fill="url(#green)" d="M93 251h321v170H93z"/>
-      <path fill="url(#yellow)" d="M177 251c43 0 73 34 73 83 0 43 29 75 80 87H93V251Z"/>
-    </g>
+    <path fill="url(#green)" d="M177 251h153a85 85 0 0 1 0 170H177a85 85 0 0 1 0-170Z"/>
+    <path fill="url(#yellow)" d="M177 251c43 0 73 34 73 83 0 43 29 75 80 87H177a85 85 0 0 1 0-170Z"/>
 
-    <rect x="174" y="168" width="156" height="164" rx="78" fill="url(#overlap)" style="mix-blend-mode:multiply"/>
+    <rect x="174" y="168" width="156" height="164" rx="78" fill="url(#overlap)"/>
 
-    <path d="M177 84h153a84 84 0 0 1 0 168H177a84 84 0 0 1 0-168Z" fill="none" stroke="#fff" stroke-opacity=".72" stroke-width="1.15"/>
-    <path d="M177 251h153a85 85 0 0 1 0 170H177a85 85 0 0 1 0-170Z" fill="none" stroke="#fff" stroke-opacity=".72" stroke-width="1.15"/>
   </g>
 </svg>

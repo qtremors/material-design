@@ -1,17 +1,17 @@
 <p align="center">
-  <img src="docs/assets/material-design.png" alt="Material Design" width="120"/>
+  <img src="assets/material-design.svg" alt="Material Design" width="120"/>
 </p>
 
 <h1 align="center"><a href="https://qtremors.github.io/material-design/">Material Design</a></h1>
 
 <p align="center">
-  An active Android component gallery, a frozen responsive web showcase, and Material Design 3 guidance built for people, LLMs, and coding agents.
+  An active Android component gallery, a responsive web showcase, and Material Design 3 guidance built for people, LLMs, and coding agents.
 </p>
 
 <p align="center">
   <img src="https://img.shields.io/badge/Android-Kotlin%20%2B%20Compose-34A853?logo=android" alt="Android with Kotlin and Compose">
   <img src="https://img.shields.io/badge/Web-HTML%20%2B%20CSS%20%2B%20JS-6750A4" alt="Vanilla HTML, CSS, and JavaScript">
-  <img src="https://img.shields.io/badge/Version-2.0.2-blueviolet" alt="Project version 2.0.2">
+  <img src="https://img.shields.io/badge/Version-2.0.3-blueviolet" alt="Project version 2.0.3">
 </p>
 
 > [!NOTE]
@@ -31,7 +31,7 @@ The goal is to make this repository a concrete reference an agent can inspect: f
 ## Live Documentation and Showcase
 
 - **➡️ [Android APK releases](https://github.com/qtremors/material-design/releases)**
-- **➡️ [Frozen legacy web showcase](https://qtremors.github.io/material-design/material-web-legacy/)**
+- **➡️ [Responsive web showcase](https://qtremors.github.io/material-design/material-web-legacy/)**
 - **➡️ [Live web documentation and Material 3 Expressive guidance](https://qtremors.github.io/material-design/)**
 
 ---
@@ -40,11 +40,12 @@ The goal is to make this repository a concrete reference an agent can inspect: f
 
 | Project | Purpose | Status |
 |---------|---------|--------|
-| [`material-app/`](material-app/) | Searchable Material Design gallery and modular Compose source reference | 2.0.2, active |
-| [`docs/material-web-legacy/`](https://qtremors.github.io/material-design/material-web-legacy/) | Current browser showcase and original framework-free implementation | Frozen at 1.5.0 |
-| [`material-web/`](material-web/) | Future independent vanilla HTML/CSS/JS implementation | Future |
+| [`material-app/`](material-app/) | Searchable Material Design gallery and modular Compose source reference | 2.0.3, active |
+| [`docs/material-web-legacy/`](https://qtremors.github.io/material-design/material-web-legacy/) | Responsive browser showcase and framework-free implementation | 1.5.0, live |
+| [`material-web/`](material-web/) | Independent vanilla HTML/CSS/JS implementation workspace | Dedicated workspace |
 | [`docs/`](https://qtremors.github.io/material-design/) | Responsive documentation and Material 3 Expressive learning site | Active |
-| [`docs/skills/`](https://qtremors.github.io/material-design/#skills) | HTML guidance for Android and web development | Active |
+| [`docs/skills/`](https://qtremors.github.io/material-design/#skills) | Browsable HTML guidance for Android and web development | Active |
+| [`skills/`](skills/) | Markdown skills for agents and development harnesses | Active |
 
 Android and web share UI/UX intent—appearance, states, terminology, interaction purpose, and adaptive behaviour—but never implementation code, tokens, APIs, state management, or release schedules.
 
@@ -52,10 +53,10 @@ Android and web share UI/UX intent—appearance, states, terminology, interactio
 
 | Surface | Version | Public entry point |
 |---------|---------|--------------------|
-| Android app | 2.0.2, WIP | [APK releases](https://github.com/qtremors/material-design/releases) |
-| Web documentation | 2.0.2 | [Live documentation](https://qtremors.github.io/material-design/) |
-| Legacy web showcase | 1.5.0, frozen | [Live legacy showcase](https://qtremors.github.io/material-design/material-web-legacy/) |
-| Future Material Web | Future | [Project route](https://qtremors.github.io/material-design/material-web/) |
+| Android app | 2.0.3, active | [APK releases](https://github.com/qtremors/material-design/releases) |
+| Web documentation | 2.0.3 | [Live documentation](https://qtremors.github.io/material-design/) |
+| Web showcase | 1.5.0, live | [Browser showcase](https://qtremors.github.io/material-design/material-web-legacy/) |
+| Material Web | Independent workspace | [Project route](https://qtremors.github.io/material-design/material-web/) |
 
 ---
 
@@ -65,9 +66,9 @@ The Android app is a living component gallery rather than a course or code brows
 
 Current working references include action, selection, text input, search, containment, progress, dialog, sheet, snackbar, tooltip, menu, floating toolbar, and typography components. Inspectable Color, Shape, Motion, Elevation, Layout, and Accessibility foundations connect the component examples to system-level decisions. Each catalog entry includes searchable purpose, use and avoid rules, behavior, accessibility, adaptive guidance, reviewed API metadata, and source locations. The adaptive shell provides Explore, Catalog, APIs, and Foundations destinations plus local bookmarks, recent history, theme, dynamic-color, and reduced-motion settings.
 
-## ✨ Legacy Web Features
+## ✨ Web Showcase Features
 
-The original showcase retains the features below unchanged, while the Android app develops the next Material Design component references.
+The responsive browser showcase provides the features below alongside the Android component gallery and learning documentation.
 
 | Feature | Description |
 |---------|-------------|
@@ -99,7 +100,7 @@ cd docs
 # 4. PHP: php -S localhost:8000
 ```
 
-Run the server from `docs/`, then visit **http://localhost:8000/** for documentation or **http://localhost:8000/material-web-legacy/** for the original showcase.
+Run the server from `docs/`, then visit **http://localhost:8000/** for documentation or **http://localhost:8000/material-web-legacy/** for the browser showcase.
 
 Build and verify Android separately:
 
@@ -115,7 +116,7 @@ cd material-app
 | Layer | Technology |
 |-------|------------|
 | **Android** | Kotlin, Jetpack Compose, Material 3 Expressive and Adaptive |
-| **Current/Future Web** | HTML5, CSS custom properties, Vanilla JavaScript (ES6+) |
+| **Web** | HTML5, CSS custom properties, Vanilla JavaScript (ES6+) |
 | **Fonts** | Roboto, Roboto Flex, Material Symbols |
 | **Documentation** | Responsive static HTML and CSS |
 
@@ -128,13 +129,16 @@ material-design/
 ├── docs/                 # Complete GitHub Pages publishing root
 │   ├── assets/           # Shared web branding and media
 │   ├── material-web-legacy/
-│   │   └── src/          # Frozen component pages, CSS, JS, and widgets
+│   │   └── src/          # Browser component pages, CSS, JS, and widgets
 │   ├── projects/         # Android and web project documentation
 │   └── skills/
 │       ├── android/      # Android HTML skills
 │       └── web/          # Web HTML skills
 ├── material-app/         # Modular Android component gallery and source reference
-├── material-web/         # Future independent web implementation
+├── material-web/         # Independent Material Web workspace
+├── skills/
+│   ├── android/          # Android Markdown skills for agents and harnesses
+│   └── web/              # Web Markdown skills for agents and harnesses
 ├── DEVELOPMENT.md        # Developer documentation
 ├── CHANGELOG.md          # Version history
 ├── TASKS.md              # Task tracking
@@ -153,7 +157,7 @@ material-design/
 | [TASKS.md](TASKS.md) | Task tracking and roadmap |
 | [Documentation hub](https://qtremors.github.io/material-design/) | Browser-readable Material Design learning guide |
 | [Complete site map](https://qtremors.github.io/material-design/site-map.html) | Every page published through the GitHub Pages website |
-| [Component parity](https://qtremors.github.io/material-design/parity.html) | Android readiness and future web status |
+| [Component parity](https://qtremors.github.io/material-design/parity.html) | Android and independent web implementation coverage |
 | [HTML skills](https://qtremors.github.io/material-design/#skills) | Direct Android and web development references |
 
 ---

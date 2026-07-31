@@ -2,7 +2,7 @@
 
 > Comprehensive documentation for the Material Design.
 
-**Project:** 2.0.2 | **Last Updated:** 2026-07-16
+**Project:** 2.0.3 | **Last Updated:** 2026-07-31
 
 ---
 
@@ -13,25 +13,26 @@
 - [Platform Versions and Published URLs](#platform-versions-and-published-urls)
 - [Component Lifecycle](#component-lifecycle)
 - [Android Development](#android-development)
-- [Future Web Development](#future-web-development)
+- [Material Web Development](#material-web-development)
 - [HTML Documentation and Skills](#html-documentation-and-skills)
-- [Legacy Web Architecture](#legacy-web-architecture)
+- [Web Showcase Architecture](#web-showcase-architecture)
 - [Project Structure](#project-structure)
 - [Key Components](#key-components)
 - [Configuration](#configuration)
-- [Legacy Web Contribution Reference](#legacy-web-contribution-reference-frozen)
+- [Web Showcase Contribution Reference](#web-showcase-contribution-reference)
 
 ---
 
 ## Repository Contract
 
 - `material-app/` is the leading Material Design implementation while components are being refined.
-- `material-web/` is the future independent implementation. It will translate accepted UI/UX into vanilla HTML, CSS, and JavaScript without sharing Android implementation code.
-- `docs/material-web-legacy/` is the frozen original website and older showcase. Do not apply parity work or redesigns to it.
+- `material-web/` is the independent Material Web workspace. It translates accepted UI/UX into vanilla HTML, CSS, and JavaScript without sharing Android implementation code.
+- `docs/material-web-legacy/` is the responsive 1.5.0 browser showcase. Keep its established behavior coherent and make showcase-specific changes deliberately.
 - `docs/` is the complete GitHub Pages publishing root and contains the responsive learning and project documentation.
-- `docs/skills/android/` and `docs/skills/web/` contain standalone HTML guidance for people, LLMs, and agents.
+- `docs/skills/android/` and `docs/skills/web/` contain browsable HTML guidance.
+- `skills/android/` and `skills/web/` contain the Markdown counterparts for agents and development harnesses.
 - Published web media belongs in `docs/assets/`; compiled Android resources remain under the Android module's `res/` tree.
-- Human-facing Markdown is consolidated into root `README.md`, `DEVELOPMENT.md`, `CHANGELOG.md`, and `TASKS.md`.
+- Project Markdown is kept at the repository root, including the dedicated `skills/` tree.
 
 Android and web share only UI/UX intent: appearance, states, terminology, interaction purpose, and equivalent adaptive behaviour. Their implementation code, tokens, APIs, state management, testing, and releases remain independent.
 
@@ -39,7 +40,7 @@ Android and web share only UI/UX intent: appearance, states, terminology, intera
 
 ## Product-Surface Material Design Contract
 
-The Android app, documentation website, and future Material Web implementation must **use Material Design as complete products**, not merely display isolated Material components inside generic surrounding interfaces. Their application shells, navigation, ordinary actions, typography, layout, containers, states, feedback, motion, accessibility, and adaptive behaviour are part of the reference.
+The Android app, documentation website, and Material Web implementation must **use Material Design as complete products**, not merely display isolated Material components inside generic surrounding interfaces. Their application shells, navigation, ordinary actions, typography, layout, containers, states, feedback, motion, accessibility, and adaptive behaviour are part of the reference.
 
 > [!IMPORTANT]
 > A technically accurate component showcase inside a visually generic or inconsistent product is a failed implementation. For example, demonstrating an excellent split button does not count as success if the app or website itself uses generic fallback buttons, weak hierarchy, arbitrary spacing, or unrelated interaction patterns for its real navigation and actions.
@@ -49,11 +50,11 @@ Apply these rules to every active surface:
 - **Dogfood the system.** When a component becomes suitable for real use, use it where its interaction purpose fits the app or website. Do not confine the best Material work to demo cards while the surrounding product remains generic.
 - **Design the whole journey.** Launcher and landing screens, app bars, navigation, search, settings, detail pages, dialogs, loading, empty, error, disabled, focus, hover, pressed, and completion states must belong to one coherent Material system.
 - **Use components by purpose.** Dogfooding does not mean placing expressive components everywhere. Choose components according to hierarchy, frequency, consequence, platform convention, available space, and accessibility.
-- **Share quality, not implementation.** Android, documentation, and future web code remain independent, but each surface must achieve the same level of deliberate Material UI/UX using platform-appropriate engineering.
-- **Treat generic UI as unfinished.** Temporary platform defaults or placeholder styling are acceptable during development only when clearly treated as WIP. They must be replaced or deliberately justified before the affected surface is considered ready.
+- **Share quality, not implementation.** Android, documentation, and Material Web code remain independent, but each surface must achieve the same level of deliberate Material UI/UX using platform-appropriate engineering.
+- **Treat generic UI as unfinished.** Temporary platform defaults or placeholder styling are acceptable during development only when clearly treated as in development. They must be replaced or deliberately justified before the affected surface is considered ready.
 - **Review the host surface with the demo.** Component review must evaluate both the focused example and the product UI used to reach, configure, understand, and leave that example.
 
-The frozen `docs/material-web-legacy/` showcase is the historical exception: preserve it as older work rather than retrofitting it to the evolving 2.0.2 design system.
+The `docs/material-web-legacy/` showcase is a self-contained browser reference with its own established design system and contribution boundaries.
 
 ---
 
@@ -61,12 +62,12 @@ The frozen `docs/material-web-legacy/` showcase is the historical exception: pre
 
 | Surface | Current version | Published location |
 |---------|-----------------|--------------------|
-| Android app | 2.0.2, WIP | [GitHub Releases for APK downloads](https://github.com/qtremors/material-design/releases) |
-| Web documentation | 2.0.2 | [https://qtremors.github.io/material-design/](https://qtremors.github.io/material-design/) |
-| Frozen legacy web | 1.5.0 | [https://qtremors.github.io/material-design/material-web-legacy/](https://qtremors.github.io/material-design/material-web-legacy/) |
-| Future Material Web | Future | [Published project route](https://qtremors.github.io/material-design/material-web/) |
+| Android app | 2.0.3, active | [GitHub Releases for APK downloads](https://github.com/qtremors/material-design/releases) |
+| Web documentation | 2.0.3 | [https://qtremors.github.io/material-design/](https://qtremors.github.io/material-design/) |
+| Web showcase | 1.5.0 | [https://qtremors.github.io/material-design/material-web-legacy/](https://qtremors.github.io/material-design/material-web-legacy/) |
+| Material Web workspace | Independent | [Published project route](https://qtremors.github.io/material-design/material-web/) |
 
-The documentation site is the guidance entry point and the frozen 1.5.0 legacy site is the current browser component showcase. Future `material-web/` remains an independent implementation with its own public project route.
+The documentation site is the guidance entry point, the 1.5.0 site is the responsive browser component showcase, and `material-web/` provides an independent implementation workspace with its own public project route.
 
 ---
 
@@ -91,7 +92,7 @@ cd material-app
 .\gradlew.bat testDebugUnitTest assembleDebug
 ```
 
-Preserve the `Material Design` application label, namespace/application ID `dev.qtremors.materialdesign`, public version `2.0.2`, and Android assets. Use official component names in UI and catalog metadata; older project terms belong only in aliases when useful for search. Detailed Android references are linked from the [documentation skill index](https://qtremors.github.io/material-design/#skills).
+Preserve the `Material Design` application label, namespace/application ID `dev.qtremors.materialdesign`, public version `2.0.3`, and Android assets. Use official component names in UI and catalog metadata; older project terms belong only in aliases when useful for search. Detailed Android references are linked from the [documentation skill index](https://qtremors.github.io/material-design/#skills).
 
 ### Android motion contract
 
@@ -101,13 +102,13 @@ Reduced motion snaps decorative spatial and opacity transitions to their target 
 
 ---
 
-## Future Web Development
+## Material Web Development
 
-The future implementation remains framework-free unless explicitly changed. Use semantic HTML, modern CSS, and vanilla JavaScript, and do not copy Compose code or Android architecture into browser components.
+The Material Web implementation remains framework-free unless explicitly changed. Use semantic HTML, modern CSS, and vanilla JavaScript, and do not copy Compose code or Android architecture into browser components.
 
 Every active HTML page must support narrow phones, tablets, resizable desktop windows, large displays, browser zoom, long text, keyboard interaction, visible focus, and reduced motion. Wide tables and code samples may scroll within their own containers; they must never widen the page itself.
 
-Do not begin a component merely because an Android WIP example exists. Use `TASKS.md` and `docs/parity.html` as the readiness contract.
+Do not begin a component merely because an Android in-development example exists. Use `TASKS.md` and `docs/parity.html` as the readiness contract.
 
 ---
 
@@ -120,16 +121,16 @@ cd docs
 python -m http.server 8000
 ```
 
-Open `http://localhost:8000/`. Documentation, skills, shared web assets, the future web route, and the frozen legacy showcase all live beneath `docs/`, so no published HTML page depends on a file outside the Pages root. Skills live only at `docs/skills/android/` and `docs/skills/web/`, and every published destination is linked from `docs/site-map.html`. Keep documentation, the site map, and skills aligned when the component or development contract changes.
+Open `http://localhost:8000/`. Published documentation, HTML skills, shared web assets, the Material Web route, and the browser showcase all live beneath `docs/`, so no published page depends on local files outside the Pages root. Agent-oriented Markdown skills live under the root `skills/` tree and are linked through GitHub. Keep each HTML skill aligned with its Markdown counterpart when the component or development contract changes.
 
 ---
 
-## Legacy Web Architecture
+## Web Showcase Architecture
 
-The original **Material Design** website under `docs/material-web-legacy/` is a **Static Web Application** with no compile step. It follows a component-based architecture where HTML files represent views, and shared logic is injected or imported. This section preserves its original development documentation; paths are relative to `docs/material-web-legacy/`.
+The responsive **Material Design** showcase under `docs/material-web-legacy/` is a **Static Web Application** with no compile step. It follows a component-based architecture where HTML files represent views, and shared logic is injected or imported. Paths in this section are relative to `docs/material-web-legacy/`.
 
 > [!IMPORTANT]
-> The legacy website is preserved as older work and is already mobile compatible. Treat the remaining legacy sections as historical reference, not an active contribution target.
+> The browser showcase is mobile compatible and keeps its own framework-free architecture. Treat the remaining sections as its focused contribution reference.
 
 ```
 ┌──────────────────────────────────────────────────────────────┐
@@ -165,7 +166,7 @@ The original **Material Design** website under `docs/material-web-legacy/` is a 
 ```
 ├── src/                  # Source code
 │   ├── assets/           # Static images/icons
-│   │   └── material-design.png # Branding Logo (Transparent)
+│   │   └── material-design.svg # Branding Logo (Transparent)
 │   ├── css/
 │   │   ├── components/       # Component-specific styles
 │   │   │   ├── buttons.css
@@ -288,7 +289,7 @@ Every page must have a `top-app-bar` with the branding logo linking to the dashb
 ```html
 <div class="top-app-bar">
     <a href="../index.html" class="header-logo ripple-target" title="Home">
-        <img src="assets/material-design.png" alt="Material Design Logo">
+        <img src="assets/material-design.svg" alt="Material Design Logo">
     </a>
     <h2>My Component</h2>
     <div style="flex: 1"></div>
@@ -373,9 +374,9 @@ Project configuration is primarily handled via CSS Variables in `src/css/variabl
 
 ---
 
-## Legacy Web Contribution Reference (Frozen)
+## Web Showcase Contribution Reference
 
-The original contribution notes below are retained for historical context. New Android or parity work belongs in `material-app/` and the future `material-web/`, not in the frozen showcase.
+The contribution notes below document the framework-free browser showcase. Keep Android work in `material-app/`, independent web implementation work in `material-web/`, and showcase-specific changes within `docs/material-web-legacy/`.
 
 ### Code Style
 

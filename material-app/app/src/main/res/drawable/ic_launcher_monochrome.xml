@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="500"
+    android:viewportHeight="500">
+    <group
+        android:scaleX="0.72328764"
+        android:scaleY="0.72328764"
+        android:translateX="67.50381"
+        android:translateY="67.50381">
+        <path
+            android:fillAlpha="0.82"
+            android:fillColor="@android:color/black"
+            android:fillType="evenOdd"
+            android:pathData="M177,84c43,0 77,35 77,84 0,37 30,71 76,84H177a84,84 0,0 1,0 -168Z M252,168A78,78 0,0 1,330 246L330,254A78,78 0,0 1,252 332A78,78 0,0 1,174 254L174,246A78,78 0,0 1,252 168Z"/>
+        <path
+            android:fillAlpha="0.60"
+            android:fillColor="@android:color/black"
+            android:fillType="evenOdd"
+            android:pathData="M177,84H330A84,84 0,0 1,330 252C284,239 254,205 254,168C254,119 220,84 177,84Z M252,168A78,78 0,0 1,330 246L330,254A78,78 0,0 1,252 332A78,78 0,0 1,174 254L174,246A78,78 0,0 1,252 168Z"/>
+        <path
+            android:fillAlpha="0.35"
+            android:fillColor="@android:color/black"
+            android:fillType="evenOdd"
+            android:pathData="M177,251c43,0 73,34 73,83 0,43 29,75 80,87H177a85,85 0,0 1,0 -170Z M252,168A78,78 0,0 1,330 246L330,254A78,78 0,0 1,252 332A78,78 0,0 1,174 254L174,246A78,78 0,0 1,252 168Z"/>
+        <path
+            android:fillAlpha="0.68"
+            android:fillColor="@android:color/black"
+            android:fillType="evenOdd"
+            android:pathData="M177,251H330A85,85 0,0 1,330 421C279,409 250,377 250,334C250,285 220,251 177,251Z M252,168A78,78 0,0 1,330 246L330,254A78,78 0,0 1,252 332A78,78 0,0 1,174 254L174,246A78,78 0,0 1,252 168Z"/>
+        <path
+            android:fillAlpha="0.90"
+            android:fillColor="@android:color/black"
+            android:pathData="M252,176A70,70 0,0 1,322 246L322,254A70,70 0,0 1,252 324A70,70 0,0 1,182 254L182,246A70,70 0,0 1,252 176Z"/>
+    </group>
+</vector>

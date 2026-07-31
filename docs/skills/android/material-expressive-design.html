@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Material 3 Expressive and Adaptive guidance for components, typography, motion, buttons, indicators, navigation, and toolbars.">
   <title>Material 3 Expressive Design System · Material Design</title>
-  <link rel="icon" type="image/png" href="../../assets/material-design.png">
+  <link rel="icon" type="image/svg+xml" href="../../assets/material-design.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,75..125,300..800&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,300..600,0..1,-50..200" rel="stylesheet">
@@ -13,12 +13,12 @@
 </head>
 <body class="docs-page skill-page">
   <header class="site-header">
-    <a class="brand" href="../../" aria-label="Documentation home"><img src="../../assets/material-design.png" alt="" width="44" height="44"><span>Material Design</span></a>
+    <a class="brand" href="../../" aria-label="Documentation home"><img src="../../assets/material-design.svg" alt="" width="44" height="44"><span>Material Design</span></a>
     <nav aria-label="Skill navigation"><a href="../../projects/android.html">Android project</a><a href="../web/material-expressive-development.html">Web</a><a class="nav-action" href="../../#skills">All skills</a></nav>
   </header>
   <main>
     <section class="docs-hero skill-hero"><p class="eyebrow">Android skill</p><h1>Material 3 Expressive Design System</h1><p>Guidelines and code patterns for Material 3 Expressive and Adaptive components, typography, motion, buttons, indicators, navigation, and toolbars.</p></section>
-    <article class="docs-article skill-article"><p>This guide serves as a reference for designing and developing Android Jetpack Compose UI components with Material 3 Expressive APIs and project experiments.</p>
+    <article class="docs-article skill-article"><p>This guide serves as a reference for designing and developing Android Jetpack Compose UI components with Material 3 Expressive APIs and project experiments. For agent and harness use, see the <a href="https://github.com/qtremors/material-design/blob/main/skills/android/material-expressive-design.md">Markdown version</a>.</p>
 <blockquote>
 <p><strong>Source-of-truth boundary:</strong> use the Android app catalog and the repository paths it exposes as the canonical, version-reviewed references. Any section explicitly labeled <em>Project implementation</em> is an experiment, not an official Material API.</p>
 </blockquote>
@@ -59,7 +59,7 @@ data class FontAxes(
 </code></pre>
 <hr>
 <h2>2. Wavy Progress Indicators</h2>
-<p>Wavy progress indicators add motion to waiting states and sliders.</p>
+<p>Wavy progress indicators communicate determinate and indeterminate progress with expressive motion. Preserve progress semantics and provide the project&#39;s reduced-motion treatment.</p>
 <h3>Circular Wavy Progress Indicator</h3>
 <p>Used for download streams, circular timers, or loading status rings.</p>
 <pre><code class="language-kotlin">import androidx.compose.material3.CircularWavyProgressIndicator
@@ -69,12 +69,8 @@ import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 @Composable
 fun CircularWavyProgressDemo(progressState: Float) {
     CircularWavyProgressIndicator(
-        progress = { progressState },
-        modifier = Modifier.size(64.dp),
-        color = MaterialTheme.colorScheme.primary,
-        trackColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.1f),
-        stroke = Stroke(width = 4.dp.value),
-        wavelength = 16.dp
+        progress = { progressState.coerceIn(0f, 1f) },
+        modifier = Modifier.size(64.dp)
     )
 }
 </code></pre>
@@ -86,11 +82,8 @@ fun CircularWavyProgressDemo(progressState: Float) {
 @Composable
 fun LinearWavyProgressDemo(progressState: Float) {
     LinearWavyProgressIndicator(
-        progress = { progressState },
-        modifier = Modifier.fillMaxWidth().height(12.dp),
-        color = MaterialTheme.colorScheme.primary,
-        trackColor = MaterialTheme.colorScheme.surfaceVariant,
-        wavelength = 24.dp
+        progress = { progressState.coerceIn(0f, 1f) },
+        modifier = Modifier.fillMaxWidth()
     )
 }
 </code></pre>
@@ -118,7 +111,7 @@ fun ShareSplitButton(onShare: () -&gt; Unit, onDropdownToggle: (Boolean) -&gt; U
             ) {
                 Icon(
                     imageVector = if (active) Icons.Default.KeyboardArrowUp else Icons.Default.KeyboardArrowDown,
-                    contentDescription = null
+                    contentDescription = if (active) &quot;Hide sharing options&quot; else &quot;Show sharing options&quot;
                 )
             }
         }
@@ -247,119 +240,20 @@ fun CustomShortNavItem(selected: Boolean, onSelect: () -&gt; Unit, label: String
 }
 </code></pre>
 <hr>
-<h2>7. Advanced Patterns Learned (Session 2026-06-29)</h2>
-<h3>Scroll-Responsive Morphing Header Typography</h3>
-<p>Smoothly collapses display fonts to headline fonts during scroll offsets using standard linear interpolation (<code>lerp</code>). It dynamically alters the weight, width, and roundness (<code>ROND</code>) settings of Google Sans Flex variable font:</p>
-<pre><code class="language-kotlin">// Calculate fraction (0f fully expanded, 1f fully collapsed) from list scroll offset
-val collapsedFraction = (scrollOffset.value.toFloat() / 250f).coerceIn(0f, 1f)
-
-val titleWeight = lerp(950f, 700f, collapsedFraction)
-val titleWidth = lerp(85f, 115f, collapsedFraction)
-val titleRoundness = lerp(100f, 20f, collapsedFraction)
-
-val customTypography = remember(titleWeight, titleWidth, titleRoundness) {
-    VariableFontFactory.createTypography(
-        GSFlexSettings(
-            preset = GSFlexPreset.CUSTOM,
-            display = FontAxes(weight = titleWeight, width = titleWidth, opsz = 32f, grade = 0f, slant = 0f, roundness = titleRoundness)
-        )
-    )
-}
-</code></pre>
-<h3>Split Button Related-Action Workflow</h3>
-<p>Use <code>SplitButtonLayout</code> for a leading primary action and an independently accessible trailing menu of closely related alternatives:</p>
-<pre><code class="language-kotlin">SplitButtonLayout(
-    leadingButton = {
-        SplitButtonDefaults.LeadingButton(onClick = { /* Primary action */ }) {
-            Icon(Icons.Default.CloudDownload, contentDescription = null)
-            Text(&quot;Install&quot;)
-        }
-    },
-    trailingButton = {
-        SplitButtonDefaults.TrailingButton(checked = isExpanded, onCheckedChange = { isExpanded = it }) {
-            Icon(if (isExpanded) Icons.Default.KeyboardArrowUp else Icons.Default.KeyboardArrowDown, contentDescription = &quot;Options&quot;)
-        }
-    }
-)
-</code></pre>
-<h3>Custom canvas wavy circular progress (Project implementation)</h3>
-<p>Draws a smooth progress circle utilizing sine wave offsets for a wavy effect, animated using infinite transition phases:</p>
-<pre><code class="language-kotlin">@Composable
-fun WavyCircularProgress(progress: Float, modifier: Modifier = Modifier) {
-    val phase by rememberInfiniteTransition().animateFloat(
-        initialValue = 0f,
-        targetValue = 2f * Math.PI.toFloat(),
-        animationSpec = infiniteRepeatable(tween(3000, easing = LinearEasing), RepeatMode.Restart)
-    )
-    Canvas(modifier = modifier) {
-        val strokeWidth = 3.dp.toPx()
-        val radius = (size.minDimension - strokeWidth) / 2
-        val sweepAngle = progress * 360f
-        val path = Path()
-        val points = 180
-        for (i in 0..points) {
-            val angleRad = Math.toRadians((i.toFloat() / points * sweepAngle - 90f).toDouble()).toFloat()
-            val r = radius + sin(angleRad * 8f + phase) * 1.5f.dp.toPx() // Wavelength freq 8, amplitude 1.5dp
-            val px = (size.width / 2) + r * cos(angleRad)
-            val py = (size.height / 2) + r * sin(angleRad)
-            if (i == 0) path.moveTo(px, py) else path.lineTo(px, py)
-        }
-        drawPath(path = path, color = Color.Primary, style = Stroke(width = strokeWidth, cap = StrokeCap.Round))
-    }
-}
-</code></pre>
-<h3>Expressive Hold Button with Outlining Progress</h3>
-<p>Tracks hold duration using <code>MutableInteractionSource</code>. When pressed, it scales down, morphs corner shapes via spring animations, and paints an animated border completion progress:</p>
-<pre><code class="language-kotlin">val isPressed by interactionSource.collectIsPressedAsState()
-val scale by animateFloatAsState(if (isPressed) 0.94f else 1f)
-val cornerRadius by animateDpAsState(if (isPressed) 12.dp else 24.dp)
-
-Button(
-    onClick = {},
-    interactionSource = interactionSource,
-    modifier = Modifier
-        .graphicsLayer { scaleX = scale; scaleY = scale }
-        .drawBehind {
-            if (holdProgress.value &gt; 0f) {
-                drawRoundRect(
-                    color = Color.White.copy(alpha = 0.8f),
-                    size = this.size,
-                    cornerRadius = CornerRadius(cornerRadius.toPx()),
-                    style = Stroke(width = 3.dp.toPx())
-                )
-            }
-        },
-    shape = RoundedCornerShape(cornerRadius)
-) {
-    Text(&quot;Hold to Purchase&quot;)
-}
-</code></pre>
-<h3>Project floating navigation experiment</h3>
-<p>Builds a floating bottom bar pill using <code>HorizontalFloatingToolbar</code> that expands the selected short item with bouncy vertical icon offsets and horizontal label visibility:</p>
-<pre><code class="language-kotlin">HorizontalFloatingToolbar(expanded = true, modifier = Modifier.height(68.dp)) {
-    ShortNavigationBarItem(
-        selected = selected,
-        onClick = { /* Select action */ },
-        icon = {
-            val extraHeight by animateDpAsState(if (selected) 12.dp else 0.dp)
-            Box(modifier = Modifier.height(24.dp + extraHeight)) {
-                Icon(icon, contentDescription = null)
-            }
-        },
-        label = {
-            AnimatedVisibility(
-                visible = selected,
-                enter = fadeIn() + slideInHorizontally() + expandHorizontally()
-            ) {
-                Text(text = label, fontWeight = FontWeight.ExtraBold)
-            }
-        },
-        iconPosition = NavigationItemIconPosition.Start
-    )
-}
-</code></pre>
+<h2>7. Maintained Project References</h2>
+<p>Use checked-in implementations instead of copying detached illustrative snippets. These paths compile against the pinned catalog and include the project&#39;s state, accessibility, and reduced-motion handling:</p>
+<ul>
+<li><code>samples/foundations/src/main/java/dev/qtremors/material/samples/foundations/FoundationSamples.kt</code> — variable-font axes and typography.</li>
+<li><code>samples/communication/src/main/java/dev/qtremors/material/samples/communication/ProgressSamples.kt</code> — determinate and indeterminate wavy progress.</li>
+<li><code>samples/actions/src/main/java/dev/qtremors/material/samples/actions/ActionSamples.kt</code> — split buttons, morphing actions, and hold confirmation.</li>
+<li><code>samples/containment/src/main/java/dev/qtremors/material/samples/containment/CardAndListSamples.kt</code> — segmented list items and grouped shapes.</li>
+<li><code>samples/navigation/src/main/java/dev/qtremors/material/samples/navigation/NavigationSamples.kt</code> — horizontal and vertical floating toolbars.</li>
+<li><code>app/src/main/java/dev/qtremors/materialdesign/MaterialGalleryApp.kt</code> — adaptive application navigation using <code>ShortNavigationBarItem</code>.</li>
+<li><code>core/designsystem/src/main/java/dev/qtremors/material/core/designsystem/ExpressiveMotion.kt</code> — shared motion specifications and reduced-motion behavior.</li>
+</ul>
+<p>Before changing any alpha API usage, compare the pinned <code>composeMaterial3</code> version with official release notes and verify the affected sample by compiling it.</p>
 </article>
   </main>
-  <footer><img src="../../assets/material-design.png" alt="" width="32" height="32"><p>Android-specific Material 3 Expressive guidance.</p><a href="../../#skills">All skills</a></footer>
+  <footer><img src="../../assets/material-design.svg" alt="" width="32" height="32"><p>Android-specific Material 3 Expressive guidance.</p><a href="../../#skills">All skills</a></footer>
 </body>
 </html>

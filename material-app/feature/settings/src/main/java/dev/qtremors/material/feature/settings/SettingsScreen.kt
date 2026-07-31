@@ -138,7 +138,7 @@ fun SettingsScreen(
                 SegmentedListItem(
                     shapes = ListItemDefaults.segmentedShapes(0, 3),
                     leadingContent = { Icon(Icons.Default.Info, contentDescription = null) },
-                    supportingContent = { Text("Version 2.0.2") },
+                    supportingContent = { Text("Version 2.0.3") },
                     content = { Text("Material Design") },
                 )
                 SegmentedListItem(

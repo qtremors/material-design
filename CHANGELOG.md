@@ -1,7 +1,19 @@
 # Material Design Changelog
 
 > **Project:** Material Design  
-> **Project Version:** 2.0.2
+> **Project Version:** 2.0.3
+
+---
+
+## [2.0.3] - 2026-07-31
+
+### Added & Improved
+
+- Replaced PNG logo references with scalable SVGs sourced from the respective root and GitHub Pages asset folders.
+- Added complete Android launcher artwork with adaptive color, themed monochrome, legacy density, round, and Play Store variants.
+- Refined project language around the responsive browser showcase and independent Material Web workspace.
+- Refreshed Android and web skill guidance and added matching root-level Markdown skills for agents and development harnesses.
+- Removed the SVG edge outline for cleaner website hero rendering.
 
 ---
 
@@ -29,7 +41,7 @@
 
 ### Added & Improved
 
--   Consolidated the Android app, documentation, future independent web project, and frozen 1.5.0 legacy showcase into the Material Design 2.0.0 repository, with neutral forward-looking Material Web status language.
+-   Consolidated the Android app, documentation, independent Material Web workspace, and responsive 1.5.0 browser showcase into the Material Design 2.0.0 repository.
 -   Rebuilt Android as a modular, adaptive, searchable component gallery with Explore, Catalog, stable/experimental APIs, Foundations, bookmarks, recent history, and app settings.
 -   Added validated agent-readable catalog data and working references for Buttons, Split buttons, Floating action buttons, Progress indicators, Segmented list items, Carousels, Floating toolbars, and Typography.
 -   Added deterministic alias search, copyable source paths, exact Material API maturity/version metadata, and unit/UI validation.

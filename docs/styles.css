@@ -306,7 +306,7 @@ h2 {
   color: var(--md-on-secondary-container);
 }
 
-.legacy-card {
+.showcase-card {
   background: var(--md-tertiary-container);
   color: var(--md-on-tertiary-container);
 }
@@ -399,12 +399,12 @@ tbody tr:last-child > * {
   font-weight: 750;
 }
 
-.table-status.wip {
+.table-status.working {
   background: var(--md-orange-container);
   color: var(--md-on-orange-container);
 }
 
-.table-status.planned {
+.table-status.scoped {
   background: var(--md-secondary-container);
   color: var(--md-on-secondary-container);
 }
