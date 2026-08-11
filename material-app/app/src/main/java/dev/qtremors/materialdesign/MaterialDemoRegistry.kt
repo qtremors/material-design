@@ -9,6 +9,7 @@ import dev.qtremors.material.samples.actions.FloatingActionButtonsSample
 import dev.qtremors.material.samples.actions.SplitButtonsSample
 import dev.qtremors.material.samples.actions.ToggleButtonsSample
 import dev.qtremors.material.samples.containment.CardsSample
+import dev.qtremors.material.samples.communication.BadgesSample
 import dev.qtremors.material.samples.communication.BottomSheetsSample
 import dev.qtremors.material.samples.communication.DialogsSample
 import dev.qtremors.material.samples.communication.MenusSample
@@ -26,11 +27,19 @@ import dev.qtremors.material.samples.foundations.LayoutSample
 import dev.qtremors.material.samples.foundations.MotionSample
 import dev.qtremors.material.samples.foundations.ShapeSample
 import dev.qtremors.material.samples.navigation.FloatingToolbarsSample
+import dev.qtremors.material.samples.navigation.NavigationBarSample
+import dev.qtremors.material.samples.navigation.NavigationRailSample
+import dev.qtremors.material.samples.navigation.NavigationDrawerSample
+import dev.qtremors.material.samples.navigation.TabsSample
+import dev.qtremors.material.samples.navigation.TopAppBarsSample
 import dev.qtremors.material.samples.selection.ChipsSample
+import dev.qtremors.material.samples.selection.DatePickerSample
+import dev.qtremors.material.samples.selection.SearchSample
 import dev.qtremors.material.samples.selection.SegmentedButtonsSample
 import dev.qtremors.material.samples.selection.SelectionControlsSample
-import dev.qtremors.material.samples.selection.SearchSample
+import dev.qtremors.material.samples.selection.SlidersSample
 import dev.qtremors.material.samples.selection.TextFieldsSample
+import dev.qtremors.material.samples.selection.TimePickerSample
 
 class MaterialDemoRegistry : ComponentDemoRegistry {
     override val registeredKeys: Set<String> = setOf(
@@ -45,6 +54,7 @@ class MaterialDemoRegistry : ComponentDemoRegistry {
         "communication.snackbars",
         "communication.tooltips",
         "communication.menus",
+        "communication.badges",
         "containment.segmented-lists",
         "containment.carousels",
         "containment.cards",
@@ -54,7 +64,15 @@ class MaterialDemoRegistry : ComponentDemoRegistry {
         "selection.controls",
         "selection.text-fields",
         "selection.search",
+        "selection.sliders",
+        "selection.date-pickers",
+        "selection.time-pickers",
         "navigation.floating-toolbars",
+        "navigation.bars",
+        "navigation.rails",
+        "navigation.drawers",
+        "navigation.tabs",
+        "navigation.top-app-bars",
         "foundations.typography",
         "foundations.color",
         "foundations.shape",
@@ -78,6 +96,7 @@ class MaterialDemoRegistry : ComponentDemoRegistry {
             "communication.snackbars" -> SnackbarsSample()
             "communication.tooltips" -> TooltipsSample()
             "communication.menus" -> MenusSample()
+            "communication.badges" -> BadgesSample()
             "containment.segmented-lists" -> SegmentedListItemsSample()
             "containment.carousels" -> CarouselsSample()
             "containment.cards" -> CardsSample()
@@ -87,7 +106,15 @@ class MaterialDemoRegistry : ComponentDemoRegistry {
             "selection.controls" -> SelectionControlsSample()
             "selection.text-fields" -> TextFieldsSample()
             "selection.search" -> SearchSample()
+            "selection.sliders" -> SlidersSample()
+            "selection.date-pickers" -> DatePickerSample()
+            "selection.time-pickers" -> TimePickerSample()
             "navigation.floating-toolbars" -> FloatingToolbarsSample()
+            "navigation.bars" -> NavigationBarSample()
+            "navigation.rails" -> NavigationRailSample()
+            "navigation.drawers" -> NavigationDrawerSample()
+            "navigation.tabs" -> TabsSample()
+            "navigation.top-app-bars" -> TopAppBarsSample()
             "foundations.typography" -> TypographySample()
             "foundations.color" -> ColorSample()
             "foundations.shape" -> ShapeSample()

@@ -1,7 +1,16 @@
 # Material Design Changelog
 
 > **Project:** Material Design  
-> **Project Version:** 2.0.3
+> **Project Version:** 2.0.4
+
+---
+
+## [2.0.4] - 2026-08-11
+
+### Added & Improved
+
+- Added official Google Material 3 catalog component implementations: Navigation bars, Navigation rails, Navigation drawers, Tabs, Top app bars, Sliders, Date pickers, Time pickers, and Badges.
+- Added visual badge chips (`M3 Expressive`, `Experimental API`, `Custom Component`, and `Official API`) across Catalog cards and Detail headers.
 
 ---
 

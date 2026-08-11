@@ -12,15 +12,17 @@ android {
         applicationId = "dev.qtremors.materialdesign"
         minSdk = 24
         targetSdk = 37
-        versionCode = 203
-        versionName = "2.0.3"
+        versionCode = 204
+        versionName = "2.0.4"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         debug {
-            manifestPlaceholders["appLabel"] = "Material Design"
+            applicationIdSuffix = ".debug"
+            versionNameSuffix = "-debug"
+            manifestPlaceholders["appLabel"] = "Material Design (Debug)"
         }
         release {
             optimization {
@@ -37,6 +39,13 @@ android {
 
     buildFeatures {
         compose = true
+    }
+}
+
+val androidComponents = project.extensions.getByType<com.android.build.api.variant.ApplicationAndroidComponentsExtension>()
+androidComponents.onVariants { variant ->
+    variant.outputs.forEach { output ->
+        output.outputFileName.set("material-design-v2.0.4-${variant.name}.apk")
     }
 }
 

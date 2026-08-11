@@ -2,7 +2,7 @@
 
 > **Project:** Material Design
 >
-> **Version:** 2.0.3
+> **Version:** 2.0.4
 >
 > **Last Updated:** 2026-07-16
 
@@ -29,7 +29,11 @@ Add an item to the app only after the implementation, interactive demo, official
 - [x] Chips and segmented buttons
 - [x] Checkboxes, radio buttons, switches, and parent selection state
 - [x] Text fields and search
-- [ ] Navigation bars, rails, drawers, and tabs
+- [x] Navigation bars, rails, drawers, and tabs
+- [x] Sliders and Range sliders
+- [x] Date pickers and Time pickers
+- [x] Badges and BadgedBox indicators
+- [x] Visual badges for M3 Expressive, Experimental APIs, and Custom Components
 - [x] Dialogs, sheets, snackbars, tooltips, and menus
 - [x] Color, shape, motion, elevation, layout, and accessibility foundation inspectors
 

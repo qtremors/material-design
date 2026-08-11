@@ -2,7 +2,7 @@
 
 > Comprehensive documentation for the Material Design.
 
-**Project:** 2.0.3 | **Last Updated:** 2026-07-31
+**Project:** 2.0.4 | **Last Updated:** 2026-07-31
 
 ---
 
@@ -62,8 +62,8 @@ The `docs/material-web-legacy/` showcase is a self-contained browser reference w
 
 | Surface | Current version | Published location |
 |---------|-----------------|--------------------|
-| Android app | 2.0.3, active | [GitHub Releases for APK downloads](https://github.com/qtremors/material-design/releases) |
-| Web documentation | 2.0.3 | [https://qtremors.github.io/material-design/](https://qtremors.github.io/material-design/) |
+| Android app | 2.0.4, active | [GitHub Releases for APK downloads](https://github.com/qtremors/material-design/releases) |
+| Web documentation | 2.0.4 | [https://qtremors.github.io/material-design/](https://qtremors.github.io/material-design/) |
 | Web showcase | 1.5.0 | [https://qtremors.github.io/material-design/material-web-legacy/](https://qtremors.github.io/material-design/material-web-legacy/) |
 | Material Web workspace | Independent | [Published project route](https://qtremors.github.io/material-design/material-web/) |
 
@@ -92,7 +92,7 @@ cd material-app
 .\gradlew.bat testDebugUnitTest assembleDebug
 ```
 
-Preserve the `Material Design` application label, namespace/application ID `dev.qtremors.materialdesign`, public version `2.0.3`, and Android assets. Use official component names in UI and catalog metadata; older project terms belong only in aliases when useful for search. Detailed Android references are linked from the [documentation skill index](https://qtremors.github.io/material-design/#skills).
+Preserve the `Material Design` application label, namespace/application ID `dev.qtremors.materialdesign`, public version `2.0.4`, and Android assets. Use official component names in UI and catalog metadata; older project terms belong only in aliases when useful for search. Detailed Android references are linked from the [documentation skill index](https://qtremors.github.io/material-design/#skills).
 
 ### Android motion contract
 

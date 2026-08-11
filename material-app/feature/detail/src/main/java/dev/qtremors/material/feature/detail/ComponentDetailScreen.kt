@@ -71,9 +71,22 @@ fun ComponentDetailScreen(
     ) { padding ->
         Column(Modifier.fillMaxSize().padding(padding)) {
             Column(Modifier.padding(horizontal = 20.dp, vertical = 12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                val isExpressive = entry.collections.contains("expressive") || entry.apiReferences.any { it.optInAnnotation?.contains("Expressive") == true }
+                val isExperimental = entry.apiReferences.any { it.stability == ApiStability.EXPERIMENTAL }
+                val isCustom = entry.implementation == ImplementationKind.PROJECT_IMPLEMENTATION
+
+                Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                     AssistChip(onClick = {}, label = { Text(entry.category) })
-                    AssistChip(onClick = {}, label = { Text(if (entry.implementation == ImplementationKind.OFFICIAL_API) "Official API" else "Project implementation") })
+                    AssistChip(
+                        onClick = {},
+                        label = { Text(if (isCustom) "Custom Component" else "Official API") }
+                    )
+                    if (isExpressive) {
+                        AssistChip(onClick = {}, label = { Text("M3 Expressive") })
+                    }
+                    if (isExperimental) {
+                        AssistChip(onClick = {}, label = { Text("Experimental API") })
+                    }
                 }
                 Text(entry.summary, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 Text("Also find: ${entry.aliases.joinToString()}", style = MaterialTheme.typography.bodySmall)

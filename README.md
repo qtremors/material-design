@@ -11,7 +11,7 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Android-Kotlin%20%2B%20Compose-34A853?logo=android" alt="Android with Kotlin and Compose">
   <img src="https://img.shields.io/badge/Web-HTML%20%2B%20CSS%20%2B%20JS-6750A4" alt="Vanilla HTML, CSS, and JavaScript">
-  <img src="https://img.shields.io/badge/Version-2.0.3-blueviolet" alt="Project version 2.0.3">
+  <img src="https://img.shields.io/badge/Version-2.0.4-blueviolet" alt="Project version 2.0.4">
 </p>
 
 > [!NOTE]
@@ -40,7 +40,7 @@ The goal is to make this repository a concrete reference an agent can inspect: f
 
 | Project | Purpose | Status |
 |---------|---------|--------|
-| [`material-app/`](material-app/) | Searchable Material Design gallery and modular Compose source reference | 2.0.3, active |
+| [`material-app/`](material-app/) | Searchable Material Design gallery and modular Compose source reference | 2.0.4, active |
 | [`docs/material-web-legacy/`](https://qtremors.github.io/material-design/material-web-legacy/) | Responsive browser showcase and framework-free implementation | 1.5.0, live |
 | [`material-web/`](material-web/) | Independent vanilla HTML/CSS/JS implementation workspace | Dedicated workspace |
 | [`docs/`](https://qtremors.github.io/material-design/) | Responsive documentation and Material 3 Expressive learning site | Active |
@@ -53,8 +53,8 @@ Android and web share UI/UX intent—appearance, states, terminology, interactio
 
 | Surface | Version | Public entry point |
 |---------|---------|--------------------|
-| Android app | 2.0.3, active | [APK releases](https://github.com/qtremors/material-design/releases) |
-| Web documentation | 2.0.3 | [Live documentation](https://qtremors.github.io/material-design/) |
+| Android app | 2.0.4, active | [APK releases](https://github.com/qtremors/material-design/releases) |
+| Web documentation | 2.0.4 | [Live documentation](https://qtremors.github.io/material-design/) |
 | Web showcase | 1.5.0, live | [Browser showcase](https://qtremors.github.io/material-design/material-web-legacy/) |
 | Material Web | Independent workspace | [Project route](https://qtremors.github.io/material-design/material-web/) |
 

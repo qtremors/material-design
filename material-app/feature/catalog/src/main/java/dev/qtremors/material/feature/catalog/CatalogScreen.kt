@@ -25,6 +25,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import dev.qtremors.material.core.catalog.CatalogEntry
 
+import androidx.compose.foundation.layout.Row
+import androidx.compose.material3.AssistChip
+import androidx.compose.material3.AssistChipDefaults
+import dev.qtremors.material.core.catalog.ApiStability
+import dev.qtremors.material.core.catalog.ImplementationKind
+
 @Composable
 fun CatalogScreen(
     entries: List<CatalogEntry>,
@@ -54,12 +60,16 @@ fun CatalogScreen(
         ) {
             items(entries, key = CatalogEntry::id) { entry ->
                 val bookmarked = entry.id in bookmarkedIds
+                val isExpressive = entry.collections.contains("expressive") || entry.apiReferences.any { it.optInAnnotation?.contains("Expressive") == true }
+                val isExperimental = entry.apiReferences.any { it.stability == ApiStability.EXPERIMENTAL }
+                val isCustom = entry.implementation == ImplementationKind.PROJECT_IMPLEMENTATION
+
                 Card(
                     onClick = { onEntryClick(entry.id) },
                     modifier = Modifier.fillMaxWidth(),
                 ) {
                     Column(Modifier.padding(18.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                        androidx.compose.foundation.layout.Row(Modifier.fillMaxWidth()) {
+                        Row(Modifier.fillMaxWidth()) {
                             Column(Modifier.weight(1f)) {
                                 Text(entry.officialName, style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
                                 Text(entry.category, style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary)
@@ -71,6 +81,48 @@ fun CatalogScreen(
                                 )
                             }
                         }
+
+                        // Badge Row for Expressive, Experimental, and Custom components
+                        Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                            if (isCustom) {
+                                AssistChip(
+                                    onClick = {},
+                                    label = { Text("Custom Component", style = MaterialTheme.typography.labelSmall) },
+                                    colors = AssistChipDefaults.assistChipColors(
+                                        containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+                                        labelColor = MaterialTheme.colorScheme.onTertiaryContainer
+                                    )
+                                )
+                            } else {
+                                AssistChip(
+                                    onClick = {},
+                                    label = { Text("Official API", style = MaterialTheme.typography.labelSmall) }
+                                )
+                            }
+
+                            if (isExpressive) {
+                                AssistChip(
+                                    onClick = {},
+                                    label = { Text("M3 Expressive", style = MaterialTheme.typography.labelSmall) },
+                                    colors = AssistChipDefaults.assistChipColors(
+                                        containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                                        labelColor = MaterialTheme.colorScheme.onSecondaryContainer
+                                    )
+                                )
+                            }
+
+                            if (isExperimental) {
+                                AssistChip(
+                                    onClick = {},
+                                    label = { Text("Experimental", style = MaterialTheme.typography.labelSmall) },
+                                    colors = AssistChipDefaults.assistChipColors(
+                                        containerColor = MaterialTheme.colorScheme.errorContainer,
+                                        labelColor = MaterialTheme.colorScheme.onErrorContainer
+                                    )
+                                )
+                            }
+                        }
+
                         HorizontalDivider()
                         Text(entry.summary, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
@@ -79,3 +131,4 @@ fun CatalogScreen(
         }
     }
 }
+
