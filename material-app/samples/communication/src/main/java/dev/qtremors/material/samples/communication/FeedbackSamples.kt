@@ -22,6 +22,7 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.ContentCopy
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.ExpandMore
 import androidx.compose.material.icons.filled.FilterList
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.MoreVert
@@ -35,6 +36,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -42,6 +44,7 @@ import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.PlainTooltip
 import androidx.compose.material3.RichTooltip
 import androidx.compose.material3.SnackbarDuration
@@ -396,11 +399,14 @@ fun TooltipsSample(modifier: Modifier = Modifier) {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MenusSample(modifier: Modifier = Modifier) {
     var overflowExpanded by remember { mutableStateOf(false) }
     var filterExpanded by remember { mutableStateOf(false) }
+    var densityMenuExpanded by remember { mutableStateOf(false) }
     var selectedFilter by remember { mutableStateOf("All references") }
+    var selectedDensity by remember { mutableStateOf("Comfortable") }
     var result by remember { mutableStateOf("Choose a menu action") }
 
     Column(modifier, verticalArrangement = Arrangement.spacedBy(24.dp)) {
@@ -454,6 +460,42 @@ fun MenusSample(modifier: Modifier = Modifier) {
                                 null
                             },
                             onClick = { selectedFilter = option; filterExpanded = false },
+                        )
+                    }
+                }
+            }
+        }
+
+        FeedbackSection(
+            title = "Editable value entry",
+            description = "Exposed dropdown menus combine a text field with a menu so known values stay one tap away while the label remains visible.",
+        ) {
+            ExposedDropdownMenuBox(
+                expanded = densityMenuExpanded,
+                onExpandedChange = { densityMenuExpanded = it },
+            ) {
+                OutlinedTextField(
+                    value = selectedDensity,
+                    onValueChange = {},
+                    readOnly = true,
+                    label = { Text("List density") },
+                    trailingIcon = { Icon(Icons.Default.ExpandMore, contentDescription = null) },
+                    modifier = Modifier
+                        .menuAnchor()
+                        .fillMaxWidth(),
+                )
+                ExposedDropdownMenu(
+                    expanded = densityMenuExpanded,
+                    onDismissRequest = { densityMenuExpanded = false },
+                ) {
+                    listOf("Compact", "Comfortable", "Spacious").forEach { option ->
+                        DropdownMenuItem(
+                            text = { Text(option) },
+                            onClick = {
+                                selectedDensity = option
+                                result = "Density set to $option"
+                                densityMenuExpanded = false
+                            },
                         )
                     }
                 }

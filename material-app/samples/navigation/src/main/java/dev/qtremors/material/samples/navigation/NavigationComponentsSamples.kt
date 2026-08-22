@@ -15,6 +15,9 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Person
@@ -26,6 +29,7 @@ import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
+import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Card
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.DismissibleDrawerSheet
@@ -296,6 +300,35 @@ fun TopAppBarsSample(modifier: Modifier = Modifier) {
                     )
                 }
             }
+        }
+    }
+}
+
+@Composable
+fun BottomAppBarsSample(modifier: Modifier = Modifier) {
+    var actionResult by remember { mutableStateOf("Choose a bottom bar action") }
+
+    Column(modifier, verticalArrangement = Arrangement.spacedBy(16.dp)) {
+        Text(actionResult, style = MaterialTheme.typography.bodyMedium)
+        Card(Modifier.fillMaxWidth()) {
+            BottomAppBar(
+                actions = {
+                    IconButton(onClick = { actionResult = "Reference marked complete" }) {
+                        Icon(Icons.Default.Check, contentDescription = "Mark complete")
+                    }
+                    IconButton(onClick = { actionResult = "Reference opened for editing" }) {
+                        Icon(Icons.Default.Edit, contentDescription = "Edit")
+                    }
+                    IconButton(onClick = { actionResult = "Reference moved to archive" }) {
+                        Icon(Icons.Default.Delete, contentDescription = "Archive")
+                    }
+                },
+                floatingActionButton = {
+                    FloatingActionButton(onClick = { actionResult = "New reference created" }) {
+                        Icon(Icons.Default.Add, contentDescription = "Create reference")
+                    }
+                },
+            )
         }
     }
 }

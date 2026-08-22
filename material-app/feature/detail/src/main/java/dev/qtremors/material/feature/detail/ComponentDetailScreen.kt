@@ -4,6 +4,9 @@ import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -37,6 +40,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import dev.qtremors.material.core.catalog.ApiAvailability
 import dev.qtremors.material.core.catalog.ApiStability
@@ -45,7 +49,7 @@ import dev.qtremors.material.core.catalog.ImplementationKind
 
 enum class DetailSection(val label: String) { PREVIEW("Preview"), GUIDANCE("Guidance"), INSPECT("Inspect"), API("API") }
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
 fun ComponentDetailScreen(
     entry: CatalogEntry,
@@ -75,17 +79,20 @@ fun ComponentDetailScreen(
                 val isExperimental = entry.apiReferences.any { it.stability == ApiStability.EXPERIMENTAL }
                 val isCustom = entry.implementation == ImplementationKind.PROJECT_IMPLEMENTATION
 
-                Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                    AssistChip(onClick = {}, label = { Text(entry.category) })
+                FlowRow(
+                    horizontalArrangement = Arrangement.spacedBy(6.dp),
+                    verticalArrangement = Arrangement.spacedBy(4.dp),
+                ) {
+                    AssistChip(onClick = {}, label = { Text(entry.category, maxLines = 1, overflow = TextOverflow.Ellipsis) })
                     AssistChip(
                         onClick = {},
-                        label = { Text(if (isCustom) "Custom Component" else "Official API") }
+                        label = { Text(if (isCustom) "Custom Component" else "Official API", maxLines = 1, overflow = TextOverflow.Ellipsis) }
                     )
                     if (isExpressive) {
-                        AssistChip(onClick = {}, label = { Text("M3 Expressive") })
+                        AssistChip(onClick = {}, label = { Text("M3 Expressive", maxLines = 1, overflow = TextOverflow.Ellipsis) })
                     }
                     if (isExperimental) {
-                        AssistChip(onClick = {}, label = { Text("Experimental API") })
+                        AssistChip(onClick = {}, label = { Text("Experimental API", maxLines = 1, overflow = TextOverflow.Ellipsis) })
                     }
                 }
                 Text(entry.summary, color = MaterialTheme.colorScheme.onSurfaceVariant)
@@ -96,11 +103,17 @@ fun ComponentDetailScreen(
                     Tab(selected = selectedSection == section, onClick = { onSectionSelected(section) }, text = { Text(section.label) })
                 }
             }
-            when (selectedSection) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f),
+            ) {
+                when (selectedSection) {
                     DetailSection.PREVIEW -> PreviewSection(demo)
                     DetailSection.GUIDANCE -> GuidanceSection(entry)
                     DetailSection.INSPECT -> InspectSection(entry)
                     DetailSection.API -> ApiSection(entry)
+                }
             }
         }
     }

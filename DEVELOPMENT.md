@@ -2,7 +2,7 @@
 
 > Comprehensive documentation for the Material Design.
 
-**Project:** 2.0.4 | **Last Updated:** 2026-07-31
+**Project:** 2.0.5 | **Last Updated:** 2026-07-31
 
 ---
 
@@ -62,8 +62,8 @@ The `docs/material-web-legacy/` showcase is a self-contained browser reference w
 
 | Surface | Current version | Published location |
 |---------|-----------------|--------------------|
-| Android app | 2.0.4, active | [GitHub Releases for APK downloads](https://github.com/qtremors/material-design/releases) |
-| Web documentation | 2.0.4 | [https://qtremors.github.io/material-design/](https://qtremors.github.io/material-design/) |
+| Android app | 2.0.5, active | [GitHub Releases for APK downloads](https://github.com/qtremors/material-design/releases) |
+| Web documentation | 2.0.5 | [https://qtremors.github.io/material-design/](https://qtremors.github.io/material-design/) |
 | Web showcase | 1.5.0 | [https://qtremors.github.io/material-design/material-web-legacy/](https://qtremors.github.io/material-design/material-web-legacy/) |
 | Material Web workspace | Independent | [Published project route](https://qtremors.github.io/material-design/material-web/) |
 
@@ -92,11 +92,11 @@ cd material-app
 .\gradlew.bat testDebugUnitTest assembleDebug
 ```
 
-Preserve the `Material Design` application label, namespace/application ID `dev.qtremors.materialdesign`, public version `2.0.4`, and Android assets. Use official component names in UI and catalog metadata; older project terms belong only in aliases when useful for search. Detailed Android references are linked from the [documentation skill index](https://qtremors.github.io/material-design/#skills).
+Preserve the `Material Design` application label, namespace/application ID `dev.qtremors.materialdesign`, public version `2.0.5`, and Android assets. Use official component names in UI and catalog metadata; older project terms belong only in aliases when useful for search. Detailed Android references are linked from the [documentation skill index](https://qtremors.github.io/material-design/#skills).
 
 ### Android motion contract
 
-All explicit app-shell and project-reference spring values must use `core/designsystem/ExpressiveMotion.kt`; do not scatter replacement constants through feature or sample modules. Do not normalize every transition to one spring: the inherited compact navigation deliberately combines a low-bouncy icon lift and label slide with Material's default toolbar-size, fade, expand, collapse, and exit behavior. The wider motion language distinguishes medium-bouncy press feedback, low-bouncy navigation and fluid layout changes, no-bounce shape/state settling, high-stiffness progress smoothing, and short high-stiffness rejected-action feedback. Pressed content scales to `0.94`, the selected compact-navigation icon lifts `12.dp`, hold confirmation lasts 1.5 seconds, and the loading reference lasts 1.2 seconds.
+All explicit app-shell and project-reference spring values must use `core/designsystem/ExpressiveMotion.kt`; do not scatter replacement constants through feature or sample modules. The shell themes through `MaterialExpressiveTheme` with the official expressive `MotionScheme`; reduced motion swaps the whole scheme to snap-based specs resolved by `ExpressiveMotion.motionScheme(reducedMotion)`. Do not normalize every transition to one spring: the inherited compact navigation deliberately combines a low-bouncy icon lift and label slide with Material's default toolbar-size, fade, expand, collapse, and exit behavior. The wider motion language distinguishes medium-bouncy press feedback, low-bouncy navigation and fluid layout changes, no-bounce shape/state settling, high-stiffness progress smoothing, and short high-stiffness rejected-action feedback. Pressed content scales to `0.94`, the selected compact-navigation icon lifts `12.dp`, hold confirmation lasts 1.5 seconds, and the loading reference lasts 1.2 seconds.
 
 Reduced motion snaps decorative spatial and opacity transitions to their target while preserving interaction meaning, state changes, and safety timing such as hold-to-confirm. Animation code must tolerate interruption, rapid repeated input, disposal, disabled-state changes, and a duration of zero or less without leaving stale progress, jobs, selection, or transformed content. Official carousels, progress indicators, toolbars, and navigation components retain their own Material physics; project motion may augment their state feedback without replacing platform behavior.
 

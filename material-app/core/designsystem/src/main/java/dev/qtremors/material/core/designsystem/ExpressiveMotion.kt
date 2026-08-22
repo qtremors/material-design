@@ -2,8 +2,11 @@ package dev.qtremors.material.core.designsystem
 
 import androidx.compose.animation.core.FiniteAnimationSpec
 import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.SnapSpec
 import androidx.compose.animation.core.snap
 import androidx.compose.animation.core.spring
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+import androidx.compose.material3.MotionScheme
 import androidx.compose.runtime.Composable
 
 object ExpressiveMotion {
@@ -29,6 +32,20 @@ object ExpressiveMotion {
     fun holdProgress(elapsedMillis: Long, durationMillis: Long): Float =
         (elapsedMillis.coerceAtLeast(0L).toFloat() / durationMillis.coerceAtLeast(1L))
             .coerceIn(0f, 1f)
+
+    @OptIn(ExperimentalMaterial3ExpressiveApi::class)
+    fun motionScheme(reducedMotion: Boolean): MotionScheme =
+        if (reducedMotion) ReducedMotionScheme else MotionScheme.expressive()
+}
+
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
+private object ReducedMotionScheme : MotionScheme {
+    override fun <T> defaultSpatialSpec(): FiniteAnimationSpec<T> = snap()
+    override fun <T> fastSpatialSpec(): FiniteAnimationSpec<T> = snap()
+    override fun <T> slowSpatialSpec(): FiniteAnimationSpec<T> = snap()
+    override fun <T> defaultEffectsSpec(): FiniteAnimationSpec<T> = snap()
+    override fun <T> fastEffectsSpec(): FiniteAnimationSpec<T> = snap()
+    override fun <T> slowEffectsSpec(): FiniteAnimationSpec<T> = snap()
 }
 
 @Composable

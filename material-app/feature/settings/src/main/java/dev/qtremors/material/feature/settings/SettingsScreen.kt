@@ -24,7 +24,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SegmentedListItem
 import androidx.compose.material3.Switch
@@ -41,7 +40,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import dev.qtremors.material.core.data.AppSettings
 import dev.qtremors.material.core.data.MotionMode
-import dev.qtremors.material.core.data.ThemeMode
+import dev.qtremors.material.core.designsystem.AccentColor
+import dev.qtremors.material.core.designsystem.ThemeMode
+import dev.qtremors.material.core.designsystem.ThemePreset
+import dev.qtremors.material.core.designsystem.ThemeState
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 @Composable
@@ -49,16 +51,25 @@ fun SettingsScreen(
     settings: AppSettings,
     bookmarkCount: Int,
     recentCount: Int,
-    onThemeModeChange: (ThemeMode) -> Unit,
-    onDynamicColorChange: (Boolean) -> Unit,
-    onMotionModeChange: (MotionMode) -> Unit,
+    onThemeStateChange: (ThemeState) -> Unit,
     onClearBookmarks: () -> Unit,
     onClearRecent: () -> Unit,
     onBack: () -> Unit,
 ) {
     var confirmAction by remember { mutableStateOf<String?>(null) }
+    val theme = settings.themeState
+
     Scaffold(
-        topBar = { TopAppBar(title = { Text("Settings") }, navigationIcon = { IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Filled.ArrowBack, "Back") } }) },
+        topBar = {
+            TopAppBar(
+                title = { Text("Settings") },
+                navigationIcon = {
+                    IconButton(onClick = onBack) {
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                    }
+                },
+            )
+        },
     ) { padding ->
         Column(
             Modifier
@@ -66,46 +77,58 @@ fun SettingsScreen(
                 .padding(padding)
                 .verticalScroll(rememberScrollState())
                 .padding(horizontal = 20.dp, vertical = 12.dp),
-            verticalArrangement = Arrangement.spacedBy(20.dp),
+            verticalArrangement = Arrangement.spacedBy(24.dp),
         ) {
-            SettingsSection("Appearance", "Choose a theme mode and optionally derive color from this device.") {
-                val count = ThemeMode.entries.size + 1
-                ThemeMode.entries.forEachIndexed { index, mode ->
-                    SegmentedListItem(
-                        selected = settings.themeMode == mode,
-                        onClick = { onThemeModeChange(mode) },
-                        shapes = ListItemDefaults.segmentedShapes(index, count),
-                        leadingContent = {
-                            RadioButton(selected = settings.themeMode == mode, onClick = null)
-                        },
-                        content = { Text(mode.name.lowercase().replaceFirstChar(Char::uppercase)) },
+            SettingsSection("Appearance", "Customize theme mode, color palettes, and presets.") {
+                ThemeModeSelector(
+                    currentMode = theme.themeMode,
+                    onModeSelected = { onThemeStateChange(theme.copy(themeMode = it)) },
+                )
+
+                ThemePresetSelector(
+                    currentPreset = theme.themePreset,
+                    onPresetSelected = { onThemeStateChange(theme.copy(themePreset = it)) },
+                )
+
+                if (theme.themePreset == ThemePreset.CUSTOM) {
+                    CustomThemeCreatorPanel(
+                        themeState = theme,
+                        onThemeChange = onThemeStateChange,
                     )
                 }
+
+                if (theme.themePreset == ThemePreset.NONE) {
+                    AccentColorSelector(
+                        currentAccent = theme.accentColor,
+                        onAccentSelected = { onThemeStateChange(theme.copy(accentColor = it)) },
+                    )
+                }
+
                 SegmentedListItem(
-                    checked = settings.dynamicColor,
-                    onCheckedChange = onDynamicColorChange,
-                    shapes = ListItemDefaults.segmentedShapes(count - 1, count),
+                    checked = theme.harmonizeColors,
+                    onCheckedChange = { onThemeStateChange(theme.copy(harmonizeColors = it)) },
+                    shapes = ListItemDefaults.segmentedShapes(0, 1),
                     leadingContent = { Icon(Icons.Default.Palette, contentDescription = null) },
-                    supportingContent = { Text("Use the device color scheme on Android 12 and newer") },
+                    supportingContent = { Text("Harmonize palette tones with primary accent") },
                     trailingContent = {
-                        Switch(checked = settings.dynamicColor, onCheckedChange = null)
+                        Switch(checked = theme.harmonizeColors, onCheckedChange = null)
                     },
-                    content = { Text("Dynamic color") },
+                    content = { Text("Harmonize colors") },
                 )
             }
 
             SettingsSection("Motion", "Reduced motion changes presentation, never meaning or safety timing.") {
                 SegmentedListItem(
-                    checked = settings.motionMode == MotionMode.REDUCED,
+                    checked = theme.reducedMotion,
                     onCheckedChange = {
-                        onMotionModeChange(if (it) MotionMode.REDUCED else MotionMode.SYSTEM)
+                        onThemeStateChange(theme.copy(reducedMotion = it))
                     },
                     shapes = ListItemDefaults.segmentedShapes(0, 1),
                     leadingContent = { Icon(Icons.Default.MotionPhotosOff, contentDescription = null) },
                     supportingContent = { Text("Avoid decorative motion while preserving state and confirmation") },
                     trailingContent = {
                         Switch(
-                            checked = settings.motionMode == MotionMode.REDUCED,
+                            checked = theme.reducedMotion,
                             onCheckedChange = null,
                         )
                     },
@@ -156,6 +179,7 @@ fun SettingsScreen(
             }
         }
     }
+
     if (confirmAction != null) {
         AlertDialog(
             onDismissRequest = { confirmAction = null },

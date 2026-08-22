@@ -7,10 +7,12 @@ import dev.qtremors.material.core.catalog.ApiStability
 import dev.qtremors.material.core.catalog.CatalogEntry
 import dev.qtremors.material.core.catalog.CatalogKind
 import dev.qtremors.material.core.catalog.CatalogRepository
+import dev.qtremors.material.core.catalog.SearchResult
 import dev.qtremors.material.core.data.AppSettings
 import dev.qtremors.material.core.data.MotionMode
-import dev.qtremors.material.core.data.ThemeMode
 import dev.qtremors.material.core.data.UserLibraryRepository
+import dev.qtremors.material.core.designsystem.ThemeMode
+import dev.qtremors.material.core.designsystem.ThemeState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -29,6 +31,7 @@ data class GalleryUiState(
     val settings: AppSettings = AppSettings(),
     val rootDestination: RootDestination = RootDestination.EXPLORE,
     val query: String = "",
+    val queryResults: List<CatalogEntry> = emptyList(),
     val selectedCategory: String? = null,
     val apiStability: ApiStability = ApiStability.STABLE,
 )
@@ -70,6 +73,7 @@ class GalleryViewModel(
                 rootDestination = if (query.isNotBlank()) RootDestination.CATALOG else current.rootDestination,
                 selectedCategory = category,
                 visibleCatalogEntries = filterEntries(query, category),
+                queryResults = searchResults(query),
             )
         }
     }
@@ -87,6 +91,9 @@ class GalleryViewModel(
     fun recordRecent(id: String) = viewModelScope.launch { userLibraryRepository.recordRecent(id) }
     fun clearBookmarks() = viewModelScope.launch { userLibraryRepository.clearBookmarks() }
     fun clearRecent() = viewModelScope.launch { userLibraryRepository.clearRecent() }
+    fun updateThemeState(themeState: dev.qtremors.material.core.designsystem.ThemeState) = viewModelScope.launch {
+        userLibraryRepository.updateThemeState(themeState)
+    }
     fun updateThemeMode(mode: ThemeMode) = viewModelScope.launch { userLibraryRepository.updateThemeMode(mode) }
     fun updateDynamicColor(enabled: Boolean) = viewModelScope.launch { userLibraryRepository.updateDynamicColor(enabled) }
     fun updateMotionMode(mode: MotionMode) = viewModelScope.launch { userLibraryRepository.updateMotionMode(mode) }
@@ -105,7 +112,16 @@ class GalleryViewModel(
         return base.filter { it.kind == CatalogKind.COMPONENT && (category == null || it.category == category) }
     }
 
+    private fun searchResults(query: String): List<CatalogEntry> =
+        if (query.isBlank()) {
+            emptyList()
+        } else {
+            catalogRepository.search(query).map(SearchResult::entry).take(MaxQueryResults)
+        }
+
     companion object {
+        private const val MaxQueryResults = 8
+
         fun factory(container: MaterialAppContainer): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
             @Suppress("UNCHECKED_CAST")
             override fun <T : ViewModel> create(modelClass: Class<T>): T = GalleryViewModel(

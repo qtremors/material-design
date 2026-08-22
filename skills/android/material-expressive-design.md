@@ -113,6 +113,20 @@ Maintained references:
 - `material-app/samples/navigation/src/main/java/dev/qtremors/material/samples/navigation/NavigationSamples.kt`
 - `material-app/app/src/main/java/dev/qtremors/materialdesign/MaterialGalleryApp.kt`
 
+## Expressive Theming and Motion Scheme
+
+The app shell themes through `MaterialExpressiveTheme` with `expressiveLightColorScheme()` for the static light fallback, `darkColorScheme()` for dark, and dynamic color on Android 12+.
+
+- Resolve motion through `ExpressiveMotion.motionScheme(reducedMotion)`: the official `MotionScheme.expressive()` by default, a snap-based scheme when reduced motion is on.
+- Do not construct ad-hoc `MaterialTheme` wrappers in feature or sample modules; theme once at the shell.
+- Dynamic color has no expressive variant; keep the official dynamic schemes as-is and preserve role relationships.
+- The pinned library already carries the expressive type scale, including emphasized styles; do not override typography without a documented reason.
+
+Maintained references:
+
+- `material-app/core/designsystem/src/main/java/dev/qtremors/material/core/designsystem/MaterialDesignTheme.kt`
+- `material-app/core/designsystem/src/main/java/dev/qtremors/material/core/designsystem/ExpressiveMotion.kt`
+
 ## Review Checklist
 
 - Official and project APIs are clearly distinguished.

@@ -106,4 +106,4 @@ Also verify:
 - Increased font size, light/dark appearance, and reduced motion.
 - TalkBack semantics and representative interaction flows.
 
-Keep the application label **Material Design**, namespace/application ID `dev.qtremors.materialdesign`, and public version `2.0.4` unless an explicit version change is requested. Update `CHANGELOG.md` for every user-visible change.
+Keep the application label **Material Design**, namespace/application ID `dev.qtremors.materialdesign`, and public version `2.0.5` unless an explicit version change is requested. Update `CHANGELOG.md` for every user-visible change.

@@ -1,7 +1,18 @@
 # Material Design Changelog
 
 > **Project:** Material Design  
-> **Project Version:** 2.0.4
+> **Project Version:** 2.0.5
+
+---
+
+## [2.0.5] - 2026-08-22
+
+### Added & Improved
+
+- Integrated dynamic theme engine supporting System, Light, Dark, and OLED modes, theme presets, and 22 accent color schemes.
+- Added theme and appearance controls to Settings with live scheme previews and custom hex palette configuration.
+- Adopted official Material 3 Expressive theming across the application shell with expressive motion and reduced-motion support.
+- Added official Google Material 3 catalog component implementations for Icon buttons, FAB menu, Loading indicators, Pull to refresh, and Bottom app bars.
 
 ---
 

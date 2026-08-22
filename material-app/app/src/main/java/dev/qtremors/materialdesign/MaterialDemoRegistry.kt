@@ -5,19 +5,23 @@ import androidx.compose.runtime.Composable
 import dev.qtremors.material.core.catalog.ComponentDemoRegistry
 import dev.qtremors.material.samples.actions.ButtonsSample
 import dev.qtremors.material.samples.actions.ButtonGroupsSample
+import dev.qtremors.material.samples.actions.FabMenusSample
 import dev.qtremors.material.samples.actions.FloatingActionButtonsSample
+import dev.qtremors.material.samples.actions.IconButtonsSample
 import dev.qtremors.material.samples.actions.SplitButtonsSample
 import dev.qtremors.material.samples.actions.ToggleButtonsSample
 import dev.qtremors.material.samples.containment.CardsSample
 import dev.qtremors.material.samples.communication.BadgesSample
 import dev.qtremors.material.samples.communication.BottomSheetsSample
 import dev.qtremors.material.samples.communication.DialogsSample
+import dev.qtremors.material.samples.communication.LoadingIndicatorsSample
 import dev.qtremors.material.samples.communication.MenusSample
 import dev.qtremors.material.samples.communication.ProgressIndicatorsSample
 import dev.qtremors.material.samples.communication.SnackbarsSample
 import dev.qtremors.material.samples.communication.TooltipsSample
 import dev.qtremors.material.samples.containment.CarouselsSample
 import dev.qtremors.material.samples.containment.ListsSample
+import dev.qtremors.material.samples.containment.PullToRefreshSample
 import dev.qtremors.material.samples.containment.SegmentedListItemsSample
 import dev.qtremors.material.samples.foundations.TypographySample
 import dev.qtremors.material.samples.foundations.AccessibilitySample
@@ -27,6 +31,7 @@ import dev.qtremors.material.samples.foundations.LayoutSample
 import dev.qtremors.material.samples.foundations.MotionSample
 import dev.qtremors.material.samples.foundations.ShapeSample
 import dev.qtremors.material.samples.navigation.FloatingToolbarsSample
+import dev.qtremors.material.samples.navigation.BottomAppBarsSample
 import dev.qtremors.material.samples.navigation.NavigationBarSample
 import dev.qtremors.material.samples.navigation.NavigationRailSample
 import dev.qtremors.material.samples.navigation.NavigationDrawerSample
@@ -48,7 +53,10 @@ class MaterialDemoRegistry : ComponentDemoRegistry {
         "actions.toggle-buttons",
         "actions.split-buttons",
         "actions.fabs",
+        "actions.icon-buttons",
+        "actions.fab-menus",
         "communication.progress",
+        "communication.loading-indicators",
         "communication.dialogs",
         "communication.bottom-sheets",
         "communication.snackbars",
@@ -57,6 +65,7 @@ class MaterialDemoRegistry : ComponentDemoRegistry {
         "communication.badges",
         "containment.segmented-lists",
         "containment.carousels",
+        "containment.pull-to-refresh",
         "containment.cards",
         "containment.lists",
         "selection.chips",
@@ -69,6 +78,7 @@ class MaterialDemoRegistry : ComponentDemoRegistry {
         "selection.time-pickers",
         "navigation.floating-toolbars",
         "navigation.bars",
+        "navigation.bottom-app-bars",
         "navigation.rails",
         "navigation.drawers",
         "navigation.tabs",
@@ -90,7 +100,10 @@ class MaterialDemoRegistry : ComponentDemoRegistry {
             "actions.toggle-buttons" -> ToggleButtonsSample()
             "actions.split-buttons" -> SplitButtonsSample()
             "actions.fabs" -> FloatingActionButtonsSample()
+            "actions.icon-buttons" -> IconButtonsSample()
+            "actions.fab-menus" -> FabMenusSample()
             "communication.progress" -> ProgressIndicatorsSample()
+            "communication.loading-indicators" -> LoadingIndicatorsSample()
             "communication.dialogs" -> DialogsSample()
             "communication.bottom-sheets" -> BottomSheetsSample()
             "communication.snackbars" -> SnackbarsSample()
@@ -99,6 +112,7 @@ class MaterialDemoRegistry : ComponentDemoRegistry {
             "communication.badges" -> BadgesSample()
             "containment.segmented-lists" -> SegmentedListItemsSample()
             "containment.carousels" -> CarouselsSample()
+            "containment.pull-to-refresh" -> PullToRefreshSample()
             "containment.cards" -> CardsSample()
             "containment.lists" -> ListsSample()
             "selection.chips" -> ChipsSample()
@@ -111,6 +125,7 @@ class MaterialDemoRegistry : ComponentDemoRegistry {
             "selection.time-pickers" -> TimePickerSample()
             "navigation.floating-toolbars" -> FloatingToolbarsSample()
             "navigation.bars" -> NavigationBarSample()
+            "navigation.bottom-app-bars" -> BottomAppBarsSample()
             "navigation.rails" -> NavigationRailSample()
             "navigation.drawers" -> NavigationDrawerSample()
             "navigation.tabs" -> TabsSample()
