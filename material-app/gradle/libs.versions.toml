@@ -44,6 +44,8 @@ androidx-navigation-compose = { group = "androidx.navigation", name = "navigatio
 androidx-datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
 kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
+android-gradle-plugin = { group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
+kotlin-gradle-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -51,3 +53,7 @@ android-library = { id = "com.android.library", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+materialdesign-android-application = { id = "materialdesign.android.application" }
+materialdesign-android-library = { id = "materialdesign.android.library" }
+materialdesign-android-compose = { id = "materialdesign.android.compose" }
+materialdesign-kotlin-serialization = { id = "materialdesign.kotlin.serialization" }

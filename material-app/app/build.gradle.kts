@@ -1,9 +1,9 @@
 import java.util.Properties
 
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.compose)
-    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.materialdesign.android.application)
+    alias(libs.plugins.materialdesign.android.compose)
+    alias(libs.plugins.materialdesign.kotlin.serialization)
 }
 
 val appVersionName = providers.gradleProperty("appVersionName").get()
@@ -11,11 +11,9 @@ val appVersionCode = providers.gradleProperty("appVersionCode").get().toInt()
 
 android {
     namespace = "dev.qtremors.materialdesign"
-    compileSdk = 37
 
     defaultConfig {
         applicationId = "dev.qtremors.materialdesign"
-        minSdk = 24
         targetSdk = 37
         versionCode = appVersionCode
         versionName = appVersionName
@@ -73,11 +71,6 @@ android {
         }
     }
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-
     buildFeatures {
         compose = true
         buildConfig = true
@@ -108,12 +101,6 @@ androidComponents.onVariants { variant ->
         } else {
             output.outputFileName.set("Material Design-$appVersionName.apk")
         }
-    }
-}
-
-kotlin {
-    compilerOptions {
-        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11)
     }
 }
 

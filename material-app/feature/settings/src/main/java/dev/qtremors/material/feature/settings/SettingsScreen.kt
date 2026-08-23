@@ -48,6 +48,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -85,7 +86,7 @@ fun SettingsScreen(
             LargeTopAppBar(
                 title = {
                     Text(
-                        text = "Settings",
+                        text = stringResource(R.string.settings_title),
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
                         fontWeight = FontWeight.Bold,
@@ -102,7 +103,7 @@ fun SettingsScreen(
                         IconButton(onClick = onBack) {
                             Icon(
                                 imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                                contentDescription = "Back",
+                                contentDescription = stringResource(R.string.settings_back),
                                 tint = MaterialTheme.colorScheme.onSurface,
                             )
                         }
@@ -126,7 +127,7 @@ fun SettingsScreen(
         ) {
             // Appearance Section
             item {
-                SettingsSection(title = "Appearance") {
+                SettingsSection(title = stringResource(R.string.settings_section_appearance)) {
                     MaterialListSurface {
                         ThemeModeSelector(
                             currentMode = theme.themeMode,
@@ -163,8 +164,8 @@ fun SettingsScreen(
                         SettingsSwitchRow(
                             index = 0,
                             count = 2,
-                            title = "Harmonize Colors",
-                            description = "Blend category and status colors with the active theme accent color.",
+                            title = stringResource(R.string.settings_harmonize_colors),
+                            description = stringResource(R.string.settings_harmonize_colors_description),
                             checked = theme.harmonizeColors,
                             leadingIcon = Icons.Default.Palette,
                             onCheckedChange = { onThemeStateChange(theme.copy(harmonizeColors = it)) },
@@ -173,8 +174,8 @@ fun SettingsScreen(
                         SettingsSwitchRow(
                             index = 1,
                             count = 2,
-                            title = "Vibrations",
-                            description = "Enable haptic feedback on actions and gestures.",
+                            title = stringResource(R.string.settings_vibrations),
+                            description = stringResource(R.string.settings_vibrations_description),
                             checked = theme.vibrationsEnabled,
                             leadingIcon = Icons.Default.Vibration,
                             onCheckedChange = { onThemeStateChange(theme.copy(vibrationsEnabled = it)) },
@@ -185,13 +186,13 @@ fun SettingsScreen(
 
             // Browsing & Catalog Section
             item {
-                SettingsSection(title = "Browsing & Layout") {
+                SettingsSection(title = stringResource(R.string.settings_section_browsing_layout)) {
                     Column(verticalArrangement = Arrangement.spacedBy(ListItemDefaults.SegmentedGap)) {
                         SettingsSwitchRow(
                             index = 0,
                             count = 2,
-                            title = "Expandable App Bars",
-                            description = "Expand and collapse large top app bars smoothly during scroll.",
+                            title = stringResource(R.string.settings_expandable_app_bars),
+                            description = stringResource(R.string.settings_expandable_app_bars_description),
                             checked = theme.expandableAppBar,
                             leadingIcon = Icons.Default.Expand,
                             onCheckedChange = { onThemeStateChange(theme.copy(expandableAppBar = it)) },
@@ -200,8 +201,8 @@ fun SettingsScreen(
                         SettingsSwitchRow(
                             index = 1,
                             count = 2,
-                            title = "Catalog Badges",
-                            description = "Display M3 Expressive, experimental, and API maturity chips on component cards.",
+                            title = stringResource(R.string.settings_catalog_badges),
+                            description = stringResource(R.string.settings_catalog_badges_description),
                             checked = theme.showBadges,
                             leadingIcon = Icons.Default.AutoAwesome,
                             onCheckedChange = { onThemeStateChange(theme.copy(showBadges = it)) },
@@ -212,13 +213,13 @@ fun SettingsScreen(
 
             // Motion Section
             item {
-                SettingsSection(title = "Motion") {
+                SettingsSection(title = stringResource(R.string.settings_section_motion)) {
                     Column(verticalArrangement = Arrangement.spacedBy(ListItemDefaults.SegmentedGap)) {
                         SettingsSwitchRow(
                             index = 0,
                             count = 1,
-                            title = "Reduce App Motion",
-                            description = "Use instantaneous snap transitions instead of bouncy spring physics.",
+                            title = stringResource(R.string.settings_reduce_app_motion),
+                            description = stringResource(R.string.settings_reduce_app_motion_description),
                             checked = theme.reducedMotion,
                             leadingIcon = Icons.Default.MotionPhotosOff,
                             onCheckedChange = { onThemeStateChange(theme.copy(reducedMotion = it)) },
@@ -229,7 +230,7 @@ fun SettingsScreen(
 
             // Library & History Section
             item {
-                SettingsSection(title = "Library & History") {
+                SettingsSection(title = stringResource(R.string.settings_section_library_history)) {
                     Column(verticalArrangement = Arrangement.spacedBy(ListItemDefaults.SegmentedGap)) {
                         SegmentedListItem(
                             onClick = { confirmAction = ConfirmAction.BOOKMARKS },
@@ -244,7 +245,7 @@ fun SettingsScreen(
                                     )
                                 }
                             },
-                            supportingContent = { Text("$bookmarkCount saved components") },
+                            supportingContent = { Text(stringResource(R.string.settings_bookmarks_count_subtitle, bookmarkCount)) },
                             trailingContent = {
                                 Box(modifier = Modifier.fillMaxHeight(), contentAlignment = Alignment.Center) {
                                     Icon(
@@ -258,7 +259,7 @@ fun SettingsScreen(
                                 containerColor = MaterialTheme.colorScheme.surfaceContainer,
                                 disabledContainerColor = MaterialTheme.colorScheme.surfaceContainer,
                             ),
-                            content = { Text("Clear bookmarks") },
+                            content = { Text(stringResource(R.string.settings_clear_bookmarks)) },
                             modifier = Modifier.height(IntrinsicSize.Min),
                         )
                         SegmentedListItem(
@@ -274,7 +275,7 @@ fun SettingsScreen(
                                     )
                                 }
                             },
-                            supportingContent = { Text("$recentCount recently viewed components") },
+                            supportingContent = { Text(stringResource(R.string.settings_recent_count_subtitle, recentCount)) },
                             trailingContent = {
                                 Box(modifier = Modifier.fillMaxHeight(), contentAlignment = Alignment.Center) {
                                     Icon(
@@ -288,7 +289,7 @@ fun SettingsScreen(
                                 containerColor = MaterialTheme.colorScheme.surfaceContainer,
                                 disabledContainerColor = MaterialTheme.colorScheme.surfaceContainer,
                             ),
-                            content = { Text("Clear recent history") },
+                            content = { Text(stringResource(R.string.settings_clear_recent_history)) },
                             modifier = Modifier.height(IntrinsicSize.Min),
                         )
                     }
@@ -297,7 +298,7 @@ fun SettingsScreen(
 
             // Info Section
             item {
-                SettingsSection(title = "Info") {
+                SettingsSection(title = stringResource(R.string.settings_section_info)) {
                     Column(verticalArrangement = Arrangement.spacedBy(ListItemDefaults.SegmentedGap)) {
                         SegmentedListItem(
                             onClick = onNavigateToAbout,
@@ -307,12 +308,14 @@ fun SettingsScreen(
                                     Icon(Icons.Default.Info, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
                                 }
                             },
-                            supportingContent = { Text("Version $appVersion · M3 Compose $material3Version · Repository") },
+                            supportingContent = {
+                                Text(stringResource(R.string.settings_about_row_subtitle, appVersion, material3Version))
+                            },
                             colors = ListItemDefaults.segmentedColors(
                                 containerColor = MaterialTheme.colorScheme.surfaceContainer,
                                 disabledContainerColor = MaterialTheme.colorScheme.surfaceContainer,
                             ),
-                            content = { Text("About Material Design") },
+                            content = { Text(stringResource(R.string.settings_about_entry)) },
                             modifier = Modifier.height(IntrinsicSize.Min),
                         )
                     }
@@ -325,15 +328,25 @@ fun SettingsScreen(
         val isBookmarksAction = confirmAction == ConfirmAction.BOOKMARKS
         AlertDialog(
             onDismissRequest = { confirmAction = null },
-            title = { Text("Clear ${if (isBookmarksAction) "bookmarks" else "recent history"}?") },
-            text = { Text("This removes only local app data and cannot be undone.") },
+            title = {
+                Text(
+                    stringResource(
+                        if (isBookmarksAction) {
+                            R.string.settings_clear_bookmarks_dialog_title
+                        } else {
+                            R.string.settings_clear_recent_history_dialog_title
+                        },
+                    ),
+                )
+            },
+            text = { Text(stringResource(R.string.settings_clear_dialog_message)) },
             confirmButton = {
                 TextButton(onClick = {
                     if (isBookmarksAction) onClearBookmarks() else onClearRecent()
                     confirmAction = null
-                }) { Text("Clear") }
+                }) { Text(stringResource(R.string.settings_dialog_confirm)) }
             },
-            dismissButton = { TextButton(onClick = { confirmAction = null }) { Text("Cancel") } },
+            dismissButton = { TextButton(onClick = { confirmAction = null }) { Text(stringResource(R.string.settings_dialog_cancel)) } },
         )
     }
 }

@@ -54,6 +54,7 @@ import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -67,7 +68,16 @@ import dev.qtremors.material.core.catalog.ImplementationKind
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 
-enum class DetailSection(val label: String) { PREVIEW("Preview"), GUIDANCE("Guidance"), INSPECT("Inspect"), API("API") }
+enum class DetailSection { PREVIEW, GUIDANCE, INSPECT, API }
+
+/** Enum properties cannot call composables, so tab labels resolve here. */
+@Composable
+private fun DetailSection.label(): String = when (this) {
+    DetailSection.PREVIEW -> stringResource(R.string.detail_tab_preview)
+    DetailSection.GUIDANCE -> stringResource(R.string.detail_tab_guidance)
+    DetailSection.INSPECT -> stringResource(R.string.detail_tab_inspect)
+    DetailSection.API -> stringResource(R.string.detail_tab_api)
+}
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
@@ -132,14 +142,17 @@ fun ComponentDetailScreen(
                 title = { Text(entry.officialName) },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.detail_back_content_description))
                     }
                 },
                 actions = {
                     IconButton(onClick = { onBookmarkClick(!bookmarked) }) {
                         Icon(
                             imageVector = if (bookmarked) Icons.Filled.Bookmark else Icons.Outlined.BookmarkBorder,
-                            contentDescription = if (bookmarked) "Remove bookmark" else "Bookmark",
+                            contentDescription = stringResource(
+                                if (bookmarked) R.string.detail_remove_bookmark_content_description
+                                else R.string.detail_add_bookmark_content_description,
+                            ),
                         )
                     }
                 },
@@ -199,17 +212,26 @@ fun ComponentDetailScreen(
                         AssistChip(onClick = {}, label = { Text(entry.category, maxLines = 1, overflow = TextOverflow.Ellipsis) })
                         AssistChip(
                             onClick = {},
-                            label = { Text(if (isCustom) "Custom Component" else "Official API", maxLines = 1, overflow = TextOverflow.Ellipsis) },
+                            label = {
+                                Text(
+                                    text = stringResource(
+                                        if (isCustom) R.string.detail_badge_custom_component
+                                        else R.string.detail_badge_official_api,
+                                    ),
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis,
+                                )
+                            },
                         )
                         if (isExpressive) {
-                            AssistChip(onClick = {}, label = { Text("M3 Expressive", maxLines = 1, overflow = TextOverflow.Ellipsis) })
+                            AssistChip(onClick = {}, label = { Text(stringResource(R.string.detail_badge_m3_expressive), maxLines = 1, overflow = TextOverflow.Ellipsis) })
                         }
                         if (isExperimental) {
-                            AssistChip(onClick = {}, label = { Text("Experimental API", maxLines = 1, overflow = TextOverflow.Ellipsis) })
+                            AssistChip(onClick = {}, label = { Text(stringResource(R.string.detail_badge_experimental_api), maxLines = 1, overflow = TextOverflow.Ellipsis) })
                         }
                     }
                     Text(entry.summary, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                    Text("Also find: ${entry.aliases.joinToString()}", style = MaterialTheme.typography.bodySmall)
+                    Text(stringResource(R.string.detail_aliases, entry.aliases.joinToString()), style = MaterialTheme.typography.bodySmall)
                 }
 
                 PrimaryTabRow(
@@ -224,7 +246,7 @@ fun ComponentDetailScreen(
                                     pagerState.animateScrollToPage(index)
                                 }
                             },
-                            text = { Text(section.label) },
+                            text = { Text(section.label()) },
                         )
                     }
                 }
@@ -242,7 +264,7 @@ private fun PreviewSection(demo: @Composable () -> Unit) {
             .padding(20.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
-        Text("Interactive reference", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
+        Text(stringResource(R.string.detail_preview_title), style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
         Card(Modifier.fillMaxWidth()) { Column(Modifier.padding(20.dp)) { demo() } }
     }
 }
@@ -256,21 +278,21 @@ private fun GuidanceSection(entry: CatalogEntry) {
             .padding(20.dp),
         verticalArrangement = Arrangement.spacedBy(18.dp),
     ) {
-        Text("Design guidance", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
+        Text(stringResource(R.string.detail_guidance_title), style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
         Card(
             modifier = Modifier.fillMaxWidth(),
             colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
         ) {
             Column(Modifier.padding(18.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                Text("Purpose", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary)
+                Text(stringResource(R.string.detail_guidance_purpose_label), style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary)
                 Text(entry.guidance.purpose, style = MaterialTheme.typography.titleMedium)
             }
         }
-        GuidanceList("Use when", entry.guidance.useWhen)
-        GuidanceList("Avoid when", entry.guidance.avoidWhen, caution = true)
-        GuidanceList("Behavior and feeling", entry.guidance.behavior)
-        GuidanceList("Accessibility", entry.guidance.accessibility)
-        GuidanceList("Adaptive layouts", entry.guidance.adaptive)
+        GuidanceList(stringResource(R.string.detail_guidance_use_when_title), entry.guidance.useWhen)
+        GuidanceList(stringResource(R.string.detail_guidance_avoid_when_title), entry.guidance.avoidWhen, caution = true)
+        GuidanceList(stringResource(R.string.detail_guidance_behavior_title), entry.guidance.behavior)
+        GuidanceList(stringResource(R.string.detail_guidance_accessibility_title), entry.guidance.accessibility)
+        GuidanceList(stringResource(R.string.detail_guidance_adaptive_title), entry.guidance.adaptive)
     }
 }
 
@@ -314,15 +336,15 @@ private fun InspectSection(entry: CatalogEntry) {
             .padding(20.dp),
         verticalArrangement = Arrangement.spacedBy(14.dp),
     ) {
-        Text("Implementation reference", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
-        InspectLine("Stable ID", entry.id)
-        InspectLine("Category", entry.category)
-        InspectLine("Kind", entry.kind.name.lowercase())
-        InspectLine("Implementation", entry.implementation.name.lowercase().replace('_', ' '))
-        InspectLine("Reviewed", entry.reviewedOn)
+        Text(stringResource(R.string.detail_inspect_title), style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
+        InspectLine(stringResource(R.string.detail_inspect_stable_id_label), entry.id)
+        InspectLine(stringResource(R.string.detail_inspect_category_label), entry.category)
+        InspectLine(stringResource(R.string.detail_inspect_kind_label), entry.kind.name.lowercase())
+        InspectLine(stringResource(R.string.detail_inspect_implementation_label), entry.implementation.name.lowercase().replace('_', ' '))
+        InspectLine(stringResource(R.string.detail_inspect_reviewed_label), entry.reviewedOn)
         HorizontalDivider()
-        Text("Expected behavior", style = MaterialTheme.typography.titleMedium)
-        Text("State is hoisted, touch targets remain accessible, labels are semantic, and layouts must survive compact through expanded windows and increased font scales.")
+        Text(stringResource(R.string.detail_expected_behavior_title), style = MaterialTheme.typography.titleMedium)
+        Text(stringResource(R.string.detail_expected_behavior_body))
     }
 }
 
@@ -337,25 +359,39 @@ private fun ApiSection(entry: CatalogEntry) {
             .padding(20.dp),
         verticalArrangement = Arrangement.spacedBy(14.dp),
     ) {
-        Text("Official APIs", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
+        Text(stringResource(R.string.detail_api_title), style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
         entry.apiReferences.forEach { api ->
             Card(Modifier.fillMaxWidth()) {
                 Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     Row(Modifier.fillMaxWidth()) {
                         Text(api.symbol, modifier = Modifier.weight(1f), fontFamily = FontFamily.Monospace)
-                        IconButton(onClick = { clipboard.setText(AnnotatedString(api.symbol)) }) { Icon(Icons.Default.ContentCopy, "Copy API symbol") }
-                        IconButton(onClick = { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(api.url))) }) { Icon(Icons.Default.OpenInNew, "Open official API") }
+                        IconButton(onClick = { clipboard.setText(AnnotatedString(api.symbol)) }) {
+                            Icon(Icons.Default.ContentCopy, stringResource(R.string.detail_copy_symbol_content_description))
+                        }
+                        IconButton(onClick = { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(api.url))) }) {
+                            Icon(Icons.Default.OpenInNew, stringResource(R.string.detail_open_official_api_content_description))
+                        }
                     }
-                    Text("${api.artifact}:${api.reviewedVersion}")
+                    Text(stringResource(R.string.detail_artifact_version, api.artifact, api.reviewedVersion))
+                    val availabilityLabel = if (api.availability == ApiAvailability.STABLE_ARTIFACT) {
+                        stringResource(R.string.detail_availability_stable_artifact)
+                    } else {
+                        stringResource(R.string.detail_availability_alpha_only)
+                    }
+                    val stabilityLabel = if (api.stability == ApiStability.STABLE) {
+                        stringResource(R.string.detail_stability_stable)
+                    } else {
+                        stringResource(R.string.detail_stability_experimental)
+                    }
                     Text(
-                        "${if (api.availability == ApiAvailability.STABLE_ARTIFACT) "Stable artifact" else "Alpha only"} · ${if (api.stability == ApiStability.STABLE) "Stable API" else "Experimental API"}",
+                        stringResource(R.string.detail_availability_and_stability, availabilityLabel, stabilityLabel),
                         color = MaterialTheme.colorScheme.primary,
                     )
-                    api.optInAnnotation?.let { Text("Opt in: $it", fontFamily = FontFamily.Monospace) }
+                    api.optInAnnotation?.let { Text(stringResource(R.string.detail_opt_in_label, it), fontFamily = FontFamily.Monospace) }
                 }
             }
         }
-        Text("Repository source", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
+        Text(stringResource(R.string.detail_repository_source_title), style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
         entry.sourceLocations.forEach { source ->
             Card(Modifier.fillMaxWidth()) {
                 Row(Modifier.padding(16.dp)) {
@@ -363,7 +399,9 @@ private fun ApiSection(entry: CatalogEntry) {
                         Text(source.path, fontFamily = FontFamily.Monospace)
                         Text(source.symbols.joinToString(), style = MaterialTheme.typography.bodySmall)
                     }
-                    IconButton(onClick = { clipboard.setText(AnnotatedString(source.path)) }) { Icon(Icons.Default.ContentCopy, "Copy source path") }
+                    IconButton(onClick = { clipboard.setText(AnnotatedString(source.path)) }) {
+                        Icon(Icons.Default.ContentCopy, stringResource(R.string.detail_copy_path_content_description))
+                    }
                 }
             }
         }

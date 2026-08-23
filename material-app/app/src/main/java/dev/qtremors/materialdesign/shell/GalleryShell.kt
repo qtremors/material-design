@@ -1,6 +1,7 @@
 package dev.qtremors.materialdesign.shell
 
 import androidx.activity.compose.BackHandler
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
@@ -24,22 +25,25 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.window.core.layout.WindowWidthSizeClass
 import dev.qtremors.material.core.catalog.ApiStability
 import dev.qtremors.materialdesign.CatalogSnapshot
 import dev.qtremors.materialdesign.LibraryState
+import dev.qtremors.materialdesign.R
 import dev.qtremors.materialdesign.RootDestination
 import dev.qtremors.materialdesign.SearchState
 
 private const val DefaultCompactNavContentPadding = 80f
 private const val CompactNavContentSpacing = 16
 
-internal fun shellTitle(rootDestination: RootDestination): String = when (rootDestination) {
-    RootDestination.EXPLORE -> "Material Design"
-    RootDestination.CATALOG -> "Catalog"
-    RootDestination.APIS -> "APIs"
-    RootDestination.FOUNDATIONS -> "Foundations"
+@StringRes
+internal fun shellTitle(rootDestination: RootDestination): Int = when (rootDestination) {
+    RootDestination.EXPLORE -> R.string.app_title_material_design
+    RootDestination.CATALOG -> R.string.app_destination_catalog
+    RootDestination.APIS -> R.string.app_destination_apis
+    RootDestination.FOUNDATIONS -> R.string.app_destination_foundations
 }
 
 /**
@@ -93,7 +97,7 @@ internal fun GalleryShell(
             )
         } else {
             GalleryTopBar(
-                title = shellTitle(rootDestination),
+                title = stringResource(shellTitle(rootDestination)),
                 scrollBehavior = scrollBehavior,
                 onSearchClick = { showSearchBar = true },
                 onSettingsClick = onSettingsClick,
@@ -145,8 +149,8 @@ internal fun GalleryShell(
                     item(
                         selected = rootDestination == destination.destination,
                         onClick = { onRootSelected(destination.destination) },
-                        icon = { Icon(destination.icon, contentDescription = destination.label) },
-                        label = { Text(destination.label) },
+                        icon = { Icon(destination.icon, contentDescription = stringResource(destination.labelRes)) },
+                        label = { Text(stringResource(destination.labelRes)) },
                     )
                 }
             },

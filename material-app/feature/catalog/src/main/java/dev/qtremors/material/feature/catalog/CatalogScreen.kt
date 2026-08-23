@@ -34,6 +34,7 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import dev.qtremors.material.core.catalog.ApiStability
@@ -66,7 +67,7 @@ fun CatalogScreen(
             contentPadding = PaddingValues(horizontal = 20.dp, vertical = 8.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
         ) {
-            item { FilterChip(selected = selectedCategory == null, onClick = { onCategorySelected(null) }, label = { Text("All") }) }
+            item { FilterChip(selected = selectedCategory == null, onClick = { onCategorySelected(null) }, label = { Text(stringResource(R.string.catalog_filter_all)) }) }
             items(categories.size) { index ->
                 val category = categories[index]
                 val isSelected = selectedCategory.equals(category, ignoreCase = true) ||
@@ -97,12 +98,12 @@ fun CatalogScreen(
                     verticalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
                     Text(
-                        text = "No matches found",
+                        text = stringResource(R.string.catalog_empty_title),
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.Bold,
                     )
                     Text(
-                        text = "Try an official component name, category, or alias.",
+                        text = stringResource(R.string.catalog_empty_hint),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         textAlign = TextAlign.Center,
@@ -139,7 +140,10 @@ fun CatalogScreen(
                                 IconButton(onClick = { onBookmarkClick(entry.id, !bookmarked) }) {
                                     Icon(
                                         if (bookmarked) Icons.Filled.Bookmark else Icons.Outlined.BookmarkBorder,
-                                        contentDescription = if (bookmarked) "Remove bookmark" else "Bookmark",
+                                        contentDescription = stringResource(
+                                            if (bookmarked) R.string.catalog_remove_bookmark_content_description
+                                            else R.string.catalog_add_bookmark_content_description,
+                                        ),
                                     )
                                 }
                             }
@@ -152,7 +156,7 @@ fun CatalogScreen(
                                 if (isCustom) {
                                     AssistChip(
                                         onClick = {},
-                                        label = { Text("Custom Component", style = MaterialTheme.typography.labelSmall, maxLines = 1, overflow = TextOverflow.Ellipsis) },
+                                        label = { Text(stringResource(R.string.catalog_badge_custom_component), style = MaterialTheme.typography.labelSmall, maxLines = 1, overflow = TextOverflow.Ellipsis) },
                                         colors = AssistChipDefaults.assistChipColors(
                                             containerColor = MaterialTheme.colorScheme.tertiaryContainer,
                                             labelColor = MaterialTheme.colorScheme.onTertiaryContainer
@@ -161,14 +165,14 @@ fun CatalogScreen(
                                 } else {
                                     AssistChip(
                                         onClick = {},
-                                        label = { Text("Official API", style = MaterialTheme.typography.labelSmall, maxLines = 1, overflow = TextOverflow.Ellipsis) }
+                                        label = { Text(stringResource(R.string.catalog_badge_official_api), style = MaterialTheme.typography.labelSmall, maxLines = 1, overflow = TextOverflow.Ellipsis) }
                                     )
                                 }
 
                                 if (isExpressive) {
                                     AssistChip(
                                         onClick = {},
-                                        label = { Text("M3 Expressive", style = MaterialTheme.typography.labelSmall, maxLines = 1, overflow = TextOverflow.Ellipsis) },
+                                        label = { Text(stringResource(R.string.catalog_badge_m3_expressive), style = MaterialTheme.typography.labelSmall, maxLines = 1, overflow = TextOverflow.Ellipsis) },
                                         colors = AssistChipDefaults.assistChipColors(
                                             containerColor = MaterialTheme.colorScheme.secondaryContainer,
                                             labelColor = MaterialTheme.colorScheme.onSecondaryContainer
@@ -179,7 +183,7 @@ fun CatalogScreen(
                                 if (isExperimental) {
                                     AssistChip(
                                         onClick = {},
-                                        label = { Text("Experimental", style = MaterialTheme.typography.labelSmall, maxLines = 1, overflow = TextOverflow.Ellipsis) },
+                                        label = { Text(stringResource(R.string.catalog_badge_experimental), style = MaterialTheme.typography.labelSmall, maxLines = 1, overflow = TextOverflow.Ellipsis) },
                                         colors = AssistChipDefaults.assistChipColors(
                                             containerColor = MaterialTheme.colorScheme.errorContainer,
                                             labelColor = MaterialTheme.colorScheme.onErrorContainer

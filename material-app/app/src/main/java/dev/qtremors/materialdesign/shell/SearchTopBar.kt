@@ -32,9 +32,11 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import dev.qtremors.materialdesign.R
 
 @Composable
 internal fun SearchTopBar(
@@ -75,7 +77,7 @@ internal fun SearchTopBar(
                 SearchPillTextField(
                     value = query,
                     onValueChange = onQueryChange,
-                    placeholder = "Search components, APIs, foundations...",
+                    placeholder = stringResource(R.string.app_search_placeholder),
                     textColor = MaterialTheme.colorScheme.onSurface,
                     placeholderColor = MaterialTheme.colorScheme.onSurfaceVariant,
                     cursorColor = MaterialTheme.colorScheme.primary,
@@ -94,7 +96,7 @@ internal fun SearchTopBar(
             IconButton(onClick = onClose) {
                 Icon(
                     Icons.Default.Close,
-                    contentDescription = "Close search",
+                    contentDescription = stringResource(R.string.app_cd_close_search),
                     tint = MaterialTheme.colorScheme.onSurface,
                 )
             }
@@ -161,7 +163,7 @@ private fun SearchPillTextField(
                     ) {
                         Icon(
                             imageVector = Icons.Default.Close,
-                            contentDescription = "Clear search",
+                            contentDescription = stringResource(R.string.app_cd_clear_search),
                             tint = placeholderColor,
                             modifier = Modifier.size(18.dp),
                         )

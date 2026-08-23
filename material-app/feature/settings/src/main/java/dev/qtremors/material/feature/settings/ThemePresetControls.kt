@@ -30,6 +30,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.toColorInt
@@ -44,7 +45,7 @@ fun ThemePresetSelector(
 ) {
     Column(modifier = modifier.fillMaxWidth().padding(vertical = 12.dp)) {
         Text(
-            text = "Theme Preset",
+            text = stringResource(R.string.settings_theme_preset_header),
             style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.onSurface,
@@ -60,10 +61,10 @@ fun ThemePresetSelector(
             ThemePreset.entries.forEach { preset ->
                 val isSelected = currentPreset == preset
                 val label = when (preset) {
-                    ThemePreset.NONE -> "None"
-                    ThemePreset.DRACULA -> "Dracula"
-                    ThemePreset.TOKYO_NIGHT -> "Tokyo Night"
-                    ThemePreset.CUSTOM -> "Custom"
+                    ThemePreset.NONE -> stringResource(R.string.settings_theme_preset_none)
+                    ThemePreset.DRACULA -> stringResource(R.string.settings_theme_preset_dracula)
+                    ThemePreset.TOKYO_NIGHT -> stringResource(R.string.settings_theme_preset_tokyo_night)
+                    ThemePreset.CUSTOM -> stringResource(R.string.settings_theme_preset_custom)
                 }
                 val colors = if (isSelected) {
                     ButtonDefaults.filledTonalButtonColors()
@@ -137,7 +138,7 @@ fun CustomThemeCreatorPanel(
 
     Column(modifier = modifier.fillMaxWidth().padding(vertical = 12.dp)) {
         Text(
-            text = "Custom Colors (Hex)",
+            text = stringResource(R.string.settings_custom_colors_header),
             style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.onSurface,
@@ -156,7 +157,7 @@ fun CustomThemeCreatorPanel(
                         onThemeChange(themeState.copy(customPrimaryColorHex = input))
                     }
                 },
-                label = "Primary Color Hex (#RRGGBB)",
+                label = stringResource(R.string.settings_primary_color_hex_label),
                 parsedColor = primaryParsed,
                 scale = primaryScale,
                 onFocusChange = { isPrimaryFocused = it },
@@ -170,7 +171,7 @@ fun CustomThemeCreatorPanel(
                         onThemeChange(themeState.copy(customBackgroundColorHex = input))
                     }
                 },
-                label = "Background Color Hex (#RRGGBB)",
+                label = stringResource(R.string.settings_background_color_hex_label),
                 parsedColor = backgroundParsed,
                 scale = backgroundScale,
                 onFocusChange = { isBackgroundFocused = it },
@@ -178,7 +179,7 @@ fun CustomThemeCreatorPanel(
             )
             if (colorsTooSimilar) {
                 Text(
-                    text = "Primary and background colors have low contrast and may be hard to read.",
+                    text = stringResource(R.string.settings_color_contrast_warning),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.error,
                     modifier = Modifier.padding(start = 4.dp, bottom = 4.dp),

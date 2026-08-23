@@ -44,6 +44,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.pluralStringResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -115,7 +117,7 @@ fun ExploreScreen(
                 verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
                 Text(
-                    text = "Working reference implementations you can inspect, feel, and locate in source.",
+                    text = stringResource(R.string.explore_subtitle),
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
@@ -126,14 +128,19 @@ fun ExploreScreen(
                 ) {
                     AssistChip(
                         onClick = onAllComponentsClick,
-                        label = { Text("${componentEntries.size} Components") },
+                        label = {
+                            Text(pluralStringResource(R.plurals.explore_chip_component_count, componentEntries.size, componentEntries.size))
+                        },
                         colors = AssistChipDefaults.assistChipColors(
                             containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
                         ),
                     )
                     AssistChip(
                         onClick = onExpressiveClick,
-                        label = { Text("${entries.count { "expressive" in it.collections }} Expressive") },
+                        label = {
+                            val expressiveCount = entries.count { "expressive" in it.collections }
+                            Text(pluralStringResource(R.plurals.explore_chip_expressive_count, expressiveCount, expressiveCount))
+                        },
                         leadingIcon = {
                             Icon(Icons.Default.AutoAwesome, contentDescription = null, modifier = Modifier.size(16.dp))
                         },
@@ -144,7 +151,9 @@ fun ExploreScreen(
                     if (foundationEntries.isNotEmpty()) {
                         AssistChip(
                             onClick = onFoundationsClick,
-                            label = { Text("${foundationEntries.size} Foundations") },
+                            label = {
+                                Text(pluralStringResource(R.plurals.explore_chip_foundation_count, foundationEntries.size, foundationEntries.size))
+                            },
                             leadingIcon = {
                                 Icon(Icons.Default.Palette, contentDescription = null, modifier = Modifier.size(16.dp))
                             },
@@ -160,7 +169,7 @@ fun ExploreScreen(
         if (featuredEntries.isNotEmpty()) {
             item(key = "featured") {
                 ExploreCarouselSection(
-                    title = "Featured",
+                    title = stringResource(R.string.explore_section_featured),
                     items = featuredEntries,
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
                     icon = Icons.Default.Category,
@@ -176,7 +185,7 @@ fun ExploreScreen(
                     verticalArrangement = Arrangement.spacedBy(12.dp),
                 ) {
                     Text(
-                        text = "Categories",
+                        text = stringResource(R.string.explore_section_categories),
                         style = MaterialTheme.typography.titleLarge,
                         fontWeight = FontWeight.SemiBold,
                     )
@@ -196,7 +205,7 @@ fun ExploreScreen(
                         }
                         if (foundationEntries.isNotEmpty()) {
                             CategoryCard(
-                                category = "Foundations",
+                                category = stringResource(R.string.explore_category_foundations),
                                 count = foundationEntries.size,
                                 onClick = onFoundationsClick,
                                 modifier = Modifier.weight(1f),
@@ -210,7 +219,7 @@ fun ExploreScreen(
         if (expressiveHighlights.isNotEmpty()) {
             item(key = "expressive") {
                 ExploreCarouselSection(
-                    title = "Expressive highlights",
+                    title = stringResource(R.string.explore_section_expressive_highlights),
                     items = expressiveHighlights,
                     containerColor = MaterialTheme.colorScheme.tertiaryContainer,
                     icon = Icons.Default.AutoAwesome,
@@ -222,7 +231,7 @@ fun ExploreScreen(
         if (bookmarked.isNotEmpty()) {
             item(key = "bookmarks") {
                 ExploreCarouselSection(
-                    title = "Bookmarks",
+                    title = stringResource(R.string.explore_section_bookmarks),
                     items = bookmarked,
                     containerColor = MaterialTheme.colorScheme.secondaryContainer,
                     icon = Icons.Default.Bookmark,
@@ -234,7 +243,7 @@ fun ExploreScreen(
         if (recent.isNotEmpty()) {
             item(key = "recent") {
                 ExploreCarouselSection(
-                    title = "Recently viewed",
+                    title = stringResource(R.string.explore_section_recently_viewed),
                     items = recent,
                     containerColor = MaterialTheme.colorScheme.surfaceContainerHighest,
                     icon = Icons.Default.History,
@@ -288,7 +297,7 @@ private fun ExploreCarouselSection(
                     ) {
                         Icon(
                             Icons.AutoMirrored.Filled.ArrowForward,
-                            contentDescription = "Open ${entry.officialName}",
+                            contentDescription = stringResource(R.string.explore_open_entry_content_description, entry.officialName),
                         )
                     }
                     Column(Modifier.align(Alignment.BottomStart)) {
@@ -365,7 +374,7 @@ private fun CategoryCard(
                     overflow = TextOverflow.Ellipsis,
                 )
                 Text(
-                    text = "$count components",
+                    text = pluralStringResource(R.plurals.explore_category_component_count, count, count),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     maxLines = 1,

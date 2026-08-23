@@ -1,7 +1,19 @@
 # Material Design Changelog
 
 > **Project:** Material Design  
-> **Project Version:** 2.0.7
+> **Project Version:** 2.0.8
+
+---
+
+## [2.0.8] - 2026-08-23
+
+### Added & Improved
+
+- Added official Google Material 3 catalog component references for Flexible bottom app bars, Wide navigation rails (docked and modal), Swipe to dismiss, Short navigation bars, Vertical sliders, Top search bars with full-screen expansion, Time picker dialogs (standard and rich), Scrollable tab row variants, Grouped dropdown menus, Basic alert dialogs, Dividers, Hero carousels, and Scaffold as a foundations-layout reference.
+- Expanded the catalog to 55 validated entries with interactive demos, aliases, guidance, and API/state/defaults metadata for every new reference; `ModalSideSheet` remains tracked until it ships in `1.5.0-alpha23`.
+- Localized all shell, search overlay, gallery, detail, and settings surfaces into per-module string resources with plural rules for count strings, replacing hardcoded English literals across app and feature modules.
+- Introduced build-logic convention plugins centralizing compile SDK, min SDK, JVM target, namespace derivation, Compose enablement, and serialization setup for all 16 modules.
+- Declared explicit backup and data-extraction rules that exclude the DataStore preferences file from cloud backup and device transfer, with a new test asserting rule parsing and coverage.
 
 ---
 

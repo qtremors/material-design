@@ -1,5 +1,6 @@
 package dev.qtremors.materialdesign.shell
 
+import androidx.annotation.StringRes
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
@@ -36,12 +37,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import dev.qtremors.material.core.designsystem.LocalReducedMotion
 import dev.qtremors.material.core.designsystem.expressiveSpring
+import dev.qtremors.materialdesign.R
 import dev.qtremors.materialdesign.RootDestination
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
@@ -94,6 +97,7 @@ private fun CompactExpressiveDestinationPill(
         animationSpec = expressiveSpring(),
         label = "navPillCornerRadius",
     )
+    val label = stringResource(item.labelRes)
 
     Surface(
         selected = selected,
@@ -105,7 +109,7 @@ private fun CompactExpressiveDestinationPill(
         // the visible label is hidden behind AnimatedVisibility for unselected pills.
         modifier = Modifier
             .height(48.dp)
-            .semantics { contentDescription = item.label },
+            .semantics { contentDescription = label },
     ) {
         Row(
             modifier = Modifier
@@ -126,7 +130,7 @@ private fun CompactExpressiveDestinationPill(
                 Row {
                     Spacer(Modifier.width(8.dp))
                     Text(
-                        text = item.label,
+                        text = label,
                         style = MaterialTheme.typography.labelLarge,
                         fontWeight = FontWeight.Bold,
                         maxLines = 1,
@@ -138,14 +142,14 @@ private fun CompactExpressiveDestinationPill(
 }
 
 internal val rootDestinations = listOf(
-    RootDestinationItem(RootDestination.EXPLORE, "Explore", Icons.Default.Explore),
-    RootDestinationItem(RootDestination.CATALOG, "Catalog", Icons.Default.Apps),
-    RootDestinationItem(RootDestination.APIS, "APIs", Icons.Default.Api),
-    RootDestinationItem(RootDestination.FOUNDATIONS, "Foundations", Icons.Default.Palette),
+    RootDestinationItem(RootDestination.EXPLORE, R.string.app_destination_explore, Icons.Default.Explore),
+    RootDestinationItem(RootDestination.CATALOG, R.string.app_destination_catalog, Icons.Default.Apps),
+    RootDestinationItem(RootDestination.APIS, R.string.app_destination_apis, Icons.Default.Api),
+    RootDestinationItem(RootDestination.FOUNDATIONS, R.string.app_destination_foundations, Icons.Default.Palette),
 )
 
 internal data class RootDestinationItem(
     val destination: RootDestination,
-    val label: String,
+    @StringRes val labelRes: Int,
     val icon: ImageVector,
 )

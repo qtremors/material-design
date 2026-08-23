@@ -72,6 +72,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.semantics
@@ -89,30 +90,33 @@ fun displayedAccentColors(): List<AccentColor> = buildList {
         .forEach(::add)
 }
 
-fun accentLabel(accent: AccentColor): String = when (accent) {
-    AccentColor.DYNAMIC -> "Dynamic (Material You)"
-    AccentColor.MONOCHROME -> "Monochrome"
-    AccentColor.RED -> "Red"
-    AccentColor.PINK -> "Pink"
-    AccentColor.PURPLE -> "Purple"
-    AccentColor.DEEP_PURPLE -> "Deep Purple"
-    AccentColor.CYAN -> "Cyan"
-    AccentColor.LIGHT_BLUE -> "Light Blue"
-    AccentColor.BLUE -> "Blue"
-    AccentColor.INDIGO -> "Indigo"
-    AccentColor.TEAL -> "Teal"
-    AccentColor.GREEN -> "Green"
-    AccentColor.LIGHT_GREEN -> "Light Green"
-    AccentColor.LIME -> "Lime"
-    AccentColor.DEEP_ORANGE -> "Deep Orange"
-    AccentColor.ORANGE -> "Orange"
-    AccentColor.AMBER -> "Amber"
-    AccentColor.YELLOW -> "Yellow"
-    AccentColor.BROWN -> "Brown"
-    AccentColor.BLUE_GREY -> "Blue Grey"
-    AccentColor.GREY -> "Grey"
-    AccentColor.BLACK -> "Black"
+fun accentLabelRes(accent: AccentColor): Int = when (accent) {
+    AccentColor.DYNAMIC -> R.string.settings_accent_dynamic
+    AccentColor.MONOCHROME -> R.string.settings_accent_monochrome
+    AccentColor.RED -> R.string.settings_accent_red
+    AccentColor.PINK -> R.string.settings_accent_pink
+    AccentColor.PURPLE -> R.string.settings_accent_purple
+    AccentColor.DEEP_PURPLE -> R.string.settings_accent_deep_purple
+    AccentColor.CYAN -> R.string.settings_accent_cyan
+    AccentColor.LIGHT_BLUE -> R.string.settings_accent_light_blue
+    AccentColor.BLUE -> R.string.settings_accent_blue
+    AccentColor.INDIGO -> R.string.settings_accent_indigo
+    AccentColor.TEAL -> R.string.settings_accent_teal
+    AccentColor.GREEN -> R.string.settings_accent_green
+    AccentColor.LIGHT_GREEN -> R.string.settings_accent_light_green
+    AccentColor.LIME -> R.string.settings_accent_lime
+    AccentColor.DEEP_ORANGE -> R.string.settings_accent_deep_orange
+    AccentColor.ORANGE -> R.string.settings_accent_orange
+    AccentColor.AMBER -> R.string.settings_accent_amber
+    AccentColor.YELLOW -> R.string.settings_accent_yellow
+    AccentColor.BROWN -> R.string.settings_accent_brown
+    AccentColor.BLUE_GREY -> R.string.settings_accent_blue_grey
+    AccentColor.GREY -> R.string.settings_accent_grey
+    AccentColor.BLACK -> R.string.settings_accent_black
 }
+
+@Composable
+fun accentLabel(accent: AccentColor): String = stringResource(accentLabelRes(accent))
 
 @Composable
 private fun getAccentDisplayColor(accent: AccentColor): Color {
@@ -175,7 +179,7 @@ fun AccentColorSelector(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
-                text = "Accent Color",
+                text = stringResource(R.string.settings_accent_color_header),
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onSurface,
@@ -187,7 +191,7 @@ fun AccentColorSelector(
             ) {
                 Icon(
                     imageVector = Icons.Default.Palette,
-                    contentDescription = "Select accent color",
+                    contentDescription = stringResource(R.string.settings_select_accent_color_content_description),
                     tint = MaterialTheme.colorScheme.primary,
                     modifier = Modifier.size(20.dp),
                 )
@@ -328,12 +332,12 @@ fun AccentColorPickerSheet(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Text(
-                    text = "Select Accent Color",
+                    text = stringResource(R.string.settings_select_accent_color_title),
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.Bold,
                 )
                 TextButton(onClick = onDismiss) {
-                    Text("Done", style = MaterialTheme.typography.labelLarge)
+                    Text(stringResource(R.string.settings_action_done), style = MaterialTheme.typography.labelLarge)
                 }
             }
 
@@ -345,7 +349,7 @@ fun AccentColorPickerSheet(
             Spacer(modifier = Modifier.height(14.dp))
 
             Text(
-                text = "System Themes",
+                text = stringResource(R.string.settings_system_themes),
                 style = MaterialTheme.typography.labelMedium,
                 color = MaterialTheme.colorScheme.primary,
                 fontWeight = FontWeight.Bold,
@@ -357,16 +361,16 @@ fun AccentColorPickerSheet(
                 horizontalArrangement = Arrangement.spacedBy(10.dp),
             ) {
                 SpecialAccentItem(
-                    title = "Dynamic",
-                    subtitle = "System Wallpaper (A12+)",
+                    title = stringResource(R.string.settings_accent_dynamic_short),
+                    subtitle = stringResource(R.string.settings_accent_dynamic_subtitle),
                     icon = Icons.Default.ColorLens,
                     isSelected = currentAccent == AccentColor.DYNAMIC,
                     onClick = { onAccentSelected(AccentColor.DYNAMIC) },
                     modifier = Modifier.weight(1f),
                 )
                 SpecialAccentItem(
-                    title = "Monochrome",
-                    subtitle = "High-contrast Neutral",
+                    title = stringResource(R.string.settings_accent_monochrome),
+                    subtitle = stringResource(R.string.settings_accent_monochrome_subtitle),
                     icon = Icons.Default.Contrast,
                     isSelected = currentAccent == AccentColor.MONOCHROME,
                     onClick = { onAccentSelected(AccentColor.MONOCHROME) },
@@ -379,7 +383,7 @@ fun AccentColorPickerSheet(
             Spacer(modifier = Modifier.height(12.dp))
 
             AccentCategorySection(
-                title = "Warm & Energetic",
+                title = stringResource(R.string.settings_accent_category_warm),
                 colors = listOf(
                     AccentColor.RED, AccentColor.PINK, AccentColor.DEEP_ORANGE,
                     AccentColor.ORANGE, AccentColor.AMBER, AccentColor.YELLOW,
@@ -391,7 +395,7 @@ fun AccentColorPickerSheet(
             Spacer(modifier = Modifier.height(12.dp))
 
             AccentCategorySection(
-                title = "Cool & Vibrant",
+                title = stringResource(R.string.settings_accent_category_cool),
                 colors = listOf(
                     AccentColor.BLUE, AccentColor.LIGHT_BLUE, AccentColor.CYAN,
                     AccentColor.INDIGO, AccentColor.PURPLE, AccentColor.DEEP_PURPLE,
@@ -403,7 +407,7 @@ fun AccentColorPickerSheet(
             Spacer(modifier = Modifier.height(12.dp))
 
             AccentCategorySection(
-                title = "Nature & Fresh",
+                title = stringResource(R.string.settings_accent_category_nature),
                 colors = listOf(
                     AccentColor.TEAL, AccentColor.GREEN, AccentColor.LIGHT_GREEN, AccentColor.LIME,
                 ),
@@ -414,7 +418,7 @@ fun AccentColorPickerSheet(
             Spacer(modifier = Modifier.height(12.dp))
 
             AccentCategorySection(
-                title = "Earth & Neutral",
+                title = stringResource(R.string.settings_accent_category_earth),
                 colors = listOf(
                     AccentColor.BROWN, AccentColor.BLUE_GREY, AccentColor.GREY, AccentColor.BLACK,
                 ),
@@ -475,7 +479,7 @@ fun LiveAccentPreviewCard(
                     }
                     Spacer(modifier = Modifier.width(8.dp))
                     Text(
-                        text = "Material Gallery",
+                        text = stringResource(R.string.settings_preview_gallery),
                         style = MaterialTheme.typography.titleSmall,
                         color = onSurface,
                     )
@@ -525,7 +529,7 @@ fun LiveAccentPreviewCard(
                         }
                         Spacer(modifier = Modifier.width(10.dp))
                         Text(
-                            text = "Components & Controls",
+                            text = stringResource(R.string.settings_preview_components_controls),
                             style = MaterialTheme.typography.labelMedium,
                             color = onSurface,
                         )

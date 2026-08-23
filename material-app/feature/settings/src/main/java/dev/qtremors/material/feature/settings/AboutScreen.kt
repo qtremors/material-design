@@ -50,6 +50,7 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -69,10 +70,16 @@ fun AboutScreen(
     val uriHandler = LocalUriHandler.current
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
 
+    val copiedToClipboardTemplate = stringResource(R.string.settings_copied_to_clipboard)
+    val versionLabel = stringResource(R.string.settings_version_label)
+    val deviceLabel = stringResource(R.string.settings_device_label)
+    val m3ComposeLabel = stringResource(R.string.settings_m3_compose_label)
+    val composeUiLabel = stringResource(R.string.settings_compose_ui_label)
+
     val copyToClipboard: (String, String) -> Unit = { label, text ->
         val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager
         clipboard?.setPrimaryClip(ClipData.newPlainText(label, text))
-        Toast.makeText(context, "Copied $label to clipboard", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, copiedToClipboardTemplate.format(label), Toast.LENGTH_SHORT).show()
     }
 
     Scaffold(
@@ -81,7 +88,7 @@ fun AboutScreen(
             LargeTopAppBar(
                 title = {
                     Text(
-                        text = "About",
+                        text = stringResource(R.string.settings_about_title),
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
                         fontWeight = FontWeight.Bold,
@@ -98,7 +105,7 @@ fun AboutScreen(
                         IconButton(onClick = onBack) {
                             Icon(
                                 imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                                contentDescription = "Back",
+                                contentDescription = stringResource(R.string.settings_back),
                                 tint = MaterialTheme.colorScheme.onSurface,
                             )
                         }
@@ -129,18 +136,18 @@ fun AboutScreen(
                 ) {
                     Image(
                         painter = painterResource(R.drawable.ic_material_logo),
-                        contentDescription = "Material Design",
+                        contentDescription = stringResource(R.string.settings_app_name),
                         modifier = Modifier.size(96.dp),
                     )
                     Spacer(Modifier.height(16.dp))
                     Text(
-                        text = "Material Design",
+                        text = stringResource(R.string.settings_app_name),
                         style = MaterialTheme.typography.headlineMedium,
                         fontWeight = FontWeight.Bold,
                     )
                     Spacer(Modifier.height(4.dp))
                     Text(
-                        text = "Interactive Material 3 Expressive Showcase",
+                        text = stringResource(R.string.settings_about_tagline),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         textAlign = TextAlign.Center,
@@ -149,16 +156,16 @@ fun AboutScreen(
             }
 
             item {
-                AboutSection(title = "App Info") {
+                AboutSection(title = stringResource(R.string.settings_about_section_app_info)) {
                     SegmentedListItem(
-                        onClick = { copyToClipboard("Version", appVersion) },
+                        onClick = { copyToClipboard(versionLabel, appVersion) },
                         shapes = expressiveSegmentedShapes(index = 0, count = 4),
                         leadingContent = {
                             Box(modifier = Modifier.fillMaxHeight(), contentAlignment = Alignment.Center) {
                                 Icon(Icons.Default.Info, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
                             }
                         },
-                        content = { Text("Version") },
+                        content = { Text(versionLabel) },
                         supportingContent = { Text(appVersion) },
                         colors = ListItemDefaults.segmentedColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
                         modifier = Modifier.height(IntrinsicSize.Min),
@@ -171,8 +178,8 @@ fun AboutScreen(
                                 Icon(Icons.Default.Code, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
                             }
                         },
-                        content = { Text("Developer") },
-                        supportingContent = { Text("Tremors (@qtremors)") },
+                        content = { Text(stringResource(R.string.settings_developer)) },
+                        supportingContent = { Text(stringResource(R.string.settings_developer_name)) },
                         colors = ListItemDefaults.segmentedColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
                         modifier = Modifier.height(IntrinsicSize.Min),
                     )
@@ -184,21 +191,26 @@ fun AboutScreen(
                                 Icon(Icons.Default.Source, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
                             }
                         },
-                        content = { Text("Repository") },
-                        supportingContent = { Text("github.com/qtremors/material-design") },
+                        content = { Text(stringResource(R.string.settings_repository)) },
+                        supportingContent = { Text(stringResource(R.string.settings_repository_url)) },
                         colors = ListItemDefaults.segmentedColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
                         modifier = Modifier.height(IntrinsicSize.Min),
                     )
-                    val deviceText = "${Build.MANUFACTURER} ${Build.MODEL} (Android ${Build.VERSION.RELEASE})"
+                    val deviceText = stringResource(
+                        R.string.settings_device_format,
+                        Build.MANUFACTURER,
+                        Build.MODEL,
+                        Build.VERSION.RELEASE,
+                    )
                     SegmentedListItem(
-                        onClick = { copyToClipboard("Device", deviceText) },
+                        onClick = { copyToClipboard(deviceLabel, deviceText) },
                         shapes = expressiveSegmentedShapes(index = 3, count = 4),
                         leadingContent = {
                             Box(modifier = Modifier.fillMaxHeight(), contentAlignment = Alignment.Center) {
                                 Icon(Icons.Default.PhoneAndroid, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
                             }
                         },
-                        content = { Text("Device") },
+                        content = { Text(deviceLabel) },
                         supportingContent = { Text(deviceText) },
                         colors = ListItemDefaults.segmentedColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
                         modifier = Modifier.height(IntrinsicSize.Min),
@@ -207,29 +219,29 @@ fun AboutScreen(
             }
 
             item {
-                AboutSection(title = "Material 3 Catalog") {
+                AboutSection(title = stringResource(R.string.settings_about_section_catalog)) {
                     SegmentedListItem(
-                        onClick = { copyToClipboard("Material 3 Compose", material3Version) },
+                        onClick = { copyToClipboard(m3ComposeLabel, material3Version) },
                         shapes = expressiveSegmentedShapes(index = 0, count = 3),
                         leadingContent = {
                             Box(modifier = Modifier.fillMaxHeight(), contentAlignment = Alignment.Center) {
                                 Icon(Icons.Default.Layers, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
                             }
                         },
-                        content = { Text("Material 3 Compose") },
+                        content = { Text(m3ComposeLabel) },
                         supportingContent = { Text(material3Version) },
                         colors = ListItemDefaults.segmentedColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
                         modifier = Modifier.height(IntrinsicSize.Min),
                     )
                     SegmentedListItem(
-                        onClick = { copyToClipboard("Compose UI", composeUiVersion) },
+                        onClick = { copyToClipboard(composeUiLabel, composeUiVersion) },
                         shapes = expressiveSegmentedShapes(index = 1, count = 3),
                         leadingContent = {
                             Box(modifier = Modifier.fillMaxHeight(), contentAlignment = Alignment.Center) {
                                 Icon(Icons.Default.Layers, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
                             }
                         },
-                        content = { Text("Compose UI Version") },
+                        content = { Text(stringResource(R.string.settings_compose_ui_version_label)) },
                         supportingContent = { Text(composeUiVersion) },
                         colors = ListItemDefaults.segmentedColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
                         modifier = Modifier.height(IntrinsicSize.Min),
@@ -242,8 +254,8 @@ fun AboutScreen(
                                 Icon(Icons.Default.AutoAwesome, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
                             }
                         },
-                        content = { Text("Components") },
-                        supportingContent = { Text("40+ official & expressive interactive references") },
+                        content = { Text(stringResource(R.string.settings_components)) },
+                        supportingContent = { Text(stringResource(R.string.settings_components_description)) },
                         colors = ListItemDefaults.segmentedColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
                         modifier = Modifier.height(IntrinsicSize.Min),
                     )
@@ -251,7 +263,7 @@ fun AboutScreen(
             }
 
             item {
-                AboutSection(title = "Community & Source") {
+                AboutSection(title = stringResource(R.string.settings_about_section_community)) {
                     SegmentedListItem(
                         onClick = { uriHandler.openUri("https://github.com/qtremors/material-design/releases") },
                         shapes = expressiveSegmentedShapes(index = 0, count = 3),
@@ -260,8 +272,8 @@ fun AboutScreen(
                                 Icon(Icons.Default.History, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
                             }
                         },
-                        content = { Text("Releases & Changelog") },
-                        supportingContent = { Text("View project release notes and updates") },
+                        content = { Text(stringResource(R.string.settings_releases_changelog)) },
+                        supportingContent = { Text(stringResource(R.string.settings_releases_changelog_description)) },
                         colors = ListItemDefaults.segmentedColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
                         modifier = Modifier.height(IntrinsicSize.Min),
                     )
@@ -273,8 +285,8 @@ fun AboutScreen(
                                 Icon(Icons.Default.BugReport, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
                             }
                         },
-                        content = { Text("Report an Issue") },
-                        supportingContent = { Text("Submit bug reports or feature requests") },
+                        content = { Text(stringResource(R.string.settings_report_issue)) },
+                        supportingContent = { Text(stringResource(R.string.settings_report_issue_description)) },
                         colors = ListItemDefaults.segmentedColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
                         modifier = Modifier.height(IntrinsicSize.Min),
                     )
@@ -286,8 +298,8 @@ fun AboutScreen(
                                 Icon(Icons.AutoMirrored.Filled.Assignment, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
                             }
                         },
-                        content = { Text("Open Source License") },
-                        supportingContent = { Text("MIT License") },
+                        content = { Text(stringResource(R.string.settings_open_source_license)) },
+                        supportingContent = { Text(stringResource(R.string.settings_license_name)) },
                         colors = ListItemDefaults.segmentedColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
                         modifier = Modifier.height(IntrinsicSize.Min),
                     )

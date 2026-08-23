@@ -33,6 +33,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -50,7 +51,7 @@ fun ThemeModeSelector(
 ) {
     Column(modifier = modifier.fillMaxWidth().padding(vertical = 12.dp)) {
         Text(
-            text = "Theme Mode",
+            text = stringResource(R.string.settings_theme_mode_header),
             style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.onSurface,
@@ -66,10 +67,10 @@ fun ThemeModeSelector(
         ) {
             ThemeMode.entries.forEach { mode ->
                 val (label, icon) = when (mode) {
-                    ThemeMode.SYSTEM -> "System" to Icons.Default.SettingsSuggest
-                    ThemeMode.LIGHT -> "Light" to Icons.Default.LightMode
-                    ThemeMode.DARK -> "Dark" to Icons.Default.DarkMode
-                    ThemeMode.OLED -> "OLED" to Icons.Default.Contrast
+                    ThemeMode.SYSTEM -> stringResource(R.string.settings_theme_mode_system) to Icons.Default.SettingsSuggest
+                    ThemeMode.LIGHT -> stringResource(R.string.settings_theme_mode_light) to Icons.Default.LightMode
+                    ThemeMode.DARK -> stringResource(R.string.settings_theme_mode_dark) to Icons.Default.DarkMode
+                    ThemeMode.OLED -> stringResource(R.string.settings_theme_mode_oled) to Icons.Default.Contrast
                 }
 
                 ThemeModeCard(

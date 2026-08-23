@@ -19,9 +19,11 @@ import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import dev.qtremors.materialdesign.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -52,7 +54,7 @@ internal fun GalleryTopBar(
                 IconButton(onClick = onSearchClick) {
                     Icon(
                         imageVector = Icons.Default.Search,
-                        contentDescription = "Search components",
+                        contentDescription = stringResource(R.string.app_cd_search_components),
                         tint = MaterialTheme.colorScheme.onSurface,
                         modifier = Modifier.size(20.dp),
                     )
@@ -69,7 +71,7 @@ internal fun GalleryTopBar(
                 IconButton(onClick = onSettingsClick) {
                     Icon(
                         imageVector = Icons.Default.Settings,
-                        contentDescription = "Open settings",
+                        contentDescription = stringResource(R.string.app_cd_open_settings),
                         tint = MaterialTheme.colorScheme.onSurface,
                         modifier = Modifier.size(20.dp),
                     )

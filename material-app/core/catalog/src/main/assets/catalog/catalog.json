@@ -1088,6 +1088,357 @@
       "implementation": "official_api",
       "addedIn": "2.0.4",
       "reviewedOn": "2026-08-11"
+    },
+    {
+      "id": "flexible-bottom-app-bars",
+      "officialName": "Flexible bottom app bars",
+      "aliases": ["flexible bottom app bar", "adaptive bottom bar", "FlexibleBottomAppBar"],
+      "kind": "component",
+      "category": "Navigation",
+      "summary": "A bottom app bar whose height and arrangement adapt to its actions, offering a more expressive alternative to the standard bottom app bar.",
+      "guidance": {
+        "purpose": "Host frequent actions along the bottom edge while letting the bar adapt its density and layout to content.",
+        "useWhen": ["Several frequent actions belong together at the bottom of the screen.", "The bar should visually flex between compact and expanded states."],
+        "avoidWhen": ["Only navigation destinations are needed; use a navigation bar instead.", "Actions would crowd the bar beyond readable targets."],
+        "behavior": ["Actions align within a flexible horizontal arrangement.", "Scroll behaviors can collapse or elevate the bar as content scrolls."],
+        "accessibility": ["Give every action icon a precise content description.", "Preserve minimum touch targets when the bar compresses."],
+        "adaptive": ["Let the bar span available width on large screens without over-stretching actions.", "Keep the bar clear of gesture navigation areas using window insets."]
+      },
+      "collections": [],
+      "demoKey": "navigation.flexible-bottom-app-bars",
+      "sourceLocations": [{"path":"material-app/samples/navigation/src/main/java/dev/qtremors/material/samples/navigation/ExtendedNavigationSamples.kt","symbols":["FlexibleBottomAppBarSample"]}],
+      "apiReferences": [{"symbol":"androidx.compose.material3.FlexibleBottomAppBar","artifact":"androidx.compose.material3:material3","reviewedVersion":"1.5.0-alpha23","availability":"stable_artifact","stability":"stable","url":"https://developer.android.com/reference/kotlin/androidx/compose/material3/FlexibleBottomAppBar"}],
+      "officialUrls": ["https://m3.material.io/components/bottom-app-bar/overview"],
+      "implementation": "official_api",
+      "addedIn": "2.0.8",
+      "reviewedOn": "2026-08-23"
+    },
+    {
+      "id": "wide-navigation-rails",
+      "officialName": "Wide navigation rails",
+      "aliases": ["wide navigation rail", "modal wide rail", "WideNavigationRail", "WideNavigationRailItem", "expandable rail"],
+      "kind": "component",
+      "category": "Navigation",
+      "summary": "Expandable side rails with docked and modal variants, item positioning defaults, colors, and shared state for collapsed-to-expanded transitions.",
+      "guidance": {
+        "purpose": "Provide an expandable lateral navigation surface for medium and expanded windows, including modal presentation.",
+        "useWhen": ["Navigation needs labels beside icons that can expand on demand.", "Medium windows benefit from a richer rail than the baseline rail."],
+        "avoidWhen": ["Compact widths cannot fit an expanded rail; use a navigation bar or drawer.", "Destinations exceed five primary items."],
+        "behavior": ["Rail state toggles between collapsed and expanded values.", "Items animate their indicator and label position based on expansion.", "Modal rails overlay content and dismiss on outside interaction."],
+        "accessibility": ["Announce selected destination and expansion state.", "Keep labels visible or announced when the rail collapses."],
+        "adaptive": ["Dock the rail on medium-plus windows and switch to modal or bottom navigation on compact windows.", "Persist expansion choice across configuration changes where possible."]
+      },
+      "collections": [],
+      "demoKey": "navigation.wide-navigation-rails",
+      "sourceLocations": [{"path":"material-app/samples/navigation/src/main/java/dev/qtremors/material/samples/navigation/ExtendedNavigationSamples.kt","symbols":["WideNavigationRailSample"]}],
+      "apiReferences": [
+        {"symbol":"androidx.compose.material3.WideNavigationRail","artifact":"androidx.compose.material3:material3","reviewedVersion":"1.5.0-alpha23","availability":"stable_artifact","stability":"stable","url":"https://developer.android.com/reference/kotlin/androidx/compose/material3/WideNavigationRail"},
+        {"symbol":"androidx.compose.material3.ModalWideNavigationRail","artifact":"androidx.compose.material3:material3","reviewedVersion":"1.5.0-alpha23","availability":"stable_artifact","stability":"stable","url":"https://developer.android.com/reference/kotlin/androidx/compose/material3/ModalWideNavigationRail"},
+        {"symbol":"androidx.compose.material3.WideNavigationRailItem","artifact":"androidx.compose.material3:material3","reviewedVersion":"1.5.0-alpha23","availability":"stable_artifact","stability":"stable","url":"https://developer.android.com/reference/kotlin/androidx/compose/material3/WideNavigationRailItem"},
+        {"symbol":"androidx.compose.material3.rememberWideNavigationRailState","artifact":"androidx.compose.material3:material3","reviewedVersion":"1.5.0-alpha23","availability":"stable_artifact","stability":"stable","url":"https://developer.android.com/reference/kotlin/androidx/compose/material3/rememberWideNavigationRailState"}
+      ],
+      "officialUrls": ["https://m3.material.io/components/navigation-rail/overview"],
+      "implementation": "official_api",
+      "addedIn": "2.0.8",
+      "reviewedOn": "2026-08-23"
+    },
+    {
+      "id": "swipe-to-dismiss",
+      "officialName": "Swipe to dismiss",
+      "aliases": ["swipe to dismiss", "SwipeToDismissBox", "swipeable list item", "dismiss gesture"],
+      "kind": "component",
+      "category": "Containment",
+      "summary": "List rows and cards dismissed with horizontal swipe gestures, backed by SwipeToDismissBox state and directional enablement.",
+      "guidance": {
+        "purpose": "Let users remove items directly through a swipe gesture with proportional visual feedback.",
+        "useWhen": ["Items such as messages or tasks support quick removal.", "The background can clearly communicate the dismissal outcome."],
+        "avoidWhen": ["Disposal is destructive and irreversible without confirmation.", "Content requires horizontal scrolling that would conflict with the gesture."],
+        "behavior": ["Background content reveals proportionally during the drag.", "Dismissal commits past a threshold and animates the row away.", "Directional dismissal can be limited to one or both edges."],
+        "accessibility": ["Provide an accessible alternative action equivalent to the swipe.", "Announce removal after dismissal commits."],
+        "adaptive": ["Keep full-width rows swipable at every window size.", "Avoid stacking nested horizontal gestures inside dismissible content."]
+      },
+      "collections": [],
+      "demoKey": "containment.swipe-to-dismiss",
+      "sourceLocations": [{"path":"material-app/samples/containment/src/main/java/dev/qtremors/material/samples/containment/ExtendedContainmentSamples.kt","symbols":["SwipeToDismissSample"]}],
+      "apiReferences": [
+        {"symbol":"androidx.compose.material3.SwipeToDismissBox","artifact":"androidx.compose.material3:material3","reviewedVersion":"1.5.0-alpha23","availability":"stable_artifact","stability":"stable","url":"https://developer.android.com/reference/kotlin/androidx/compose/material3/SwipeToDismissBox"},
+        {"symbol":"androidx.compose.material3.rememberSwipeToDismissBoxState","artifact":"androidx.compose.material3:material3","reviewedVersion":"1.5.0-alpha23","availability":"stable_artifact","stability":"stable","url":"https://developer.android.com/reference/kotlin/androidx/compose/material3/rememberSwipeToDismissBoxState"},
+        {"symbol":"androidx.compose.material3.SwipeToDismissBoxValue","artifact":"androidx.compose.material3:material3","reviewedVersion":"1.5.0-alpha23","availability":"stable_artifact","stability":"stable","url":"https://developer.android.com/reference/kotlin/androidx/compose/material3/SwipeToDismissBoxValue"}
+      ],
+      "officialUrls": ["https://m3.material.io/components/lists/overview"],
+      "implementation": "official_api",
+      "addedIn": "2.0.8",
+      "reviewedOn": "2026-08-23"
+    },
+    {
+      "id": "short-navigation-bars",
+      "officialName": "Short navigation bars",
+      "aliases": ["short navigation bar", "ShortNavigationBar", "compact bottom navigation"],
+      "kind": "component",
+      "category": "Navigation",
+      "summary": "A compact navigation bar variant with equal-weight or centered arrangements for up to three destinations.",
+      "guidance": {
+        "purpose": "Switch between a small number of top-level destinations with a shorter, denser bar.",
+        "useWhen": ["Three or fewer primary destinations exist.", "Vertical space must be conserved for content."],
+        "avoidWhen": ["More than three destinations are required.", "Labels are essential for comprehension at a glance."],
+        "behavior": ["Items share equal weight or cluster centered based on arrangement.", "Selection updates the active indicator immediately."],
+        "accessibility": ["Label each destination for screen readers even when labels are hidden visually.", "Maintain touch target size in the shortened height."],
+        "adaptive": ["Prefer a standard navigation bar or rail as destinations grow.", "Center arrangements work well on wide screens with few destinations."]
+      },
+      "collections": [],
+      "demoKey": "navigation.short-navigation-bars",
+      "sourceLocations": [{"path":"material-app/samples/navigation/src/main/java/dev/qtremors/material/samples/navigation/ExtendedNavigationSamples.kt","symbols":["ShortNavigationBarSample"]}],
+      "apiReferences": [
+        {"symbol":"androidx.compose.material3.ShortNavigationBar","artifact":"androidx.compose.material3:material3","reviewedVersion":"1.5.0-alpha23","availability":"stable_artifact","stability":"stable","url":"https://developer.android.com/reference/kotlin/androidx/compose/material3/ShortNavigationBar"},
+        {"symbol":"androidx.compose.material3.ShortNavigationBarItem","artifact":"androidx.compose.material3:material3","reviewedVersion":"1.5.0-alpha23","availability":"stable_artifact","stability":"stable","url":"https://developer.android.com/reference/kotlin/androidx/compose/material3/ShortNavigationBarItem"},
+        {"symbol":"androidx.compose.material3.ShortNavigationBarArrangement","artifact":"androidx.compose.material3:material3","reviewedVersion":"1.5.0-alpha23","availability":"stable_artifact","stability":"stable","url":"https://developer.android.com/reference/kotlin/androidx/compose/material3/ShortNavigationBarArrangement"}
+      ],
+      "officialUrls": ["https://m3.material.io/components/navigation-bar/overview"],
+      "implementation": "official_api",
+      "addedIn": "2.0.8",
+      "reviewedOn": "2026-08-23"
+    },
+    {
+      "id": "vertical-sliders",
+      "officialName": "Vertical sliders",
+      "aliases": ["vertical slider", "VerticalSlider", "vertical value selection"],
+      "kind": "component",
+      "category": "Selection",
+      "summary": "Sliders oriented along the vertical axis with configurable direction for controls such as brightness, volume, and mixer levels.",
+      "guidance": {
+        "purpose": "Adjust a value along a vertical axis where vertical metaphors are stronger, such as level or height.",
+        "useWhen": ["The control represents magnitude along a vertical axis.", "Multiple sliders sit side by side like a mixing console."],
+        "avoidWhen": ["Horizontal space naturally fits a standard slider.", "Precise numeric entry matters more than gestural adjustment."],
+        "behavior": ["Thumb drags along the vertical track with continuous feedback.", "Direction runs top-to-bottom by default or bottom-to-top when configured."],
+        "accessibility": ["Announce current and range values on focus and change.", "Support keyboard and assistive increment and decrement."],
+        "adaptive": ["Give vertical sliders generous height and spacing on touch devices.", "Pair adjacent sliders with consistent scales for comparison."]
+      },
+      "collections": [],
+      "demoKey": "selection.vertical-sliders",
+      "sourceLocations": [{"path":"material-app/samples/selection/src/main/java/dev/qtremors/material/samples/selection/ExtendedSelectionSamples.kt","symbols":["VerticalSlidersSample"]}],
+      "apiReferences": [
+        {"symbol":"androidx.compose.material3.VerticalSlider","artifact":"androidx.compose.material3:material3","reviewedVersion":"1.5.0-alpha23","availability":"alpha_only","stability":"experimental","optInAnnotation":"androidx.compose.material3.ExperimentalMaterial3Api","url":"https://developer.android.com/reference/kotlin/androidx/compose/material3/VerticalSlider"},
+        {"symbol":"androidx.compose.material3.SliderState","artifact":"androidx.compose.material3:material3","reviewedVersion":"1.5.0-alpha23","availability":"stable_artifact","stability":"stable","url":"https://developer.android.com/reference/kotlin/androidx/compose/material3/SliderState"}
+      ],
+      "officialUrls": ["https://m3.material.io/components/slider/overview"],
+      "implementation": "official_api",
+      "addedIn": "2.0.8",
+      "reviewedOn": "2026-08-23"
+    },
+    {
+      "id": "top-search-bars",
+      "officialName": "Top search bars and full-screen search",
+      "aliases": ["top search bar", "full-screen search", "TopSearchBar", "ExpandedFullScreenSearchBar", "search bar variant"],
+      "kind": "component",
+      "category": "Selection",
+      "summary": "Search presented as a top app bar slot with SearchBarState, expanding into a full-screen results view via ExpandedFullScreenSearchBar.",
+      "guidance": {
+        "purpose": "Offer search as a persistent top-level affordance that expands into an immersive query-and-results experience.",
+        "useWhen": ["Search is a primary journey that deserves an app bar position.", "Results benefit from the entire screen when expanded."],
+        "avoidWhen": ["Search is secondary; a compact search field may suffice.", "Expanded results need persistent context from the underlying screen."],
+        "behavior": ["Activating the input expands the bar according to its scroll behavior.", "Expanded content streams below the pinned query field.", "Back or cancel collapses back to the resting bar."],
+        "accessibility": ["Announce expansion state and result counts.", "Keep the clear action reachable by assistive technology."],
+        "adaptive": ["Full-screen expansion suits compact windows; consider docked expansion on larger screens.", "Respect status bar insets in both resting and expanded states."]
+      },
+      "collections": [],
+      "demoKey": "selection.top-search-bars",
+      "sourceLocations": [{"path":"material-app/samples/selection/src/main/java/dev/qtremors/material/samples/selection/ExtendedSelectionSamples.kt","symbols":["TopSearchBarsSample"]}],
+      "apiReferences": [
+        {"symbol":"androidx.compose.material3.TopSearchBar","artifact":"androidx.compose.material3:material3","reviewedVersion":"1.5.0-alpha23","availability":"alpha_only","stability":"experimental","optInAnnotation":"androidx.compose.material3.ExperimentalMaterial3Api","url":"https://developer.android.com/reference/kotlin/androidx/compose/material3/TopSearchBar"},
+        {"symbol":"androidx.compose.material3.ExpandedFullScreenSearchBar","artifact":"androidx.compose.material3:material3","reviewedVersion":"1.5.0-alpha23","availability":"alpha_only","stability":"experimental","optInAnnotation":"androidx.compose.material3.ExperimentalMaterial3Api","url":"https://developer.android.com/reference/kotlin/androidx/compose/material3/ExpandedFullScreenSearchBar"},
+        {"symbol":"androidx.compose.material3.rememberSearchBarState","artifact":"androidx.compose.material3:material3","reviewedVersion":"1.5.0-alpha23","availability":"alpha_only","stability":"experimental","optInAnnotation":"androidx.compose.material3.ExperimentalMaterial3Api","url":"https://developer.android.com/reference/kotlin/androidx/compose/material3/rememberSearchBarState"}
+      ],
+      "officialUrls": ["https://m3.material.io/components/search-bar/overview"],
+      "implementation": "official_api",
+      "addedIn": "2.0.8",
+      "reviewedOn": "2026-08-23"
+    },
+    {
+      "id": "time-picker-dialogs",
+      "officialName": "Time picker dialogs",
+      "aliases": ["time picker dialog", "rich time picker dialog", "TimePickerDialog", "RichTimePickerDialog"],
+      "kind": "component",
+      "category": "Selection",
+      "summary": "Dialog presentations of time pickers: the standard TimePickerDialog and the more prominent RichTimePickerDialog layout.",
+      "guidance": {
+        "purpose": "Select a time inside a modal dialog with confirm and dismiss actions around a clock or text input.",
+        "useWhen": ["Time selection accompanies another task in a focused dialog.", "Rich layouts suit larger screens where the picker is the main focus."],
+        "avoidWhen": ["Inline scheduling surfaces already show time context.", "Duration selection is needed; steppers or sliders fit better."],
+        "behavior": ["Confirm resolves the selected hour and minute.", "Mode toggle switches between dial and text input.", "Outside taps or dismiss close without committing."],
+        "accessibility": ["Announce the currently selected time on change.", "Allow direct numeric entry for precision."],
+        "adaptive": ["Standard dialogs fit compact windows; rich dialogs shine on medium-plus widths.", "Orient the picker vertically or horizontally based on dialog width."]
+      },
+      "collections": [],
+      "demoKey": "selection.time-picker-dialogs",
+      "sourceLocations": [{"path":"material-app/samples/selection/src/main/java/dev/qtremors/material/samples/selection/ExtendedSelectionSamples.kt","symbols":["TimePickerDialogsSample"]}],
+      "apiReferences": [
+        {"symbol":"androidx.compose.material3.TimePickerDialog","artifact":"androidx.compose.material3:material3","reviewedVersion":"1.5.0-alpha23","availability":"alpha_only","stability":"experimental","optInAnnotation":"androidx.compose.material3.ExperimentalMaterial3Api","url":"https://developer.android.com/reference/kotlin/androidx/compose/material3/TimePickerDialog"},
+        {"symbol":"androidx.compose.material3.RichTimePickerDialog","artifact":"androidx.compose.material3:material3","reviewedVersion":"1.5.0-alpha23","availability":"alpha_only","stability":"experimental","optInAnnotation":"androidx.compose.material3.ExperimentalMaterial3Api","url":"https://developer.android.com/reference/kotlin/androidx/compose/material3/RichTimePickerDialog"},
+        {"symbol":"androidx.compose.material3.TimePickerDialogDefaults","artifact":"androidx.compose.material3:material3","reviewedVersion":"1.5.0-alpha23","availability":"alpha_only","stability":"experimental","optInAnnotation":"androidx.compose.material3.ExperimentalMaterial3Api","url":"https://developer.android.com/reference/kotlin/androidx/compose/material3/TimePickerDialogDefaults"}
+      ],
+      "officialUrls": ["https://m3.material.io/components/time-pickers/overview"],
+      "implementation": "official_api",
+      "addedIn": "2.0.8",
+      "reviewedOn": "2026-08-23"
+    },
+    {
+      "id": "scrollable-tab-rows",
+      "officialName": "Scrollable tab row variants",
+      "aliases": ["primary scrollable tab row", "secondary scrollable tab row", "PrimaryScrollableTabRow", "SecondaryScrollableTabRow"],
+      "kind": "component",
+      "category": "Navigation",
+      "summary": "Primary and Secondary scrollable tab rows for tab sets wider than the screen, with distinct indicators and container styles.",
+      "guidance": {
+        "purpose": "Present many peer views as horizontally scrollable tabs while preserving hierarchy between primary and secondary levels.",
+        "useWhen": ["Tabs overflow the available width.", "Primary navigation tabs and secondary filter tabs need distinct treatments."],
+        "avoidWhen": ["Fewer than three tabs exist.", "Tabs represent unrelated destinations rather than peer views."],
+        "behavior": ["Rows scroll with edge padding and snap selection into view.", "Primary uses a prominent indicator; secondary uses a thinner underline."],
+        "accessibility": ["Expose tabs as a selectable group with clear names.", "Announce tab switching and keep focus on the selected tab."],
+        "adaptive": ["Switch to fixed tab rows when tabs fit without scrolling.", "Preserve scroll position across orientation changes."]
+      },
+      "collections": [],
+      "demoKey": "navigation.scrollable-tab-rows",
+      "sourceLocations": [{"path":"material-app/samples/navigation/src/main/java/dev/qtremors/material/samples/navigation/ExtendedNavigationSamples.kt","symbols":["ScrollableTabRowsSample"]}],
+      "apiReferences": [
+        {"symbol":"androidx.compose.material3.PrimaryScrollableTabRow","artifact":"androidx.compose.material3:material3","reviewedVersion":"1.5.0-alpha23","availability":"stable_artifact","stability":"stable","url":"https://developer.android.com/reference/kotlin/androidx/compose/material3/PrimaryScrollableTabRow"},
+        {"symbol":"androidx.compose.material3.SecondaryScrollableTabRow","artifact":"androidx.compose.material3:material3","reviewedVersion":"1.5.0-alpha23","availability":"stable_artifact","stability":"stable","url":"https://developer.android.com/reference/kotlin/androidx/compose/material3/SecondaryScrollableTabRow"}
+      ],
+      "officialUrls": ["https://m3.material.io/components/tabs/overview"],
+      "implementation": "official_api",
+      "addedIn": "2.0.8",
+      "reviewedOn": "2026-08-23"
+    },
+    {
+      "id": "grouped-dropdown-menus",
+      "officialName": "Grouped dropdown menus",
+      "aliases": ["dropdown menu group", "grouped menu", "DropdownMenuGroup", "menu group shapes", "vibrant menu group"],
+      "kind": "component",
+      "category": "Communication",
+      "summary": "Dropdown menus organized into shaped groups with standard or vibrant containers and MenuDefaults group shape helpers.",
+      "guidance": {
+        "purpose": "Cluster related menu commands into visually distinct groups inside one dropdown.",
+        "useWhen": ["Commands form two or more clear families.", "One group deserves emphasis, such as destructive or vibrant actions."],
+        "avoidWhen": ["A flat list reads faster for three or fewer items.", "Grouping implies hierarchy that does not exist."],
+        "behavior": ["Groups morph shape on hover and press.", "Leading and trailing group shapes follow the group's position in the menu."],
+        "accessibility": ["Give each group a logical traversal order.", "Do not rely on color alone to distinguish vibrant groups."],
+        "adaptive": ["Cap group heights and let long menus scroll.", "Align grouped menus with their anchors across window sizes."]
+      },
+      "collections": [],
+      "demoKey": "communication.grouped-dropdown-menus",
+      "sourceLocations": [{"path":"material-app/samples/communication/src/main/java/dev/qtremors/material/samples/communication/ExtendedCommunicationSamples.kt","symbols":["GroupedDropdownMenusSample"]}],
+      "apiReferences": [
+        {"symbol":"androidx.compose.material3.DropdownMenuGroup","artifact":"androidx.compose.material3:material3","reviewedVersion":"1.5.0-alpha23","availability":"alpha_only","stability":"experimental","optInAnnotation":"androidx.compose.material3.ExperimentalMaterial3Api","url":"https://developer.android.com/reference/kotlin/androidx/compose/material3/DropdownMenuGroup"},
+        {"symbol":"androidx.compose.material3.MenuDefaults.groupShape","artifact":"androidx.compose.material3:material3","reviewedVersion":"1.5.0-alpha23","availability":"alpha_only","stability":"experimental","optInAnnotation":"androidx.compose.material3.ExperimentalMaterial3Api","url":"https://developer.android.com/reference/kotlin/androidx/compose/material3/MenuDefaults"}
+      ],
+      "officialUrls": ["https://m3.material.io/components/menus/overview"],
+      "implementation": "official_api",
+      "addedIn": "2.0.8",
+      "reviewedOn": "2026-08-23"
+    },
+    {
+      "id": "basic-alert-dialogs",
+      "officialName": "Basic alert dialogs",
+      "aliases": ["basic alert dialog", "BasicAlertDialog", "minimal dialog", "custom dialog layout"],
+      "kind": "component",
+      "category": "Communication",
+      "summary": "Minimal dialog windows composed freely with BasicAlertDialog when standard alert slots are too restrictive.",
+      "guidance": {
+        "purpose": "Show critical details or collect confirmation inside a fully custom dialog composition.",
+        "useWhen": ["Standard alert slots cannot express the required layout.", "The dialog content is bespoke but still modal and transient."],
+        "avoidWhen": ["A standard AlertDialog communicates urgency adequately.", "Non-blocking information belongs in a snackbar or tooltip."],
+        "behavior": ["Blocks interaction with the rest of the app until dismissed.", "Dismisses on outside tap or back unless intercepted.", "You own the Surface, shape, padding, and actions."],
+        "accessibility": ["Set a semantic title and description on the custom surface.", "Move focus into the dialog when it opens and restore it on close."],
+        "adaptive": ["Constrain maximum width for readability on large screens.", "Use full-width layouts sparingly on compact screens."]
+      },
+      "collections": [],
+      "demoKey": "communication.basic-alert-dialogs",
+      "sourceLocations": [{"path":"material-app/samples/selection/src/main/java/dev/qtremors/material/samples/selection/ExtendedSelectionSamples.kt","symbols":["BasicAlertDialogsSample"]}],
+      "apiReferences": [{"symbol":"androidx.compose.material3.BasicAlertDialog","artifact":"androidx.compose.material3:material3","reviewedVersion":"1.5.0-alpha23","availability":"alpha_only","stability":"experimental","optInAnnotation":"androidx.compose.material3.ExperimentalMaterial3Api","url":"https://developer.android.com/reference/kotlin/androidx/compose/material3/BasicAlertDialog"}],
+      "officialUrls": ["https://m3.material.io/components/dialogs/overview"],
+      "implementation": "official_api",
+      "addedIn": "2.0.8",
+      "reviewedOn": "2026-08-23"
+    },
+    {
+      "id": "dividers",
+      "officialName": "Dividers",
+      "aliases": ["divider", "horizontal divider", "vertical divider", "separator", "HorizontalDivider", "VerticalDivider"],
+      "kind": "component",
+      "category": "Foundations",
+      "summary": "Thin rules that group and separate content, available as HorizontalDivider and VerticalDivider with inset variants.",
+      "guidance": {
+        "purpose": "Separate and group content so scanning stays effortless without introducing containers.",
+        "useWhen": ["Adjacent list items or sections need a subtle boundary.", "A vertical rule separates side-by-side columns."],
+        "avoidWhen": ["Spacing and elevation already communicate grouping.", "Dividers would fragment a dense grid into noise."],
+        "behavior": ["Dividers are non-interactive hairlines aligned to content edges.", "Inset variants align with leading content such as avatars."],
+        "accessibility": ["Mark decorative dividers as hidden from assistive services.", "Ensure sufficient contrast against surrounding surfaces."],
+        "adaptive": ["Prefer spacing alone on very wide layouts.", "Use vertical dividers only when columns remain readable."]
+      },
+      "collections": [],
+      "demoKey": "foundations.dividers",
+      "sourceLocations": [{"path":"material-app/samples/selection/src/main/java/dev/qtremors/material/samples/selection/ExtendedSelectionSamples.kt","symbols":["DividersSample"]}],
+      "apiReferences": [
+        {"symbol":"androidx.compose.material3.HorizontalDivider","artifact":"androidx.compose.material3:material3","reviewedVersion":"1.5.0-alpha23","availability":"stable_artifact","stability":"stable","url":"https://developer.android.com/reference/kotlin/androidx/compose/material3/HorizontalDivider"},
+        {"symbol":"androidx.compose.material3.VerticalDivider","artifact":"androidx.compose.material3:material3","reviewedVersion":"1.5.0-alpha23","availability":"stable_artifact","stability":"stable","url":"https://developer.android.com/reference/kotlin/androidx/compose/material3/VerticalDivider"}
+      ],
+      "officialUrls": ["https://m3.material.io/components/divider/overview"],
+      "implementation": "official_api",
+      "addedIn": "2.0.8",
+      "reviewedOn": "2026-08-23"
+    },
+    {
+      "id": "hero-carousels",
+      "officialName": "Hero carousels",
+      "aliases": ["hero carousel", "centered hero carousel", "HorizontalCenteredHeroCarousel", "multi-browse carousel"],
+      "kind": "component",
+      "category": "Containment",
+      "summary": "Large-item carousels with a centered hero strategy where neighboring peek items shrink toward the edges.",
+      "guidance": {
+        "purpose": "Browse visually rich content where the focused item deserves most of the width.",
+        "useWhen": ["Imagery-led cards benefit from a large focal item.", "Neighbors should peek to invite browsing."],
+        "avoidWhen": ["Items require uniform width for comparison.", "Content is better served by a grid or list."],
+        "behavior": ["The centered item renders full size while neighbors scale down.", "Fling behavior snaps to keyline positions."],
+        "accessibility": ["Make each carousel item a single focus target.", "Announce item position out of total while scrolling."],
+        "adaptive": ["Hero sizing responds to window width automatically.", "Reserve taller heights on expanded windows for imagery."]
+      },
+      "collections": [],
+      "demoKey": "containment.hero-carousels",
+      "sourceLocations": [{"path":"material-app/samples/containment/src/main/java/dev/qtremors/material/samples/containment/ExtendedContainmentSamples.kt","symbols":["HeroCarouselsSample"]}],
+      "apiReferences": [
+        {"symbol":"androidx.compose.material3.carousel.HorizontalCenteredHeroCarousel","artifact":"androidx.compose.material3:material3","reviewedVersion":"1.5.0-alpha23","availability":"alpha_only","stability":"experimental","optInAnnotation":"androidx.compose.material3.ExperimentalMaterial3Api","url":"https://developer.android.com/reference/kotlin/androidx/compose/material3/carousel/HorizontalCenteredHeroCarousel"},
+        {"symbol":"androidx.compose.material3.carousel.rememberCarouselState","artifact":"androidx.compose.material3:material3","reviewedVersion":"1.5.0-alpha23","availability":"stable_artifact","stability":"stable","url":"https://developer.android.com/reference/kotlin/androidx/compose/material3/carousel/rememberCarouselState"}
+      ],
+      "officialUrls": ["https://m3.material.io/components/carousel/overview"],
+      "implementation": "official_api",
+      "addedIn": "2.0.8",
+      "reviewedOn": "2026-08-23"
+    },
+    {
+      "id": "scaffold",
+      "officialName": "Scaffold",
+      "aliases": ["scaffold", "screen structure", "app bar slots", "inner padding", "Scaffold composable"],
+      "kind": "component",
+      "category": "Layout",
+      "summary": "Foundational screen layout that coordinates top bar, bottom bar, FAB, and inset slots into consistent innerPadding for content.",
+      "guidance": {
+        "purpose": "Structure every screen so bars, floating actions, and system insets occupy predictable slots around content.",
+        "useWhen": ["A screen combines app bars, content, and floating actions.", "Insets must be applied once rather than piecemeal."],
+        "avoidWhen": ["A trivial static screen has no bars or overlays.", "Custom chrome already manages identical slots."],
+        "behavior": ["Slots measure first and content receives combined innerPadding.", "Snackbars and FABs animate above the content layer."],
+        "accessibility": ["Traversal starts with bars then content, matching visual order.", "Floating actions stay clear of gestures and content focus paths."],
+        "adaptive": ["Swap bottom bars for rails on wider windows while keeping the same scaffold contract.", "Apply innerPadding consistently so content never sits under system bars."]
+      },
+      "collections": [],
+      "demoKey": "foundations.scaffold",
+      "sourceLocations": [{"path":"material-app/samples/foundations/src/main/java/dev/qtremors/material/samples/foundations/ScaffoldFoundationSample.kt","symbols":["ScaffoldFoundationSample"]}],
+      "apiReferences": [
+        {"symbol":"androidx.compose.material3.Scaffold","artifact":"androidx.compose.material3:material3","reviewedVersion":"1.5.0-alpha23","availability":"stable_artifact","stability":"stable","url":"https://developer.android.com/reference/kotlin/androidx/compose/material3/Scaffold"},
+        {"symbol":"androidx.compose.material3.ScaffoldDefaults","artifact":"androidx.compose.material3:material3","reviewedVersion":"1.5.0-alpha23","availability":"stable_artifact","stability":"stable","url":"https://developer.android.com/reference/kotlin/androidx/compose/material3/ScaffoldDefaults"}
+      ],
+      "officialUrls": ["https://developer.android.com/reference/kotlin/androidx/compose/material3/package-summary#Scaffold"],
+      "implementation": "official_api",
+      "addedIn": "2.0.8",
+      "reviewedOn": "2026-08-23"
     }
   ]
 }

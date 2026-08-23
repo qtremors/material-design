@@ -21,6 +21,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.pluralStringResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -67,7 +69,7 @@ fun ApisScreen(
             .padding(top = contentPadding.calculateTopPadding()),
     ) {
         Text(
-            text = "Compose Material 3 · $material3Version\nCompose UI · $composeUiVersion · Stable Material baseline · $stableBaseline",
+            text = stringResource(R.string.apis_version_banner, material3Version, composeUiVersion, stableBaseline),
             modifier = Modifier.padding(horizontal = 20.dp, vertical = 12.dp),
             style = MaterialTheme.typography.titleSmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -77,7 +79,10 @@ fun ApisScreen(
                 .fillMaxWidth()
                 .padding(horizontal = 20.dp),
         ) {
-            val options = listOf(ApiStability.STABLE to "Stable APIs", ApiStability.EXPERIMENTAL to "Experimental")
+            val options = listOf(
+                ApiStability.STABLE to stringResource(R.string.apis_filter_stable_apis),
+                ApiStability.EXPERIMENTAL to stringResource(R.string.apis_filter_experimental),
+            )
             options.forEachIndexed { index, (stability, label) ->
                 SegmentedButton(
                     selected = selectedStability == stability,
@@ -89,7 +94,7 @@ fun ApisScreen(
         }
         if (cleanQuery.isNotBlank()) {
             Text(
-                text = "${references.size} APIs found for \"$cleanQuery\"",
+                text = pluralStringResource(R.plurals.apis_search_result_count, references.size, references.size, cleanQuery),
                 style = MaterialTheme.typography.labelMedium,
                 color = MaterialTheme.colorScheme.primary,
                 fontWeight = FontWeight.Bold,
@@ -141,7 +146,11 @@ private fun ApiCard(entry: CatalogEntry, api: ApiReference, onEntryClick: (Strin
                     onClick = {},
                     label = {
                         Text(
-                            text = if (api.availability == ApiAvailability.STABLE_ARTIFACT) "Stable artifact" else "Alpha only",
+                            text = if (api.availability == ApiAvailability.STABLE_ARTIFACT) {
+                                stringResource(R.string.apis_badge_stable_artifact)
+                            } else {
+                                stringResource(R.string.apis_badge_alpha_only)
+                            },
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis,
                         )

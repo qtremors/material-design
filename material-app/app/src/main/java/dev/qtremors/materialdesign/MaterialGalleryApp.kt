@@ -98,20 +98,20 @@ private fun CatalogErrorScreen(onRetry: () -> Unit, modifier: Modifier = Modifie
                 modifier = Modifier.size(48.dp),
             )
             Text(
-                text = "Couldn't load the component catalog",
+                text = stringResource(R.string.app_error_catalog_load_title),
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center,
             )
             Text(
-                text = "The bundled reference data failed validation. Try loading it again.",
+                text = stringResource(R.string.app_error_catalog_load_body),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 textAlign = TextAlign.Center,
             )
             Button(onClick = onRetry) {
                 Icon(Icons.Default.Refresh, contentDescription = null, modifier = Modifier.size(18.dp))
-                Text("  Retry")
+                Text(stringResource(R.string.app_retry))
             }
         }
     }
@@ -134,8 +134,9 @@ private fun GalleryAppContent(
     val apiStability by viewModel.apiStability.collectAsState()
 
     val snackbarHostState = remember { SnackbarHostState() }
-    val writeFailedMessage = "Couldn't save your change"
-    val unavailableMessage = "That component isn't available"
+    // Resolved in composable scope so the LaunchedEffect below can emit them later.
+    val writeFailedMessage = stringResource(R.string.app_error_library_write_failed)
+    val unavailableMessage = stringResource(R.string.app_error_component_unavailable)
 
     LaunchedEffect(viewModel) {
         viewModel.events.collect { event ->

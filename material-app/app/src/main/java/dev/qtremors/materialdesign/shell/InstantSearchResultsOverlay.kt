@@ -27,10 +27,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.pluralStringResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import dev.qtremors.materialdesign.R
 import dev.qtremors.material.core.catalog.CatalogEntry
 import dev.qtremors.material.core.catalog.CatalogKind
 
@@ -65,14 +68,14 @@ internal fun InstantSearchResultsOverlay(
                         modifier = Modifier.size(48.dp),
                     )
                     Text(
-                        text = "No results found for \"$query\"",
+                        text = stringResource(R.string.app_no_results_for_query, query),
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.onSurface,
                         textAlign = TextAlign.Center,
                     )
                     Text(
-                        text = "Try searching for components (Buttons, Dialogs), foundations (Shapes, Colors), or APIs (rememberDatePickerState).",
+                        text = stringResource(R.string.app_search_empty_hint),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         textAlign = TextAlign.Center,
@@ -92,7 +95,7 @@ internal fun InstantSearchResultsOverlay(
             ) {
                 item(key = "result-count", contentType = "header") {
                     Text(
-                        text = "${results.size} results for \"$query\"",
+                        text = pluralStringResource(R.plurals.app_search_result_count, results.size, results.size, query),
                         style = MaterialTheme.typography.labelLarge,
                         color = MaterialTheme.colorScheme.primary,
                         fontWeight = FontWeight.Bold,
@@ -166,7 +169,7 @@ private fun SearchResultCard(
                         color = MaterialTheme.colorScheme.surfaceContainerHighest,
                     ) {
                         Text(
-                            text = if (isFoundation) "Foundation" else entry.category,
+                            text = if (isFoundation) stringResource(R.string.app_kind_foundation) else entry.category,
                             style = MaterialTheme.typography.labelSmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                             modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp),
@@ -175,7 +178,7 @@ private fun SearchResultCard(
                 }
                 if (matchingApi != null) {
                     Text(
-                        text = "API: ${matchingApi.symbol.substringAfterLast('.')}",
+                        text = stringResource(R.string.app_api_symbol_prefix, matchingApi.symbol.substringAfterLast('.')),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.primary,
                         fontWeight = FontWeight.Medium,
