@@ -19,6 +19,8 @@ render.experimental.xml
 # Signing and local services
 *.jks
 *.keystore
+signing.properties
+keystore.properties
 google-services.json
 
 # Profiling, logs, and generated site staging

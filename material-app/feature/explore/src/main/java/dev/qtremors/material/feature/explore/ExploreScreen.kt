@@ -40,6 +40,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.carousel.HorizontalMultiBrowseCarousel
 import androidx.compose.material3.carousel.rememberCarouselState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -47,6 +48,18 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import dev.qtremors.material.core.catalog.CatalogEntry
+import dev.qtremors.material.core.catalog.CatalogKind
+
+/** Memoized derived sections for the Explore feed. */
+private data class ExploreSections(
+    val componentEntries: List<CatalogEntry>,
+    val foundationEntries: List<CatalogEntry>,
+    val featuredEntries: List<CatalogEntry>,
+    val expressiveHighlights: List<CatalogEntry>,
+    val bookmarked: List<CatalogEntry>,
+    val recent: List<CatalogEntry>,
+    val componentCategories: List<Pair<String, List<CatalogEntry>>>,
+)
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
@@ -62,16 +75,31 @@ fun ExploreScreen(
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(0.dp),
 ) {
-    val componentEntries = entries.filter { it.kind == dev.qtremors.material.core.catalog.CatalogKind.COMPONENT }
-    val foundationEntries = entries.filter { it.kind == dev.qtremors.material.core.catalog.CatalogKind.FOUNDATION }
-    val featuredEntries = entries.filter { "featured" in it.collections }
-    val expressiveHighlights = entries.filter { "expressive" in it.collections && "featured" !in it.collections }
-    val bookmarked = entries.filter { it.id in bookmarkedIds }
-    val recent = recentIds.mapNotNull { id -> entries.firstOrNull { it.id == id } }
-    val componentCategories = componentEntries
-        .groupBy { if (it.category.startsWith("Selection", ignoreCase = true)) "Selection" else it.category }
-        .toList()
-        .sortedBy { it.first }
+    // Derived sections are memoized so unrelated recompositions (e.g. bookmark
+    // toggles elsewhere) do not rerun the filter/group/sort passes.
+    val derived = remember(entries, bookmarkedIds, recentIds) {
+        val entryById = entries.associateBy(CatalogEntry::id)
+        val components = entries.filter { it.kind == CatalogKind.COMPONENT }
+        ExploreSections(
+            featuredEntries = entries.filter { "featured" in it.collections },
+            expressiveHighlights = entries.filter { "expressive" in it.collections && "featured" !in it.collections },
+            bookmarked = entries.filter { it.id in bookmarkedIds },
+            recent = recentIds.mapNotNull(entryById::get),
+            foundationEntries = entries.filter { it.kind == CatalogKind.FOUNDATION },
+            componentEntries = components,
+            componentCategories = components
+                .groupBy { if (it.category.startsWith("Selection", ignoreCase = true)) "Selection" else it.category }
+                .toList()
+                .sortedBy { it.first },
+        )
+    }
+    val componentEntries = derived.componentEntries
+    val foundationEntries = derived.foundationEntries
+    val featuredEntries = derived.featuredEntries
+    val expressiveHighlights = derived.expressiveHighlights
+    val bookmarked = derived.bookmarked
+    val recent = derived.recent
+    val componentCategories = derived.componentCategories
 
     LazyColumn(
         modifier = modifier.fillMaxSize(),

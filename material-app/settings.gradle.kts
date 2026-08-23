@@ -23,6 +23,7 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "Material Design"
+
 include(":app")
 include(":core:catalog")
 include(":core:data")

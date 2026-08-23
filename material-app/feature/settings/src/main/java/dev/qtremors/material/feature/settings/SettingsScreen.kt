@@ -42,7 +42,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -57,10 +57,15 @@ import dev.qtremors.material.core.designsystem.ThemePreset
 import dev.qtremors.material.core.designsystem.ThemeState
 import dev.qtremors.material.core.designsystem.expressiveSegmentedShapes
 
+/** Destructive library actions that require confirmation. */
+private enum class ConfirmAction { BOOKMARKS, RECENT }
+
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun SettingsScreen(
     settings: AppSettings,
+    appVersion: String,
+    material3Version: String,
     bookmarkCount: Int,
     recentCount: Int,
     onThemeStateChange: (ThemeState) -> Unit,
@@ -70,7 +75,7 @@ fun SettingsScreen(
     onBack: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    var confirmAction by remember { mutableStateOf<String?>(null) }
+    var confirmAction by rememberSaveable { mutableStateOf<ConfirmAction?>(null) }
     val theme = settings.themeState
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
 
@@ -227,7 +232,7 @@ fun SettingsScreen(
                 SettingsSection(title = "Library & History") {
                     Column(verticalArrangement = Arrangement.spacedBy(ListItemDefaults.SegmentedGap)) {
                         SegmentedListItem(
-                            onClick = { confirmAction = "bookmarks" },
+                            onClick = { confirmAction = ConfirmAction.BOOKMARKS },
                             enabled = bookmarkCount > 0,
                             shapes = expressiveSegmentedShapes(index = 0, count = 2),
                             leadingContent = {
@@ -257,7 +262,7 @@ fun SettingsScreen(
                             modifier = Modifier.height(IntrinsicSize.Min),
                         )
                         SegmentedListItem(
-                            onClick = { confirmAction = "recent" },
+                            onClick = { confirmAction = ConfirmAction.RECENT },
                             enabled = recentCount > 0,
                             shapes = expressiveSegmentedShapes(index = 1, count = 2),
                             leadingContent = {
@@ -302,7 +307,7 @@ fun SettingsScreen(
                                     Icon(Icons.Default.Info, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
                                 }
                             },
-                            supportingContent = { Text("Version 2.0.6 · M3 Compose 1.5.0-alpha23 · Repository") },
+                            supportingContent = { Text("Version $appVersion · M3 Compose $material3Version · Repository") },
                             colors = ListItemDefaults.segmentedColors(
                                 containerColor = MaterialTheme.colorScheme.surfaceContainer,
                                 disabledContainerColor = MaterialTheme.colorScheme.surfaceContainer,
@@ -317,13 +322,14 @@ fun SettingsScreen(
     }
 
     if (confirmAction != null) {
+        val isBookmarksAction = confirmAction == ConfirmAction.BOOKMARKS
         AlertDialog(
             onDismissRequest = { confirmAction = null },
-            title = { Text("Clear ${confirmAction}?") },
+            title = { Text("Clear ${if (isBookmarksAction) "bookmarks" else "recent history"}?") },
             text = { Text("This removes only local app data and cannot be undone.") },
             confirmButton = {
                 TextButton(onClick = {
-                    if (confirmAction == "bookmarks") onClearBookmarks() else onClearRecent()
+                    if (isBookmarksAction) onClearBookmarks() else onClearRecent()
                     confirmAction = null
                 }) { Text("Clear") }
             },

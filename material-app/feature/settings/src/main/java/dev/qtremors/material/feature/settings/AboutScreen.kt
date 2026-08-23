@@ -59,6 +59,9 @@ import dev.qtremors.material.core.designsystem.expressiveSegmentedShapes
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun AboutScreen(
+    appVersion: String,
+    material3Version: String,
+    composeUiVersion: String,
     onBack: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -148,7 +151,7 @@ fun AboutScreen(
             item {
                 AboutSection(title = "App Info") {
                     SegmentedListItem(
-                        onClick = { copyToClipboard("Version", "2.0.6") },
+                        onClick = { copyToClipboard("Version", appVersion) },
                         shapes = expressiveSegmentedShapes(index = 0, count = 4),
                         leadingContent = {
                             Box(modifier = Modifier.fillMaxHeight(), contentAlignment = Alignment.Center) {
@@ -156,7 +159,7 @@ fun AboutScreen(
                             }
                         },
                         content = { Text("Version") },
-                        supportingContent = { Text("2.0.6") },
+                        supportingContent = { Text(appVersion) },
                         colors = ListItemDefaults.segmentedColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
                         modifier = Modifier.height(IntrinsicSize.Min),
                     )
@@ -206,7 +209,7 @@ fun AboutScreen(
             item {
                 AboutSection(title = "Material 3 Catalog") {
                     SegmentedListItem(
-                        onClick = { copyToClipboard("Material 3 Compose", "1.5.0-alpha23") },
+                        onClick = { copyToClipboard("Material 3 Compose", material3Version) },
                         shapes = expressiveSegmentedShapes(index = 0, count = 3),
                         leadingContent = {
                             Box(modifier = Modifier.fillMaxHeight(), contentAlignment = Alignment.Center) {
@@ -214,12 +217,12 @@ fun AboutScreen(
                             }
                         },
                         content = { Text("Material 3 Compose") },
-                        supportingContent = { Text("1.5.0-alpha23") },
+                        supportingContent = { Text(material3Version) },
                         colors = ListItemDefaults.segmentedColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
                         modifier = Modifier.height(IntrinsicSize.Min),
                     )
                     SegmentedListItem(
-                        onClick = { copyToClipboard("Compose UI", "1.12.0-alpha03") },
+                        onClick = { copyToClipboard("Compose UI", composeUiVersion) },
                         shapes = expressiveSegmentedShapes(index = 1, count = 3),
                         leadingContent = {
                             Box(modifier = Modifier.fillMaxHeight(), contentAlignment = Alignment.Center) {
@@ -227,7 +230,7 @@ fun AboutScreen(
                             }
                         },
                         content = { Text("Compose UI Version") },
-                        supportingContent = { Text("1.12.0-alpha03") },
+                        supportingContent = { Text(composeUiVersion) },
                         colors = ListItemDefaults.segmentedColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
                         modifier = Modifier.height(IntrinsicSize.Min),
                     )

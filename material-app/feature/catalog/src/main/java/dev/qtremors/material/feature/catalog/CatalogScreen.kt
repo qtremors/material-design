@@ -20,6 +20,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -51,7 +52,11 @@ fun CatalogScreen(
     allCategories: List<String> = emptyList(),
     contentPadding: PaddingValues = PaddingValues(0.dp),
 ) {
-    val categories = if (allCategories.isNotEmpty()) allCategories else entries.map { it.category }.distinct().sorted()
+    val categories = if (allCategories.isNotEmpty()) {
+        allCategories
+    } else {
+        remember(entries) { entries.map { it.category }.distinct().sorted() }
+    }
     Column(
         modifier = modifier
             .fillMaxSize()

@@ -42,6 +42,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -95,8 +96,9 @@ fun ComponentDetailScreen(
         }
     }
 
-    var headerHeightPx by remember { mutableFloatStateOf(0f) }
-    var headerOffsetPx by remember { mutableFloatStateOf(0f) }
+    // Collapse offsets survive configuration change and process recreation.
+    var headerHeightPx by rememberSaveable { mutableFloatStateOf(0f) }
+    var headerOffsetPx by rememberSaveable { mutableFloatStateOf(0f) }
 
     val nestedScrollConnection = remember(headerHeightPx) {
         object : NestedScrollConnection {

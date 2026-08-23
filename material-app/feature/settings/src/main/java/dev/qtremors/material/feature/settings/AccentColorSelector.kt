@@ -159,7 +159,7 @@ fun AccentColorSelector(
     onAccentSelected: (AccentColor) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    var showPicker by remember { mutableStateOf(false) }
+    var showPicker by androidx.compose.runtime.saveable.rememberSaveable { mutableStateOf(false) }
     val allAccents = remember { displayedAccentColors() }
 
     Column(

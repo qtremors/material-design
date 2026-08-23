@@ -1,7 +1,18 @@
 # Material Design Changelog
 
 > **Project:** Material Design  
-> **Project Version:** 2.0.6
+> **Project Version:** 2.0.7
+
+---
+
+## [2.0.7] - 2026-08-23
+
+### Added & Improved
+
+- Decomposed the gallery application shell into dedicated adaptive layout, floating navigation, top bar, and instant search overlay components.
+- Modularized state management with isolated StateFlow streams and a precomputed debounced search index for responsive filtering.
+- Added recoverable catalog parsing with loading, ready, and error states plus interactive retry flows.
+- Hardened build and packaging configurations with non-transitive R classes, native symbol retention, R8 serialization keep rules, and release signing.
 
 ---
 

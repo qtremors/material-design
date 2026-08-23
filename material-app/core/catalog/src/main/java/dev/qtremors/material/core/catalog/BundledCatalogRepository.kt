@@ -16,9 +16,11 @@ class BundledCatalogRepository(context: Context) : CatalogRepository {
 
     override val entries: List<CatalogEntry> = document.entries
 
+    private val searchIndex = CatalogSearchIndex(entries)
+
     override fun entry(id: String): CatalogEntry? = entries.firstOrNull { it.id == id }
 
-    override fun search(query: String): List<SearchResult> = CatalogSearch.search(entries, query)
+    override fun search(query: String): List<SearchResult> = searchIndex.search(query)
 
     companion object {
         const val CATALOG_PATH = "catalog/catalog.json"
@@ -76,48 +78,62 @@ object CatalogValidator {
 }
 
 object CatalogSearch {
-    fun search(entries: List<CatalogEntry>, rawQuery: String): List<SearchResult> {
+    fun search(entries: List<CatalogEntry>, rawQuery: String): List<SearchResult> =
+        CatalogSearchIndex(entries).search(rawQuery)
+}
+
+private fun normalize(value: String): String = Normalizer.normalize(value, Normalizer.Form.NFKD)
+    .lowercase(Locale.ROOT)
+    .replace(Regex("[^a-z0-9]+"), " ")
+    .trim()
+
+/**
+ * Precomputes the normalized search fields for every entry once so repeated
+ * queries do not re-normalize the whole corpus on each keystroke.
+ */
+class CatalogSearchIndex(entries: List<CatalogEntry>) {
+    private val indexedEntries: List<IndexedEntry> = entries.map(::IndexedEntry)
+
+    fun search(rawQuery: String): List<SearchResult> {
         val query = normalize(rawQuery)
-        if (query.isBlank()) return entries.map { SearchResult(it, 0) }
+        if (query.isBlank()) return indexedEntries.map { SearchResult(it.entry, 0) }
 
-        return entries.mapNotNull { entry ->
-            val officialName = normalize(entry.officialName)
-            val apiSymbols = entry.apiReferences.map { normalize(it.symbol.substringAfterLast('.')) }
-            val aliases = entry.aliases.map(::normalize)
-            val category = normalize(entry.category)
-            val summary = normalize(entry.summary)
-            val guidance = normalize(
-                buildList {
-                    add(entry.guidance.purpose)
-                    addAll(entry.guidance.useWhen)
-                    addAll(entry.guidance.avoidWhen)
-                    addAll(entry.guidance.behavior)
-                    addAll(entry.guidance.accessibility)
-                    addAll(entry.guidance.adaptive)
-                }.joinToString(" "),
-            )
-
+        return indexedEntries.mapNotNull { indexed ->
             val score = when {
-                officialName == query -> 1_000
-                apiSymbols.any { it == query } -> 950
-                aliases.any { it == query } -> 900
-                officialName.startsWith(query) -> 800
-                apiSymbols.any { it.startsWith(query) } -> 750
-                aliases.any { it.startsWith(query) } -> 700
-                officialName.contains(query) -> 600
-                apiSymbols.any { it.contains(query) } -> 550
-                aliases.any { it.contains(query) } -> 500
-                category.contains(query) -> 300
-                summary.contains(query) -> 100
-                guidance.contains(query) -> 50
+                indexed.officialName == query -> 1_000
+                indexed.apiSymbols.any { it == query } -> 950
+                indexed.aliases.any { it == query } -> 900
+                indexed.officialName.startsWith(query) -> 800
+                indexed.apiSymbols.any { it.startsWith(query) } -> 750
+                indexed.aliases.any { it.startsWith(query) } -> 700
+                indexed.officialName.contains(query) -> 600
+                indexed.apiSymbols.any { it.contains(query) } -> 550
+                indexed.aliases.any { it.contains(query) } -> 500
+                indexed.category.contains(query) -> 300
+                indexed.summary.contains(query) -> 100
+                indexed.guidance.contains(query) -> 50
                 else -> 0
             }
-            score.takeIf { it > 0 }?.let { SearchResult(entry, it) }
+            score.takeIf { it > 0 }?.let { SearchResult(indexed.entry, it) }
         }.sortedWith(compareByDescending<SearchResult> { it.score }.thenBy { it.entry.officialName })
     }
 
-    private fun normalize(value: String): String = Normalizer.normalize(value, Normalizer.Form.NFKD)
-        .lowercase(Locale.ROOT)
-        .replace(Regex("[^a-z0-9]+"), " ")
-        .trim()
+    private class IndexedEntry(entry: CatalogEntry) {
+        val entry: CatalogEntry = entry
+        val officialName = normalize(entry.officialName)
+        val apiSymbols = entry.apiReferences.map { normalize(it.symbol.substringAfterLast('.')) }
+        val aliases = entry.aliases.map(::normalize)
+        val category = normalize(entry.category)
+        val summary = normalize(entry.summary)
+        val guidance = normalize(
+            buildList {
+                add(entry.guidance.purpose)
+                addAll(entry.guidance.useWhen)
+                addAll(entry.guidance.avoidWhen)
+                addAll(entry.guidance.behavior)
+                addAll(entry.guidance.accessibility)
+                addAll(entry.guidance.adaptive)
+            }.joinToString(" "),
+        )
+    }
 }

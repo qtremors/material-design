@@ -38,6 +38,9 @@ fun ApisScreen(
     onEntryClick: (String) -> Unit,
     modifier: Modifier = Modifier,
     query: String = "",
+    material3Version: String = "",
+    composeUiVersion: String = "",
+    stableBaseline: String = "",
     contentPadding: PaddingValues = PaddingValues(0.dp),
 ) {
     val cleanQuery = query.trim()
@@ -64,7 +67,7 @@ fun ApisScreen(
             .padding(top = contentPadding.calculateTopPadding()),
     ) {
         Text(
-            text = "Compose Material 3 · 1.5.0-alpha23\nCompose UI · 1.12.0-alpha03 · Stable Material baseline · 1.4.0",
+            text = "Compose Material 3 · $material3Version\nCompose UI · $composeUiVersion · Stable Material baseline · $stableBaseline",
             modifier = Modifier.padding(horizontal = 20.dp, vertical = 12.dp),
             style = MaterialTheme.typography.titleSmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
