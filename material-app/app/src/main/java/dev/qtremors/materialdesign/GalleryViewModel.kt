@@ -26,6 +26,7 @@ data class GalleryUiState(
     val entries: List<CatalogEntry> = emptyList(),
     val visibleCatalogEntries: List<CatalogEntry> = emptyList(),
     val foundationEntries: List<CatalogEntry> = emptyList(),
+    val allCategories: List<String> = emptyList(),
     val bookmarks: Set<String> = emptySet(),
     val recent: List<String> = emptyList(),
     val settings: AppSettings = AppSettings(),
@@ -70,7 +71,6 @@ class GalleryViewModel(
             val category = if (query.isNotBlank()) null else current.selectedCategory
             current.copy(
                 query = query,
-                rootDestination = if (query.isNotBlank()) RootDestination.CATALOG else current.rootDestination,
                 selectedCategory = category,
                 visibleCatalogEntries = filterEntries(query, category),
                 queryResults = searchResults(query),
@@ -100,16 +100,29 @@ class GalleryViewModel(
 
     private fun baseState(): GalleryUiState {
         val components = catalogRepository.entries.filter { it.kind == CatalogKind.COMPONENT }
+        val allCategories = components.map {
+            if (it.category.startsWith("Selection", ignoreCase = true)) "Selection" else it.category
+        }.distinct().sorted()
         return GalleryUiState(
             entries = catalogRepository.entries,
             visibleCatalogEntries = components,
             foundationEntries = catalogRepository.entries.filter { it.kind == CatalogKind.FOUNDATION },
+            allCategories = allCategories,
         )
     }
 
     private fun filterEntries(query: String, category: String?): List<CatalogEntry> {
         val base = if (query.isBlank()) catalogRepository.entries else catalogRepository.search(query).map { it.entry }
-        return base.filter { it.kind == CatalogKind.COMPONENT && (category == null || it.category == category) }
+        return base.filter { entry ->
+            val matchesCategory = category == null ||
+                entry.category.equals(category, ignoreCase = true) ||
+                (category.equals("Selection", ignoreCase = true) && entry.category.startsWith("Selection", ignoreCase = true))
+            if (query.isBlank()) {
+                entry.kind == CatalogKind.COMPONENT && matchesCategory
+            } else {
+                matchesCategory
+            }
+        }
     }
 
     private fun searchResults(query: String): List<CatalogEntry> =
@@ -120,7 +133,7 @@ class GalleryViewModel(
         }
 
     companion object {
-        private const val MaxQueryResults = 8
+        private const val MaxQueryResults = 16
 
         fun factory(container: MaterialAppContainer): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
             @Suppress("UNCHECKED_CAST")

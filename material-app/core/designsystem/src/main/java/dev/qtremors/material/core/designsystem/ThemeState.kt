@@ -71,4 +71,7 @@ data class ThemeState(
     val customBackgroundColorHex: String = "#282A36",
     val harmonizeColors: Boolean = true,
     val reducedMotion: Boolean = false,
+    val vibrationsEnabled: Boolean = true,
+    val expandableAppBar: Boolean = true,
+    val showBadges: Boolean = true,
 )

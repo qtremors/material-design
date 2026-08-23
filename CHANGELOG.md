@@ -1,7 +1,18 @@
 # Material Design Changelog
 
 > **Project:** Material Design  
-> **Project Version:** 2.0.5
+> **Project Version:** 2.0.6
+
+---
+
+## [2.0.6] - 2026-08-23
+
+### Added & Improved
+
+- Redesigned Settings and added a dedicated About screen with application metadata, design system specifications, and repository resources.
+- Overhauled the Shape foundation showcase into a responsive 3-column grid with category filtering and interactive morphing across all 35 Material 3 Expressive shapes.
+- Integrated an instant search overlay and enabled universal search filtering across Components, Foundations, and APIs.
+- Enhanced Component Detail views with horizontal tab swiping and a collapsible nested-scroll header.
 
 ---
 

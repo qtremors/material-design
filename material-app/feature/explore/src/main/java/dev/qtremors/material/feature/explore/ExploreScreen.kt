@@ -56,14 +56,22 @@ fun ExploreScreen(
     recentIds: List<String>,
     onEntryClick: (String) -> Unit,
     onCategoryClick: (String) -> Unit = {},
+    onAllComponentsClick: () -> Unit = {},
+    onExpressiveClick: () -> Unit = {},
+    onFoundationsClick: () -> Unit = {},
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(0.dp),
 ) {
+    val componentEntries = entries.filter { it.kind == dev.qtremors.material.core.catalog.CatalogKind.COMPONENT }
+    val foundationEntries = entries.filter { it.kind == dev.qtremors.material.core.catalog.CatalogKind.FOUNDATION }
     val featuredEntries = entries.filter { "featured" in it.collections }
     val expressiveHighlights = entries.filter { "expressive" in it.collections && "featured" !in it.collections }
     val bookmarked = entries.filter { it.id in bookmarkedIds }
     val recent = recentIds.mapNotNull { id -> entries.firstOrNull { it.id == id } }
-    val categories = entries.groupBy { it.category }.toList().sortedBy { it.first }
+    val componentCategories = componentEntries
+        .groupBy { if (it.category.startsWith("Selection", ignoreCase = true)) "Selection" else it.category }
+        .toList()
+        .sortedBy { it.first }
 
     LazyColumn(
         modifier = modifier.fillMaxSize(),
@@ -89,14 +97,14 @@ fun ExploreScreen(
                     modifier = Modifier.padding(top = 4.dp),
                 ) {
                     AssistChip(
-                        onClick = {},
-                        label = { Text("${entries.size} Components") },
+                        onClick = onAllComponentsClick,
+                        label = { Text("${componentEntries.size} Components") },
                         colors = AssistChipDefaults.assistChipColors(
                             containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
                         ),
                     )
                     AssistChip(
-                        onClick = {},
+                        onClick = onExpressiveClick,
                         label = { Text("${entries.count { "expressive" in it.collections }} Expressive") },
                         leadingIcon = {
                             Icon(Icons.Default.AutoAwesome, contentDescription = null, modifier = Modifier.size(16.dp))
@@ -105,6 +113,18 @@ fun ExploreScreen(
                             containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
                         ),
                     )
+                    if (foundationEntries.isNotEmpty()) {
+                        AssistChip(
+                            onClick = onFoundationsClick,
+                            label = { Text("${foundationEntries.size} Foundations") },
+                            leadingIcon = {
+                                Icon(Icons.Default.Palette, contentDescription = null, modifier = Modifier.size(16.dp))
+                            },
+                            colors = AssistChipDefaults.assistChipColors(
+                                containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
+                            ),
+                        )
+                    }
                 }
             }
         }
@@ -121,7 +141,7 @@ fun ExploreScreen(
             }
         }
 
-        if (categories.isNotEmpty()) {
+        if (componentCategories.isNotEmpty() || foundationEntries.isNotEmpty()) {
             item(key = "categories") {
                 Column(
                     modifier = Modifier.padding(horizontal = 20.dp),
@@ -138,11 +158,19 @@ fun ExploreScreen(
                         verticalArrangement = Arrangement.spacedBy(10.dp),
                         modifier = Modifier.fillMaxWidth(),
                     ) {
-                        categories.forEach { (category, categoryEntries) ->
+                        componentCategories.forEach { (category, categoryEntries) ->
                             CategoryCard(
                                 category = category,
                                 count = categoryEntries.size,
                                 onClick = { onCategoryClick(category) },
+                                modifier = Modifier.weight(1f),
+                            )
+                        }
+                        if (foundationEntries.isNotEmpty()) {
+                            CategoryCard(
+                                category = "Foundations",
+                                count = foundationEntries.size,
+                                onClick = onFoundationsClick,
                                 modifier = Modifier.weight(1f),
                             )
                         }

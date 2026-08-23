@@ -83,6 +83,9 @@ class DataStoreUserLibraryRepository(private val context: Context) : UserLibrary
             preferences[Keys.customBg] = themeState.customBackgroundColorHex
             preferences[Keys.harmonizeColors] = themeState.harmonizeColors
             preferences[Keys.reducedMotion] = themeState.reducedMotion
+            preferences[Keys.vibrationsEnabled] = themeState.vibrationsEnabled
+            preferences[Keys.expandableAppBar] = themeState.expandableAppBar
+            preferences[Keys.showBadges] = themeState.showBadges
         }
     }
 
@@ -110,6 +113,9 @@ class DataStoreUserLibraryRepository(private val context: Context) : UserLibrary
         val customBg = preferences[Keys.customBg] ?: "#282A36"
         val harmonize = preferences[Keys.harmonizeColors] ?: true
         val reducedMotion = preferences[Keys.reducedMotion] ?: false
+        val vibrations = preferences[Keys.vibrationsEnabled] ?: true
+        val expandableAppBar = preferences[Keys.expandableAppBar] ?: true
+        val showBadges = preferences[Keys.showBadges] ?: true
 
         val themeState = ThemeState(
             themeMode = ThemeMode.entries.find { it.name == themeModeStr } ?: ThemeMode.SYSTEM,
@@ -119,6 +125,9 @@ class DataStoreUserLibraryRepository(private val context: Context) : UserLibrary
             customBackgroundColorHex = customBg,
             harmonizeColors = harmonize,
             reducedMotion = reducedMotion,
+            vibrationsEnabled = vibrations,
+            expandableAppBar = expandableAppBar,
+            showBadges = showBadges,
         )
         return AppSettings(themeState = themeState)
     }
@@ -133,6 +142,9 @@ class DataStoreUserLibraryRepository(private val context: Context) : UserLibrary
         val customBg = stringPreferencesKey("custom_bg_hex")
         val harmonizeColors = booleanPreferencesKey("harmonize_colors")
         val reducedMotion = booleanPreferencesKey("reduced_motion")
+        val vibrationsEnabled = booleanPreferencesKey("vibrations_enabled")
+        val expandableAppBar = booleanPreferencesKey("expandable_app_bar")
+        val showBadges = booleanPreferencesKey("show_badges")
     }
 
     companion object { const val MAX_RECENT = 20 }

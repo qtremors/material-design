@@ -48,9 +48,10 @@ fun CatalogScreen(
     onEntryClick: (String) -> Unit,
     onBookmarkClick: (String, Boolean) -> Unit,
     modifier: Modifier = Modifier,
+    allCategories: List<String> = emptyList(),
     contentPadding: PaddingValues = PaddingValues(0.dp),
 ) {
-    val categories = entries.map { it.category }.distinct().sorted()
+    val categories = if (allCategories.isNotEmpty()) allCategories else entries.map { it.category }.distinct().sorted()
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -63,7 +64,19 @@ fun CatalogScreen(
             item { FilterChip(selected = selectedCategory == null, onClick = { onCategorySelected(null) }, label = { Text("All") }) }
             items(categories.size) { index ->
                 val category = categories[index]
-                FilterChip(selected = selectedCategory == category, onClick = { onCategorySelected(category) }, label = { Text(category) })
+                val isSelected = selectedCategory.equals(category, ignoreCase = true) ||
+                    (category.equals("Selection", ignoreCase = true) && selectedCategory?.startsWith("Selection", ignoreCase = true) == true)
+                FilterChip(
+                    selected = isSelected,
+                    onClick = {
+                        if (isSelected) {
+                            onCategorySelected(null)
+                        } else {
+                            onCategorySelected(category)
+                        }
+                    },
+                    label = { Text(category) },
+                )
             }
         }
         if (entries.isEmpty()) {

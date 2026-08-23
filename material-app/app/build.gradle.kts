@@ -12,8 +12,8 @@ android {
         applicationId = "dev.qtremors.materialdesign"
         minSdk = 24
         targetSdk = 37
-        versionCode = 205
-        versionName = "2.0.5"
+        versionCode = 206
+        versionName = "2.0.6"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -45,7 +45,7 @@ android {
 val androidComponents = project.extensions.getByType<com.android.build.api.variant.ApplicationAndroidComponentsExtension>()
 androidComponents.onVariants { variant ->
     variant.outputs.forEach { output ->
-        output.outputFileName.set("material-design-v2.0.5-${variant.name}.apk")
+        output.outputFileName.set("material-design-v2.0.6-${variant.name}.apk")
     }
 }
 

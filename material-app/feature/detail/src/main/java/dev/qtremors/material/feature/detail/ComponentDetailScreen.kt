@@ -2,16 +2,20 @@ package dev.qtremors.material.feature.detail
 
 import android.content.Intent
 import android.net.Uri
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -34,18 +38,33 @@ import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
+import androidx.compose.ui.input.nestedscroll.NestedScrollSource
+import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import dev.qtremors.material.core.catalog.ApiAvailability
 import dev.qtremors.material.core.catalog.ApiStability
 import dev.qtremors.material.core.catalog.CatalogEntry
 import dev.qtremors.material.core.catalog.ImplementationKind
+import kotlinx.coroutines.launch
+import kotlin.math.roundToInt
 
 enum class DetailSection(val label: String) { PREVIEW("Preview"), GUIDANCE("Guidance"), INSPECT("Inspect"), API("API") }
 
@@ -60,59 +79,152 @@ fun ComponentDetailScreen(
     onBack: () -> Unit,
     demo: @Composable () -> Unit,
 ) {
+    val coroutineScope = rememberCoroutineScope()
+    val pagerState = rememberPagerState(initialPage = selectedSection.ordinal) { DetailSection.entries.size }
+
+    LaunchedEffect(pagerState.currentPage) {
+        val currentSection = DetailSection.entries[pagerState.currentPage]
+        if (currentSection != selectedSection) {
+            onSectionSelected(currentSection)
+        }
+    }
+
+    LaunchedEffect(selectedSection) {
+        if (pagerState.currentPage != selectedSection.ordinal) {
+            pagerState.animateScrollToPage(selectedSection.ordinal)
+        }
+    }
+
+    var headerHeightPx by remember { mutableFloatStateOf(0f) }
+    var headerOffsetPx by remember { mutableFloatStateOf(0f) }
+
+    val nestedScrollConnection = remember(headerHeightPx) {
+        object : NestedScrollConnection {
+            override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
+                val delta = available.y
+                if (delta < 0f && headerHeightPx > 0f) {
+                    val oldOffset = headerOffsetPx
+                    val newOffset = (headerOffsetPx + delta).coerceIn(-headerHeightPx, 0f)
+                    headerOffsetPx = newOffset
+                    return Offset(0f, newOffset - oldOffset)
+                }
+                return Offset.Zero
+            }
+
+            override fun onPostScroll(consumed: Offset, available: Offset, source: NestedScrollSource): Offset {
+                val delta = available.y
+                if (delta > 0f && headerHeightPx > 0f) {
+                    val oldOffset = headerOffsetPx
+                    val newOffset = (headerOffsetPx + delta).coerceIn(-headerHeightPx, 0f)
+                    headerOffsetPx = newOffset
+                    return Offset(0f, newOffset - oldOffset)
+                }
+                return Offset.Zero
+            }
+        }
+    }
+
     Scaffold(
         topBar = {
             TopAppBar(
                 title = { Text(entry.officialName) },
-                navigationIcon = { IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Filled.ArrowBack, "Back") } },
+                navigationIcon = {
+                    IconButton(onClick = onBack) {
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                    }
+                },
                 actions = {
                     IconButton(onClick = { onBookmarkClick(!bookmarked) }) {
-                        Icon(if (bookmarked) Icons.Filled.Bookmark else Icons.Outlined.BookmarkBorder, if (bookmarked) "Remove bookmark" else "Bookmark")
+                        Icon(
+                            imageVector = if (bookmarked) Icons.Filled.Bookmark else Icons.Outlined.BookmarkBorder,
+                            contentDescription = if (bookmarked) "Remove bookmark" else "Bookmark",
+                        )
                     }
                 },
             )
         },
     ) { padding ->
-        Column(Modifier.fillMaxSize().padding(padding)) {
-            Column(Modifier.padding(horizontal = 20.dp, vertical = 12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                val isExpressive = entry.collections.contains("expressive") || entry.apiReferences.any { it.optInAnnotation?.contains("Expressive") == true }
-                val isExperimental = entry.apiReferences.any { it.stability == ApiStability.EXPERIMENTAL }
-                val isCustom = entry.implementation == ImplementationKind.PROJECT_IMPLEMENTATION
+        val density = LocalDensity.current
+        val headerHeightDp = with(density) { headerHeightPx.toDp() }
+        val headerOffsetDp = with(density) { headerOffsetPx.toDp() }
+        val tabRowHeightDp = 48.dp
 
-                FlowRow(
-                    horizontalArrangement = Arrangement.spacedBy(6.dp),
-                    verticalArrangement = Arrangement.spacedBy(4.dp),
-                ) {
-                    AssistChip(onClick = {}, label = { Text(entry.category, maxLines = 1, overflow = TextOverflow.Ellipsis) })
-                    AssistChip(
-                        onClick = {},
-                        label = { Text(if (isCustom) "Custom Component" else "Official API", maxLines = 1, overflow = TextOverflow.Ellipsis) }
-                    )
-                    if (isExpressive) {
-                        AssistChip(onClick = {}, label = { Text("M3 Expressive", maxLines = 1, overflow = TextOverflow.Ellipsis) })
-                    }
-                    if (isExperimental) {
-                        AssistChip(onClick = {}, label = { Text("Experimental API", maxLines = 1, overflow = TextOverflow.Ellipsis) })
-                    }
-                }
-                Text(entry.summary, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                Text("Also find: ${entry.aliases.joinToString()}", style = MaterialTheme.typography.bodySmall)
-            }
-            PrimaryTabRow(selectedTabIndex = selectedSection.ordinal) {
-                DetailSection.entries.forEach { section ->
-                    Tab(selected = selectedSection == section, onClick = { onSectionSelected(section) }, text = { Text(section.label) })
-                }
-            }
-            Box(
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(padding)
+                .nestedScroll(nestedScrollConnection),
+        ) {
+            HorizontalPager(
+                state = pagerState,
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1f),
-            ) {
-                when (selectedSection) {
+                    .fillMaxSize()
+                    .padding(top = (headerHeightDp + headerOffsetDp + tabRowHeightDp).coerceAtLeast(tabRowHeightDp)),
+            ) { page ->
+                when (DetailSection.entries[page]) {
                     DetailSection.PREVIEW -> PreviewSection(demo)
                     DetailSection.GUIDANCE -> GuidanceSection(entry)
                     DetailSection.INSPECT -> InspectSection(entry)
                     DetailSection.API -> ApiSection(entry)
+                }
+            }
+
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .offset { IntOffset(0, headerOffsetPx.roundToInt()) }
+                    .background(MaterialTheme.colorScheme.surface),
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .onSizeChanged { size ->
+                            if (headerHeightPx != size.height.toFloat()) {
+                                headerHeightPx = size.height.toFloat()
+                            }
+                        }
+                        .padding(horizontal = 20.dp, vertical = 8.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
+                    val isExpressive = entry.collections.contains("expressive") || entry.apiReferences.any { it.optInAnnotation?.contains("Expressive") == true }
+                    val isExperimental = entry.apiReferences.any { it.stability == ApiStability.EXPERIMENTAL }
+                    val isCustom = entry.implementation == ImplementationKind.PROJECT_IMPLEMENTATION
+
+                    FlowRow(
+                        horizontalArrangement = Arrangement.spacedBy(6.dp),
+                        verticalArrangement = Arrangement.spacedBy(4.dp),
+                    ) {
+                        AssistChip(onClick = {}, label = { Text(entry.category, maxLines = 1, overflow = TextOverflow.Ellipsis) })
+                        AssistChip(
+                            onClick = {},
+                            label = { Text(if (isCustom) "Custom Component" else "Official API", maxLines = 1, overflow = TextOverflow.Ellipsis) },
+                        )
+                        if (isExpressive) {
+                            AssistChip(onClick = {}, label = { Text("M3 Expressive", maxLines = 1, overflow = TextOverflow.Ellipsis) })
+                        }
+                        if (isExperimental) {
+                            AssistChip(onClick = {}, label = { Text("Experimental API", maxLines = 1, overflow = TextOverflow.Ellipsis) })
+                        }
+                    }
+                    Text(entry.summary, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    Text("Also find: ${entry.aliases.joinToString()}", style = MaterialTheme.typography.bodySmall)
+                }
+
+                PrimaryTabRow(
+                    selectedTabIndex = pagerState.currentPage,
+                    modifier = Modifier.fillMaxWidth(),
+                ) {
+                    DetailSection.entries.forEachIndexed { index, section ->
+                        Tab(
+                            selected = pagerState.currentPage == index,
+                            onClick = {
+                                coroutineScope.launch {
+                                    pagerState.animateScrollToPage(index)
+                                }
+                            },
+                            text = { Text(section.label) },
+                        )
+                    }
                 }
             }
         }
@@ -122,7 +234,10 @@ fun ComponentDetailScreen(
 @Composable
 private fun PreviewSection(demo: @Composable () -> Unit) {
     Column(
-        Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(20.dp),
+        Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
+            .padding(20.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         Text("Interactive reference", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
@@ -133,7 +248,10 @@ private fun PreviewSection(demo: @Composable () -> Unit) {
 @Composable
 private fun GuidanceSection(entry: CatalogEntry) {
     Column(
-        Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(20.dp),
+        Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
+            .padding(20.dp),
         verticalArrangement = Arrangement.spacedBy(18.dp),
     ) {
         Text("Design guidance", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
@@ -188,7 +306,10 @@ private fun GuidanceList(title: String, items: List<String>, caution: Boolean = 
 @Composable
 private fun InspectSection(entry: CatalogEntry) {
     Column(
-        Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(20.dp),
+        Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
+            .padding(20.dp),
         verticalArrangement = Arrangement.spacedBy(14.dp),
     ) {
         Text("Implementation reference", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
@@ -208,7 +329,10 @@ private fun ApiSection(entry: CatalogEntry) {
     val clipboard = LocalClipboardManager.current
     val context = LocalContext.current
     Column(
-        Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(20.dp),
+        Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
+            .padding(20.dp),
         verticalArrangement = Arrangement.spacedBy(14.dp),
     ) {
         Text("Official APIs", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)

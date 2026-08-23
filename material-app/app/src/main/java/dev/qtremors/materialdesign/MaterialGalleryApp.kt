@@ -32,15 +32,27 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.filled.Api
 import androidx.compose.material.icons.filled.Apps
+import androidx.compose.material.icons.filled.Category
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Explore
 import androidx.compose.material.icons.filled.Palette
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.SearchOff
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.Widgets
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.ui.text.style.TextAlign
+import dev.qtremors.material.core.catalog.CatalogKind
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.FloatingToolbarDefaults
@@ -100,12 +112,14 @@ import dev.qtremors.material.feature.detail.ComponentDetailScreen
 import dev.qtremors.material.feature.detail.DetailSection
 import dev.qtremors.material.feature.explore.ExploreScreen
 import dev.qtremors.material.feature.foundations.FoundationsScreen
+import dev.qtremors.material.feature.settings.AboutScreen
 import dev.qtremors.material.feature.settings.SettingsScreen
 import kotlinx.serialization.Serializable
 
 @Serializable private object GalleryRoute
 @Serializable private data class DetailRoute(val id: String)
 @Serializable private object SettingsRoute
+@Serializable private object AboutRoute
 
 @Composable
 fun MaterialGalleryApp(viewModel: GalleryViewModel, demoRegistry: MaterialDemoRegistry) {
@@ -158,6 +172,12 @@ fun MaterialGalleryApp(viewModel: GalleryViewModel, demoRegistry: MaterialDemoRe
                         onThemeStateChange = viewModel::updateThemeState,
                         onClearBookmarks = viewModel::clearBookmarks,
                         onClearRecent = viewModel::clearRecent,
+                        onNavigateToAbout = { navController.navigate(AboutRoute) },
+                        onBack = navController::popBackStack,
+                    )
+                }
+                composable<AboutRoute> {
+                    AboutScreen(
                         onBack = navController::popBackStack,
                     )
                 }
@@ -224,7 +244,7 @@ internal fun GalleryShell(
                         },
                     )
                 } else {
-                    ArcileTopBar(
+                    GalleryTopBar(
                         title = title,
                         scrollBehavior = scrollBehavior,
                         onSearchClick = { showSearchBar = true },
@@ -234,18 +254,35 @@ internal fun GalleryShell(
             },
         ) { innerPadding ->
             Box(Modifier.fillMaxSize()) {
-                GalleryContent(
-                    state = state,
-                    onEntryClick = onEntryClick,
-                    onCategorySelected = onCategorySelected,
-                    onRootSelected = onRootSelected,
-                    onApiStabilitySelected = onApiStabilitySelected,
-                    onBookmarkClick = onBookmarkClick,
-                    contentPadding = PaddingValues(
-                        top = innerPadding.calculateTopPadding(),
-                        bottom = compactNavHeightDp.dp + CompactNavContentSpacing.dp,
-                    ),
-                )
+                if (state.query.isNotBlank()) {
+                    InstantSearchResultsOverlay(
+                        query = state.query,
+                        results = state.queryResults,
+                        onEntryClick = { id ->
+                            showSearchBar = false
+                            onQueryChange("")
+                            onEntryClick(id)
+                        },
+                        contentPadding = PaddingValues(
+                            top = innerPadding.calculateTopPadding(),
+                            bottom = compactNavHeightDp.dp + CompactNavContentSpacing.dp,
+                        ),
+                    )
+                } else {
+                    GalleryContent(
+                        state = state,
+                        onEntryClick = onEntryClick,
+                        onCategorySelected = onCategorySelected,
+                        onRootSelected = onRootSelected,
+                        onApiStabilitySelected = onApiStabilitySelected,
+                        onBookmarkClick = onBookmarkClick,
+                        onQueryChange = onQueryChange,
+                        contentPadding = PaddingValues(
+                            top = innerPadding.calculateTopPadding(),
+                            bottom = compactNavHeightDp.dp + CompactNavContentSpacing.dp,
+                        ),
+                    )
+                }
                 CompactFloatingNavigationBar(
                     selected = state.rootDestination,
                     onSelected = onRootSelected,
@@ -271,7 +308,6 @@ internal fun GalleryShell(
         ) {
             Scaffold(
                 modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-                contentWindowInsets = WindowInsets(0, 0, 0, 0),
                 containerColor = Color.Transparent,
                 topBar = {
                     if (isSearchActive) {
@@ -289,7 +325,7 @@ internal fun GalleryShell(
                             },
                         )
                     } else {
-                        ArcileTopBar(
+                        GalleryTopBar(
                             title = title,
                             scrollBehavior = scrollBehavior,
                             onSearchClick = { showSearchBar = true },
@@ -299,15 +335,29 @@ internal fun GalleryShell(
                 },
             ) { innerPadding ->
                 Box(Modifier.fillMaxSize()) {
-                    GalleryContent(
-                        state = state,
-                        onEntryClick = onEntryClick,
-                        onCategorySelected = onCategorySelected,
-                        onRootSelected = onRootSelected,
-                        onApiStabilitySelected = onApiStabilitySelected,
-                        onBookmarkClick = onBookmarkClick,
-                        contentPadding = innerPadding,
-                    )
+                    if (state.query.isNotBlank()) {
+                        InstantSearchResultsOverlay(
+                            query = state.query,
+                            results = state.queryResults,
+                            onEntryClick = { id ->
+                                showSearchBar = false
+                                onQueryChange("")
+                                onEntryClick(id)
+                            },
+                            contentPadding = innerPadding,
+                        )
+                    } else {
+                        GalleryContent(
+                            state = state,
+                            onEntryClick = onEntryClick,
+                            onCategorySelected = onCategorySelected,
+                            onRootSelected = onRootSelected,
+                            onApiStabilitySelected = onApiStabilitySelected,
+                            onBookmarkClick = onBookmarkClick,
+                            onQueryChange = onQueryChange,
+                            contentPadding = innerPadding,
+                        )
+                    }
                 }
             }
         }
@@ -316,7 +366,7 @@ internal fun GalleryShell(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun ArcileTopBar(
+private fun GalleryTopBar(
     title: String,
     scrollBehavior: TopAppBarScrollBehavior,
     onSearchClick: () -> Unit,
@@ -336,19 +386,16 @@ private fun ArcileTopBar(
             Surface(
                 shape = CircleShape,
                 color = MaterialTheme.colorScheme.surfaceContainerHigh,
-                contentColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                tonalElevation = 2.dp,
                 shadowElevation = 2.dp,
-                tonalElevation = 1.dp,
-                modifier = Modifier
-                    .size(48.dp)
-                    .clip(CircleShape)
-                    .clickable { onSearchClick() },
+                modifier = Modifier.size(40.dp),
             ) {
-                Box(contentAlignment = Alignment.Center) {
+                IconButton(onClick = onSearchClick) {
                     Icon(
-                        Icons.Default.Search,
-                        contentDescription = "Search",
-                        modifier = Modifier.size(24.dp),
+                        imageVector = Icons.Default.Search,
+                        contentDescription = "Search components",
+                        tint = MaterialTheme.colorScheme.onSurface,
+                        modifier = Modifier.size(20.dp),
                     )
                 }
             }
@@ -356,29 +403,25 @@ private fun ArcileTopBar(
             Surface(
                 shape = CircleShape,
                 color = MaterialTheme.colorScheme.surfaceContainerHigh,
-                contentColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                tonalElevation = 2.dp,
                 shadowElevation = 2.dp,
-                tonalElevation = 1.dp,
-                modifier = Modifier
-                    .size(48.dp)
-                    .clip(CircleShape)
-                    .clickable(onClick = onSettingsClick),
+                modifier = Modifier.size(40.dp),
             ) {
-                Box(contentAlignment = Alignment.Center) {
+                IconButton(onClick = onSettingsClick) {
                     Icon(
-                        Icons.Default.Settings,
-                        contentDescription = "App settings",
-                        modifier = Modifier.size(24.dp),
+                        imageVector = Icons.Default.Settings,
+                        contentDescription = "Open settings",
+                        tint = MaterialTheme.colorScheme.onSurface,
+                        modifier = Modifier.size(20.dp),
                     )
                 }
             }
-            Spacer(Modifier.width(8.dp))
+            Spacer(Modifier.width(12.dp))
         },
         scrollBehavior = scrollBehavior,
         colors = TopAppBarDefaults.largeTopAppBarColors(
             containerColor = Color.Transparent,
-            scrolledContainerColor = MaterialTheme.colorScheme.surfaceContainer,
-            titleContentColor = MaterialTheme.colorScheme.onSurface,
+            scrolledContainerColor = MaterialTheme.colorScheme.surfaceContainer.copy(alpha = 0.95f),
         ),
         modifier = modifier,
     )
@@ -396,30 +439,9 @@ private fun SearchTopBar(
         modifier = modifier
             .fillMaxWidth()
             .statusBarsPadding()
-            .padding(horizontal = 16.dp, vertical = 8.dp)
-            .height(56.dp),
+            .padding(horizontal = 16.dp, vertical = 8.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Surface(
-            shape = CircleShape,
-            color = MaterialTheme.colorScheme.surfaceContainerHigh,
-            contentColor = MaterialTheme.colorScheme.onSurfaceVariant,
-            shadowElevation = 3.dp,
-            tonalElevation = 2.dp,
-            modifier = Modifier
-                .size(48.dp)
-                .clip(CircleShape)
-                .clickable { onClose() },
-        ) {
-            Box(contentAlignment = Alignment.Center) {
-                Icon(
-                    Icons.AutoMirrored.Filled.ArrowBack,
-                    contentDescription = "Close search",
-                    modifier = Modifier.size(24.dp),
-                )
-            }
-        }
-        Spacer(Modifier.width(8.dp))
         Surface(
             shape = MaterialTheme.shapes.extraLarge,
             color = MaterialTheme.colorScheme.surfaceContainerHigh,
@@ -444,13 +466,181 @@ private fun SearchTopBar(
                 SearchPillTextField(
                     value = query,
                     onValueChange = onQueryChange,
-                    placeholder = "Search Material Design",
+                    placeholder = "Search components, APIs, foundations...",
                     textColor = MaterialTheme.colorScheme.onSurface,
                     placeholderColor = MaterialTheme.colorScheme.onSurfaceVariant,
                     cursorColor = MaterialTheme.colorScheme.primary,
                     onSearch = onSearch,
                     modifier = Modifier.weight(1f),
                 )
+            }
+        }
+        Spacer(Modifier.width(8.dp))
+        Surface(
+            shape = CircleShape,
+            color = MaterialTheme.colorScheme.surfaceContainerHigh,
+            shadowElevation = 2.dp,
+            modifier = Modifier.size(48.dp),
+        ) {
+            IconButton(onClick = onClose) {
+                Icon(
+                    Icons.Default.Close,
+                    contentDescription = "Close search",
+                    tint = MaterialTheme.colorScheme.onSurface,
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun InstantSearchResultsOverlay(
+    query: String,
+    results: List<CatalogEntry>,
+    onEntryClick: (String) -> Unit,
+    contentPadding: PaddingValues,
+    modifier: Modifier = Modifier,
+) {
+    Surface(
+        modifier = modifier.fillMaxSize(),
+        color = MaterialTheme.colorScheme.background,
+    ) {
+        if (results.isEmpty()) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(contentPadding)
+                    .padding(32.dp),
+                contentAlignment = Alignment.Center,
+            ) {
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
+                    Icon(
+                        Icons.Default.SearchOff,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f),
+                        modifier = Modifier.size(48.dp),
+                    )
+                    Text(
+                        text = "No results found for \"$query\"",
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.onSurface,
+                        textAlign = TextAlign.Center,
+                    )
+                    Text(
+                        text = "Try searching for components (Buttons, Dialogs), foundations (Shapes, Colors), or APIs (rememberDatePickerState).",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        textAlign = TextAlign.Center,
+                    )
+                }
+            }
+        } else {
+            LazyColumn(
+                modifier = Modifier.fillMaxSize(),
+                contentPadding = PaddingValues(
+                    start = 16.dp,
+                    end = 16.dp,
+                    top = contentPadding.calculateTopPadding() + 8.dp,
+                    bottom = contentPadding.calculateBottomPadding() + 16.dp,
+                ),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                item {
+                    Text(
+                        text = "${results.size} results for \"$query\"",
+                        style = MaterialTheme.typography.labelLarge,
+                        color = MaterialTheme.colorScheme.primary,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.padding(horizontal = 4.dp, vertical = 4.dp),
+                    )
+                }
+                items(results, key = { it.id }) { entry ->
+                    val matchingApi = remember(entry, query) {
+                        entry.apiReferences.firstOrNull { it.symbol.contains(query, ignoreCase = true) }
+                    }
+                    val isFoundation = entry.kind == CatalogKind.FOUNDATION
+                    Card(
+                        onClick = { onEntryClick(entry.id) },
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = MaterialTheme.shapes.large,
+                        colors = CardDefaults.cardColors(
+                            containerColor = MaterialTheme.colorScheme.surfaceContainer,
+                        ),
+                    ) {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(16.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(14.dp),
+                        ) {
+                            Surface(
+                                shape = RoundedCornerShape(12.dp),
+                                color = if (isFoundation) MaterialTheme.colorScheme.tertiaryContainer else MaterialTheme.colorScheme.primaryContainer,
+                                modifier = Modifier.size(44.dp),
+                            ) {
+                                Box(contentAlignment = Alignment.Center) {
+                                    Icon(
+                                        imageVector = if (isFoundation) Icons.Default.Category else Icons.Default.Widgets,
+                                        contentDescription = null,
+                                        tint = if (isFoundation) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.primary,
+                                        modifier = Modifier.size(24.dp),
+                                    )
+                                }
+                            }
+                            Column(modifier = Modifier.weight(1f)) {
+                                Row(
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                                ) {
+                                    Text(
+                                        text = entry.officialName,
+                                        style = MaterialTheme.typography.titleMedium,
+                                        fontWeight = FontWeight.Bold,
+                                        color = MaterialTheme.colorScheme.onSurface,
+                                    )
+                                    Surface(
+                                        shape = RoundedCornerShape(6.dp),
+                                        color = MaterialTheme.colorScheme.surfaceContainerHighest,
+                                    ) {
+                                        Text(
+                                            text = if (isFoundation) "Foundation" else entry.category,
+                                            style = MaterialTheme.typography.labelSmall,
+                                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                            modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp),
+                                        )
+                                    }
+                                }
+                                if (matchingApi != null) {
+                                    Text(
+                                        text = "API: ${matchingApi.symbol.substringAfterLast('.')}",
+                                        style = MaterialTheme.typography.bodySmall,
+                                        color = MaterialTheme.colorScheme.primary,
+                                        fontWeight = FontWeight.Medium,
+                                    )
+                                } else {
+                                    Text(
+                                        text = entry.summary,
+                                        style = MaterialTheme.typography.bodySmall,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                        maxLines = 1,
+                                        overflow = TextOverflow.Ellipsis,
+                                    )
+                                }
+                            }
+                            Icon(
+                                imageVector = Icons.AutoMirrored.Filled.ArrowForward,
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                                modifier = Modifier.size(16.dp),
+                            )
+                        }
+                    }
+                }
             }
         }
     }
@@ -464,6 +654,7 @@ private fun GalleryContent(
     onRootSelected: (RootDestination) -> Unit,
     onApiStabilitySelected: (ApiStability) -> Unit,
     onBookmarkClick: (String, Boolean) -> Unit,
+    onQueryChange: (String) -> Unit,
     contentPadding: PaddingValues,
 ) {
     Box(Modifier.fillMaxSize()) {
@@ -477,6 +668,17 @@ private fun GalleryContent(
                     onCategorySelected(category)
                     onRootSelected(RootDestination.CATALOG)
                 },
+                onAllComponentsClick = {
+                    onCategorySelected(null)
+                    onRootSelected(RootDestination.CATALOG)
+                },
+                onExpressiveClick = {
+                    onQueryChange("expressive")
+                    onRootSelected(RootDestination.CATALOG)
+                },
+                onFoundationsClick = {
+                    onRootSelected(RootDestination.FOUNDATIONS)
+                },
                 contentPadding = contentPadding,
             )
             RootDestination.CATALOG -> CatalogScreen(
@@ -486,6 +688,7 @@ private fun GalleryContent(
                 onCategorySelected = onCategorySelected,
                 onEntryClick = onEntryClick,
                 onBookmarkClick = onBookmarkClick,
+                allCategories = state.allCategories,
                 contentPadding = contentPadding,
             )
             RootDestination.APIS -> ApisScreen(
@@ -493,6 +696,7 @@ private fun GalleryContent(
                 selectedStability = state.apiStability,
                 onStabilitySelected = onApiStabilitySelected,
                 onEntryClick = onEntryClick,
+                query = state.query,
                 contentPadding = contentPadding,
             )
             RootDestination.FOUNDATIONS -> FoundationsScreen(

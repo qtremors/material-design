@@ -48,18 +48,19 @@ fun ThemeModeSelector(
     onModeSelected: (ThemeMode) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Column(modifier = modifier.fillMaxWidth().padding(vertical = 8.dp)) {
+    Column(modifier = modifier.fillMaxWidth().padding(vertical = 12.dp)) {
         Text(
             text = "Theme Mode",
-            style = MaterialTheme.typography.titleSmall,
+            style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.onSurface,
-            modifier = Modifier.padding(start = 4.dp, bottom = 12.dp),
+            modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 16.dp),
         )
 
         Row(
             modifier = Modifier
                 .fillMaxWidth()
+                .padding(horizontal = 8.dp)
                 .selectableGroup(),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
         ) {

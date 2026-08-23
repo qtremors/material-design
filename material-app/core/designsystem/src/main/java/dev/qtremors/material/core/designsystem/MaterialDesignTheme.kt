@@ -51,6 +51,7 @@ fun MaterialDesignTheme(
     CompositionLocalProvider(LocalReducedMotion provides themeState.reducedMotion) {
         MaterialExpressiveTheme(
             colorScheme = colorScheme,
+            shapes = ExpressiveShapes,
             motionScheme = ExpressiveMotion.motionScheme(themeState.reducedMotion),
             content = content,
         )

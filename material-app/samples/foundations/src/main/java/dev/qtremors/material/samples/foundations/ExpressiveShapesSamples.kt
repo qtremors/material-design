@@ -1,35 +1,34 @@
 package dev.qtremors.material.samples.foundations
 
 import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.foundation.Canvas
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.GenericShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.FilterChip
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Slider
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -42,26 +41,20 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.geometry.CornerRadius
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.geometry.RoundRect
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Path
-import androidx.compose.ui.graphics.PathOperation
 import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.graphics.drawscope.clipPath
-import androidx.compose.ui.graphics.drawscope.scale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.Density
-import androidx.compose.ui.unit.LayoutDirection
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import dev.qtremors.material.core.designsystem.LocalReducedMotion
 import dev.qtremors.material.core.designsystem.expressiveSpring
 import kotlin.math.PI
 import kotlin.math.cos
+import kotlin.math.min
 import kotlin.math.sin
 
 data class ExpressiveShapeItem(
@@ -71,16 +64,16 @@ data class ExpressiveShapeItem(
 )
 
 object MaterialExpressiveShapes {
-    // Row 1
+    // 1. Basic Shapes
     val Circle: Shape = CircleShape
-    val Square: Shape = RoundedCornerShape(24.dp)
+    val Square: Shape = RoundedCornerShape(12.dp)
     val Slanted: Shape = GenericShape { size, _ ->
         val w = size.width
         val h = size.height
         moveTo(w * 0.25f, 0f)
-        lineTo(w * 0.95f, 0f)
+        lineTo(w * 0.98f, 0f)
         lineTo(w * 0.75f, h)
-        lineTo(w * 0.05f, h)
+        lineTo(w * 0.02f, h)
         close()
     }
     val Arch: Shape = GenericShape { size, _ ->
@@ -100,42 +93,42 @@ object MaterialExpressiveShapes {
         close()
     }
 
-    // Row 2
+    // 2. Geometric Shapes
     val Oval: Shape = GenericShape { size, _ ->
-        addOval(Rect(0f, size.height * 0.1f, size.width, size.height * 0.9f))
+        addOval(Rect(0f, size.height * 0.15f, size.width, size.height * 0.85f))
     }
     val Pill: Shape = RoundedCornerShape(50)
     val Triangle: Shape = GenericShape { size, _ ->
         val w = size.width
         val h = size.height
         moveTo(w * 0.5f, h * 0.05f)
-        lineTo(w * 0.95f, h * 0.92f)
-        lineTo(w * 0.05f, h * 0.92f)
+        lineTo(w * 0.95f, h * 0.95f)
+        lineTo(w * 0.05f, h * 0.95f)
         close()
     }
     val Arrow: Shape = GenericShape { size, _ ->
         val w = size.width
         val h = size.height
         moveTo(w * 0.5f, 0f)
-        lineTo(w, h * 0.5f)
-        lineTo(w * 0.75f, h * 0.5f)
-        lineTo(w * 0.75f, h)
-        lineTo(w * 0.25f, h)
-        lineTo(w * 0.25f, h * 0.5f)
-        lineTo(0f, h * 0.5f)
+        lineTo(w, h * 0.48f)
+        lineTo(w * 0.7f, h * 0.48f)
+        lineTo(w * 0.7f, h)
+        lineTo(w * 0.3f, h)
+        lineTo(w * 0.3f, h * 0.48f)
+        lineTo(0f, h * 0.48f)
         close()
     }
     val Fan: Shape = GenericShape { size, _ ->
         val w = size.width
         val h = size.height
-        moveTo(0f, h)
-        lineTo(0f, h * 0.3f)
-        arcTo(Rect(-w * 0.5f, -h * 0.5f, w * 1.5f, h * 1.5f), 210f, 120f, false)
-        lineTo(w, h)
+        moveTo(w * 0.08f, h * 0.95f)
+        lineTo(0f, h * 0.4f)
+        arcTo(Rect(0f, 0f, w, h * 0.8f), 180f, 180f, false)
+        lineTo(w * 0.92f, h * 0.95f)
         close()
     }
 
-    // Row 3
+    // 3. Polygons
     val Diamond: Shape = GenericShape { size, _ ->
         val w = size.width
         val h = size.height
@@ -148,75 +141,77 @@ object MaterialExpressiveShapes {
     val Clamshell: Shape = GenericShape { size, _ ->
         val w = size.width
         val h = size.height
-        moveTo(w * 0.15f, 0f)
-        lineTo(w * 0.85f, 0f)
+        moveTo(w * 0.2f, 0f)
+        lineTo(w * 0.8f, 0f)
         lineTo(w, h * 0.5f)
-        lineTo(w * 0.85f, h)
-        lineTo(w * 0.15f, h)
+        lineTo(w * 0.8f, h)
+        lineTo(w * 0.2f, h)
         lineTo(0f, h * 0.5f)
         close()
     }
     val Pentagon: Shape = createPolygonShape(5)
     val Gem: Shape = createPolygonShape(6)
-    val VerySunny: Shape = createStarShape(numPoints = 8, innerRadiusRatio = 0.65f)
 
-    // Row 4
-    val Sunny: Shape = createStarShape(numPoints = 8, innerRadiusRatio = 0.8f)
+    // 4. Suns & Stars
+    val VerySunny: Shape = createStarShape(numPoints = 8, innerRadiusRatio = 0.62f)
+    val Sunny: Shape = createStarShape(numPoints = 8, innerRadiusRatio = 0.78f)
+
+    // 5. Cookies
     val Cookie4Sided: Shape = createCookieShape(4)
     val Cookie6Sided: Shape = createCookieShape(6)
     val Cookie7Sided: Shape = createCookieShape(7)
     val Cookie9Sided: Shape = createCookieShape(9)
-
-    // Row 5
     val Cookie12Sided: Shape = createCookieShape(12)
+
+    // 6. Clovers & Floral
     val Clover4Leaf: Shape = createCloverShape(4)
     val Clover8Leaf: Shape = createCloverShape(8)
-    val Burst: Shape = createStarShape(numPoints = 12, innerRadiusRatio = 0.45f)
-    val SoftBurst: Shape = createStarShape(numPoints = 12, innerRadiusRatio = 0.7f)
-
-    // Row 6
-    val Boom: Shape = createStarShape(numPoints = 16, innerRadiusRatio = 0.35f)
-    val SoftBoom: Shape = createStarShape(numPoints = 16, innerRadiusRatio = 0.65f)
     val Flower: Shape = createCloverShape(12)
     val Puffy: Shape = createCloverShape(6)
     val PuffyDiamond: Shape = createCloverShape(4)
 
-    // Row 7
+    // 7. Bursts & Booms
+    val Burst: Shape = createStarShape(numPoints = 12, innerRadiusRatio = 0.45f)
+    val SoftBurst: Shape = createStarShape(numPoints = 12, innerRadiusRatio = 0.70f)
+    val Boom: Shape = createStarShape(numPoints = 16, innerRadiusRatio = 0.35f)
+    val SoftBoom: Shape = createStarShape(numPoints = 16, innerRadiusRatio = 0.65f)
+
+    // 8. Novelty
     val Ghostish: Shape = GenericShape { size, _ ->
         val w = size.width
         val h = size.height
-        moveTo(w * 0.2f, h)
-        cubicTo(0f, h * 0.8f, 0f, h * 0.2f, w * 0.5f, 0f)
-        cubicTo(w, h * 0.2f, w, h * 0.8f, w * 0.8f, h)
-        cubicTo(w * 0.6f, h * 0.85f, w * 0.4f, h * 0.85f, w * 0.2f, h)
+        moveTo(w * 0.15f, h * 0.95f)
+        cubicTo(0f, h * 0.7f, 0f, h * 0.15f, w * 0.5f, 0f)
+        cubicTo(w, h * 0.15f, w, h * 0.7f, w * 0.85f, h * 0.95f)
+        cubicTo(w * 0.65f, h * 0.82f, w * 0.35f, h * 0.82f, w * 0.15f, h * 0.95f)
         close()
     }
     val PixelCircle: Shape = GenericShape { size, _ ->
-        val unit = size.width / 8f
-        addRect(Rect(unit * 2, 0f, unit * 6, size.height))
-        addRect(Rect(0f, unit * 2, size.width, unit * 6))
-        addRect(Rect(unit, unit, unit * 7, unit * 7))
+        val u = size.width / 8f
+        addRect(Rect(u * 2, 0f, u * 6, size.height))
+        addRect(Rect(0f, u * 2, size.width, size.height - u * 2))
+        addRect(Rect(u, u, size.width - u, size.height - u))
     }
     val PixelTriangle: Shape = GenericShape { size, _ ->
         val u = size.width / 6f
-        addRect(Rect(u * 2, 0f, u * 4, u))
-        addRect(Rect(u, u, u * 5, u * 3f))
-        addRect(Rect(0f, u * 3f, size.width, size.height))
+        addRect(Rect(u * 2, 0f, u * 4, u * 2))
+        addRect(Rect(u, u * 2, u * 5, u * 4))
+        addRect(Rect(0f, u * 4, size.width, size.height))
     }
     val Bun: Shape = GenericShape { size, _ ->
         val w = size.width
         val h = size.height
-        addRoundRect(RoundRect(0f, 0f, w, h * 0.45f, CornerRadius(h * 0.2f)))
-        addRoundRect(RoundRect(0f, h * 0.55f, w, h, CornerRadius(h * 0.2f)))
+        addRoundRect(RoundRect(0f, 0f, w, h * 0.44f, CornerRadius(h * 0.22f)))
+        addRoundRect(RoundRect(0f, h * 0.56f, w, h, CornerRadius(h * 0.22f)))
     }
     val Heart: Shape = GenericShape { size, _ ->
         val w = size.width
         val h = size.height
-        moveTo(w * 0.5f, h * 0.85f)
-        cubicTo(w * 0.1f, h * 0.6f, 0f, h * 0.35f, 0f, h * 0.22f)
-        cubicTo(0f, h * 0.05f, w * 0.25f, -h * 0.05f, w * 0.5f, h * 0.2f)
-        cubicTo(w * 0.75f, -h * 0.05f, w, h * 0.05f, w, h * 0.22f)
-        cubicTo(w, h * 0.35f, w * 0.9f, h * 0.6f, w * 0.5f, h * 0.85f)
+        moveTo(w * 0.5f, h * 0.90f)
+        cubicTo(w * 0.05f, h * 0.62f, 0f, h * 0.35f, 0f, h * 0.22f)
+        cubicTo(0f, h * 0.05f, w * 0.25f, -h * 0.02f, w * 0.5f, h * 0.20f)
+        cubicTo(w * 0.75f, -h * 0.02f, w, h * 0.05f, w, h * 0.22f)
+        cubicTo(w, h * 0.35f, w * 0.95f, h * 0.62f, w * 0.5f, h * 0.90f)
         close()
     }
 
@@ -259,7 +254,7 @@ object MaterialExpressiveShapes {
     )
 
     private fun createPolygonShape(sides: Int): Shape = GenericShape { size, _ ->
-        val radius = Math.min(size.width, size.height) / 2f
+        val radius = min(size.width, size.height) * 0.48f
         val centerX = size.width / 2f
         val centerY = size.height / 2f
         val angleStep = (2 * PI / sides).toFloat()
@@ -275,7 +270,7 @@ object MaterialExpressiveShapes {
     }
 
     private fun createStarShape(numPoints: Int, innerRadiusRatio: Float): Shape = GenericShape { size, _ ->
-        val outerRadius = Math.min(size.width, size.height) / 2f
+        val outerRadius = min(size.width, size.height) * 0.48f
         val innerRadius = outerRadius * innerRadiusRatio
         val centerX = size.width / 2f
         val centerY = size.height / 2f
@@ -294,15 +289,15 @@ object MaterialExpressiveShapes {
     }
 
     private fun createCookieShape(sides: Int): Shape = GenericShape { size, _ ->
-        val radius = Math.min(size.width, size.height) / 2f
+        val radius = min(size.width, size.height) * 0.48f
         val centerX = size.width / 2f
         val centerY = size.height / 2f
         val angleStep = (2 * PI / sides).toFloat()
 
         for (i in 0 until sides) {
             val angle = i * angleStep
-            val x = centerX + radius * 0.9f * cos(angle)
-            val y = centerY + radius * 0.9f * sin(angle)
+            val x = centerX + radius * cos(angle)
+            val y = centerY + radius * sin(angle)
             if (i == 0) moveTo(x, y) else lineTo(x, y)
         }
         close()
@@ -311,168 +306,401 @@ object MaterialExpressiveShapes {
     private fun createCloverShape(petals: Int): Shape = GenericShape { size, _ ->
         val centerX = size.width / 2f
         val centerY = size.height / 2f
-        val radius = Math.min(size.width, size.height) / 2f
+        val radius = min(size.width, size.height) * 0.48f
         val angleStep = (2 * PI / petals).toFloat()
 
         for (i in 0 until petals) {
             val angle = i * angleStep
-            val petalCenterX = centerX + radius * 0.45f * cos(angle)
-            val petalCenterY = centerY + radius * 0.45f * sin(angle)
-            addOval(Rect(petalCenterX - radius * 0.4f, petalCenterY - radius * 0.4f, petalCenterX + radius * 0.4f, petalCenterY + radius * 0.4f))
+            val petalRadius = radius * 0.38f
+            val petalCenterX = centerX + (radius - petalRadius) * cos(angle)
+            val petalCenterY = centerY + (radius - petalRadius) * sin(angle)
+            addOval(Rect(petalCenterX - petalRadius, petalCenterY - petalRadius, petalCenterX + petalRadius, petalCenterY + petalRadius))
         }
     }
 }
 
-@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun ExpressiveShapesSample(modifier: Modifier = Modifier) {
-    var selectedIndex by remember { mutableIntStateOf(0) }
-    var targetMorphIndex by remember { mutableIntStateOf(16) } // Sunny
+    var selectedStartIndex by remember { mutableIntStateOf(0) } // Circle
+    var selectedEndIndex by remember { mutableIntStateOf(16) }   // 4-sided cookie
+    var selectedCategory by remember { mutableStateOf("All") }
     var morphProgress by remember { mutableFloatStateOf(0f) }
     var isAnimating by remember { mutableStateOf(false) }
 
     val reducedMotion = LocalReducedMotion.current
     val animatedProgress by animateFloatAsState(
         targetValue = if (isAnimating) 1f else morphProgress,
-        animationSpec = expressiveSpring(),
+        animationSpec = if (reducedMotion) tween(300) else expressiveSpring(),
         label = "morph progress animation",
     )
 
-    Column(modifier, verticalArrangement = Arrangement.spacedBy(20.dp)) {
-        // Section 1: Animated Shape Morphing Studio
-        Card(Modifier.fillMaxWidth(), colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerHigh)) {
-            Column(Modifier.padding(18.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
-                Text("Shape Morphing Studio", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
-                Text(
-                    "Morphing seamlessly interpolates between any two Material 3 Expressive shapes.",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
+    val categories = listOf("All", "Basic", "Geometric", "Polygons", "Suns", "Cookies", "Clovers", "Bursts", "Floral", "Novelty")
 
+    val filteredShapes = remember(selectedCategory) {
+        if (selectedCategory == "All") {
+            MaterialExpressiveShapes.AllShapes
+        } else {
+            MaterialExpressiveShapes.AllShapes.filter { it.category.equals(selectedCategory, ignoreCase = true) }
+        }
+    }
+
+    Column(modifier = modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(20.dp)) {
+        // Section 1: Shape Morphing Studio
+        Card(
+            modifier = Modifier.fillMaxWidth(),
+            shape = RoundedCornerShape(24.dp),
+            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerHigh),
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(18.dp),
+                verticalArrangement = Arrangement.spacedBy(14.dp),
+            ) {
                 Row(
-                    Modifier.fillMaxWidth().height(140.dp),
-                    horizontalArrangement = Arrangement.SpaceEvenly,
-                    verticalAlignment = Alignment.CenterVertically
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically,
                 ) {
-                    // Start Shape
-                    val startItem = MaterialExpressiveShapes.AllShapes[selectedIndex]
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Box(
-                            Modifier.size(72.dp).background(MaterialTheme.colorScheme.primary, startItem.shape),
-                            contentAlignment = Alignment.Center
-                        ) {}
-                        Spacer(Modifier.height(6.dp))
-                        Text(startItem.name, style = MaterialTheme.typography.labelSmall)
-                    }
-
-                    // Morphing Canvas Output
-                    val endItem = MaterialExpressiveShapes.AllShapes[targetMorphIndex]
-                    Box(
-                        Modifier.size(96.dp)
-                            .background(
-                                MaterialTheme.colorScheme.tertiaryContainer,
-                                if (animatedProgress < 0.5f) startItem.shape else endItem.shape
-                            ),
-                        contentAlignment = Alignment.Center
-                    ) {
+                    Column(modifier = Modifier.weight(1f)) {
                         Text(
-                            "${(animatedProgress * 100).toInt()}%",
-                            style = MaterialTheme.typography.labelMedium,
+                            text = "Shape Morphing Studio",
+                            style = MaterialTheme.typography.titleMedium,
                             fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colorScheme.onTertiaryContainer
+                        )
+                        Text(
+                            text = "Material 3 Expressive shapes & interpolation",
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
                         )
                     }
-
-                    // End Shape
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Box(
-                            Modifier.size(72.dp).background(MaterialTheme.colorScheme.secondary, endItem.shape),
-                            contentAlignment = Alignment.Center
-                        ) {}
-                        Spacer(Modifier.height(6.dp))
-                        Text(endItem.name, style = MaterialTheme.typography.labelSmall)
+                    Surface(
+                        shape = RoundedCornerShape(8.dp),
+                        color = MaterialTheme.colorScheme.primaryContainer,
+                    ) {
+                        Text(
+                            text = "35 Shapes",
+                            style = MaterialTheme.typography.labelSmall,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onPrimaryContainer,
+                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+                        )
                     }
                 }
 
-                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                // Interactive Morphing Stage (3 columns distributed evenly across 100% width)
+                val startItem = MaterialExpressiveShapes.AllShapes.getOrElse(selectedStartIndex) { MaterialExpressiveShapes.AllShapes.first() }
+                val endItem = MaterialExpressiveShapes.AllShapes.getOrElse(selectedEndIndex) { MaterialExpressiveShapes.AllShapes.last() }
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 4.dp),
+                    horizontalArrangement = Arrangement.spacedBy(10.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    // Start Shape Box
+                    Column(
+                        modifier = Modifier.weight(1f),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                    ) {
+                        Surface(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(76.dp),
+                            shape = RoundedCornerShape(18.dp),
+                            color = MaterialTheme.colorScheme.surfaceContainerHighest,
+                            border = androidx.compose.foundation.BorderStroke(2.dp, MaterialTheme.colorScheme.primary),
+                        ) {
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .padding(12.dp)
+                                    .clipToBounds(),
+                                contentAlignment = Alignment.Center,
+                            ) {
+                                Box(
+                                    modifier = Modifier
+                                        .size(52.dp)
+                                        .background(MaterialTheme.colorScheme.primary, startItem.shape),
+                                )
+                            }
+                        }
+                        Spacer(Modifier.height(6.dp))
+                        Text(
+                            text = startItem.name,
+                            style = MaterialTheme.typography.labelMedium,
+                            fontWeight = FontWeight.Bold,
+                            textAlign = TextAlign.Center,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                        )
+                        Text(
+                            text = "Source",
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.primary,
+                        )
+                    }
+
+                    // Morph Output Box
+                    Column(
+                        modifier = Modifier.weight(1f),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                    ) {
+                        Surface(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(76.dp),
+                            shape = RoundedCornerShape(18.dp),
+                            color = MaterialTheme.colorScheme.secondaryContainer,
+                            shadowElevation = 2.dp,
+                        ) {
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .padding(12.dp)
+                                    .clipToBounds(),
+                                contentAlignment = Alignment.Center,
+                            ) {
+                                Box(
+                                    modifier = Modifier
+                                        .size(52.dp)
+                                        .background(
+                                            color = MaterialTheme.colorScheme.secondary,
+                                            shape = if (animatedProgress < 0.5f) startItem.shape else endItem.shape,
+                                        ),
+                                    contentAlignment = Alignment.Center,
+                                ) {
+                                    Surface(
+                                        shape = CircleShape,
+                                        color = MaterialTheme.colorScheme.onSecondary.copy(alpha = 0.85f),
+                                        modifier = Modifier.size(32.dp),
+                                    ) {
+                                        Box(contentAlignment = Alignment.Center) {
+                                            Text(
+                                                text = "${(animatedProgress * 100).toInt()}%",
+                                                style = MaterialTheme.typography.labelSmall,
+                                                fontWeight = FontWeight.Bold,
+                                                color = MaterialTheme.colorScheme.secondary,
+                                            )
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        Spacer(Modifier.height(6.dp))
+                        Text(
+                            text = "Morphing",
+                            style = MaterialTheme.typography.labelMedium,
+                            fontWeight = FontWeight.Bold,
+                            textAlign = TextAlign.Center,
+                        )
+                        Text(
+                            text = "Progress",
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                    }
+
+                    // End Target Shape Box
+                    Column(
+                        modifier = Modifier.weight(1f),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                    ) {
+                        Surface(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(76.dp),
+                            shape = RoundedCornerShape(18.dp),
+                            color = MaterialTheme.colorScheme.surfaceContainerHighest,
+                            border = androidx.compose.foundation.BorderStroke(2.dp, MaterialTheme.colorScheme.tertiary),
+                        ) {
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .padding(12.dp)
+                                    .clipToBounds(),
+                                contentAlignment = Alignment.Center,
+                            ) {
+                                Box(
+                                    modifier = Modifier
+                                        .size(52.dp)
+                                        .background(MaterialTheme.colorScheme.tertiary, endItem.shape),
+                                )
+                            }
+                        }
+                        Spacer(Modifier.height(6.dp))
+                        Text(
+                            text = endItem.name,
+                            style = MaterialTheme.typography.labelMedium,
+                            fontWeight = FontWeight.Bold,
+                            textAlign = TextAlign.Center,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                        )
+                        Text(
+                            text = "Target",
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.tertiary,
+                        )
+                    }
+                }
+
+                // Action Controls
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                ) {
                     Button(
                         onClick = { isAnimating = !isAnimating },
-                        modifier = Modifier.weight(1f)
+                        modifier = Modifier.fillMaxWidth(),
                     ) {
-                        Text(if (isAnimating) "Reset Morph" else "Animate Morphing")
+                        Icon(
+                            imageVector = if (isAnimating) Icons.Default.Refresh else Icons.Default.PlayArrow,
+                            contentDescription = null,
+                            modifier = Modifier.size(18.dp),
+                        )
+                        Spacer(Modifier.width(8.dp))
+                        Text(if (isAnimating) "Reset Animation" else "Animate Morph")
                     }
                 }
 
                 if (!isAnimating) {
-                    Text("Manual Morph Progress", style = MaterialTheme.typography.labelMedium)
-                    Slider(
-                        value = morphProgress,
-                        onValueChange = { morphProgress = it },
-                        valueRange = 0f..1f
-                    )
+                    Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                        ) {
+                            Text("Manual Slider", style = MaterialTheme.typography.labelMedium)
+                            Text("${(morphProgress * 100).toInt()}%", style = MaterialTheme.typography.labelMedium, fontWeight = FontWeight.Bold)
+                        }
+                        Slider(
+                            value = morphProgress,
+                            onValueChange = { morphProgress = it },
+                            valueRange = 0f..1f,
+                        )
+                    }
                 }
             }
         }
 
-        // Section 2: 35 Official Material 3 Expressive Shapes Grid
-        Text("35 Official Material 3 Expressive Shapes", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
-        Text("Tap any shape to select it for morphing.", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        // Section 2: Catalog of Shapes (3 per row, filling 100% of available space)
+        Column(modifier = Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+            Text(
+                text = "Material 3 Expressive Shape Library",
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.Bold,
+            )
+            Text(
+                text = "Tap any shape to set Source (Green), tap another to set Target (Pink).",
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
 
-        // 5-Column Responsive Grid matching user's reference image
-        FlowRow(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp),
-            maxItemsInEachRow = 5
-        ) {
-            MaterialExpressiveShapes.AllShapes.forEachIndexed { index, item ->
-                val isSelected = selectedIndex == index
-                val isTarget = targetMorphIndex == index
-
-                Column(
-                    modifier = Modifier
-                        .width(64.dp)
-                        .clickable {
-                            if (selectedIndex == index) {
-                                targetMorphIndex = (index + 5) % MaterialExpressiveShapes.AllShapes.size
-                            } else {
-                                selectedIndex = index
-                            }
-                        },
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Box(
-                        modifier = Modifier
-                            .size(56.dp)
-                            .border(
-                                width = if (isSelected || isTarget) 3.dp else 1.dp,
-                                color = when {
-                                    isSelected -> MaterialTheme.colorScheme.primary
-                                    isTarget -> MaterialTheme.colorScheme.secondary
-                                    else -> MaterialTheme.colorScheme.outlineVariant
-                                },
-                                shape = RoundedCornerShape(12.dp)
-                            )
-                            .padding(6.dp),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Box(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .background(
-                                    color = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface,
-                                    shape = item.shape
-                                )
-                        )
-                    }
-                    Spacer(Modifier.height(4.dp))
-                    Text(
-                        item.name,
-                        style = MaterialTheme.typography.labelSmall,
-                        textAlign = TextAlign.Center,
-                        maxLines = 2,
-                        fontSize = MaterialTheme.typography.labelSmall.fontSize * 0.85f
+            // Category Filter Chips Row
+            LazyRow(
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                contentPadding = PaddingValues(horizontal = 2.dp),
+            ) {
+                items(categories) { cat ->
+                    FilterChip(
+                        selected = selectedCategory == cat,
+                        onClick = { selectedCategory = cat },
+                        label = { Text(cat) },
                     )
+                }
+            }
+
+            // 3 Shapes per row grid filling all available width
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                verticalArrangement = Arrangement.spacedBy(12.dp),
+            ) {
+                filteredShapes.chunked(3).forEach { rowItems ->
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(10.dp),
+                    ) {
+                        for (item in rowItems) {
+                            val originalIndex = MaterialExpressiveShapes.AllShapes.indexOf(item)
+                            val isStart = selectedStartIndex == originalIndex
+                            val isEnd = selectedEndIndex == originalIndex
+
+                            Surface(
+                                onClick = {
+                                    if (isStart) {
+                                        selectedEndIndex = (originalIndex + 5) % MaterialExpressiveShapes.AllShapes.size
+                                    } else {
+                                        selectedStartIndex = originalIndex
+                                    }
+                                },
+                                shape = RoundedCornerShape(20.dp),
+                                color = when {
+                                    isStart -> MaterialTheme.colorScheme.primaryContainer
+                                    isEnd -> MaterialTheme.colorScheme.tertiaryContainer
+                                    else -> MaterialTheme.colorScheme.surfaceContainer
+                                },
+                                border = androidx.compose.foundation.BorderStroke(
+                                    width = if (isStart || isEnd) 2.dp else 1.dp,
+                                    color = when {
+                                        isStart -> MaterialTheme.colorScheme.primary
+                                        isEnd -> MaterialTheme.colorScheme.tertiary
+                                        else -> MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f)
+                                    },
+                                ),
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .height(112.dp),
+                            ) {
+                                Column(
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .padding(horizontal = 6.dp, vertical = 10.dp),
+                                    horizontalAlignment = Alignment.CenterHorizontally,
+                                    verticalArrangement = Arrangement.SpaceBetween,
+                                ) {
+                                    Box(
+                                        modifier = Modifier
+                                            .size(52.dp)
+                                            .clipToBounds(),
+                                        contentAlignment = Alignment.Center,
+                                    ) {
+                                        Box(
+                                            modifier = Modifier
+                                                .fillMaxSize()
+                                                .background(
+                                                    color = when {
+                                                        isStart -> MaterialTheme.colorScheme.primary
+                                                        isEnd -> MaterialTheme.colorScheme.tertiary
+                                                        else -> MaterialTheme.colorScheme.onSurface
+                                                    },
+                                                    shape = item.shape,
+                                                ),
+                                        )
+                                    }
+                                    Text(
+                                        text = item.name,
+                                        style = MaterialTheme.typography.labelSmall,
+                                        textAlign = TextAlign.Center,
+                                        maxLines = 2,
+                                        overflow = TextOverflow.Ellipsis,
+                                        fontWeight = if (isStart || isEnd) FontWeight.Bold else FontWeight.Medium,
+                                        color = when {
+                                            isStart -> MaterialTheme.colorScheme.onPrimaryContainer
+                                            isEnd -> MaterialTheme.colorScheme.onTertiaryContainer
+                                            else -> MaterialTheme.colorScheme.onSurface
+                                        },
+                                    )
+                                }
+                            }
+                        }
+                        // Fill remaining spaces in last row to maintain alignment
+                        if (rowItems.size < 3) {
+                            repeat(3 - rowItems.size) {
+                                Spacer(modifier = Modifier.weight(1f))
+                            }
+                        }
+                    }
                 }
             }
         }

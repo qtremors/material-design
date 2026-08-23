@@ -42,25 +42,27 @@ fun ThemePresetSelector(
     onPresetSelected: (ThemePreset) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Column(modifier = modifier.fillMaxWidth().padding(vertical = 8.dp)) {
+    Column(modifier = modifier.fillMaxWidth().padding(vertical = 12.dp)) {
         Text(
             text = "Theme Preset",
-            style = MaterialTheme.typography.titleSmall,
+            style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.onSurface,
-            modifier = Modifier.padding(start = 4.dp, bottom = 10.dp),
+            modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 16.dp),
         )
 
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             ThemePreset.entries.forEach { preset ->
                 val isSelected = currentPreset == preset
                 val label = when (preset) {
-                    ThemePreset.NONE -> "Default"
+                    ThemePreset.NONE -> "None"
                     ThemePreset.DRACULA -> "Dracula"
-                    ThemePreset.TOKYO_NIGHT -> "Tokyo"
+                    ThemePreset.TOKYO_NIGHT -> "Tokyo Night"
                     ThemePreset.CUSTOM -> "Custom"
                 }
                 val colors = if (isSelected) {
@@ -133,49 +135,55 @@ fun CustomThemeCreatorPanel(
             kotlin.math.abs(backgroundParsed.luminanceEstimate() - primaryParsed.luminanceEstimate()) < 0.25f
     }
 
-    Column(modifier = modifier.fillMaxWidth().padding(vertical = 8.dp)) {
+    Column(modifier = modifier.fillMaxWidth().padding(vertical = 12.dp)) {
         Text(
             text = "Custom Colors (Hex)",
-            style = MaterialTheme.typography.titleSmall,
+            style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.onSurface,
-            modifier = Modifier.padding(start = 4.dp, bottom = 12.dp),
+            modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 16.dp),
         )
-        ThemeColorInput(
-            value = primaryInput,
-            onValueChange = { input ->
-                primaryInput = input
-                if (input.isValidThemeColor()) {
-                    onThemeChange(themeState.copy(customPrimaryColorHex = input))
-                }
-            },
-            label = "Primary Color Hex (#RRGGBB)",
-            parsedColor = primaryParsed,
-            scale = primaryScale,
-            onFocusChange = { isPrimaryFocused = it },
-            modifier = Modifier.padding(bottom = 12.dp),
-        )
-        ThemeColorInput(
-            value = backgroundInput,
-            onValueChange = { input ->
-                backgroundInput = input
-                if (input.isValidThemeColor()) {
-                    onThemeChange(themeState.copy(customBackgroundColorHex = input))
-                }
-            },
-            label = "Background Color Hex (#RRGGBB)",
-            parsedColor = backgroundParsed,
-            scale = backgroundScale,
-            onFocusChange = { isBackgroundFocused = it },
-            modifier = Modifier.padding(bottom = 8.dp),
-        )
-        if (colorsTooSimilar) {
-            Text(
-                text = "Primary and background colors have low contrast and may be hard to read.",
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.error,
-                modifier = Modifier.padding(start = 4.dp, bottom = 4.dp),
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp),
+        ) {
+            ThemeColorInput(
+                value = primaryInput,
+                onValueChange = { input ->
+                    primaryInput = input
+                    if (input.isValidThemeColor()) {
+                        onThemeChange(themeState.copy(customPrimaryColorHex = input))
+                    }
+                },
+                label = "Primary Color Hex (#RRGGBB)",
+                parsedColor = primaryParsed,
+                scale = primaryScale,
+                onFocusChange = { isPrimaryFocused = it },
+                modifier = Modifier.padding(bottom = 12.dp),
             )
+            ThemeColorInput(
+                value = backgroundInput,
+                onValueChange = { input ->
+                    backgroundInput = input
+                    if (input.isValidThemeColor()) {
+                        onThemeChange(themeState.copy(customBackgroundColorHex = input))
+                    }
+                },
+                label = "Background Color Hex (#RRGGBB)",
+                parsedColor = backgroundParsed,
+                scale = backgroundScale,
+                onFocusChange = { isBackgroundFocused = it },
+                modifier = Modifier.padding(bottom = 8.dp),
+            )
+            if (colorsTooSimilar) {
+                Text(
+                    text = "Primary and background colors have low contrast and may be hard to read.",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.error,
+                    modifier = Modifier.padding(start = 4.dp, bottom = 4.dp),
+                )
+            }
         }
     }
 }

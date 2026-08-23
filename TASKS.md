@@ -2,9 +2,9 @@
 
 > **Project:** Material Design
 >
-> **Version:** 2.0.5
+> **Version:** 2.0.6
 >
-> **Last Updated:** 2026-08-22
+> **Last Updated:** 2026-08-23
 
 ---
 
