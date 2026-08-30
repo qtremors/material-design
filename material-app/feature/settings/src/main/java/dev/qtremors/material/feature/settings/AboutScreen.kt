@@ -291,7 +291,7 @@ fun AboutScreen(
                         modifier = Modifier.height(IntrinsicSize.Min),
                     )
                     SegmentedListItem(
-                        onClick = { uriHandler.openUri("https://github.com/qtremors/material-design/blob/main/LICENSE") },
+                        onClick = { uriHandler.openUri("https://github.com/qtremors/material-design/blob/main/LICENSE.md") },
                         shapes = expressiveSegmentedShapes(index = 2, count = 3),
                         leadingContent = {
                             Box(modifier = Modifier.fillMaxHeight(), contentAlignment = Alignment.Center) {

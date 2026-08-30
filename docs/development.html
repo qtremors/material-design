@@ -1,29 +1,82 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Material Design monorepo architecture and contribution workflow.">
-  <title>Repository Development</title>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Engineering guidelines, modular architecture, version catalogs, Gradle conventions, optimization, and verification for Material Design 3 apps.">
+  <title>Material 3 App Engineering & Workflow · Material Design</title>
   <link rel="icon" type="image/svg+xml" href="assets/material-design.svg">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,75..125,300..800&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,300..600,0..1,-50..200" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css"><script src="scripts.js" defer></script>
 </head>
 <body class="reference-page">
-  <header class="site-header"><a class="brand" href="./" aria-label="Documentation home"><img src="assets/material-design.svg" alt="" width="44" height="44"><span>Material Design</span></a><nav aria-label="Documentation navigation"><a href="projects/android.html">Android</a><a href="projects/web.html">Web</a><a class="nav-action" href="index.html#skills">Skills</a></nav></header>
+  <header class="site-header"><a class="brand" href="index.html" aria-label="Documentation home"><img src="assets/material-design.svg" alt="" width="44" height="44"><span>Material Design</span></a><nav aria-label="Documentation navigation"><a href="projects/android.html">Android</a><a href="projects/web.html">Web</a><a href="parity.html">Status</a><a class="nav-action" href="index.html#skills">Skills</a></nav></header>
   <main class="reference-main">
-    <section class="reference-hero"><p class="eyebrow">Repository architecture</p><h1>Development</h1><p>How the Android app, independent Material Web workspace, browser showcase, documentation, and agent skills remain organized without coupling their runtime code.</p></section>
+    <section class="reference-hero"><p class="eyebrow">Engineering guide</p><h1>Material 3 App Engineering & Workflow</h1><p>Learn how to structure, modularize, configure, test, optimize, and build production applications using Material Design 3.</p></section>
     <div class="reference-content">
-      <section><p class="eyebrow">Top-level structure</p><h2>Clear ownership</h2><div class="path-list"><code>material-app/</code><span>Android Material Design implementation</span><code>material-web/</code><span>Independent vanilla web source</span><code>docs/material-web/</code><span>Published Material Web route</span><code>docs/material-web-legacy/</code><span>Responsive browser showcase</span><code>docs/</code><span>Complete GitHub Pages root</span><code>docs/skills/android/</code><span>Android-oriented agent guidance</span><code>docs/skills/web/</code><span>Web-oriented agent guidance</span></div></section>
-      <section><p class="eyebrow">Lifecycle</p><h2>From source to a working Android reference</h2><ol class="workflow-list"><li><span>1</span><div><h3>Build modular source</h3><p>Create a state-hoisted implementation in the matching Material domain without feature, navigation, or persistence dependencies.</p></div></li><li><span>2</span><div><h3>Register exact metadata</h3><p>Add the official name, aliases, API maturity, working demo key, and repository-relative source path to the validated catalog.</p></div></li><li><span>3</span><div><h3>Verify before exposing</h3><p>Check interaction states, semantics, accessibility, adaptive layouts, search, and representative light/dark configurations.</p></div></li><li><span>4</span><div><h3>Publish the reference</h3><p>Only working entries appear in the app. Keep unfinished components in the task backlog and update documentation and the changelog.</p></div></li></ol></section>
-      <section><p class="eyebrow">Local documentation</p><h2>Serve the Pages root</h2><pre class="code-block"><code>cd docs
-python -m http.server 8000</code></pre><p>Open <code>http://localhost:8000/</code> for this documentation and <code>http://localhost:8000/material-web-legacy/</code> for the browser showcase.</p></section>
-      <section><p class="eyebrow">Change discipline</p><h2>Keep public guidance current</h2><ul class="document-list"><li>Update the root changelog for every user-visible change and preserve its release history.</li><li>Keep release notes user-relevant instead of recording internal experiments.</li><li>Do not change application versions unless explicitly requested.</li><li>Keep browser documentation and relevant HTML skills aligned.</li><li>Document platform differences instead of hiding them behind false parity.</li></ul></section>
-      <section class="next-links"><a href="material-3-expressive-development.html"><strong>Expressive development</strong><span>Learn the complete component workflow →</span></a><a href="site-map.html"><strong>Complete site map</strong><span>Browse every published destination →</span></a></section>
+      <section><p class="eyebrow">Modular architecture</p><h2>Clear boundaries across the application stack</h2>
+        <div class="compact-grid">
+          <article><h3>App module (<code>:app</code>)</h3><p>Application lifecycle startup, dependency injection root, global navigation graph, and activity shell.</p></article>
+          <article><h3>Design system (<code>:core:designsystem</code>)</h3><p>Centralized <code>MaterialTheme</code>, dynamic color schemes, typography scale, shape tokens, and expressive springs.</p></article>
+          <article><h3>Data & domain (<code>:core:data</code>)</h3><p>Data repositories, local persistence (DataStore, Room), network clients, and domain models.</p></article>
+          <article><h3>Feature modules (<code>:feature:*</code>)</h3><p>Independent feature screens, ViewModels, and UI state models isolated from other features.</p></article>
+        </div>
+      </section>
+
+      <section><p class="eyebrow">Build setup</p><h2>Version catalogs and convention plugins</h2>
+        <p>Centralize build logic in a <code>build-logic</code> composite build to maintain consistent compile SDK, Java targets, and Compose compiler versions across all submodules.</p>
+        <div class="compact-grid">
+          <article><h3>Version catalog</h3><p>Define all dependencies in <code>gradle/libs.versions.toml</code> to ensure uniform version alignment.</p></article>
+          <article><h3>Application plugin</h3><p>Applies Android application conventions, packaging rules, and release build type settings.</p></article>
+          <article><h3>Library plugin</h3><p>Applies shared library SDK configurations, Java 11 compatibility, and namespace standards.</p></article>
+          <article><h3>Compose convention</h3><p>Enables Compose compiler plugins and binds UI / Material 3 dependencies.</p></article>
+        </div>
+      </section>
+
+      <section><p class="eyebrow">State and runtime</p><h2>Unidirectional data flow and lifecycle safety</h2>
+        <ol class="workflow-list">
+          <li><span>1</span><div><h3>Model immutable UI state</h3><p>Represent screen states as strongly typed Kotlin data classes.</p></div></li>
+          <li><span>2</span><div><h3>Expose StateFlow</h3><p>ViewModels process user intents and emit new state snapshots via <code>StateFlow</code>.</p></div></li>
+          <li><span>3</span><div><h3>Lifecycle-aware collection</h3><p>Composables observe state using <code>collectAsStateWithLifecycle()</code> to avoid background resource leaks.</p></div></li>
+          <li><span>4</span><div><h3>State-hoisted components</h3><p>Leaf UI composables remain stateless, receiving plain values and emitting event callbacks.</p></div></li>
+        </ol>
+      </section>
+
+      <section><p class="eyebrow">Optimization & Release</p><h2>R8 optimization, resource shrinking, and signing</h2>
+        <p>Enable Android Gradle Plugin optimization and R8 shrinking for release builds:</p>
+        <pre class="code-block"><code>android {
+    buildTypes {
+        release {
+            isMinifyEnabled = true
+            isShrinkResources = true
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+        }
+    }
+}</code></pre>
+        <p>Keep keystore and signing credentials in local, git-ignored <code>signing.properties</code>.</p>
+      </section>
+
+      <section><p class="eyebrow">Verification</p><h2>Automated testing and lint gates</h2>
+        <pre class="code-block"><code># Run build logic tests
+.\gradlew.bat -p build-logic :convention:test
+
+# Run unit tests across all modules
+.\gradlew.bat testDebugUnitTest
+
+# Run Android Lint
+.\gradlew.bat lintDebug
+
+# Assemble debug and release builds
+.\gradlew.bat :app:assembleDebug
+.\gradlew.bat :app:assembleRelease</code></pre>
+      </section>
+
+      <section class="next-links">
+        <a href="skills/android/dependencies.html"><strong>Build & dependencies guide</strong><span>Detailed version catalog & build setup →</span></a>
+        <a href="material-3-expressive-development.html"><strong>Expressive design guide</strong><span>Master Material 3 Expressive UI →</span></a>
+      </section>
     </div>
   </main>
-  <footer><img src="assets/material-design.svg" alt="" width="32" height="32"><p>Independent platforms with explicit shared UI/UX intent.</p><a href="./">Documentation home</a></footer>
+  <footer><img src="assets/material-design.svg" alt="" width="32" height="32"><p>Comprehensive Material Design 3 engineering and development reference.</p><a href="index.html">Documentation home</a></footer>
 </body>
 </html>

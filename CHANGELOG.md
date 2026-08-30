@@ -1,7 +1,25 @@
 # Material Design Changelog
 
-> **Project:** Material Design  
-> **Project Version:** 2.0.9
+> **Project:** Material Design
+
+---
+
+## [2.1.0] - 2026-08-30
+
+### Added & Improved
+
+- Elevated the product landing page (`docs/index.html`, `docs/styles.css`, `docs/scripts.js`) while preserving its authentic Material Design aesthetic, Roboto Flex typography, morphing hero shapes, and clean semantic CSS architecture; integrated live animated GitHub statistics, interactive tonal palette role preview, tech stack toolchain chips, Tremors developer card, accessible mobile drawer navigation, and responsive FAQ accordions.
+- Prepared Material Design 2.1.0 as the first public Android app release with dedicated notes covering the gallery, validated catalog, Material guidance, local personalization, and installation requirements.
+- Reworked the root README into an Android-focused product overview with first-release download guidance, verified requirements, feature coverage, support links, credits, privacy, and developer entry points.
+- Transformed documentation and skills into comprehensive "how to build" guides for Material Design 3 and Material 3 Expressive across Android and Web.
+- Added full concrete Gradle version catalog (`libs.versions.toml`) snippets, convention plugins (`build-logic`), toolchain contracts (compileSdk 37, minSdk 24, targetSdk 36, JVM 11), R8 optimization, and release signing instructions.
+- Overhauled Android architecture guidance to cover layered modules, Unidirectional Data Flow with StateFlow, lifecycle-aware collection, type-safe Navigation Compose, and state hoisting.
+- Added detailed Material 3 Expressive foundations covering semantic color roles, dynamic theming, typography scale, variable font axes, spring physics (`ExpressiveMotion`), and adaptive scaffolds (`NavigationSuiteScaffold`).
+- Added web UI/UX and engineering skills with CSS custom property token systems, responsive breakpoints, semantic HTML interaction states, and WCAG 2.2 AA accessibility standards.
+- Expanded the developer documentation with architecture and technology overviews, navigation and state ownership, security and privacy rules, test distribution, release signing, versioning and release gates, auditing standards, troubleshooting, and maintenance guidance.
+- Added accessible full-screen mobile navigation and progressively enhanced GitHub repository and release statistics with reduced-motion and failure fallbacks.
+- Standardized relative documentation and skill navigation links to explicit HTML targets, ensuring seamless navigation across both online web servers and offline local filesystem browsing.
+- Advanced the application build metadata to version 2.1.0 with version code 210.
 
 ---
 

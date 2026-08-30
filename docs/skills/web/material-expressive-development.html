@@ -1,68 +1,57 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Build and review responsive, accessible Material 3 Expressive components using independent vanilla HTML, CSS, and JavaScript implementations.">
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Engineering guidance for implementing Material 3 Expressive web components, tokens, adaptive layouts, and accessibility.">
   <title>Material 3 Expressive Web Development · Material Design</title>
   <link rel="icon" type="image/svg+xml" href="../../assets/material-design.svg">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,75..125,300..800&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,300..600,0..1,-50..200" rel="stylesheet">
-  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../styles.css"><script src="../../scripts.js" defer></script>
 </head>
-<body class="docs-page skill-page">
-  <header class="site-header">
-    <a class="brand" href="../../" aria-label="Documentation home"><img src="../../assets/material-design.svg" alt="" width="44" height="44"><span>Material Design</span></a>
-    <nav aria-label="Skill navigation"><a href="../../projects/web.html">Web project</a><a href="../android/material-design-development.html">Android</a><a class="nav-action" href="../../#skills">All skills</a></nav>
-  </header>
+<body class="docs-page">
+  <header class="site-header"><a class="brand" href="../../index.html" aria-label="Documentation home"><img src="../../assets/material-design.svg" alt="" width="44" height="44"><span>Material Design</span></a><nav aria-label="Skill navigation"><a href="material-design-ui.html">Web UI and UX</a><a href="../android/material-design-development.html">Android skill</a><a class="nav-action" href="../../index.html#skills">All skills</a></nav></header>
   <main>
-    <section class="docs-hero skill-hero"><p class="eyebrow">Web skill</p><h1>Material 3 Expressive Web Development</h1><p>Build and review responsive, accessible Material 3 Expressive components using independent vanilla HTML, CSS, and JavaScript implementations.</p></section>
-    <article class="docs-article skill-article"><p>Use this skill for implementation work inside <code>material-web/</code>. Read the <a href="../../material-3-expressive-development.html">Material 3 Expressive development guide</a> before adding a component, consult the <a href="../../parity.html">component status</a> for readiness, and use the <a href="https://github.com/qtremors/material-design/blob/main/skills/web/material-expressive-development.md">Markdown version</a> with agents and harnesses.</p>
-<h2>Preconditions</h2>
-<ol>
-<li>The matching Android entry must be marked <strong>Android Refined</strong> before web implementation begins.</li>
-<li>Inspect the accepted Android UI/UX and document its states, interaction intent, and adaptive changes.</li>
-<li>Check current official Material guidance. Do not invent a browser API or assume Compose signatures apply to the web.</li>
-</ol>
-<h2>Implementation contract</h2>
-<ul>
-<li>Use semantic HTML, modern CSS, and vanilla JavaScript.</li>
-<li>Keep tokens, components, state, tests, and releases independent from Android.</li>
-<li>Express color, type, shape, spacing, elevation, and motion through web-owned custom properties.</li>
-<li>Support keyboard, pointer, touch, assistive technology, forced colors where practical, and reduced motion.</li>
-<li>Test compact, medium, and expanded layouts. Adapt to the available viewport rather than device labels.</li>
-<li>Preserve user state and action outcomes when layout or input mode changes.</li>
-</ul>
-<h2>Component workflow</h2>
-<ol>
-<li>Write a state table covering rest, hover, focus, pressed, disabled, selected, loading, success, and error states that apply.</li>
-<li>Choose semantic HTML and the accessible name, role, value, and keyboard model.</li>
-<li>Implement layout and tokens before decorative motion.</li>
-<li>Add expressive shape, typography, and motion without hiding state changes or delaying core actions.</li>
-<li>Verify responsive behaviour, zoom, long text, reduced motion, and keyboard-only use.</li>
-<li>Update the root <code>TASKS.md</code>, root <code>CHANGELOG.md</code>, and both HTML and Markdown skill documentation.</li>
-</ol>
-<h2>Pattern-specific requirements</h2>
-<ul>
-<li><strong>Split Buttons:</strong> Keep the primary action and menu trigger as distinct focusable controls with a shared visual group.</li>
-<li><strong>Wavy Progress Indicators:</strong> Preserve determinate versus indeterminate meaning and expose progress semantics; reduce or remove waves when motion is reduced.</li>
-<li><strong>Dynamic Typography:</strong> Treat variable-font axes as progressive enhancement and test reflow at every supported axis extreme.</li>
-<li><strong>Expressive Morphing Buttons:</strong> Keep press morphing brief and reversible; hold confirmation must provide progress, cancellation, and a non-hold alternative when required for accessibility.</li>
-<li><strong>Segmented Sections:</strong> Use the correct single- versus multi-select semantic model and retain readable focus boundaries across joined shapes.</li>
-<li><strong>Floating Navigation and Toolbars:</strong> Avoid obscuring content, account for safe areas, and keep every action keyboard reachable.</li>
-</ul>
-<h2>Completion checklist</h2>
-<ul>
-<li>UI/UX matches the accepted intent without sharing implementation code.</li>
-<li>Compact, medium, and expanded layouts are verified.</li>
-<li>Keyboard and screen-reader semantics are verified.</li>
-<li>Reduced motion and 200% zoom remain usable.</li>
-<li>Intentional platform differences are documented.</li>
-<li>Parity and changelog entries are current.</li>
-</ul>
-</article>
+    <section class="docs-hero skill-hero"><p class="eyebrow">Web engineering guide</p><h1>Material 3 Expressive Web Development</h1><p>Implement Material 3 Expressive components, CSS design tokens, fluid layouts, motion, and accessibility in modern web applications.</p></section>
+    <div class="docs-layout">
+      <aside class="docs-toc"><strong>On this page</strong><a href="#architecture">Architecture</a><a href="#workflow">Component workflow</a><a href="#patterns">Patterns & Blueprints</a><a href="#verification">Verification & Quality</a></aside>
+      <article class="docs-article skill-article">
+        <section id="architecture"><p class="eyebrow">Architecture</p><h2>Clean separation for Material web apps</h2>
+          <div class="compact-grid">
+            <article><h3>Design tokens</h3><p>Semantic CSS custom properties for color schemes, typography scale, shapes, and motion curves.</p></article>
+            <article><h3>Component architecture</h3><p>Semantic HTML elements enhanced with state classes and standardized ARIA attributes.</p></article>
+            <article><h3>Adaptive layouts</h3><p>Responsive CSS Grid and Flexbox layouts mapped to Material window width classes.</p></article>
+          </div>
+        </section>
+
+        <section id="workflow"><p class="eyebrow">Component workflow</p><h2>From markup to verified interaction</h2>
+          <ol class="workflow-list">
+            <li><span>1</span><div><h3>Semantic HTML structure</h3><p>Start with native HTML elements (buttons, dialogs, inputs) to ensure baseline accessibility.</p></div></li>
+            <li><span>2</span><div><h3>ARIA & Accessibility state</h3><p>Expose dynamic state using <code>aria-expanded</code>, <code>aria-selected</code>, <code>aria-disabled</code>, and <code>aria-controls</code>.</p></div></li>
+            <li><span>3</span><div><h3>Apply design tokens</h3><p>Style with CSS custom properties (<code>var(--md-sys-color-primary)</code>, etc.) for effortless theming.</p></div></li>
+            <li><span>4</span><div><h3>Interactive state styling</h3><p>Style hover, focus-visible, active, and disabled states with clear focus rings.</p></div></li>
+          </ol>
+        </section>
+
+        <section id="patterns"><p class="eyebrow">Patterns & Blueprints</p><h2>Expressive web component patterns</h2>
+          <div class="compact-grid">
+            <article><h3>Split Buttons</h3><p>Separates a primary button from a dropdown menu trigger while keeping them visually joined via border-radius tokens.</p></article>
+            <article><h3>Floating Toolbars</h3><p>Floating utility bars with full-rounded shapes, elevated shadow tokens, and responsive icon action sets.</p></article>
+            <article><h3>Expressive Transitions</h3><p>Subtle elevation and transform hover transitions with full <code>prefers-reduced-motion</code> fallback.</p></article>
+          </div>
+        </section>
+
+        <section id="verification"><p class="eyebrow">Verification & Quality</p><h2>Cross-browser and accessibility standards</h2>
+          <ul class="document-list">
+            <li><strong>Cross-browser:</strong> Verified across modern Chromium, Safari (WebKit), and Firefox browsers.</li>
+            <li><strong>Responsive Viewports:</strong> Tested across 360px (compact), 768px (medium), and 1200px+ (expanded).</li>
+            <li><strong>Keyboard Accessibility:</strong> All interactive elements operable via Tab, Enter, Space, and Arrow keys.</li>
+            <li><strong>Screen Readers:</strong> Verified proper announcements using NVDA / VoiceOver.</li>
+          </ul>
+        </section>
+      </article>
+    </div>
   </main>
-  <footer><img src="../../assets/material-design.svg" alt="" width="32" height="32"><p>Web-specific Material 3 Expressive guidance.</p><a href="../../#skills">All skills</a></footer>
+  <footer><img src="../../assets/material-design.svg" alt="" width="32" height="32"><p>Material 3 Expressive web development guide.</p><a href="../../index.html">Documentation home</a></footer>
 </body>
 </html>

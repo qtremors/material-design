@@ -1,259 +1,91 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Material 3 Expressive and Adaptive guidance for components, typography, motion, buttons, indicators, navigation, and toolbars.">
-  <title>Material 3 Expressive Design System · Material Design</title>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Material 3 Expressive and Adaptive UI design tokens, spring physics, adaptive scaffolds, and component blueprints for Android.">
+  <title>Material 3 Expressive Design for Android · Material Design</title>
   <link rel="icon" type="image/svg+xml" href="../../assets/material-design.svg">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,75..125,300..800&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,300..600,0..1,-50..200" rel="stylesheet">
-  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../styles.css"><script src="../../scripts.js" defer></script>
 </head>
-<body class="docs-page skill-page">
-  <header class="site-header">
-    <a class="brand" href="../../" aria-label="Documentation home"><img src="../../assets/material-design.svg" alt="" width="44" height="44"><span>Material Design</span></a>
-    <nav aria-label="Skill navigation"><a href="../../projects/android.html">Android project</a><a href="../web/material-expressive-development.html">Web</a><a class="nav-action" href="../../#skills">All skills</a></nav>
-  </header>
+<body class="docs-page">
+  <header class="site-header"><a class="brand" href="../../index.html" aria-label="Documentation home"><img src="../../assets/material-design.svg" alt="" width="44" height="44"><span>Material Design</span></a><nav aria-label="Skill navigation"><a href="material-design-development.html">Android development</a><a href="dependencies.html">Build and dependencies</a><a class="nav-action" href="../../index.html#skills">All skills</a></nav></header>
   <main>
-    <section class="docs-hero skill-hero"><p class="eyebrow">Android skill</p><h1>Material 3 Expressive Design System</h1><p>Guidelines and code patterns for Material 3 Expressive and Adaptive components, typography, motion, buttons, indicators, navigation, and toolbars.</p></section>
-    <article class="docs-article skill-article"><p>This guide serves as a reference for designing and developing Android Jetpack Compose UI components with Material 3 Expressive APIs and project experiments. For agent and harness use, see the <a href="https://github.com/qtremors/material-design/blob/main/skills/android/material-expressive-design.md">Markdown version</a>.</p>
-<blockquote>
-<p><strong>Source-of-truth boundary:</strong> use the Android app catalog and the repository paths it exposes as the canonical, version-reviewed references. Any section explicitly labeled <em>Project implementation</em> is an experiment, not an official Material API.</p>
-</blockquote>
-<blockquote>
-<p>[!IMPORTANT]
-When building or modifying expressive components, always cross-reference the official Google guidelines and API documentation:</p>
-<ul>
-<li><a href="https://m3.material.io/">Material Design 3 Guidelines (m3.material.io)</a></li>
-<li><a href="https://developer.android.com/jetpack/androidx/releases/compose-material3">Android Compose Material 3 Release &amp; API Documentation</a></li>
-<li><a href="https://developer.android.com/develop/ui/compose/layouts/adaptive">Compose Adaptive Layouts Guide</a></li>
-</ul>
-</blockquote>
-<hr>
-<h2>1. Dynamic Typography (Variable Fonts)</h2>
-<p>Expressive typography utilizes Variable Fonts (e.g., <code>google_sans_flex_variable.ttf</code>) to morph text weights, widths, roundness, and grades dynamically.</p>
-<h3>Font Variation Settings Configuration</h3>
-<pre><code class="language-kotlin">import androidx.compose.ui.text.font.FontVariation
-import androidx.compose.ui.text.ExperimentalTextApi
+    <section class="docs-hero skill-hero"><p class="eyebrow">Expressive design guide</p><h1>Material 3 Expressive Design for Android</h1><p>Master Material 3 Expressive color systems, dynamic theming, typography, spring physics, adaptive scaffolding, and component patterns in Jetpack Compose.</p></section>
+    <div class="docs-layout">
+      <aside class="docs-toc"><strong>On this page</strong><a href="#color">Color & Dynamic theming</a><a href="#typography">Typography scale</a><a href="#shape">Shape & Tonal elevation</a><a href="#motion">Spring motion & Physics</a><a href="#adaptive">Adaptive scaffolds</a><a href="#components">Expressive components</a><a href="#checklist">Quality checklist</a></aside>
+      <article class="docs-article skill-article">
+        <section id="color"><p class="eyebrow">Color system</p><h2>Semantic color roles & Dynamic theming</h2>
+          <div class="compact-grid">
+            <article><h3>Primary roles</h3><p><code>primary</code>, <code>onPrimary</code>, <code>primaryContainer</code>, and <code>onPrimaryContainer</code> for prominent actions and highlighted surfaces.</p></article>
+            <article><h3>Secondary & Tertiary</h3><p><code>secondary</code> for chips/filters, <code>tertiary</code> for contrasting visual accents and balanced visual energy.</p></article>
+            <article><h3>Surface hierarchy</h3><p><code>surfaceContainerLowest</code> through <code>surfaceContainerHighest</code> define tonal elevation without heavy drop shadows.</p></article>
+            <article><h3>Outline & Error</h3><p><code>outline</code> for borders, <code>error</code> and <code>errorContainer</code> for feedback, validation, and destructive actions.</p></article>
+          </div>
+        </section>
 
-@OptIn(ExperimentalTextApi::class)
-data class FontAxes(
-    val weight: Float,     // range: 100..1000
-    val width: Float,      // range: 25..150
-    val opsz: Float,       // range: 6..72 (Optical size)
-    val grade: Float,      // range: -200..200 (Grade/contrast)
-    val slant: Float,      // range: -10..0
-    val roundness: Float   // range: 0..100 (ROND variation)
-) {
-    fun toVariationSettings() = FontVariation.Settings(
-        FontVariation.weight(weight.toInt().coerceIn(1, 1000)),
-        FontVariation.width(width.coerceIn(25f, 150f)),
-        FontVariation.Setting(&quot;opsz&quot;, opsz.coerceIn(6f, 72f)),
-        FontVariation.grade(grade.toInt().coerceIn(-200, 200)),
-        FontVariation.slant(slant.coerceIn(-10f, 0f)),
-        FontVariation.Setting(&quot;ROND&quot;, roundness.coerceIn(0f, 100f))
+        <section id="typography"><p class="eyebrow">Typography</p><h2>Material 3 type scale & Variable font axes</h2>
+          <p>Material 3 organizes type into 15 roles across 5 styles: Display, Headline, Title, Body, and Label. When using variable fonts like Roboto Flex, configure axes (weight, width, optical size) within verified ranges and ensure layouts support 200% accessibility font scaling without clipping.</p>
+        </section>
+
+        <section id="shape"><p class="eyebrow">Shape & Elevation</p><h2>Expressive grouping and state layers</h2>
+          <ul class="document-list">
+            <li><strong>Tonal Elevation:</strong> Surfaces communicate elevation depth through surface container color shifts rather than heavy drop shadows.</li>
+            <li><strong>Expressive Shapes:</strong> Round corners and asymmetric shapes communicate visual grouping (e.g. connected card items, segmented controls).</li>
+            <li><strong>State Overlays:</strong> Standardized alpha overlays indicate hover, focus, press, and dragged interaction states.</li>
+          </ul>
+        </section>
+
+        <section id="motion"><p class="eyebrow">Motion</p><h2>Spring physics and reduced-motion fallback</h2>
+          <pre class="code-block"><code>object ExpressiveMotion {
+    val PressSpring = spring&lt;Float&gt;(
+        dampingRatio = Spring.DampingRatioMediumBouncy,
+        stiffness = Spring.StiffnessMedium
     )
-}
-</code></pre>
-<hr>
-<h2>2. Wavy Progress Indicators</h2>
-<p>Wavy progress indicators communicate determinate and indeterminate progress with expressive motion. Preserve progress semantics and provide the project&#39;s reduced-motion treatment.</p>
-<h3>Circular Wavy Progress Indicator</h3>
-<p>Used for download streams, circular timers, or loading status rings.</p>
-<pre><code class="language-kotlin">import androidx.compose.material3.CircularWavyProgressIndicator
-import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
-
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
-@Composable
-fun CircularWavyProgressDemo(progressState: Float) {
-    CircularWavyProgressIndicator(
-        progress = { progressState.coerceIn(0f, 1f) },
-        modifier = Modifier.size(64.dp)
+    val SpatialSpring = spring&lt;IntOffset&gt;(
+        dampingRatio = Spring.DampingRatioNoBouncy,
+        stiffness = Spring.StiffnessMediumLow
     )
-}
-</code></pre>
-<h3>Linear Wavy Progress Indicator</h3>
-<p>Used for progress loading blocks or music media seekbars.</p>
-<pre><code class="language-kotlin">import androidx.compose.material3.LinearWavyProgressIndicator
+}</code></pre>
+          <p>When reduced motion is enabled, replace spatial bounces with immediate state transitions while preserving feedback and safety intervals.</p>
+        </section>
 
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
-@Composable
-fun LinearWavyProgressDemo(progressState: Float) {
-    LinearWavyProgressIndicator(
-        progress = { progressState.coerceIn(0f, 1f) },
-        modifier = Modifier.fillMaxWidth()
-    )
-}
-</code></pre>
-<hr>
-<h2>3. Split Buttons</h2>
-<p>Split buttons partition a component into a primary action (leading) and a menu options trigger (trailing).</p>
-<pre><code class="language-kotlin">import androidx.compose.material3.SplitButtonLayout
-import androidx.compose.material3.SplitButtonDefaults
+        <section id="adaptive"><p class="eyebrow">Adaptive layouts</p><h2>Window size classes & NavigationSuiteScaffold</h2>
+          <div class="table-wrap" tabindex="0" role="region" aria-label="Adaptive breakpoints">
+            <table>
+              <thead><tr><th scope="col">Size Class</th><th scope="col">Window Width</th><th scope="col">Navigation</th><th scope="col">Layout Pattern</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">Compact</th><td>&lt; 600 dp</td><td>NavigationBar / BottomAppBar</td><td>Single Pane</td></tr>
+                <tr><th scope="row">Medium</th><td>600–839 dp</td><td>NavigationRail</td><td>Single or Supporting Pane</td></tr>
+                <tr><th scope="row">Expanded</th><td>840–1199 dp</td><td>NavigationRail / Drawer</td><td>List-Detail / Supporting Pane</td></tr>
+                <tr><th scope="row">Large+</th><td>&gt;= 1200 dp</td><td>Permanent NavigationDrawer</td><td>Multi-Pane with max reading width</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
 
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
-@Composable
-fun ShareSplitButton(onShare: () -&gt; Unit, onDropdownToggle: (Boolean) -&gt; Unit, active: Boolean) {
-    SplitButtonLayout(
-        leadingButton = {
-            SplitButtonDefaults.LeadingButton(onClick = onShare) {
-                Icon(Icons.Default.Share, contentDescription = null)
-                Spacer(Modifier.width(8.dp))
-                Text(&quot;Share&quot;)
-            }
-        },
-        trailingButton = {
-            SplitButtonDefaults.TrailingButton(
-                checked = active,
-                onCheckedChange = onDropdownToggle
-            ) {
-                Icon(
-                    imageVector = if (active) Icons.Default.KeyboardArrowUp else Icons.Default.KeyboardArrowDown,
-                    contentDescription = if (active) &quot;Hide sharing options&quot; else &quot;Show sharing options&quot;
-                )
-            }
-        }
-    )
-}
-</code></pre>
-<hr>
-<h2>4. Project Button Morphing &amp; Hold Confirmation</h2>
-<p><strong>Project implementation.</strong> These experiments scale and morph buttons based on touch interaction. They must not be described as official APIs.</p>
-<p>The maintained implementation is in <code>samples/actions/.../ActionSamples.kt</code>, while every shared spring and reduced-motion fallback comes from <code>core/designsystem/.../ExpressiveMotion.kt</code>. The snippets below explain the values; contributors should call the shared specifications instead of duplicating them.</p>
-<h3>Morphing &amp; Touch Scaling Implementation</h3>
-<pre><code class="language-kotlin">// Corner Morphing &amp; Scale down on press
-val isPressed by interactionSource.collectIsPressedAsState()
-val animR by animateDpAsState(
-    targetValue = if (isPressed) 12.dp else 24.dp,
-    animationSpec = spring(dampingRatio = Spring.DampingRatioNoBouncy, stiffness = Spring.StiffnessMedium)
-)
-val scaleState by animateFloatAsState(
-    targetValue = if (isPressed) 0.94f else 1.0f,
-    animationSpec = spring(dampingRatio = Spring.DampingRatioMediumBouncy, stiffness = Spring.StiffnessLow)
-)
-</code></pre>
-<h3>Hold to Confirm Action</h3>
-<p>Tracks duration while held and executes a callback when progress reaches 1.0.</p>
-<pre><code class="language-kotlin">val holdAnim = remember { Animatable(0f) }
-LaunchedEffect(isPressed) {
-    if (isPressed) {
-        val startTime = System.currentTimeMillis()
-        while (true) {
-            val elapsed = System.currentTimeMillis() - startTime
-            val progress = (elapsed.toFloat() / holdDuration).coerceIn(0f, 1f)
-            holdAnim.snapTo(progress)
-            if (progress &gt;= 1f) break
-            delay(16)
-        }
-        if (isPressed) {
-            onHoldComplete()
-            holdAnim.snapTo(0f)
-        }
-    } else {
-        holdAnim.animateTo(0f, spring(stiffness = Spring.StiffnessMedium))
-    }
-}
-</code></pre>
-<h3>Dynamic Weight Segments</h3>
-<p>Adjusts item weights inside a Row on press/selection to dynamically nudge adjacent items.</p>
-<pre><code class="language-kotlin">val animatedWeight by animateFloatAsState(
-    targetValue = when {
-        isPressed -&gt; option.weight * 1.4f
-        isSelected -&gt; option.weight * 1.2f
-        else -&gt; option.weight
-    },
-    animationSpec = spring(dampingRatio = Spring.DampingRatioLowBouncy, stiffness = Spring.StiffnessLow)
-)
-</code></pre>
-<hr>
-<h2>5. Segmented List Items &amp; Project Grouping Experiments</h2>
-<p>Use the official name <strong>Segmented list items</strong> for the registered gallery reference. The custom grouping patterns below are retained only as project experiments.</p>
-<h3>Project toggle group experiment (ExpressiveToggleButtonGroup)</h3>
-<p>Toggle buttons that spring-nudge their layout weights on selection and collapse unselected item labels into icons:</p>
-<pre><code class="language-kotlin">val animatedWeight by animateFloatAsState(
-    targetValue = when {
-        isPressed -&gt; option.weight * 1.4f
-        isSelected -&gt; option.weight * 1.2f
-        else -&gt; option.weight
-    },
-    animationSpec = spring(dampingRatio = Spring.DampingRatioLowBouncy, stiffness = Spring.StiffnessLow)
-)
-</code></pre>
-<h3>Project grouped-card shapes</h3>
-<p>Cards in a list that dynamically compute their shapes based on their position in the stack to blend together:</p>
-<pre><code class="language-kotlin">enum class GroupPosition {
-    Top, Middle, Bottom, Single
-}
+        <section id="components"><p class="eyebrow">Component blueprints</p><h2>Key Material 3 Expressive components</h2>
+          <div class="compact-grid">
+            <article><h3>Split Buttons</h3><p>Combines a primary button with an adjacent contextual dropdown menu trigger via <code>SplitButtonLayout</code>.</p></article>
+            <article><h3>Floating Toolbars</h3><p>Floating action surfaces that adapt smoothly between horizontal and vertical orientations via <code>HorizontalFloatingToolbar</code>.</p></article>
+            <article><h3>Wavy Progress</h3><p>Organic wave motion for determinate or indeterminate operations via <code>WavyLinearProgressIndicator</code>.</p></article>
+            <article><h3>Segmented Buttons</h3><p>Connected selection controls that communicate mutually exclusive or multi-select choices.</p></article>
+          </div>
+        </section>
 
-fun getGroupShape(position: GroupPosition): RoundedCornerShape {
-    return when (position) {
-        GroupPosition.Top -&gt; RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp, bottomStart = 8.dp, bottomEnd = 8.dp)
-        GroupPosition.Middle -&gt; RoundedCornerShape(8.dp)
-        GroupPosition.Bottom -&gt; RoundedCornerShape(topStart = 8.dp, topEnd = 8.dp, bottomStart = 24.dp, bottomEnd = 24.dp)
-        GroupPosition.Single -&gt; RoundedCornerShape(24.dp)
-    }
-}
-</code></pre>
-<hr>
-<h2>6. Floating Toolbars and Adaptive Navigation</h2>
-<p>Floating toolbars and the application navigation suite adapt to screen layouts.</p>
-<h3>Floating Toolbars</h3>
-<pre><code class="language-kotlin">import androidx.compose.material3.HorizontalFloatingToolbar
-import androidx.compose.material3.VerticalFloatingToolbar
-import androidx.compose.material3.FloatingToolbarDefaults
-
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
-@Composable
-fun FilterToolbar(isExpanded: Boolean) {
-    HorizontalFloatingToolbar(
-        expanded = isExpanded,
-        shape = RoundedCornerShape(100),
-        colors = FloatingToolbarDefaults.standardFloatingToolbarColors(
-            toolbarContainerColor = MaterialTheme.colorScheme.secondaryContainer
-        )
-    ) {
-        // Toolbar actions
-    }
-}
-</code></pre>
-<h3>Short Navigation Bar Item</h3>
-<p>Allows text labels to expand horizontally or vertically on item selection.</p>
-<pre><code class="language-kotlin">import androidx.compose.material3.ShortNavigationBarItem
-import androidx.compose.material3.NavigationItemIconPosition
-
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
-@Composable
-fun CustomShortNavItem(selected: Boolean, onSelect: () -&gt; Unit, label: String, icon: ImageVector) {
-    ShortNavigationBarItem(
-        selected = selected,
-        onClick = onSelect,
-        icon = { Icon(icon, contentDescription = null) },
-        label = {
-            AnimatedVisibility(visible = selected) {
-                Text(text = label, fontWeight = FontWeight.ExtraBold)
-            }
-        },
-        iconPosition = NavigationItemIconPosition.Start
-    )
-}
-</code></pre>
-<hr>
-<h2>7. Maintained Project References</h2>
-<p>Use checked-in implementations instead of copying detached illustrative snippets. These paths compile against the pinned catalog and include the project&#39;s state, accessibility, and reduced-motion handling:</p>
-<ul>
-<li><code>samples/foundations/src/main/java/dev/qtremors/material/samples/foundations/FoundationSamples.kt</code> — variable-font axes and typography.</li>
-<li><code>samples/communication/src/main/java/dev/qtremors/material/samples/communication/ProgressSamples.kt</code> — determinate and indeterminate wavy progress.</li>
-<li><code>samples/actions/src/main/java/dev/qtremors/material/samples/actions/ActionSamples.kt</code> — split buttons, morphing actions, and hold confirmation.</li>
-<li><code>samples/containment/src/main/java/dev/qtremors/material/samples/containment/CardAndListSamples.kt</code> — segmented list items and grouped shapes.</li>
-<li><code>samples/navigation/src/main/java/dev/qtremors/material/samples/navigation/NavigationSamples.kt</code> — horizontal and vertical floating toolbars.</li>
-<li><code>app/src/main/java/dev/qtremors/materialdesign/MaterialGalleryApp.kt</code> — adaptive application navigation using <code>ShortNavigationBarItem</code>.</li>
-<li><code>core/designsystem/src/main/java/dev/qtremors/material/core/designsystem/ExpressiveMotion.kt</code> — shared motion specifications and reduced-motion behavior.</li>
-</ul>
-<p>Before changing any alpha API usage, compare the pinned <code>composeMaterial3</code> version with official release notes and verify the affected sample by compiling it.</p>
-</article>
+        <section id="checklist"><p class="eyebrow">Quality checklist</p><h2>Verification standards</h2>
+          <ul class="document-list">
+            <li>Semantic MaterialTheme colorScheme and typography tokens applied consistently.</li>
+            <li>Interactive elements meet the minimum 48x48 dp touch target requirement.</li>
+            <li>Dynamic color support verified across light and dark themes.</li>
+            <li>Adaptive navigation responsive across compact, medium, and expanded window sizes.</li>
+            <li>Accessibility semantics and reduced-motion modes thoroughly tested.</li>
+          </ul>
+        </section>
+      </article>
+    </div>
   </main>
-  <footer><img src="../../assets/material-design.svg" alt="" width="32" height="32"><p>Android-specific Material 3 Expressive guidance.</p><a href="../../#skills">All skills</a></footer>
+  <footer><img src="../../assets/material-design.svg" alt="" width="32" height="32"><p>Comprehensive Material 3 Expressive and Adaptive design guide for Android.</p><a href="../../index.html">Documentation home</a></footer>
 </body>
 </html>

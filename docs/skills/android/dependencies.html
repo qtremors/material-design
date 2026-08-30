@@ -1,309 +1,159 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Reference for Material Design Android library versions, Gradle catalog entries, dependency declarations, and plugin updates.">
-  <title>Android Libraries and Versions · Material Design</title>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Material Design 3 Android build, dependency catalog, convention plugins, versioning, signing, and verification guide.">
+  <title>Android Build and Dependencies · Material Design</title>
   <link rel="icon" type="image/svg+xml" href="../../assets/material-design.svg">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,75..125,300..800&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,300..600,0..1,-50..200" rel="stylesheet">
-  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../styles.css"><script src="../../scripts.js" defer></script>
 </head>
-<body class="docs-page skill-page">
-  <header class="site-header">
-    <a class="brand" href="../../" aria-label="Documentation home"><img src="../../assets/material-design.svg" alt="" width="44" height="44"><span>Material Design</span></a>
-    <nav aria-label="Skill navigation"><a href="../../projects/android.html">Android project</a><a href="../web/material-expressive-development.html">Web</a><a class="nav-action" href="../../#skills">All skills</a></nav>
-  </header>
+<body class="docs-page">
+  <header class="site-header"><a class="brand" href="../../index.html" aria-label="Documentation home"><img src="../../assets/material-design.svg" alt="" width="44" height="44"><span>Material Design</span></a><nav aria-label="Skill navigation"><a href="material-design-development.html">Android development</a><a href="material-expressive-design.html">Expressive design</a><a class="nav-action" href="../../index.html#skills">All skills</a></nav></header>
   <main>
-    <section class="docs-hero skill-hero"><p class="eyebrow">Android skill</p><h1>Android Libraries and Versions</h1><p>Reference for all library versions, Gradle catalog entries, dependency declarations, and plugins used by the Material Design Android project.</p></section>
-    <article class="docs-article skill-article"><p>All version management lives in <code>material-app/gradle/libs.versions.toml</code>.
-Dependencies are declared in module <code>build.gradle.kts</code> files. For agent and harness use, see the <a href="https://github.com/qtremors/material-design/blob/main/skills/android/dependencies.md">Markdown version</a>.</p>
-<hr>
-<h2>Toolchain</h2>
-<table>
-<thead>
-<tr>
-<th>Tool</th>
-<th>Version</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Android Gradle Plugin (AGP)</td>
-<td><code>9.3.0</code></td>
-</tr>
-<tr>
-<td>Kotlin</td>
-<td><code>2.2.10</code></td>
-</tr>
-<tr>
-<td>KSP</td>
-<td><code>2.3.2</code></td>
-</tr>
-<tr>
-<td>JVM Target</td>
-<td><code>11</code></td>
-</tr>
-<tr>
-<td>Gradle Daemon JVM</td>
-<td><code>21</code> (via <code>gradle/gradle-daemon-jvm.properties</code>)</td>
-</tr>
-<tr>
-<td>compileSdk</td>
-<td><code>37</code></td>
-</tr>
-<tr>
-<td>minSdk</td>
-<td><code>24</code></td>
-</tr>
-<tr>
-<td>targetSdk</td>
-<td><code>37</code></td>
-</tr>
-</tbody></table>
-<hr>
-<h2>Gradle Plugins (version catalog)</h2>
-<table>
-<thead>
-<tr>
-<th>Alias</th>
-<th>ID</th>
-<th>Version</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>android-application</code></td>
-<td><code>com.android.application</code></td>
-<td><code>9.3.0</code></td>
-</tr>
-<tr>
-<td><code>android-library</code></td>
-<td><code>com.android.library</code></td>
-<td><code>9.3.0</code></td>
-</tr>
-<tr>
-<td><code>kotlin-android</code></td>
-<td><code>org.jetbrains.kotlin.android</code></td>
-<td><code>2.2.10</code></td>
-</tr>
-<tr>
-<td><code>kotlin-compose</code></td>
-<td><code>org.jetbrains.kotlin.plugin.compose</code></td>
-<td><code>2.2.10</code></td>
-</tr>
-<tr>
-<td><code>kotlin-serialization</code></td>
-<td><code>org.jetbrains.kotlin.plugin.serialization</code></td>
-<td><code>2.2.10</code></td>
-</tr>
-<tr>
-<td><code>ksp</code></td>
-<td><code>com.google.devtools.ksp</code></td>
-<td><code>2.3.2</code></td>
-</tr>
-</tbody></table>
-<p>The <code>kotlin-compose</code> plugin is <strong>required</strong> alongside AGP when using Jetpack Compose — it wires the Compose compiler into the Kotlin compilation pipeline.</p>
-<hr>
-<h2>Compose &amp; Material 3 Expressive</h2>
-<blockquote>
-<p>The checked-in version catalog is the project source of truth. Verify official release notes before changing any pinned alpha or adaptive dependency.</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th>Library</th>
-<th>Version / Source</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Compose BOM</td>
-<td><code>2026.08.00</code></td>
-</tr>
-<tr>
-<td>Material 3 Expressive</td>
-<td><code>1.5.0-alpha26</code> <em>(explicit, overrides BOM)</em></td>
-</tr>
-<tr>
-<td>Material 3 Adaptive</td>
-<td><code>1.3.0</code> <em>(explicit)</em></td>
-</tr>
-</tbody></table>
-<h3>Why explicit versions?</h3>
-<p>Material 3 Expressive (<code>1.5.0-alpha26</code>) and Adaptive (<code>1.3.0</code>) are pinned explicitly
-because the BOM may trail the alpha track. Always check
-<a href="https://developer.android.com/jetpack/androidx/releases/compose-material3">Material3 releases</a>
-before bumping.</p>
-<h3>Catalog entries (under <code>[libraries]</code>)</h3>
-<pre><code class="language-toml">androidx-compose-bom                     = { group = &quot;androidx.compose&quot;,               name = &quot;compose-bom&quot;,           version.ref = &quot;composeBom&quot; }
-androidx-compose-ui                      = { group = &quot;androidx.compose.ui&quot;,             name = &quot;ui&quot; }
-androidx-compose-ui-graphics             = { group = &quot;androidx.compose.ui&quot;,             name = &quot;ui-graphics&quot; }
-androidx-compose-ui-tooling              = { group = &quot;androidx.compose.ui&quot;,             name = &quot;ui-tooling&quot; }
-androidx-compose-ui-tooling-preview      = { group = &quot;androidx.compose.ui&quot;,             name = &quot;ui-tooling-preview&quot; }
-androidx-compose-ui-test-manifest        = { group = &quot;androidx.compose.ui&quot;,             name = &quot;ui-test-manifest&quot; }
-androidx-compose-ui-test-junit4          = { group = &quot;androidx.compose.ui&quot;,             name = &quot;ui-test-junit4&quot; }
-androidx-compose-ui-test-junit4-accessibility = { group = &quot;androidx.compose.ui&quot;,        name = &quot;ui-test-junit4-accessibility&quot; }
-androidx-compose-material3               = { group = &quot;androidx.compose.material3&quot;,      name = &quot;material3&quot;,             version.ref = &quot;composeMaterial3&quot; }
-androidx-compose-material3-adaptive      = { group = &quot;androidx.compose.material3.adaptive&quot;, name = &quot;adaptive&quot;,          version.ref = &quot;composeMaterial3Adaptive&quot; }
-androidx-compose-material3-adaptive-layout     = { group = &quot;androidx.compose.material3.adaptive&quot;, name = &quot;adaptive-layout&quot;,     version.ref = &quot;composeMaterial3Adaptive&quot; }
-androidx-compose-material3-adaptive-navigation = { group = &quot;androidx.compose.material3.adaptive&quot;, name = &quot;adaptive-navigation&quot;, version.ref = &quot;composeMaterial3Adaptive&quot; }
-androidx-compose-material3-adaptive-navigation-suite = { group = &quot;androidx.compose.material3&quot;, name = &quot;material3-adaptive-navigation-suite&quot;, version.ref = &quot;composeMaterial3&quot; }
-androidx-compose-material-icons-extended = { group = &quot;androidx.compose.material&quot;,       name = &quot;material-icons-extended&quot; }
-</code></pre>
-<h3>Usage in <code>app/build.gradle.kts</code></h3>
-<pre><code class="language-kotlin">implementation(platform(libs.androidx.compose.bom))
-implementation(libs.androidx.compose.ui)
-implementation(libs.androidx.compose.ui.graphics)
-implementation(libs.androidx.compose.ui.tooling.preview)
-implementation(libs.androidx.compose.material3)
-implementation(libs.androidx.compose.material3.adaptive)
-implementation(libs.androidx.compose.material3.adaptive.layout)
-implementation(libs.androidx.compose.material3.adaptive.navigation)
-implementation(libs.androidx.compose.material3.adaptive.navigation.suite)
-implementation(libs.androidx.compose.material.icons.extended)
-</code></pre>
-<hr>
-<h2>AndroidX Core &amp; Lifecycle</h2>
-<table>
-<thead>
-<tr>
-<th>Catalog Alias</th>
-<th>Group</th>
-<th>Artifact</th>
-<th>Version</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>androidx-core-ktx</code></td>
-<td><code>androidx.core</code></td>
-<td><code>core-ktx</code></td>
-<td><code>1.18.0</code></td>
-</tr>
-<tr>
-<td><code>androidx-appcompat</code></td>
-<td><code>androidx.appcompat</code></td>
-<td><code>appcompat</code></td>
-<td><code>1.7.0</code></td>
-</tr>
-<tr>
-<td><code>androidx-lifecycle-runtime-ktx</code></td>
-<td><code>androidx.lifecycle</code></td>
-<td><code>lifecycle-runtime-ktx</code></td>
-<td><code>2.10.0</code></td>
-</tr>
-<tr>
-<td><code>androidx-lifecycle-runtime-compose</code></td>
-<td><code>androidx.lifecycle</code></td>
-<td><code>lifecycle-runtime-compose</code></td>
-<td><code>2.10.0</code></td>
-</tr>
-<tr>
-<td><code>androidx-lifecycle-viewmodel-compose</code></td>
-<td><code>androidx.lifecycle</code></td>
-<td><code>lifecycle-viewmodel-compose</code></td>
-<td><code>2.10.0</code></td>
-</tr>
-<tr>
-<td><code>androidx-activity-compose</code></td>
-<td><code>androidx.activity</code></td>
-<td><code>activity-compose</code></td>
-<td><code>1.13.0</code></td>
-</tr>
-<tr>
-<td><code>androidx-navigation-compose</code></td>
-<td><code>androidx.navigation</code></td>
-<td><code>navigation-compose</code></td>
-<td><code>2.8.9</code></td>
-</tr>
-</tbody></table>
-<hr>
-<h2>Data and Serialization</h2>
-<table>
-<thead>
-<tr>
-<th>Catalog Alias</th>
-<th>Artifact</th>
-<th>Version</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>androidx-datastore-preferences</code></td>
-<td><code>androidx.datastore:datastore-preferences</code></td>
-<td><code>1.2.0</code></td>
-</tr>
-<tr>
-<td><code>kotlinx-serialization-json</code></td>
-<td><code>org.jetbrains.kotlinx:kotlinx-serialization-json</code></td>
-<td><code>1.9.0</code></td>
-</tr>
-</tbody></table>
-<hr>
-<h2>Testing</h2>
-<table>
-<thead>
-<tr>
-<th>Catalog Alias</th>
-<th>Group</th>
-<th>Artifact</th>
-<th>Version</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>junit</code></td>
-<td><code>junit</code></td>
-<td><code>junit</code></td>
-<td><code>4.13.2</code></td>
-</tr>
-<tr>
-<td><code>androidx-junit</code></td>
-<td><code>androidx.test.ext</code></td>
-<td><code>junit</code></td>
-<td><code>1.3.0</code></td>
-</tr>
-<tr>
-<td><code>androidx-espresso-core</code></td>
-<td><code>androidx.test.espresso</code></td>
-<td><code>espresso-core</code></td>
-<td><code>3.7.0</code></td>
-</tr>
-<tr>
-<td><code>androidx-compose-ui-test-junit4</code></td>
-<td><code>androidx.compose.ui</code></td>
-<td><code>ui-test-junit4</code></td>
-<td><em>(BOM)</em></td>
-</tr>
-<tr>
-<td><code>androidx-compose-ui-test-junit4-accessibility</code></td>
-<td><code>androidx.compose.ui</code></td>
-<td><code>ui-test-junit4-accessibility</code></td>
-<td><em>(BOM)</em></td>
-</tr>
-<tr>
-<td><code>androidx-compose-ui-test-manifest</code></td>
-<td><code>androidx.compose.ui</code></td>
-<td><code>ui-test-manifest</code></td>
-<td><em>(BOM)</em></td>
-</tr>
-</tbody></table>
-<hr>
-<h2>Adding a New Library</h2>
-<ol>
-<li>Add the version to <code>[versions]</code> in <code>material-app/gradle/libs.versions.toml</code>.</li>
-<li>Add the library entry to <code>[libraries]</code>.</li>
-<li>Add the dependency to <code>app/build.gradle.kts</code> under the correct scope (<code>implementation</code>, <code>testImplementation</code>, etc.).</li>
-<li>Update both the HTML and Markdown dependency skills.</li>
-<li>Add a concise entry to the current section of the root <code>CHANGELOG.md</code>. Do not bump the app version unless explicitly requested.</li>
-</ol>
-<h2>Bumping a Version</h2>
-<ol>
-<li>Update the version string in <code>[versions]</code>.</li>
-<li>Sync the Gradle project.</li>
-<li>Verify no API breakage in the affected feature demos.</li>
-<li>Update both dependency skill files.</li>
-<li>Note it in the current section of the root <code>CHANGELOG.md</code> without changing the app version unless explicitly requested.</li>
-</ol>
-</article>
+    <section class="docs-hero skill-hero"><p class="eyebrow">Android build guide</p><h1>Android Build and Dependencies</h1><p>Configure Gradle version catalogs, convention plugins, SDK levels, optimization, and signing for modern Material Design 3 and Material 3 Expressive applications.</p></section>
+    <div class="docs-layout">
+      <aside class="docs-toc"><strong>On this page</strong><a href="#catalog">Version catalog</a><a href="#toolchain">Toolchain & SDKs</a><a href="#plugins">Convention plugins</a><a href="#groups">Dependency groups</a><a href="#optimization">Optimization & R8</a><a href="#signing">Release signing</a><a href="#verification">Verification</a></aside>
+      <article class="docs-article skill-article">
+        <section id="catalog"><p class="eyebrow">Version catalog</p><h2>Centralized dependency definition (<code>libs.versions.toml</code>)</h2>
+          <p>Declare all dependency coordinates, plugin IDs, and versions in your version catalog:</p>
+          <pre class="code-block"><code>[versions]
+# Build toolchain & plugins
+agp = "9.3.1"
+kotlin = "2.4.10"
+
+# AndroidX platform & lifecycle
+coreKtx = "1.19.0"
+appcompat = "1.7.0"
+activityCompose = "1.13.0"
+lifecycleRuntimeKtx = "2.11.0"
+
+# Jetpack Compose & Material 3
+composeBom = "2026.08.00"
+composeMaterial3 = "1.5.0-alpha26"
+composeMaterial3Adaptive = "1.3.0"
+
+# Navigation, persistence, and serialization
+navigationCompose = "2.9.8"
+datastore = "1.2.1"
+kotlinxSerialization = "1.11.0"
+kotlinxCoroutines = "1.11.0"
+
+# Testing
+junit4 = "4.13.2"
+junitVersion = "1.3.0"
+espressoCore = "3.7.0"
+
+[libraries]
+# Platform & Lifecycle
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
+androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
+androidx-lifecycle-runtime-compose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "lifecycleRuntimeKtx" }
+androidx-lifecycle-viewmodel-compose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "lifecycleRuntimeKtx" }
+
+# Compose BOM & UI
+androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
+androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" }
+androidx-compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
+androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
+androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+androidx-compose-material-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended" }
+
+# Material 3 & Expressive / Adaptive
+androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "composeMaterial3" }
+androidx-compose-material3-adaptive = { group = "androidx.compose.material3.adaptive", name = "adaptive", version.ref = "composeMaterial3Adaptive" }
+androidx-compose-material3-adaptive-layout = { group = "androidx.compose.material3.adaptive", name = "adaptive-layout", version.ref = "composeMaterial3Adaptive" }
+androidx-compose-material3-adaptive-navigation = { group = "androidx.compose.material3.adaptive", name = "adaptive-navigation", version.ref = "composeMaterial3Adaptive" }
+androidx-compose-material3-adaptive-navigation-suite = { group = "androidx.compose.material3", name = "material3-adaptive-navigation-suite", version.ref = "composeMaterial3" }
+
+# Navigation & Architecture
+androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
+androidx-datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
+kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
+
+# Testing
+junit = { group = "junit", name = "junit", version.ref = "junit4" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
+kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
+
+# Build plugins
+android-gradle-plugin = { group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
+kotlin-gradle-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+android-library = { id = "com.android.library", version.ref = "agp" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }</code></pre>
+        </section>
+
+        <section id="toolchain"><p class="eyebrow">Toolchain & SDKs</p><h2>SDK levels and compiler options</h2>
+          <ul class="document-list">
+            <li><strong>Compile SDK (37):</strong> Access latest Android platform APIs and Edge-to-Edge window insets.</li>
+            <li><strong>Minimum SDK (24):</strong> Supports Android 7.0+ across virtually all active devices.</li>
+            <li><strong>Target SDK (36):</strong> Declared in the application module to adhere to latest Android platform policies.</li>
+            <li><strong>Java / Kotlin Target (JVM 11):</strong> Consistent bytecode target across all modules.</li>
+            <li><strong>Compose Compiler:</strong> Bundled natively with Kotlin 2.0+ via <code>org.jetbrains.kotlin.plugin.compose</code>.</li>
+          </ul>
+        </section>
+
+        <section id="plugins"><p class="eyebrow">Convention plugins</p><h2>Modular Gradle configuration with <code>build-logic</code></h2>
+          <div class="compact-grid">
+            <article><h3>Application convention</h3><p>Applies Android application plugin, common SDKs, packaging options, and build types.</p></article>
+            <article><h3>Library convention</h3><p>Applies Android library plugin, shared SDK settings, and namespace conventions.</p></article>
+            <article><h3>Compose convention</h3><p>Enables Compose build feature, compiler plugin, and adds Compose UI/Material3 dependencies.</p></article>
+            <article><h3>Serialization convention</h3><p>Applies Kotlin Serialization compiler plugin and JSON runtime dependency.</p></article>
+          </div>
+        </section>
+
+        <section id="groups"><p class="eyebrow">Dependency groups</p><h2>BOM vs Explicit Pinned Versions</h2>
+          <div class="callout"><span class="material-symbols-rounded" aria-hidden="true">science</span><div><strong>Pinning Expressive Alpha APIs</strong><p>When using Material 3 Expressive features (SplitButton, FloatingToolbar, WavyProgressIndicator, NavigationSuiteScaffold), pin <code>androidx.compose.material3</code> (e.g. <code>1.5.0-alpha26</code>) directly rather than relying solely on the Compose BOM line.</p></div></div>
+        </section>
+
+        <section id="optimization"><p class="eyebrow">Optimization & R8</p><h2>Code shrinking, resource shrinking, and native symbols</h2>
+          <pre class="code-block"><code>android {
+    buildTypes {
+        release {
+            isMinifyEnabled = true
+            isShrinkResources = true
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            signingConfig = signingConfigs.getByName("release")
+        }
+    }
+    packaging {
+        jniLibs.keepDebugSymbols += setOf(
+            "**/libandroidx.graphics.path.so",
+            "**/libdatastore_shared_counter.so"
+        )
+    }
+}</code></pre>
+        </section>
+
+        <section id="signing"><p class="eyebrow">Release signing</p><h2>Secure local credentials</h2>
+          <p>Read signing configuration from ignored <code>signing.properties</code> (or <code>local.properties</code>) without committing credentials:</p>
+          <pre class="code-block"><code>signing.storeFile=/path/to/keystore.jks
+signing.storePassword=yourStorePassword
+signing.keyAlias=yourKeyAlias
+signing.keyPassword=yourKeyPassword</code></pre>
+        </section>
+
+        <section id="verification"><p class="eyebrow">Verification</p><h2>Automated testing and build gates</h2>
+          <pre class="code-block"><code>.\gradlew.bat -p build-logic :convention:test
+.\gradlew.bat testDebugUnitTest
+.\gradlew.bat lintDebug
+.\gradlew.bat :app:assembleDebug
+.\gradlew.bat :app:assembleRelease</code></pre>
+        </section>
+      </article>
+    </div>
   </main>
-  <footer><img src="../../assets/material-design.svg" alt="" width="32" height="32"><p>Android dependency and toolchain guidance.</p><a href="../../#skills">All skills</a></footer>
+  <footer><img src="../../assets/material-design.svg" alt="" width="32" height="32"><p>Comprehensive build and dependency guidance for Material 3 applications.</p><a href="../../index.html">Documentation home</a></footer>
 </body>
 </html>

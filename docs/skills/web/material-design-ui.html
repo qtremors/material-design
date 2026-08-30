@@ -1,128 +1,92 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Design, style, and review framework-free web interfaces according to Material Design 3 and Material 3 Expressive foundations.">
-  <title>Material Design UI &amp; UX Design Skill · Material Design</title>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="CSS custom properties tokens, responsive layout breakpoints, interaction states, and accessibility for Material Design 3 on the web.">
+  <title>Material Design UI and UX for Web · Material Design</title>
   <link rel="icon" type="image/svg+xml" href="../../assets/material-design.svg">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,75..125,300..800&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,300..600,0..1,-50..200" rel="stylesheet">
-  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../styles.css"><script src="../../scripts.js" defer></script>
 </head>
-<body class="docs-page skill-page">
-  <header class="site-header">
-    <a class="brand" href="../../" aria-label="Documentation home"><img src="../../assets/material-design.svg" alt="" width="44" height="44"><span>Material Design</span></a>
-    <nav aria-label="Skill navigation"><a href="../../projects/web.html">Web project</a><a href="../android/material-design-development.html">Android</a><a class="nav-action" href="../../#skills">All skills</a></nav>
-  </header>
+<body class="docs-page">
+  <header class="site-header"><a class="brand" href="../../index.html" aria-label="Documentation home"><img src="../../assets/material-design.svg" alt="" width="44" height="44"><span>Material Design</span></a><nav aria-label="Skill navigation"><a href="material-expressive-development.html">Web development</a><a href="../android/material-design-development.html">Android skill</a><a class="nav-action" href="../../index.html#skills">All skills</a></nav></header>
   <main>
-    <section class="docs-hero skill-hero"><p class="eyebrow">Web skill</p><h1>Material Design UI &amp; UX Design Skill</h1><p>Design, style, and review framework-free web interfaces according to Material Design 3 and Material 3 Expressive foundations.</p></section>
-    <article class="docs-article skill-article"><p>This skill defines the visual language and user-experience standards for the independent web implementation. Use it with <a href="material-expressive-development.html"><code>material-expressive-development.html</code></a>, the <a href="../../material-3-expressive-development.html">web development guide</a>, and the <a href="https://github.com/qtremors/material-design/blob/main/skills/web/material-design-ui.md">Markdown version</a> for agents and harnesses.</p>
-<p>The Android app is a UI/UX reference only. Do not copy Compose APIs, state models, or source code into web components.</p>
-<h2>1. Visual Language &amp; Aesthetics</h2>
-<p>Use Material 3 foundations and add expressive emphasis deliberately. Visual novelty must not weaken hierarchy, state clarity, accessibility, or task completion.</p>
-<ul>
-<li><strong>The Color System</strong>: Everything is driven by design tokens.<ul>
-<li><strong>Token Compliance</strong>: Use semantic custom properties for product UI. Raw colors are acceptable only inside token definitions, illustrations, or isolated test fixtures.</li>
-<li><strong>Usage</strong>: Components must use <code>--md-sys-color-*</code> tokens (e.g., <code>on-surface-variant</code>, <code>primary-container</code>).</li>
-</ul>
-</li>
-<li><strong>Typography</strong>: Establish a clear, consistent hierarchy.<ul>
-<li><strong>Headline/Title</strong>: Use <code>Roboto</code> (Standard) or <code>Roboto Flex</code> (Expressive) for emphasis.</li>
-<li><strong>Body/Label</strong>: Use <code>Roboto</code> for clarity.</li>
-</ul>
-</li>
-<li><strong>Surfaces</strong>: Choose surface-container roles by hierarchy and contrast, not decoration alone.</li>
-<li><strong>Themes</strong>: Support light and dark color schemes. Treat any OLED treatment as a project option, not a Material requirement.</li>
-</ul>
-<h2>2. Typography &amp; Hierarchy</h2>
-<p>Typography in MD3 is not just about size; it&#39;s about communicative weight and structure.</p>
-<ul>
-<li><strong>Font Families</strong>:<ul>
-<li><strong>Standard</strong>: <code>Roboto</code> (Default).</li>
-<li><strong>Expressive</strong>: <code>Roboto Flex</code> (Variable). Used when <code>data-style=&quot;expressive&quot;</code> is active.</li>
-</ul>
-</li>
-<li><strong>The Type Scale</strong>:<ul>
-<li><strong>Display</strong>: High-emphasis screens (e.g., Hero headers).</li>
-<li><strong>Headline</strong>: Page titles.</li>
-<li><strong>Title</strong>: Card headers.</li>
-<li><strong>Body</strong>: Readable content (<code>16px</code> base).</li>
-<li><strong>Label</strong>: Small metadata/buttons.</li>
-</ul>
-</li>
-<li><strong>Expressive Type</strong>:<ul>
-<li>Leverage <code>font-variation-settings: &#39;wdth&#39; 115</code> on <code>Roboto Flex</code> for dynamic headers.</li>
-</ul>
-</li>
-</ul>
-<h2>3. Layout &amp; Adaptability</h2>
-<p>Designs must be fluid and adapt across all screen sizes.</p>
-<ul>
-<li><strong>Standard Spacing</strong>:<ul>
-<li>Use 8px grid multiples (8px, 16px, 24px, 32px, 48px).</li>
-</ul>
-</li>
-<li><strong>Adaptive Containers</strong>:<ul>
-<li><strong>Compact (&lt; 600px)</strong>: Prioritize one-pane layouts and compact navigation suited to the content.</li>
-<li><strong>Medium (600px–839px)</strong>: Consider navigation rails and additional panes when the task benefits.</li>
-<li><strong>Expanded (≥ 840px)</strong>: Use the space for stronger hierarchy or multi-pane layouts; do not merely stretch compact UI.</li>
-</ul>
-</li>
-<li><strong>Grid Systems</strong>: Use <code>repeat(auto-fill, minmax(300px, 1fr))</code> for responsive dashboards.</li>
-</ul>
-<h2>4. Shapes &amp; Sizing</h2>
-<p>Material Design 3 uses rounder shapes and larger targets than MD2.</p>
-<ul>
-<li><strong>Corner Radiuses</strong>:<ul>
-<li><strong>Buttons</strong>: Full Round (<code>--md-sys-shape-corner-full</code>).</li>
-<li><strong>Cards</strong>: Extra Large (<code>--md-sys-shape-corner-extra-large</code>).</li>
-<li><strong>Standard</strong>: Medium/Large (<code>--md-sys-shape-corner-medium</code>).</li>
-</ul>
-</li>
-<li><strong>Interaction Targets</strong>: Prefer at least <code>48x48px</code> for primary custom controls and never fall below WCAG 2.2 target-size requirements without an applicable exception.</li>
-</ul>
-<h2>5. Elevation &amp; Feedback</h2>
-<p>Elevation is communicated through <strong>Shadows</strong> and <strong>State Layers</strong>.
-<em>Note: In OLED/Dark modes, elevation is often replaced or augmented by borders (<code>outline-variant</code>) for contrast.</em></p>
-<ul>
-<li><strong>Elevation Levels</strong>:<ul>
-<li>Level 0-5 using <code>--md-sys-elevation-*</code>.</li>
-</ul>
-</li>
-<li><strong>Interaction Feedback</strong>:<ul>
-<li><strong>State Feedback</strong>: Provide visible hover, focus, pressed, selected, loading, and disabled states where they apply. A ripple is optional web presentation, not the only state indicator.</li>
-<li><strong>State Layers</strong> (Overlay Opacity):<ul>
-<li><strong>Hover</strong>: 8% (<code>0.08</code>)</li>
-<li><strong>Focus/Pressed</strong>: 12% (<code>0.12</code>)</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2>6. Motion &amp; Feel</h2>
-<p>Motion should feel physical and purposeful.</p>
-<ul>
-<li><strong>Duration</strong>: Choose the shortest duration that preserves continuity and comprehension; centralize values as motion tokens.</li>
-<li><strong>Easings</strong>:<ul>
-<li><strong>Standard</strong>: <code>cubic-bezier(0.2, 0, 0, 1)</code>.</li>
-<li><strong>Emphasized</strong>: Use the project&#39;s emphasized motion tokens for enter, exit, and spatial transitions.</li>
-<li><strong>Expressive motion</strong>: Use spring-like motion only where overshoot is safe, interruptible, and covered by reduced-motion behavior.</li>
-</ul>
-</li>
-</ul>
-<h2>7. Review Checklist</h2>
-<p>Before finalizing a web surface, verify:</p>
-<ol>
-<li>Semantic color roles remain legible in light, dark, forced-colors, and high-contrast conditions.</li>
-<li>Typography, spacing, and shape communicate hierarchy without relying on color alone.</li>
-<li>Every interactive state has clear visual and semantic feedback, including visible keyboard focus.</li>
-<li>Motion is interruptible, respects <code>prefers-reduced-motion</code>, and never delays the core action.</li>
-<li>The layout reflows at 200% zoom and across compact, medium, and expanded viewports without losing content or state.</li>
-</ol>
-</article>
+    <section class="docs-hero skill-hero"><p class="eyebrow">Web design guide</p><h1>Material Design UI and UX for Web</h1><p>Learn how to implement Material Design 3 design tokens, responsive breakpoints, semantic HTML, and accessibility standards for the browser.</p></section>
+    <div class="docs-layout">
+      <aside class="docs-toc"><strong>On this page</strong><a href="#tokens">Design tokens</a><a href="#responsive">Responsive layout</a><a href="#states">Interaction states</a><a href="#accessibility">Accessibility (WCAG)</a></aside>
+      <article class="docs-article skill-article">
+        <section id="tokens"><p class="eyebrow">Design tokens</p><h2>CSS Custom Properties token architecture</h2>
+          <pre class="code-block"><code>:root {
+  /* Color Roles - Light Scheme */
+  --md-sys-color-primary: #00639b;
+  --md-sys-color-on-primary: #ffffff;
+  --md-sys-color-primary-container: #cee5ff;
+  --md-sys-color-on-primary-container: #001d33;
+
+  --md-sys-color-surface: #f8f9ff;
+  --md-sys-color-on-surface: #191c20;
+  --md-sys-color-surface-container: #eceef4;
+  --md-sys-color-surface-container-high: #e6e8ee;
+
+  --md-sys-color-outline: #73777f;
+
+  /* Typography Scale */
+  --md-sys-typescale-display-large: 400 3.5rem / 4rem 'Roboto Flex', sans-serif;
+  --md-sys-typescale-title-medium: 500 1rem / 1.5rem 'Roboto Flex', sans-serif;
+  --md-sys-typescale-body-large: 400 1rem / 1.5rem 'Roboto Flex', sans-serif;
+
+  /* Shapes & Motion */
+  --md-sys-shape-corner-medium: 12px;
+  --md-sys-shape-corner-full: 9999px;
+  --md-sys-motion-easing-emphasized: cubic-bezier(0.2, 0, 0, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --md-sys-color-primary: #97cbff;
+    --md-sys-color-on-primary: #003355;
+    --md-sys-color-primary-container: #004b77;
+    --md-sys-color-surface: #101418;
+    --md-sys-color-on-surface: #e1e2e8;
+    --md-sys-color-surface-container: #1d2024;
+  }
+}</code></pre>
+        </section>
+
+        <section id="responsive"><p class="eyebrow">Responsive layout</p><h2>Viewport breakpoints and reflow</h2>
+          <div class="compact-grid">
+            <article><h3>Compact (&lt; 600px)</h3><p>Single-column flow, bottom sheets, full-width actions, and collapsible navigation drawer.</p></article>
+            <article><h3>Medium (600–839px)</h3><p>Two-column grid layout, persistent navigation rail or header, and fluid container sizing.</p></article>
+            <article><h3>Expanded (840–1199px)</h3><p>Multi-column layout, persistent navigation, and master-detail split views.</p></article>
+            <article><h3>Large (1200px+)</h3><p>Constrained maximum reading width (e.g. <code>max-width: 1280px</code>) to maintain comfortable line lengths.</p></article>
+          </div>
+        </section>
+
+        <section id="states"><p class="eyebrow">Interaction states</p><h2>Semantic HTML and visible focus</h2>
+          <ul class="document-list">
+            <li><strong>Native Controls First:</strong> Use semantic elements (<code>&lt;button&gt;</code>, <code>&lt;dialog&gt;</code>, <code>&lt;details&gt;</code>) before building custom ARIA widgets.</li>
+            <li><strong>Full State Matrix:</strong> Style <code>:hover</code>, <code>:focus-visible</code>, <code>:active</code>, <code>:disabled</code>, and <code>[aria-selected="true"]</code>.</li>
+            <li><strong>Unobscured Focus:</strong> Provide a clear 2px outline for keyboard focus:
+              <pre class="code-block"><code>:focus-visible {
+  outline: 2px solid var(--md-sys-color-primary);
+  outline-offset: 2px;
+}</code></pre>
+            </li>
+          </ul>
+        </section>
+
+        <section id="accessibility"><p class="eyebrow">Accessibility (WCAG)</p><h2>Inclusive web experiences</h2>
+          <ul class="document-list">
+            <li><strong>Touch Targets:</strong> Maintain minimum 48x48 CSS pixel hit targets for interactive elements.</li>
+            <li><strong>Color Contrast:</strong> Guarantee 4.5:1 text contrast and 3:1 non-text contrast in both light and dark themes.</li>
+            <li><strong>Reduced Motion:</strong> Respect <code>prefers-reduced-motion</code> by disabling long transitions while preserving instant state changes.</li>
+            <li><strong>Zoom Support:</strong> Ensure layouts function without horizontal scrolling at 200% browser text magnification.</li>
+          </ul>
+        </section>
+      </article>
+    </div>
   </main>
-  <footer><img src="../../assets/material-design.svg" alt="" width="32" height="32"><p>Web-specific Material 3 Expressive guidance.</p><a href="../../#skills">All skills</a></footer>
+  <footer><img src="../../assets/material-design.svg" alt="" width="32" height="32"><p>Comprehensive Material Design 3 web UI and UX guidelines.</p><a href="../../index.html">Documentation home</a></footer>
 </body>
 </html>
