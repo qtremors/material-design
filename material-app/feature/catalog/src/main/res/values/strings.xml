@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="catalog_filter_all">All</string>
+    <string name="catalog_empty_title">No matches found</string>
+    <string name="catalog_empty_hint">Try an official component name, category, or alias.</string>
+    <string name="catalog_add_bookmark_content_description">Bookmark</string>
+    <string name="catalog_remove_bookmark_content_description">Remove bookmark</string>
+    <string name="catalog_badge_custom_component">Custom Component</string>
+    <string name="catalog_badge_official_api">Official API</string>
+    <string name="catalog_badge_m3_expressive">M3 Expressive</string>
+    <string name="catalog_badge_experimental">Experimental</string>
+</resources>

@@ -1,12 +1,17 @@
 package dev.qtremors.material.samples.actions
 
 import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
@@ -23,6 +28,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.icons.filled.Edit
@@ -35,19 +42,28 @@ import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.ExtendedFloatingActionButton
+import androidx.compose.material3.FilledIconButton
+import androidx.compose.material3.FilledIconToggleButton
 import androidx.compose.material3.FilledTonalButton
+import androidx.compose.material3.FilledTonalIconButton
 import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.FloatingActionButtonMenu
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconToggleButton
 import androidx.compose.material3.LargeFloatingActionButton
 import androidx.compose.material3.LoadingIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.OutlinedIconButton
+import androidx.compose.material3.OutlinedIconToggleButton
 import androidx.compose.material3.SmallFloatingActionButton
+import androidx.compose.material3.SplitButton
 import androidx.compose.material3.SplitButtonDefaults
-import androidx.compose.material3.SplitButtonLayout
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.ToggleFloatingActionButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -422,7 +438,7 @@ fun RejectedActionButton(modifier: Modifier = Modifier) {
 fun SplitButtonsSample(modifier: Modifier = Modifier) {
     var expanded by remember { mutableStateOf(false) }
     Column(modifier) {
-        SplitButtonLayout(
+        SplitButton(
             leadingButton = {
                 SplitButtonDefaults.LeadingButton(onClick = {}) {
                     Icon(Icons.Default.Share, contentDescription = null)
@@ -481,5 +497,117 @@ fun FloatingActionButtonsSample(modifier: Modifier = Modifier) {
             modifier = Modifier.align(Alignment.End),
         )
         Spacer(Modifier.height(4.dp))
+    }
+}
+
+@Composable
+fun IconButtonsSample(modifier: Modifier = Modifier) {
+    Column(modifier, verticalArrangement = Arrangement.spacedBy(20.dp)) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceEvenly,
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            IconButton(onClick = {}) {
+                Icon(Icons.Default.Favorite, contentDescription = "Favorite this reference")
+            }
+            FilledIconButton(onClick = {}) {
+                Icon(Icons.Default.Add, contentDescription = "Add a reference")
+            }
+            FilledTonalIconButton(onClick = {}) {
+                Icon(Icons.Default.Edit, contentDescription = "Edit the reference")
+            }
+            OutlinedIconButton(onClick = {}) {
+                Icon(Icons.Default.Share, contentDescription = "Share the reference")
+            }
+        }
+        Text("Icon toggles", style = MaterialTheme.typography.titleMedium)
+        var filledChecked by remember { mutableStateOf(false) }
+        var outlinedChecked by remember { mutableStateOf(false) }
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceEvenly,
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            FilledIconToggleButton(
+                checked = filledChecked,
+                onCheckedChange = { filledChecked = it },
+            ) {
+                Icon(
+                    Icons.Default.Favorite,
+                    contentDescription = if (filledChecked) "Remove from favorites" else "Add to favorites",
+                )
+            }
+            OutlinedIconToggleButton(
+                checked = outlinedChecked,
+                onCheckedChange = { outlinedChecked = it },
+            ) {
+                Icon(
+                    Icons.Default.Check,
+                    contentDescription = if (outlinedChecked) "Marked as done" else "Mark as done",
+                )
+            }
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
+@Composable
+fun FabMenusSample(modifier: Modifier = Modifier) {
+    var menuExpanded by remember { mutableStateOf(false) }
+    val reducedMotion = LocalReducedMotion.current
+    Column(modifier, verticalArrangement = Arrangement.spacedBy(16.dp)) {
+        Text("FAB menu", style = MaterialTheme.typography.titleMedium)
+        Box(
+            Modifier
+                .fillMaxWidth()
+                .height(280.dp),
+        ) {
+            FloatingActionButtonMenu(
+                expanded = menuExpanded,
+                button = {
+                    ToggleFloatingActionButton(
+                        checked = menuExpanded,
+                        onCheckedChange = { menuExpanded = it },
+                    ) {
+                        val rotation by animateFloatAsState(
+                            targetValue = if (menuExpanded) 45f else 0f,
+                            label = "fab menu toggle rotation",
+                        )
+                        Icon(
+                            imageVector = Icons.Default.Add,
+                            contentDescription = if (menuExpanded) "Close menu" else "Open menu",
+                            modifier = Modifier.graphicsLayer { rotationZ = rotation },
+                        )
+                    }
+                },
+                modifier = Modifier.align(Alignment.BottomEnd),
+            ) {
+                androidx.compose.animation.AnimatedVisibility(
+                    visible = menuExpanded,
+                    enter = if (reducedMotion) EnterTransition.None else fadeIn() + expandVertically(),
+                    exit = if (reducedMotion) ExitTransition.None else fadeOut() + shrinkVertically(),
+                ) {
+                    ExtendedFloatingActionButton(
+                        onClick = {},
+                        icon = { Icon(Icons.Default.Edit, contentDescription = null) },
+                        text = { Text("New note") },
+                        modifier = Modifier.padding(4.dp),
+                    )
+                }
+                androidx.compose.animation.AnimatedVisibility(
+                    visible = menuExpanded,
+                    enter = if (reducedMotion) EnterTransition.None else fadeIn() + expandVertically(),
+                    exit = if (reducedMotion) ExitTransition.None else fadeOut() + shrinkVertically(),
+                ) {
+                    ExtendedFloatingActionButton(
+                        onClick = {},
+                        icon = { Icon(Icons.Default.Share, contentDescription = null) },
+                        text = { Text("Share note") },
+                        modifier = Modifier.padding(4.dp),
+                    )
+                }
+            }
+        }
     }
 }

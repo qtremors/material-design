@@ -1,122 +1,424 @@
 package dev.qtremors.material.feature.settings
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
+import androidx.compose.material.icons.filled.AutoAwesome
+import androidx.compose.material.icons.filled.Bookmark
+import androidx.compose.material.icons.filled.DeleteSweep
+import androidx.compose.material.icons.filled.Expand
+import androidx.compose.material.icons.filled.History
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.MotionPhotosOff
+import androidx.compose.material.icons.filled.Palette
+import androidx.compose.material.icons.filled.Vibration
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.ListItem
+import androidx.compose.material3.LargeTopAppBar
+import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SegmentedListItem
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import dev.qtremors.material.core.data.AppSettings
-import dev.qtremors.material.core.data.MotionMode
-import dev.qtremors.material.core.data.ThemeMode
+import dev.qtremors.material.core.designsystem.MaterialListSurface
+import dev.qtremors.material.core.designsystem.ThemePreset
+import dev.qtremors.material.core.designsystem.ThemeState
+import dev.qtremors.material.core.designsystem.expressiveSegmentedShapes
 
-@OptIn(ExperimentalMaterial3Api::class)
+/** Destructive library actions that require confirmation. */
+private enum class ConfirmAction { BOOKMARKS, RECENT }
+
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun SettingsScreen(
     settings: AppSettings,
+    appVersion: String,
+    material3Version: String,
     bookmarkCount: Int,
     recentCount: Int,
-    onThemeModeChange: (ThemeMode) -> Unit,
-    onDynamicColorChange: (Boolean) -> Unit,
-    onMotionModeChange: (MotionMode) -> Unit,
+    onThemeStateChange: (ThemeState) -> Unit,
     onClearBookmarks: () -> Unit,
     onClearRecent: () -> Unit,
+    onNavigateToAbout: () -> Unit = {},
     onBack: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
-    var confirmAction by remember { mutableStateOf<String?>(null) }
+    var confirmAction by rememberSaveable { mutableStateOf<ConfirmAction?>(null) }
+    val theme = settings.themeState
+    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
+
     Scaffold(
-        topBar = { TopAppBar(title = { Text("Settings") }, navigationIcon = { IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Filled.ArrowBack, "Back") } }) },
+        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        topBar = {
+            LargeTopAppBar(
+                title = {
+                    Text(
+                        text = stringResource(R.string.settings_title),
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        fontWeight = FontWeight.Bold,
+                    )
+                },
+                navigationIcon = {
+                    Surface(
+                        shape = CircleShape,
+                        color = MaterialTheme.colorScheme.surfaceContainerHigh,
+                        modifier = Modifier
+                            .padding(start = 12.dp)
+                            .size(40.dp),
+                    ) {
+                        IconButton(onClick = onBack) {
+                            Icon(
+                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                                contentDescription = stringResource(R.string.settings_back),
+                                tint = MaterialTheme.colorScheme.onSurface,
+                            )
+                        }
+                    }
+                },
+                scrollBehavior = scrollBehavior,
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.background,
+                    scrolledContainerColor = MaterialTheme.colorScheme.surfaceContainer.copy(alpha = 0.95f),
+                ),
+            )
+        },
     ) { padding ->
-        Column(
-            Modifier.fillMaxSize().padding(padding).verticalScroll(rememberScrollState()).padding(bottom = 24.dp),
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(padding)
+                .padding(horizontal = 16.dp),
+            contentPadding = PaddingValues(top = 16.dp, bottom = 48.dp),
+            verticalArrangement = Arrangement.spacedBy(24.dp),
         ) {
-            SectionTitle("Appearance")
-            ThemeMode.entries.forEach { mode ->
-                ListItem(
-                    headlineContent = { Text(mode.name.lowercase().replaceFirstChar(Char::uppercase)) },
-                    leadingContent = { RadioButton(selected = settings.themeMode == mode, onClick = { onThemeModeChange(mode) }) },
-                )
+            // Appearance Section
+            item {
+                SettingsSection(title = stringResource(R.string.settings_section_appearance)) {
+                    MaterialListSurface {
+                        ThemeModeSelector(
+                            currentMode = theme.themeMode,
+                            onModeSelected = { onThemeStateChange(theme.copy(themeMode = it)) },
+                        )
+                    }
+
+                    MaterialListSurface {
+                        ThemePresetSelector(
+                            currentPreset = theme.themePreset,
+                            onPresetSelected = { onThemeStateChange(theme.copy(themePreset = it)) },
+                        )
+                    }
+
+                    if (theme.themePreset == ThemePreset.CUSTOM) {
+                        MaterialListSurface {
+                            CustomThemeCreatorPanel(
+                                themeState = theme,
+                                onThemeChange = onThemeStateChange,
+                            )
+                        }
+                    }
+
+                    if (theme.themePreset == ThemePreset.NONE) {
+                        MaterialListSurface {
+                            AccentColorSelector(
+                                currentAccent = theme.accentColor,
+                                onAccentSelected = { onThemeStateChange(theme.copy(accentColor = it)) },
+                            )
+                        }
+                    }
+
+                    Column(verticalArrangement = Arrangement.spacedBy(ListItemDefaults.SegmentedGap)) {
+                        SettingsSwitchRow(
+                            index = 0,
+                            count = 2,
+                            title = stringResource(R.string.settings_harmonize_colors),
+                            description = stringResource(R.string.settings_harmonize_colors_description),
+                            checked = theme.harmonizeColors,
+                            leadingIcon = Icons.Default.Palette,
+                            onCheckedChange = { onThemeStateChange(theme.copy(harmonizeColors = it)) },
+                        )
+
+                        SettingsSwitchRow(
+                            index = 1,
+                            count = 2,
+                            title = stringResource(R.string.settings_vibrations),
+                            description = stringResource(R.string.settings_vibrations_description),
+                            checked = theme.vibrationsEnabled,
+                            leadingIcon = Icons.Default.Vibration,
+                            onCheckedChange = { onThemeStateChange(theme.copy(vibrationsEnabled = it)) },
+                        )
+                    }
+                }
             }
-            ListItem(
-                headlineContent = { Text("Dynamic color") },
-                supportingContent = { Text("Use the device color scheme on Android 12 and newer") },
-                trailingContent = { Switch(checked = settings.dynamicColor, onCheckedChange = onDynamicColorChange) },
-            )
-            HorizontalDivider()
-            SectionTitle("Motion")
-            ListItem(
-                headlineContent = { Text("Reduce app motion") },
-                supportingContent = { Text("Demos should avoid decorative motion when enabled") },
-                trailingContent = { Switch(checked = settings.motionMode == MotionMode.REDUCED, onCheckedChange = { onMotionModeChange(if (it) MotionMode.REDUCED else MotionMode.SYSTEM) }) },
-            )
-            HorizontalDivider()
-            SectionTitle("Library")
-            ListItem(
-                headlineContent = { Text("Clear bookmarks") },
-                supportingContent = { Text("$bookmarkCount saved components") },
-                modifier = Modifier.fillMaxWidth(),
-                trailingContent = { TextButton(onClick = { confirmAction = "bookmarks" }, enabled = bookmarkCount > 0) { Text("Clear") } },
-            )
-            ListItem(
-                headlineContent = { Text("Clear recent history") },
-                supportingContent = { Text("$recentCount recently viewed components") },
-                trailingContent = { TextButton(onClick = { confirmAction = "recent" }, enabled = recentCount > 0) { Text("Clear") } },
-            )
-            HorizontalDivider()
-            SectionTitle("About")
-            ListItem(headlineContent = { Text("Material Design") }, supportingContent = { Text("Version 2.0.0") })
-            ListItem(headlineContent = { Text("Catalog snapshot") }, supportingContent = { Text("Material 3 1.5.0-alpha23 · stable baseline 1.4.0") })
-            ListItem(headlineContent = { Text("License") }, supportingContent = { Text("MIT") })
+
+            // Browsing & Catalog Section
+            item {
+                SettingsSection(title = stringResource(R.string.settings_section_browsing_layout)) {
+                    Column(verticalArrangement = Arrangement.spacedBy(ListItemDefaults.SegmentedGap)) {
+                        SettingsSwitchRow(
+                            index = 0,
+                            count = 2,
+                            title = stringResource(R.string.settings_expandable_app_bars),
+                            description = stringResource(R.string.settings_expandable_app_bars_description),
+                            checked = theme.expandableAppBar,
+                            leadingIcon = Icons.Default.Expand,
+                            onCheckedChange = { onThemeStateChange(theme.copy(expandableAppBar = it)) },
+                        )
+
+                        SettingsSwitchRow(
+                            index = 1,
+                            count = 2,
+                            title = stringResource(R.string.settings_catalog_badges),
+                            description = stringResource(R.string.settings_catalog_badges_description),
+                            checked = theme.showBadges,
+                            leadingIcon = Icons.Default.AutoAwesome,
+                            onCheckedChange = { onThemeStateChange(theme.copy(showBadges = it)) },
+                        )
+                    }
+                }
+            }
+
+            // Motion Section
+            item {
+                SettingsSection(title = stringResource(R.string.settings_section_motion)) {
+                    Column(verticalArrangement = Arrangement.spacedBy(ListItemDefaults.SegmentedGap)) {
+                        SettingsSwitchRow(
+                            index = 0,
+                            count = 1,
+                            title = stringResource(R.string.settings_reduce_app_motion),
+                            description = stringResource(R.string.settings_reduce_app_motion_description),
+                            checked = theme.reducedMotion,
+                            leadingIcon = Icons.Default.MotionPhotosOff,
+                            onCheckedChange = { onThemeStateChange(theme.copy(reducedMotion = it)) },
+                        )
+                    }
+                }
+            }
+
+            // Library & History Section
+            item {
+                SettingsSection(title = stringResource(R.string.settings_section_library_history)) {
+                    Column(verticalArrangement = Arrangement.spacedBy(ListItemDefaults.SegmentedGap)) {
+                        SegmentedListItem(
+                            onClick = { confirmAction = ConfirmAction.BOOKMARKS },
+                            enabled = bookmarkCount > 0,
+                            shapes = expressiveSegmentedShapes(index = 0, count = 2),
+                            leadingContent = {
+                                Box(modifier = Modifier.fillMaxHeight(), contentAlignment = Alignment.Center) {
+                                    Icon(
+                                        Icons.Default.Bookmark,
+                                        contentDescription = null,
+                                        tint = if (bookmarkCount > 0) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f),
+                                    )
+                                }
+                            },
+                            supportingContent = { Text(stringResource(R.string.settings_bookmarks_count_subtitle, bookmarkCount)) },
+                            trailingContent = {
+                                Box(modifier = Modifier.fillMaxHeight(), contentAlignment = Alignment.Center) {
+                                    Icon(
+                                        Icons.Default.DeleteSweep,
+                                        contentDescription = null,
+                                        tint = if (bookmarkCount > 0) MaterialTheme.colorScheme.onSurfaceVariant else MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.38f),
+                                    )
+                                }
+                            },
+                            colors = ListItemDefaults.segmentedColors(
+                                containerColor = MaterialTheme.colorScheme.surfaceContainer,
+                                disabledContainerColor = MaterialTheme.colorScheme.surfaceContainer,
+                            ),
+                            content = { Text(stringResource(R.string.settings_clear_bookmarks)) },
+                            modifier = Modifier.height(IntrinsicSize.Min),
+                        )
+                        SegmentedListItem(
+                            onClick = { confirmAction = ConfirmAction.RECENT },
+                            enabled = recentCount > 0,
+                            shapes = expressiveSegmentedShapes(index = 1, count = 2),
+                            leadingContent = {
+                                Box(modifier = Modifier.fillMaxHeight(), contentAlignment = Alignment.Center) {
+                                    Icon(
+                                        Icons.Default.History,
+                                        contentDescription = null,
+                                        tint = if (recentCount > 0) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f),
+                                    )
+                                }
+                            },
+                            supportingContent = { Text(stringResource(R.string.settings_recent_count_subtitle, recentCount)) },
+                            trailingContent = {
+                                Box(modifier = Modifier.fillMaxHeight(), contentAlignment = Alignment.Center) {
+                                    Icon(
+                                        Icons.Default.DeleteSweep,
+                                        contentDescription = null,
+                                        tint = if (recentCount > 0) MaterialTheme.colorScheme.onSurfaceVariant else MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.38f),
+                                    )
+                                }
+                            },
+                            colors = ListItemDefaults.segmentedColors(
+                                containerColor = MaterialTheme.colorScheme.surfaceContainer,
+                                disabledContainerColor = MaterialTheme.colorScheme.surfaceContainer,
+                            ),
+                            content = { Text(stringResource(R.string.settings_clear_recent_history)) },
+                            modifier = Modifier.height(IntrinsicSize.Min),
+                        )
+                    }
+                }
+            }
+
+            // Info Section
+            item {
+                SettingsSection(title = stringResource(R.string.settings_section_info)) {
+                    Column(verticalArrangement = Arrangement.spacedBy(ListItemDefaults.SegmentedGap)) {
+                        SegmentedListItem(
+                            onClick = onNavigateToAbout,
+                            shapes = expressiveSegmentedShapes(index = 0, count = 1),
+                            leadingContent = {
+                                Box(modifier = Modifier.fillMaxHeight(), contentAlignment = Alignment.Center) {
+                                    Icon(Icons.Default.Info, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
+                                }
+                            },
+                            supportingContent = {
+                                Text(stringResource(R.string.settings_about_row_subtitle, appVersion, material3Version))
+                            },
+                            colors = ListItemDefaults.segmentedColors(
+                                containerColor = MaterialTheme.colorScheme.surfaceContainer,
+                                disabledContainerColor = MaterialTheme.colorScheme.surfaceContainer,
+                            ),
+                            content = { Text(stringResource(R.string.settings_about_entry)) },
+                            modifier = Modifier.height(IntrinsicSize.Min),
+                        )
+                    }
+                }
+            }
         }
     }
+
     if (confirmAction != null) {
+        val isBookmarksAction = confirmAction == ConfirmAction.BOOKMARKS
         AlertDialog(
             onDismissRequest = { confirmAction = null },
-            title = { Text("Clear ${confirmAction}?") },
-            text = { Text("This removes only local app data and cannot be undone.") },
+            title = {
+                Text(
+                    stringResource(
+                        if (isBookmarksAction) {
+                            R.string.settings_clear_bookmarks_dialog_title
+                        } else {
+                            R.string.settings_clear_recent_history_dialog_title
+                        },
+                    ),
+                )
+            },
+            text = { Text(stringResource(R.string.settings_clear_dialog_message)) },
             confirmButton = {
                 TextButton(onClick = {
-                    if (confirmAction == "bookmarks") onClearBookmarks() else onClearRecent()
+                    if (isBookmarksAction) onClearBookmarks() else onClearRecent()
                     confirmAction = null
-                }) { Text("Clear") }
+                }) { Text(stringResource(R.string.settings_dialog_confirm)) }
             },
-            dismissButton = { TextButton(onClick = { confirmAction = null }) { Text("Cancel") } },
+            dismissButton = { TextButton(onClick = { confirmAction = null }) { Text(stringResource(R.string.settings_dialog_cancel)) } },
         )
     }
 }
 
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
-private fun SectionTitle(text: String) {
-    Text(
-        text,
-        modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 20.dp, bottom = 8.dp),
-        style = MaterialTheme.typography.titleMedium,
-        color = MaterialTheme.colorScheme.primary,
-        fontWeight = FontWeight.Bold,
+private fun SettingsSwitchRow(
+    index: Int = 0,
+    count: Int = 1,
+    title: String,
+    description: String,
+    checked: Boolean,
+    leadingIcon: ImageVector? = null,
+    enabled: Boolean = true,
+    onCheckedChange: (Boolean) -> Unit,
+) {
+    SegmentedListItem(
+        checked = checked,
+        onCheckedChange = onCheckedChange,
+        enabled = enabled,
+        shapes = expressiveSegmentedShapes(index = index, count = count),
+        leadingContent = if (leadingIcon != null) {
+            {
+                Box(
+                    modifier = Modifier.fillMaxHeight(),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    Icon(
+                        imageVector = leadingIcon,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.primary,
+                    )
+                }
+            }
+        } else null,
+        content = { Text(title) },
+        supportingContent = { Text(description) },
+        trailingContent = {
+            Box(
+                modifier = Modifier.fillMaxHeight(),
+                contentAlignment = Alignment.Center,
+            ) {
+                dev.qtremors.material.core.designsystem.ExpressiveSwitch(
+                    checked = checked,
+                    onCheckedChange = null,
+                    enabled = enabled,
+                )
+            }
+        },
+        colors = ListItemDefaults.segmentedColors(
+            containerColor = MaterialTheme.colorScheme.surfaceContainer,
+            disabledContainerColor = MaterialTheme.colorScheme.surfaceContainer,
+        ),
+        modifier = Modifier.height(IntrinsicSize.Min),
     )
+}
+
+@Composable
+private fun SettingsSection(
+    title: String,
+    content: @Composable () -> Unit,
+) {
+    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        Text(
+            text = title,
+            style = MaterialTheme.typography.titleMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.padding(start = 4.dp, bottom = 4.dp, top = 4.dp),
+        )
+        Column(
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            content = { content() },
+        )
+    }
 }

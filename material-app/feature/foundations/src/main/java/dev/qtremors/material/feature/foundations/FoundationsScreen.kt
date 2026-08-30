@@ -12,6 +12,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import dev.qtremors.material.core.catalog.CatalogEntry
@@ -21,16 +22,22 @@ fun FoundationsScreen(
     entries: List<CatalogEntry>,
     onEntryClick: (String) -> Unit,
     modifier: Modifier = Modifier,
+    contentPadding: PaddingValues = PaddingValues(0.dp),
 ) {
     LazyColumn(
         modifier = modifier.fillMaxSize(),
-        contentPadding = PaddingValues(20.dp),
+        contentPadding = PaddingValues(
+            start = 20.dp,
+            end = 20.dp,
+            top = contentPadding.calculateTopPadding() + 16.dp,
+            bottom = contentPadding.calculateBottomPadding() + 24.dp,
+        ),
         verticalArrangement = Arrangement.spacedBy(14.dp),
     ) {
         item {
-            Text("Foundations", style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
+            Text(stringResource(R.string.foundations_title), style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
             Text(
-                "Inspectable foundations appear here only when a working reference exists.",
+                stringResource(R.string.foundations_subtitle),
                 modifier = Modifier.padding(top = 6.dp, bottom = 10.dp),
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )

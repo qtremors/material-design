@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="detail_tab_preview">Preview</string>
+    <string name="detail_tab_guidance">Guidance</string>
+    <string name="detail_tab_inspect">Inspect</string>
+    <string name="detail_tab_api">API</string>
+
+    <string name="detail_back_content_description">Back</string>
+    <string name="detail_add_bookmark_content_description">Bookmark</string>
+    <string name="detail_remove_bookmark_content_description">Remove bookmark</string>
+
+    <string name="detail_badge_custom_component">Custom Component</string>
+    <string name="detail_badge_official_api">Official API</string>
+    <string name="detail_badge_m3_expressive">M3 Expressive</string>
+    <string name="detail_badge_experimental_api">Experimental API</string>
+    <string name="detail_aliases">Also find: %1$s</string>
+
+    <string name="detail_preview_title">Interactive reference</string>
+
+    <string name="detail_guidance_title">Design guidance</string>
+    <string name="detail_guidance_purpose_label">Purpose</string>
+    <string name="detail_guidance_use_when_title">Use when</string>
+    <string name="detail_guidance_avoid_when_title">Avoid when</string>
+    <string name="detail_guidance_behavior_title">Behavior and feeling</string>
+    <string name="detail_guidance_accessibility_title">Accessibility</string>
+    <string name="detail_guidance_adaptive_title">Adaptive layouts</string>
+
+    <string name="detail_inspect_title">Implementation reference</string>
+    <string name="detail_inspect_stable_id_label">Stable ID</string>
+    <string name="detail_inspect_category_label">Category</string>
+    <string name="detail_inspect_kind_label">Kind</string>
+    <string name="detail_inspect_implementation_label">Implementation</string>
+    <string name="detail_inspect_reviewed_label">Reviewed</string>
+    <string name="detail_expected_behavior_title">Expected behavior</string>
+    <string name="detail_expected_behavior_body">State is hoisted, touch targets remain accessible, labels are semantic, and layouts must survive compact through expanded windows and increased font scales.</string>
+
+    <string name="detail_api_title">Official APIs</string>
+    <string name="detail_copy_symbol_content_description">Copy API symbol</string>
+    <string name="detail_open_official_api_content_description">Open official API</string>
+    <string name="detail_artifact_version">%1$s:%2$s</string>
+    <string name="detail_availability_and_stability">%1$s · %2$s</string>
+    <string name="detail_availability_stable_artifact">Stable artifact</string>
+    <string name="detail_availability_alpha_only">Alpha only</string>
+    <string name="detail_stability_stable">Stable API</string>
+    <string name="detail_stability_experimental">Experimental API</string>
+    <string name="detail_opt_in_label">Opt in: %1$s</string>
+    <string name="detail_repository_source_title">Repository source</string>
+    <string name="detail_copy_path_content_description">Copy source path</string>
+    <string name="detail_clip_label_symbol">API symbol</string>
+    <string name="detail_clip_label_path">Source path</string>
+</resources>

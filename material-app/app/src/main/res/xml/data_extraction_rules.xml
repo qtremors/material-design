@@ -1,19 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?><!--
-   Sample data extraction rules file; uncomment and customize as necessary.
-   See https://developer.android.com/about/versions/12/backup-restore#xml-changes
-   for details.
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Data extraction rules for API 31+.
+
+  Policy: the DataStore preferences file that holds bookmarks, recents, and
+  theme settings is device-local and intentionally excluded from both cloud
+  backups and device-to-device transfers. Add new preference files here so
+  backup behavior stays explicit instead of undefined-by-default.
 -->
 <data-extraction-rules>
     <cloud-backup>
-        <!-- TODO: Use <include> and <exclude> to control what is backed up.
-        <include .../>
-        <exclude .../>
-        -->
+        <exclude domain="file" path="datastore/material_reference.preferences_pb" />
     </cloud-backup>
-    <!--
     <device-transfer>
-        <include .../>
-        <exclude .../>
+        <exclude domain="file" path="datastore/material_reference.preferences_pb" />
     </device-transfer>
-    -->
 </data-extraction-rules>

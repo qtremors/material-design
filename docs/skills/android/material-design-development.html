@@ -1,79 +1,125 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Develop and review the Material Design Android app references, including architecture, demos, terminology, theming, and porting constraints.">
-  <title>Material Design Android Development</title>
-  <link rel="icon" type="image/png" href="../../assets/material-design.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Architecture, state management, theming, navigation, accessibility, and testing for Material Design 3 Android apps.">
+  <title>Material Design Android Development · Material Design</title>
+  <link rel="icon" type="image/svg+xml" href="../../assets/material-design.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,75..125,300..800&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,300..600,0..1,-50..200" rel="stylesheet">
-  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../styles.css"><script src="../../scripts.js" defer></script>
 </head>
-<body class="docs-page skill-page">
-  <header class="site-header">
-    <a class="brand" href="../../" aria-label="Documentation home"><img src="../../assets/material-design.png" alt="" width="44" height="44"><span>Material Design</span></a>
-    <nav aria-label="Skill navigation"><a href="../../projects/android.html">Android project</a><a href="../web/material-expressive-development.html">Web</a><a class="nav-action" href="../../#skills">All skills</a></nav>
-  </header>
+<body class="docs-page">
+  <header class="site-header"><a class="brand" href="../../index.html" aria-label="Documentation home"><img src="../../assets/material-design.svg" alt="" width="44" height="44"><span>Material Design</span></a><nav aria-label="Skill navigation"><a href="material-expressive-design.html">Expressive design</a><a href="dependencies.html">Build and dependencies</a><a class="nav-action" href="../../index.html#skills">All skills</a></nav></header>
   <main>
-    <section class="docs-hero skill-hero"><p class="eyebrow">Android skill</p><h1>Material Design Android Development</h1><p>Develop and review the Material Design Android app references, including architecture, demos, terminology, theming, and porting constraints.</p></section>
-    <article class="docs-article skill-article"><p>Use this skill for work inside <code>material-app/</code>.</p>
-<h2>Project Context</h2>
-<p>The installed <strong>Material Design</strong> app is a living, searchable Material 3 component gallery. The app is the visual truth and its modular repository source is the code truth. A person should be able to search an official component name, experience it, and give that same name or source path to an agent for reuse.</p>
-<p>This is not a course, package store, documentation wrapper, or full-source browser. There are no simulated installs, ratings, accounts, placeholder catalog cards, or lesson progress.</p>
-<h2>Architecture</h2>
-<ul>
-<li><code>app/</code> is the composition root: activity bootstrap, typed navigation, adaptive application shell, ViewModel, and manual dependency container.</li>
-<li><code>core/catalog/</code> owns the versioned JSON catalog, schema, typed models, validation, and deterministic alias/API search.</li>
-<li><code>core/data/</code> owns local bookmarks, the 20 most recent component IDs, appearance settings, and reduced-motion preference through Preferences DataStore.</li>
-<li><code>core/designsystem/</code> owns the app theme, inherited expressive motion specifications, reduced-motion behavior, and cross-cutting Material presentation.</li>
-<li><code>feature/</code> owns Explore, Catalog/Search, APIs, Foundations, Detail, and Settings surfaces.</li>
-<li><code>samples/</code> owns copyable state-hoisted implementations grouped by official domains: Actions, Communication, Containment, Navigation, and Foundations. Add a new domain module only when its first working reference exists.</li>
-</ul>
-<h2>Component Entry Contract</h2>
-<ol>
-<li>Use the official Material component or foundation name. Put older project terms and common abbreviations only in searchable aliases.</li>
-<li>Keep the reusable composable independent of navigation, persistence, and feature ViewModels. Hoist state and callbacks.</li>
-<li>Build a real interactive reference with relevant variants, states, semantics, adaptive behavior, and increased-font support.</li>
-<li>Add exact API artifact/version metadata. Model stable-artifact versus alpha-only availability separately from stable versus experimental API status.</li>
-<li>Register the demo key and repository-relative source path in the bundled catalog. Every visible entry must map to real source and exactly one working demo.</li>
-<li>Add search, source validation, UI, accessibility, and adaptive light/dark coverage before exposing it.</li>
-</ol>
-<h2>Current Official Names</h2>
-<ul>
-<li><strong>Buttons</strong> — aliases include expressive buttons and morphing buttons.</li>
-<li><strong>Split buttons</strong> — <code>SplitButtonLayout</code>.</li>
-<li><strong>Floating action buttons</strong> — aliases include FAB and extended FAB.</li>
-<li><strong>Progress indicators</strong> — aliases include wavy progress indicators.</li>
-<li><strong>Segmented list items</strong> — aliases include grouped lists and segmented sections.</li>
-<li><strong>Carousels</strong> — multi-browse and uncontained variants.</li>
-<li><strong>Floating toolbars</strong> — horizontal and future vertical variants.</li>
-<li><strong>Typography</strong> — dynamic and variable typography remain searchable aliases.</li>
-</ul>
-<h2>Product-Surface Rules</h2>
-<ul>
-<li>Dogfood Material components where their real interaction purpose fits Explore, search, navigation, filters, settings, and details.</li>
-<li>Do not recreate store fiction. “Featured” is curated, “Recently added” comes from catalog metadata, and “Recently viewed” is local history; never invent popularity metrics.</li>
-<li>Keep search global and deterministic. Exact official names and API symbols outrank aliases, categories, and summaries.</li>
-<li>Use adaptive navigation and layouts across compact, medium, and expanded windows. Carousels do not auto-play.</li>
-<li>Retained custom behavior must be labeled <strong>Project implementation</strong>; never present it as an official API.</li>
-</ul>
-<h2>Motion Contract</h2>
-<p>Use <code>core/designsystem/ExpressiveMotion.kt</code> as the source for every explicit project spring value. It preserves the standalone app's distinct medium-bouncy press response, low-bouncy navigation and fluid layout response, no-bounce shape settling, high-stiffness progress smoothing, and rejected-action shake. Do not replace these with anonymous springs in feature code, and do not force every transition onto one shared spec: the compact navigation intentionally retains Material's default size, fade, expansion, collapse, and exit behavior around its custom low-bouncy lift and slide.</p>
-<ul>
-<li>Pressed content scales to <code>0.94</code>; compact navigation lifts the selected icon by <code>12.dp</code>.</li>
-<li>Hold confirmation keeps its 1.5-second safety interval and loading keeps its 1.2-second example interval.</li>
-<li>Reduced motion snaps decorative movement and fades but preserves state changes, callbacks, haptics, and safety timing.</li>
-<li>Cancel or retarget work safely on release, rapid repeat input, disabled-state changes, recomposition, and disposal. Never leave progress or transformed content stranded.</li>
-<li>Keep official carousel, toolbar, progress-indicator, and navigation physics. Project springs supplement their state feedback; they do not impersonate a different official API.</li>
-</ul>
-<h2>Verification</h2>
-<pre><code class="language-powershell">cd material-app
-.\gradlew.bat testDebugUnitTest lintDebug assembleDebug</code></pre>
-<p>Keep the application label <strong>Material Design</strong>, namespace/application ID <code>dev.qtremors.materialdesign</code>, and public version <code>2.0.0</code> unless an explicit version change is requested. Update the root changelog for user-visible changes.</p>
-</article>
+    <section class="docs-hero skill-hero"><p class="eyebrow">Android architecture guide</p><h1>Material Design Android Development</h1><p>Learn how to architect, implement, theme, and test modern Android applications using Material Design 3 and Jetpack Compose.</p></section>
+    <div class="docs-layout">
+      <aside class="docs-toc"><strong>On this page</strong><a href="#architecture">Architecture layers</a><a href="#state">State management & UDF</a><a href="#navigation">Type-safe navigation</a><a href="#theming">Theme integration</a><a href="#components">Component hoisting</a><a href="#accessibility">Accessibility & UX</a><a href="#verification">Testing & Quality</a></aside>
+      <article class="docs-article skill-article">
+        <section id="architecture"><p class="eyebrow">Architecture layers</p><h2>Layered architecture for Compose apps</h2>
+          <div class="compact-grid">
+            <article><h3>UI Layer</h3><p>Composable screens, stateless components, ViewModels holding immutable UI state, and adaptive scaffolds.</p></article>
+            <article><h3>Domain Layer</h3><p>Reusable use cases encapsulating complex business logic and state operations.</p></article>
+            <article><h3>Data Layer</h3><p>Repositories acting as the single source of truth, backed by local (DataStore, Room) or remote (Ktor, Retrofit) data sources.</p></article>
+            <article><h3>Core Design System</h3><p>Centralized <code>MaterialTheme</code>, color palettes, typography scales, shape tokens, and spring motion definitions.</p></article>
+          </div>
+        </section>
+
+        <section id="state"><p class="eyebrow">State management</p><h2>Unidirectional Data Flow (UDF) with StateFlow</h2>
+          <p>Model UI state as immutable data classes and expose them via <code>StateFlow</code>:</p>
+          <pre class="code-block"><code>data class ProfileUiState(
+    val isLoading: Boolean = false,
+    val user: User? = null,
+    val errorMessage: String? = null
+)
+
+class ProfileViewModel(private val repository: UserRepository) : ViewModel() {
+    private val _uiState = MutableStateFlow(ProfileUiState(isLoading = true))
+    val uiState: StateFlow&lt;ProfileUiState&gt; = _uiState.asStateFlow()
+
+    fun loadProfile() {
+        viewModelScope.launch {
+            _uiState.update { it.copy(isLoading = true) }
+            try {
+                val user = repository.getUser()
+                _uiState.update { it.copy(isLoading = false, user = user) }
+            } catch (e: Exception) {
+                _uiState.update { it.copy(isLoading = false, errorMessage = e.message) }
+            }
+        }
+    }
+}</code></pre>
+          <p>Consume state in composables with <code>collectAsStateWithLifecycle()</code> for lifecycle awareness.</p>
+        </section>
+
+        <section id="navigation"><p class="eyebrow">Navigation</p><h2>Type-safe navigation with Kotlinx Serialization</h2>
+          <pre class="code-block"><code>@Serializable object HomeDestination
+@Serializable data class DetailDestination(val itemId: String)
+
+@Composable
+fun AppNavHost(navController: NavHostController) {
+    NavHost(navController = navController, startDestination = HomeDestination) {
+        composable&lt;HomeDestination&gt; {
+            HomeScreen(onItemClick = { id -&gt; navController.navigate(DetailDestination(id)) })
+        }
+        composable&lt;DetailDestination&gt; { entry -&gt;
+            val route: DetailDestination = entry.toRoute()
+            DetailScreen(itemId = route.itemId, onBack = { navController.popBackStack() })
+        }
+    }
+}</code></pre>
+        </section>
+
+        <section id="theming"><p class="eyebrow">Theming</p><h2>MaterialTheme wrapper with dynamic color</h2>
+          <pre class="code-block"><code>@Composable
+fun AppTheme(
+    darkTheme: Boolean = isSystemInDarkTheme(),
+    dynamicColor: Boolean = true,
+    content: @Composable () -> Unit
+) {
+    val colorScheme = when {
+        dynamicColor &amp;&amp; Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.S -&gt; {
+            val context = LocalContext.current
+            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+        }
+        darkTheme -&gt; DarkColorScheme
+        else -&gt; LightColorScheme
+    }
+
+    MaterialTheme(
+        colorScheme = colorScheme,
+        typography = AppTypography,
+        shapes = AppShapes,
+        content = content
+    )
+}</code></pre>
+        </section>
+
+        <section id="components"><p class="eyebrow">Component design</p><h2>State hoisting and reusability</h2>
+          <ul class="document-list">
+            <li><strong>Separate Stateful & Stateless:</strong> Keep reusable UI components stateless (receiving data and emitting event lambdas).</li>
+            <li><strong>Modifier Conventions:</strong> Accept a <code>modifier: Modifier = Modifier</code> as the first optional parameter.</li>
+            <li><strong>No Controller Leaks:</strong> Never pass <code>NavController</code> or <code>ViewModel</code> instances down to child composables.</li>
+          </ul>
+        </section>
+
+        <section id="accessibility"><p class="eyebrow">Accessibility & UX</p><h2>Inclusive design standards</h2>
+          <ul class="document-list">
+            <li><strong>Touch Targets:</strong> Ensure a minimum interactive touch target of 48x48 dp.</li>
+            <li><strong>Semantics:</strong> Provide <code>contentDescription</code> for icon buttons and images; merge compound item semantics.</li>
+            <li><strong>Font Scaling:</strong> Design layouts that support up to 200% system font enlargement without clipping.</li>
+            <li><strong>Edge-to-Edge:</strong> Enable <code>enableEdgeToEdge()</code> and handle window insets gracefully.</li>
+          </ul>
+        </section>
+
+        <section id="verification"><p class="eyebrow">Testing & Quality</p><h2>Automated testing and linting</h2>
+          <pre class="code-block"><code>.\gradlew.bat testDebugUnitTest
+.\gradlew.bat lintDebug
+.\gradlew.bat :app:assembleDebug</code></pre>
+        </section>
+      </article>
+    </div>
   </main>
-  <footer><img src="../../assets/material-design.png" alt="" width="32" height="32"><p>Android-specific Material 3 Expressive guidance.</p><a href="../../#skills">All skills</a></footer>
+  <footer><img src="../../assets/material-design.svg" alt="" width="32" height="32"><p>Comprehensive Material Design 3 Android development guide.</p><a href="../../index.html">Documentation home</a></footer>
 </body>
 </html>

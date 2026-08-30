@@ -12,32 +12,40 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
+import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.SegmentedListItem
 import androidx.compose.material3.Text
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.material3.carousel.HorizontalMultiBrowseCarousel
 import androidx.compose.material3.carousel.HorizontalUncontainedCarousel
 import androidx.compose.material3.carousel.rememberCarouselState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import dev.qtremors.material.core.designsystem.LocalReducedMotion
+import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
@@ -131,6 +139,36 @@ fun CarouselsSample(modifier: Modifier = Modifier) {
                     style = MaterialTheme.typography.labelLarge,
                     maxLines = 1,
                 )
+            }
+        }
+    }
+}
+
+@Composable
+fun PullToRefreshSample(modifier: Modifier = Modifier) {
+    var isRefreshing by remember { mutableStateOf(false) }
+    var messageCount by remember { mutableIntStateOf(12) }
+
+    LaunchedEffect(isRefreshing) {
+        if (isRefreshing) {
+            delay(1_200)
+            messageCount += 6
+            isRefreshing = false
+        }
+    }
+
+    PullToRefreshBox(
+        isRefreshing = isRefreshing,
+        onRefresh = { isRefreshing = true },
+        modifier = modifier.fillMaxWidth().height(380.dp),
+    ) {
+        LazyColumn(Modifier.fillMaxSize()) {
+            items(messageCount) { index ->
+                ListItem(
+                    supportingContent = { Text("Pull down to check for new messages.") },
+                ) {
+                    Text("Inbox message ${index + 1}")
+                }
             }
         }
     }

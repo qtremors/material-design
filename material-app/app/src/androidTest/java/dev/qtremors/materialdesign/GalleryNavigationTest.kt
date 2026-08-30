@@ -53,4 +53,39 @@ class GalleryNavigationTest {
             .performSemanticsAction(SemanticsActions.OnLongClick)
         composeRule.onNodeWithText("Confirmed").assertIsDisplayed()
     }
+
+    @Test
+    fun guidanceTextFindsAFoundationAndExplainsItsBehavior() {
+        composeRule.onNodeWithText("Search Material Design").performTextInput("spring physics")
+        composeRule.onNodeWithText("Motion").assertIsDisplayed().performClick()
+        composeRule.onNodeWithText("Guidance").performClick()
+        composeRule.onNodeWithText("Behavior and feeling").assertIsDisplayed()
+        composeRule.onNodeWithText("Motion is user-triggered, interruptible, and safe under rapid repeated input.")
+            .assertIsDisplayed()
+    }
+
+    @Test
+    fun foundationInspectorExposesLargeTextAndTouchTargetReferences() {
+        composeRule.onNodeWithText("Search Material Design").performTextInput("talkback")
+        composeRule.onNodeWithText("Accessibility").assertIsDisplayed().performClick()
+        composeRule.onNodeWithText("Large text and reflow").assertIsDisplayed()
+        composeRule.onNodeWithText("Touch target versus visible icon").assertIsDisplayed()
+    }
+
+    @Test
+    fun textFieldAliasOpensInteractiveValidationReference() {
+        composeRule.onNodeWithText("Search Material Design").performTextInput("form field")
+        composeRule.onNodeWithText("Text fields").assertIsDisplayed().performClick()
+        composeRule.onNodeWithText("Validation").assertIsDisplayed()
+        composeRule.onNodeWithText("Review email").assertIsDisplayed()
+    }
+
+    @Test
+    fun dialogGuidanceExplainsFocusContainment() {
+        composeRule.onNodeWithText("Search Material Design").performTextInput("destructive confirmation")
+        composeRule.onNodeWithText("Dialogs").assertIsDisplayed().performClick()
+        composeRule.onNodeWithText("Guidance").performClick()
+        composeRule.onNodeWithText("Focus remains within the dialog while open and reaches a safe initial control.")
+            .assertIsDisplayed()
+    }
 }

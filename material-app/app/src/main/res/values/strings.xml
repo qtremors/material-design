@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Shell titles -->
+    <string name="app_title_material_design">Material Design</string>
+    <string name="app_destination_explore">Explore</string>
+    <string name="app_destination_catalog">Catalog</string>
+    <string name="app_destination_apis">APIs</string>
+    <string name="app_destination_foundations">Foundations</string>
+
+    <!-- Content descriptions -->
+    <string name="app_cd_search_components">Search components</string>
+    <string name="app_cd_open_settings">Open settings</string>
+    <string name="app_cd_close_search">Close search</string>
+    <string name="app_cd_clear_search">Clear search</string>
+
+    <!-- Search -->
+    <string name="app_search_placeholder">Search components, APIs, foundations…</string>
+    <string name="app_no_results_for_query">No results found for \"%1$s\"</string>
+    <string name="app_search_empty_hint">Try searching for components (Buttons, Dialogs), foundations (Shapes, Colors), or APIs (rememberDatePickerState).</string>
+    <string name="app_kind_foundation">Foundation</string>
+    <string name="app_api_symbol_prefix">API: %1$s</string>
+
+    <!-- Errors -->
+    <string name="app_error_catalog_load_title">Couldn\'t load the component catalog</string>
+    <string name="app_error_catalog_load_body">The bundled reference data failed validation. Try loading it again.</string>
+    <string name="app_retry">"  Retry"</string>
+    <string name="app_error_library_write_failed">Couldn\'t save your change</string>
+    <string name="app_error_component_unavailable">That component isn\'t available</string>
+
+    <plurals name="app_search_result_count">
+        <item quantity="one">%1$d result for \"%2$s\"</item>
+        <item quantity="other">%1$d results for \"%2$s\"</item>
+    </plurals>
+
+</resources>

@@ -1,16 +1,22 @@
 # Android and Gradle
 .gradle/
 .kotlin/
+build/
 **/build/
 local.properties
 captures/
+*.perfetto
 .externalNativeBuild/
 .cxx/
 *.apk
+*.aar
+*.aab
+*.dex
 output.json
 
 # IDEs
 .idea/
+.vscode/
 *.iml
 misc.xml
 deploymentTargetDropDown.xml
@@ -19,6 +25,8 @@ render.experimental.xml
 # Signing and local services
 *.jks
 *.keystore
+signing.properties
+keystore.properties
 google-services.json
 
 # Profiling, logs, and generated site staging

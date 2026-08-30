@@ -1,48 +1,106 @@
+import java.util.Properties
+
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.compose)
-    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.materialdesign.android.application)
+    alias(libs.plugins.materialdesign.android.compose)
+    alias(libs.plugins.materialdesign.kotlin.serialization)
 }
+
+val appVersionName = providers.gradleProperty("appVersionName").get()
+val appVersionCode = providers.gradleProperty("appVersionCode").get().toInt()
 
 android {
     namespace = "dev.qtremors.materialdesign"
-    compileSdk = 37
 
     defaultConfig {
         applicationId = "dev.qtremors.materialdesign"
-        minSdk = 24
         targetSdk = 37
-        versionCode = 200
-        versionName = "2.0.0"
+        versionCode = appVersionCode
+        versionName = appVersionName
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "APP_VERSION_NAME", "\"$appVersionName\"")
+    }
+
+    val keystoreProperties = Properties()
+    var keystorePropertiesFile = rootProject.file("signing.properties")
+    if (!keystorePropertiesFile.exists()) {
+        keystorePropertiesFile = rootProject.file("local.properties")
+    }
+    if (keystorePropertiesFile.exists()) {
+        keystorePropertiesFile.inputStream().use {
+            keystoreProperties.load(it)
+        }
+    }
+
+    val storeFileProp = keystoreProperties["signing.storeFile"]?.toString()
+    val storePasswordProp = keystoreProperties["signing.storePassword"]?.toString()
+    val keyAliasProp = keystoreProperties["signing.keyAlias"]?.toString()
+    val keyPasswordProp = keystoreProperties["signing.keyPassword"]?.toString()
+
+    val hasSigningConfig = storeFileProp != null && storePasswordProp != null && keyAliasProp != null && keyPasswordProp != null
+
+    if (hasSigningConfig) {
+        signingConfigs {
+            create("release") {
+                storeFile = file(storeFileProp!!)
+                storePassword = storePasswordProp
+                keyAlias = keyAliasProp
+                keyPassword = keyPasswordProp
+            }
+        }
     }
 
     buildTypes {
         debug {
-            manifestPlaceholders["appLabel"] = "Material Design"
+            applicationIdSuffix = ".debug"
+            versionNameSuffix = "-debug"
+            manifestPlaceholders["appLabel"] = "Material Design Debug"
         }
         release {
+            // AGP 9.3+ DSL: enables R8 code optimization and resource shrinking,
+            // including the default Android keep rules.
             optimization {
-                enable = false
+                enable = true
             }
             manifestPlaceholders["appLabel"] = "Material Design"
+            if (hasSigningConfig) {
+                signingConfig = signingConfigs.getByName("release")
+            }
         }
-    }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
     }
 
     buildFeatures {
         compose = true
+        buildConfig = true
+    }
+
+    packaging {
+        jniLibs {
+            keepDebugSymbols += setOf(
+                "**/libandroidx.graphics.path.so",
+                "**/libdatastore_shared_counter.so"
+            )
+        }
+    }
+
+    testOptions {
+        unitTests {
+            // Allow android.util.Log calls exercised by ViewModel error paths in JVM tests.
+            isReturnDefaultValues = true
+        }
     }
 }
 
-kotlin {
-    compilerOptions {
-        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11)
+val androidComponents = project.extensions.getByType<com.android.build.api.variant.ApplicationAndroidComponentsExtension>()
+androidComponents.onVariants { variant ->
+    variant.outputs.forEach { output ->
+        if (variant.name.equals("debug", ignoreCase = true)) {
+            output.outputFileName.set("Material Design-$appVersionName-Debug.apk")
+        } else {
+            output.outputFileName.set("Material Design-$appVersionName.apk")
+        }
     }
 }
 
@@ -66,6 +124,7 @@ dependencies {
     implementation(project(":samples:containment"))
     implementation(project(":samples:navigation"))
     implementation(project(":samples:foundations"))
+    implementation(project(":samples:selection"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -88,6 +147,7 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
 
     testImplementation(libs.junit)
+    testImplementation(libs.kotlinx.coroutines.test)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))

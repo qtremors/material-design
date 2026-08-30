@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="apis_version_banner">Compose Material 3 · %1$s\nCompose UI · %2$s · Stable Material baseline · %3$s</string>
+    <string name="apis_filter_stable_apis">Stable APIs</string>
+    <string name="apis_filter_experimental">Experimental</string>
+    <plurals name="apis_search_result_count">
+        <item quantity="one">%1$d API found for \"%2$s\"</item>
+        <item quantity="other">%1$d APIs found for \"%2$s\"</item>
+    </plurals>
+    <string name="apis_badge_stable_artifact">Stable artifact</string>
+    <string name="apis_badge_alpha_only">Alpha only</string>
+</resources>

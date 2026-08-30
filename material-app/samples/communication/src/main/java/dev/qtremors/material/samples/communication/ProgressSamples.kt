@@ -7,9 +7,12 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.CircularWavyProgressIndicator
+import androidx.compose.material3.ContainedLoadingIndicator
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.LinearWavyProgressIndicator
+import androidx.compose.material3.LoadingIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -46,5 +49,16 @@ fun ProgressIndicatorsSample(modifier: Modifier = Modifier) {
             CircularWavyProgressIndicator()
         }
         Slider(value = progress, onValueChange = { progress = it })
+    }
+}
+
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
+@Composable
+fun LoadingIndicatorsSample(modifier: Modifier = Modifier) {
+    Column(modifier, verticalArrangement = Arrangement.spacedBy(20.dp)) {
+        Text("Loading indicator", style = MaterialTheme.typography.titleMedium)
+        LoadingIndicator()
+        Text("Contained loading indicator", style = MaterialTheme.typography.titleMedium)
+        ContainedLoadingIndicator()
     }
 }

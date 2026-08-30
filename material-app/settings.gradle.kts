@@ -1,4 +1,5 @@
 pluginManagement {
+    includeBuild("build-logic")
     repositories {
         google {
             content {
@@ -23,6 +24,7 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "Material Design"
+
 include(":app")
 include(":core:catalog")
 include(":core:data")
@@ -38,3 +40,4 @@ include(":samples:communication")
 include(":samples:containment")
 include(":samples:navigation")
 include(":samples:foundations")
+include(":samples:selection")

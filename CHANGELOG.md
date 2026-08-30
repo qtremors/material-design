@@ -1,7 +1,123 @@
 # Material Design Changelog
 
-> **Project:** Material Design  
-> **Project Version:** 2.0.0
+> **Project:** Material Design
+
+---
+
+## [2.1.0] - 2026-08-30
+
+### Added & Improved
+
+- Elevated the product landing page (`docs/index.html`, `docs/styles.css`, `docs/scripts.js`) while preserving its authentic Material Design aesthetic, Roboto Flex typography, morphing hero shapes, and clean semantic CSS architecture; integrated live animated GitHub statistics, interactive tonal palette role preview, tech stack toolchain chips, Tremors developer card, accessible mobile drawer navigation, and responsive FAQ accordions.
+- Prepared Material Design 2.1.0 as the first public Android app release with dedicated notes covering the gallery, validated catalog, Material guidance, local personalization, and installation requirements.
+- Reworked the root README into an Android-focused product overview with first-release download guidance, verified requirements, feature coverage, support links, credits, privacy, and developer entry points.
+- Transformed documentation and skills into comprehensive "how to build" guides for Material Design 3 and Material 3 Expressive across Android and Web.
+- Added full concrete Gradle version catalog (`libs.versions.toml`) snippets, convention plugins (`build-logic`), toolchain contracts (compileSdk 37, minSdk 24, targetSdk 36, JVM 11), R8 optimization, and release signing instructions.
+- Overhauled Android architecture guidance to cover layered modules, Unidirectional Data Flow with StateFlow, lifecycle-aware collection, type-safe Navigation Compose, and state hoisting.
+- Added detailed Material 3 Expressive foundations covering semantic color roles, dynamic theming, typography scale, variable font axes, spring physics (`ExpressiveMotion`), and adaptive scaffolds (`NavigationSuiteScaffold`).
+- Added web UI/UX and engineering skills with CSS custom property token systems, responsive breakpoints, semantic HTML interaction states, and WCAG 2.2 AA accessibility standards.
+- Expanded the developer documentation with architecture and technology overviews, navigation and state ownership, security and privacy rules, test distribution, release signing, versioning and release gates, auditing standards, troubleshooting, and maintenance guidance.
+- Added accessible full-screen mobile navigation and progressively enhanced GitHub repository and release statistics with reduced-motion and failure fallbacks.
+- Standardized relative documentation and skill navigation links to explicit HTML targets, ensuring seamless navigation across both online web servers and offline local filesystem browsing.
+- Advanced the application build metadata to version 2.1.0 with version code 210.
+
+---
+
+## [2.0.9] - 2026-08-30
+
+### Added & Improved
+
+- Upgraded platform dependencies to Android Gradle Plugin 9.3.1, Kotlin 2.4.10, Compose BOM 2026.08.00, Material 3 1.5.0-alpha26, Material 3 Adaptive 1.3.0, Navigation Compose 2.9.8, DataStore 1.2.1, Kotlinx Serialization 1.11.0, and Coroutines 1.11.0, syncing reviewed catalog metadata across all entries.
+- Migrated deprecated Compose and Material APIs, including adaptive window sizing, clipboard access, bottom sheets, list items, split and toggle buttons, menus, tabs, search bars, swipe-to-dismiss state, and locale handling.
+- Fixed infinite height constraint runtime crashes in scrollable catalog preview containers for pull-to-refresh and search bar demos.
+- Synchronized search text input state to eliminate typing latency and prevent character drops in the app top bar, and standardized the search placeholder typography.
+- Added build-logic verification tooling with automated production string checking (`checkProductionStrings`), catalog freshness validation, release metadata checks (`verifyMaterialBuildConventions`), and deterministic coroutine test dispatchers.
+
+---
+
+## [2.0.8] - 2026-08-23
+
+### Added & Improved
+
+- Added official Google Material 3 catalog component references for Flexible bottom app bars, Wide navigation rails (docked and modal), Swipe to dismiss, Short navigation bars, Vertical sliders, Top search bars with full-screen expansion, Time picker dialogs (standard and rich), Scrollable tab row variants, Grouped dropdown menus, Basic alert dialogs, Dividers, Hero carousels, and Scaffold as a foundations-layout reference.
+- Expanded the catalog to 55 validated entries with interactive demos, aliases, guidance, and API/state/defaults metadata for every new reference; `ModalSideSheet` remains tracked until it ships in `1.5.0-alpha23`.
+- Localized all shell, search overlay, gallery, detail, and settings surfaces into per-module string resources with plural rules for count strings, replacing hardcoded English literals across app and feature modules.
+- Introduced build-logic convention plugins centralizing compile SDK, min SDK, JVM target, namespace derivation, Compose enablement, and serialization setup for all 16 modules.
+- Declared explicit backup and data-extraction rules that exclude the DataStore preferences file from cloud backup and device transfer, with a new test asserting rule parsing and coverage.
+
+---
+
+## [2.0.7] - 2026-08-23
+
+### Added & Improved
+
+- Decomposed the gallery application shell into dedicated adaptive layout, floating navigation, top bar, and instant search overlay components.
+- Modularized state management with isolated StateFlow streams and a precomputed debounced search index for responsive filtering.
+- Added recoverable catalog parsing with loading, ready, and error states plus interactive retry flows.
+- Hardened build and packaging configurations with non-transitive R classes, native symbol retention, R8 serialization keep rules, and release signing.
+
+---
+
+## [2.0.6] - 2026-08-23
+
+### Added & Improved
+
+- Redesigned Settings and added a dedicated About screen with application metadata, design system specifications, and repository resources.
+- Overhauled the Shape foundation showcase into a responsive 3-column grid with category filtering and interactive morphing across all 35 Material 3 Expressive shapes.
+- Integrated an instant search overlay and enabled universal search filtering across Components, Foundations, and APIs.
+- Enhanced Component Detail views with horizontal tab swiping and a collapsible nested-scroll header.
+
+---
+
+## [2.0.5] - 2026-08-22
+
+### Added & Improved
+
+- Integrated dynamic theme engine supporting System, Light, Dark, and OLED modes, theme presets, and 22 accent color schemes.
+- Added theme and appearance controls to Settings with live scheme previews and custom hex palette configuration.
+- Adopted official Material 3 Expressive theming across the application shell with expressive motion and reduced-motion support.
+- Added official Google Material 3 catalog component implementations for Icon buttons, FAB menu, Loading indicators, Pull to refresh, and Bottom app bars.
+
+---
+
+## [2.0.4] - 2026-08-11
+
+### Added & Improved
+
+- Added official Google Material 3 catalog component implementations: Navigation bars, Navigation rails, Navigation drawers, Tabs, Top app bars, Sliders, Date pickers, Time pickers, and Badges.
+- Added visual badge chips (`M3 Expressive`, `Experimental API`, `Custom Component`, and `Official API`) across Catalog cards and Detail headers.
+
+---
+
+## [2.0.3] - 2026-07-31
+
+### Added & Improved
+
+- Replaced PNG logo references with scalable SVGs sourced from the respective root and GitHub Pages asset folders.
+- Added complete Android launcher artwork with adaptive color, themed monochrome, legacy density, round, and Play Store variants.
+- Refined project language around the responsive browser showcase and independent Material Web workspace.
+- Refreshed Android and web skill guidance and added matching root-level Markdown skills for agents and development harnesses.
+- Removed the SVG edge outline for cleaner website hero rendering.
+
+---
+
+## [2.0.2] - 2026-07-16
+
+### Added & Improved
+
+- Added independently implemented Text fields, Search, Dialogs, Bottom sheets, Snackbars, Tooltips, and Menus references.
+- Added inspectable Color, Shape, Motion, Elevation, Layout, and Accessibility foundations.
+- Expanded searchable guidance, API metadata, source validation, catalog tests, and accessibility coverage for the new references.
+
+---
+
+## [2.0.1] - 2026-07-16
+
+### Added & Improved
+
+- Added independently implemented Button groups, Toggle buttons, Cards, Lists, Chips, Segmented buttons, and Selection controls references.
+- Reworked component details around Preview, Guidance, Inspect, and API/source workflows, and applied the component system to API filters and Settings.
+- Expanded catalog validation and tests for source paths, registered demos, guidance completeness, aliases, API symbols, and guidance search.
 
 ---
 
@@ -9,7 +125,7 @@
 
 ### Added & Improved
 
--   Consolidated the Android app, documentation, future independent web project, and frozen 1.5.0 legacy showcase into the Material Design 2.0.0 repository, with neutral forward-looking Material Web status language.
+-   Consolidated the Android app, documentation, independent Material Web workspace, and responsive 1.5.0 browser showcase into the Material Design 2.0.0 repository.
 -   Rebuilt Android as a modular, adaptive, searchable component gallery with Explore, Catalog, stable/experimental APIs, Foundations, bookmarks, recent history, and app settings.
 -   Added validated agent-readable catalog data and working references for Buttons, Split buttons, Floating action buttons, Progress indicators, Segmented list items, Carousels, Floating toolbars, and Typography.
 -   Added deterministic alias search, copyable source paths, exact Material API maturity/version metadata, and unit/UI validation.

@@ -13,7 +13,12 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            val galleryViewModel: GalleryViewModel = viewModel(factory = GalleryViewModel.factory(container))
+            val galleryViewModel: GalleryViewModel = viewModel(
+                factory = GalleryViewModel.factory(
+                    container = container,
+                    catalogLoader = container::createCatalogRepository,
+                ),
+            )
             MaterialGalleryApp(galleryViewModel, container.demoRegistry)
         }
     }

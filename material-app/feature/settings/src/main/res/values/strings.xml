@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Screen chrome -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_back">Back</string>
+
+    <!-- Section headers -->
+    <string name="settings_section_appearance">Appearance</string>
+    <string name="settings_section_browsing_layout">Browsing &amp; Layout</string>
+    <string name="settings_section_motion">Motion</string>
+    <string name="settings_section_library_history">Library &amp; History</string>
+    <string name="settings_section_info">Info</string>
+
+    <!-- Appearance toggles -->
+    <string name="settings_harmonize_colors">Harmonize Colors</string>
+    <string name="settings_harmonize_colors_description">Blend category and status colors with the active theme accent color.</string>
+    <string name="settings_vibrations">Vibrations</string>
+    <string name="settings_vibrations_description">Enable haptic feedback on actions and gestures.</string>
+
+    <!-- Browsing & layout toggles -->
+    <string name="settings_expandable_app_bars">Expandable App Bars</string>
+    <string name="settings_expandable_app_bars_description">Expand and collapse large top app bars smoothly during scroll.</string>
+    <string name="settings_catalog_badges">Catalog Badges</string>
+    <string name="settings_catalog_badges_description">Display M3 Expressive, experimental, and API maturity chips on component cards.</string>
+
+    <!-- Motion toggles -->
+    <string name="settings_reduce_app_motion">Reduce App Motion</string>
+    <string name="settings_reduce_app_motion_description">Use instantaneous snap transitions instead of bouncy spring physics.</string>
+
+    <!-- Library & history -->
+    <string name="settings_bookmarks_count_subtitle">%1$d saved components</string>
+    <string name="settings_clear_bookmarks">Clear bookmarks</string>
+    <string name="settings_recent_count_subtitle">%1$d recently viewed components</string>
+    <string name="settings_clear_recent_history">Clear recent history</string>
+
+    <!-- Info row -->
+    <string name="settings_about_row_subtitle">Version %1$s · M3 Compose %2$s · Repository</string>
+    <string name="settings_about_entry">About Material Design</string>
+
+    <!-- Confirmation dialogs -->
+    <string name="settings_clear_bookmarks_dialog_title">Clear bookmarks?</string>
+    <string name="settings_clear_recent_history_dialog_title">Clear recent history?</string>
+    <string name="settings_clear_dialog_message">This removes only local app data and cannot be undone.</string>
+    <string name="settings_dialog_confirm">Clear</string>
+    <string name="settings_dialog_cancel">Cancel</string>
+
+    <!-- About screen -->
+    <string name="settings_about_title">About</string>
+    <string name="settings_app_name">Material Design</string>
+    <string name="settings_about_tagline">Interactive Material 3 Expressive Showcase</string>
+    <string name="settings_about_section_app_info">App Info</string>
+    <string name="settings_version_label">Version</string>
+    <string name="settings_developer">Developer</string>
+    <string name="settings_developer_name">Tremors (@qtremors)</string>
+    <string name="settings_repository">Repository</string>
+    <string name="settings_repository_url">github.com/qtremors/material-design</string>
+    <string name="settings_device_label">Device</string>
+    <string name="settings_device_format">%1$s %2$s (Android %3$s)</string>
+    <string name="settings_about_section_catalog">Material 3 Catalog</string>
+    <string name="settings_m3_compose_label">Material 3 Compose</string>
+    <string name="settings_compose_ui_label">Compose UI</string>
+    <string name="settings_compose_ui_version_label">Compose UI Version</string>
+    <string name="settings_components">Components</string>
+    <string name="settings_components_description">40+ official &amp; expressive interactive references</string>
+    <string name="settings_about_section_community">Community &amp; Source</string>
+    <string name="settings_releases_changelog">Releases &amp; Changelog</string>
+    <string name="settings_releases_changelog_description">View project release notes and updates</string>
+    <string name="settings_report_issue">Report an Issue</string>
+    <string name="settings_report_issue_description">Submit bug reports or feature requests</string>
+    <string name="settings_open_source_license">Open Source License</string>
+    <string name="settings_license_name">MIT License</string>
+    <string name="settings_copied_to_clipboard">Copied %1$s to clipboard</string>
+
+    <!-- Theme mode selector -->
+    <string name="settings_theme_mode_header">Theme Mode</string>
+    <string name="settings_theme_mode_system">System</string>
+    <string name="settings_theme_mode_light">Light</string>
+    <string name="settings_theme_mode_dark">Dark</string>
+    <string name="settings_theme_mode_oled">OLED</string>
+
+    <!-- Theme preset controls -->
+    <string name="settings_theme_preset_header">Theme Preset</string>
+    <string name="settings_theme_preset_none">None</string>
+    <string name="settings_theme_preset_dracula">Dracula</string>
+    <string name="settings_theme_preset_tokyo_night">Tokyo Night</string>
+    <string name="settings_theme_preset_custom">Custom</string>
+    <string name="settings_custom_colors_header">Custom Colors (Hex)</string>
+    <string name="settings_primary_color_hex_label">Primary Color Hex (#RRGGBB)</string>
+    <string name="settings_background_color_hex_label">Background Color Hex (#RRGGBB)</string>
+    <string name="settings_color_contrast_warning">Primary and background colors have low contrast and may be hard to read.</string>
+
+    <!-- Accent color selector -->
+    <string name="settings_accent_color_header">Accent Color</string>
+    <string name="settings_select_accent_color_content_description">Select accent color</string>
+    <string name="settings_select_accent_color_title">Select Accent Color</string>
+    <string name="settings_action_done">Done</string>
+    <string name="settings_system_themes">System Themes</string>
+    <string name="settings_accent_dynamic_short">Dynamic</string>
+    <string name="settings_accent_dynamic_subtitle">System Wallpaper (A12+)</string>
+    <string name="settings_accent_monochrome_subtitle">High-contrast Neutral</string>
+    <string name="settings_accent_category_warm">Warm &amp; Energetic</string>
+    <string name="settings_accent_category_cool">Cool &amp; Vibrant</string>
+    <string name="settings_accent_category_nature">Nature &amp; Fresh</string>
+    <string name="settings_accent_category_earth">Earth &amp; Neutral</string>
+    <string name="settings_preview_gallery">Material Gallery</string>
+    <string name="settings_preview_components_controls">Components &amp; Controls</string>
+
+    <!-- Accent color display names -->
+    <string name="settings_accent_dynamic">Dynamic (Material You)</string>
+    <string name="settings_accent_monochrome">Monochrome</string>
+    <string name="settings_accent_red">Red</string>
+    <string name="settings_accent_pink">Pink</string>
+    <string name="settings_accent_purple">Purple</string>
+    <string name="settings_accent_deep_purple">Deep Purple</string>
+    <string name="settings_accent_cyan">Cyan</string>
+    <string name="settings_accent_light_blue">Light Blue</string>
+    <string name="settings_accent_blue">Blue</string>
+    <string name="settings_accent_indigo">Indigo</string>
+    <string name="settings_accent_teal">Teal</string>
+    <string name="settings_accent_green">Green</string>
+    <string name="settings_accent_light_green">Light Green</string>
+    <string name="settings_accent_lime">Lime</string>
+    <string name="settings_accent_deep_orange">Deep Orange</string>
+    <string name="settings_accent_orange">Orange</string>
+    <string name="settings_accent_amber">Amber</string>
+    <string name="settings_accent_yellow">Yellow</string>
+    <string name="settings_accent_brown">Brown</string>
+    <string name="settings_accent_blue_grey">Blue Grey</string>
+    <string name="settings_accent_grey">Grey</string>
+    <string name="settings_accent_black">Black</string>
+
+</resources>

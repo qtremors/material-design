@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="explore_subtitle">Working reference implementations you can inspect, feel, and locate in source.</string>
+
+    <plurals name="explore_chip_component_count">
+        <item quantity="one">%1$d Component</item>
+        <item quantity="other">%1$d Components</item>
+    </plurals>
+    <plurals name="explore_chip_expressive_count">
+        <item quantity="one">%1$d Expressive</item>
+        <item quantity="other">%1$d Expressive</item>
+    </plurals>
+    <plurals name="explore_chip_foundation_count">
+        <item quantity="one">%1$d Foundation</item>
+        <item quantity="other">%1$d Foundations</item>
+    </plurals>
+    <plurals name="explore_category_component_count">
+        <item quantity="one">%1$d component</item>
+        <item quantity="other">%1$d components</item>
+    </plurals>
+
+    <string name="explore_section_featured">Featured</string>
+    <string name="explore_section_categories">Categories</string>
+    <string name="explore_category_foundations">Foundations</string>
+    <string name="explore_section_expressive_highlights">Expressive highlights</string>
+    <string name="explore_section_bookmarks">Bookmarks</string>
+    <string name="explore_section_recently_viewed">Recently viewed</string>
+    <string name="explore_open_entry_content_description">Open %1$s</string>
+</resources>

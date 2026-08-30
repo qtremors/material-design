@@ -3,10 +3,11 @@
   "$id": "https://qtremors.github.io/material-design/catalog.schema.json",
   "title": "Material Design Android working catalog",
   "type": "object",
-  "required": ["schemaVersion", "material3Version", "stableBaseline", "reviewedOn", "entries"],
+  "required": ["schemaVersion", "material3Version", "composeUiVersion", "stableBaseline", "reviewedOn", "entries"],
   "properties": {
     "schemaVersion": { "const": 1 },
     "material3Version": { "type": "string" },
+    "composeUiVersion": { "type": "string" },
     "stableBaseline": { "type": "string" },
     "reviewedOn": { "type": "string", "format": "date" },
     "entries": {
@@ -14,8 +15,30 @@
       "minItems": 1,
       "items": {
         "type": "object",
-        "required": ["id", "officialName", "aliases", "kind", "category", "summary", "collections", "demoKey", "sourceLocations", "apiReferences", "officialUrls", "implementation", "addedIn", "reviewedOn"]
+        "required": ["id", "officialName", "aliases", "kind", "category", "summary", "guidance", "collections", "demoKey", "sourceLocations", "apiReferences", "officialUrls", "implementation", "addedIn", "reviewedOn"],
+        "properties": {
+          "guidance": {
+            "type": "object",
+            "required": ["purpose", "useWhen", "avoidWhen", "behavior", "accessibility", "adaptive"],
+            "properties": {
+              "purpose": { "type": "string", "minLength": 1 },
+              "useWhen": { "$ref": "#/$defs/nonEmptyStrings" },
+              "avoidWhen": { "$ref": "#/$defs/nonEmptyStrings" },
+              "behavior": { "$ref": "#/$defs/nonEmptyStrings" },
+              "accessibility": { "$ref": "#/$defs/nonEmptyStrings" },
+              "adaptive": { "$ref": "#/$defs/nonEmptyStrings" }
+            },
+            "additionalProperties": false
+          }
+        }
       }
+    }
+  },
+  "$defs": {
+    "nonEmptyStrings": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
     }
   }
 }
