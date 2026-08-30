@@ -13,7 +13,7 @@ class BackupRulesTest {
     private val preferencesFileName = "datastore/material_reference.preferences_pb"
 
     private fun repositoryRoot(): File =
-        generateSequence(File(System.getProperty("user.dir")).absoluteFile) { it.parentFile }
+        generateSequence(File(System.getProperty("user.dir") ?: ".").absoluteFile) { it.parentFile }
             .first { File(it, "material-app").isDirectory && File(it, "README.md").isFile }
 
     private fun parse(relativePath: String): Document {

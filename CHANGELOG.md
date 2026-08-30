@@ -1,7 +1,19 @@
 # Material Design Changelog
 
 > **Project:** Material Design  
-> **Project Version:** 2.0.8
+> **Project Version:** 2.0.9
+
+---
+
+## [2.0.9] - 2026-08-30
+
+### Added & Improved
+
+- Upgraded platform dependencies to Android Gradle Plugin 9.3.1, Kotlin 2.4.10, Compose BOM 2026.08.00, Material 3 1.5.0-alpha26, Material 3 Adaptive 1.3.0, Navigation Compose 2.9.8, DataStore 1.2.1, Kotlinx Serialization 1.11.0, and Coroutines 1.11.0, syncing reviewed catalog metadata across all entries.
+- Migrated deprecated Compose and Material APIs, including adaptive window sizing, clipboard access, bottom sheets, list items, split and toggle buttons, menus, tabs, search bars, swipe-to-dismiss state, and locale handling.
+- Fixed infinite height constraint runtime crashes in scrollable catalog preview containers for pull-to-refresh and search bar demos.
+- Synchronized search text input state to eliminate typing latency and prevent character drops in the app top bar, and standardized the search placeholder typography.
+- Added build-logic verification tooling with automated production string checking (`checkProductionStrings`), catalog freshness validation, release metadata checks (`verifyMaterialBuildConventions`), and deterministic coroutine test dispatchers.
 
 ---
 

@@ -19,6 +19,7 @@ import dev.qtremors.material.feature.foundations.FoundationsScreen
 internal fun GalleryShellContent(
     catalog: CatalogSnapshot,
     search: SearchState,
+    query: String,
     library: LibraryState,
     rootDestination: RootDestination,
     selectedCategory: String?,
@@ -33,9 +34,9 @@ internal fun GalleryShellContent(
     contentPadding: PaddingValues,
 ) {
     Box(Modifier.fillMaxSize()) {
-        if (search.query.isNotBlank()) {
+        if (query.isNotBlank()) {
             InstantSearchResultsOverlay(
-                query = search.query,
+                query = query,
                 results = search.results,
                 onEntryClick = { id ->
                     onQueryChange("")

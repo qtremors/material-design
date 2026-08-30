@@ -1,16 +1,22 @@
 # Android and Gradle
 .gradle/
 .kotlin/
+build/
 **/build/
 local.properties
 captures/
+*.perfetto
 .externalNativeBuild/
 .cxx/
 *.apk
+*.aar
+*.aab
+*.dex
 output.json
 
 # IDEs
 .idea/
+.vscode/
 *.iml
 misc.xml
 deploymentTargetDropDown.xml

@@ -33,7 +33,7 @@ import androidx.compose.material3.TimePickerDialog
 import androidx.compose.material3.RichTimePickerDialog
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.material3.VerticalSlider
-import androidx.compose.material3.TopSearchBar
+import androidx.compose.material3.AppBarWithSearch
 import androidx.compose.material3.ExpandedFullScreenSearchBar
 import androidx.compose.material3.BasicAlertDialog
 import androidx.compose.material3.rememberSearchBarState
@@ -103,8 +103,8 @@ fun TopSearchBarsSample(modifier: Modifier = Modifier) {
         )
     }
 
-    Box(modifier.fillMaxSize()) {
-        TopSearchBar(state = searchBarState, inputField = inputField)
+    Box(modifier.fillMaxWidth().height(380.dp)) {
+        AppBarWithSearch(state = searchBarState, inputField = inputField)
         ExpandedFullScreenSearchBar(
             state = searchBarState,
             inputField = inputField,

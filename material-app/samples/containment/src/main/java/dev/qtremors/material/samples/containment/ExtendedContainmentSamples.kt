@@ -23,6 +23,8 @@ import androidx.compose.material3.carousel.HorizontalCenteredHeroCarousel
 import androidx.compose.material3.carousel.rememberCarouselState
 import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -52,39 +54,38 @@ fun SwipeToDismissSample(modifier: Modifier = Modifier) {
             }
         }
         tasks.forEach { task ->
-            val state = rememberSwipeToDismissBoxState(
-                confirmValueChange = { value ->
-                    if (value != SwipeToDismissBoxValue.Settled) {
+            key(task.id) {
+                val state = rememberSwipeToDismissBoxState()
+                LaunchedEffect(state.currentValue) {
+                    if (state.currentValue != SwipeToDismissBoxValue.Settled) {
                         tasks.removeAll { it.id == task.id }
-                        true
-                    } else {
-                        false
                     }
                 }
-            )
-            SwipeToDismissBox(
-                state = state,
-                backgroundContent = {
-                    Box(
-                        Modifier
-                            .fillMaxSize()
-                            .background(MaterialTheme.colorScheme.errorContainer, RoundedCornerShape(12.dp))
-                            .padding(horizontal = 20.dp),
-                        contentAlignment = Alignment.CenterEnd
+                SwipeToDismissBox(
+                    state = state,
+                    backgroundContent = {
+                        Box(
+                            Modifier
+                                .fillMaxSize()
+                                .background(MaterialTheme.colorScheme.errorContainer, RoundedCornerShape(12.dp))
+                                .padding(horizontal = 20.dp),
+                            contentAlignment = Alignment.CenterEnd,
+                        ) {
+                            Icon(
+                                Icons.Default.Delete,
+                                contentDescription = "Delete ${task.title}",
+                                tint = MaterialTheme.colorScheme.onErrorContainer,
+                            )
+                        }
+                    },
+                ) {
+                    ListItem(
+                        supportingContent = { Text("Swipe to dismiss") },
+                        modifier = Modifier.fillMaxWidth(),
                     ) {
-                        Icon(
-                            Icons.Default.Delete,
-                            contentDescription = "Delete ${task.title}",
-                            tint = MaterialTheme.colorScheme.onErrorContainer
-                        )
+                        Text(task.title)
                     }
                 }
-            ) {
-                ListItem(
-                    headlineContent = { Text(task.title) },
-                    supportingContent = { Text("Swipe to dismiss") },
-                    modifier = Modifier.fillMaxWidth()
-                )
             }
         }
     }

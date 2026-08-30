@@ -48,9 +48,9 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationDrawerItem
 import androidx.compose.material3.NavigationRail
 import androidx.compose.material3.NavigationRailItem
+import androidx.compose.material3.PrimaryScrollableTabRow
 import androidx.compose.material3.PrimaryTabRow
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.ScrollableTabRow
 import androidx.compose.material3.SecondaryTabRow
 import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
@@ -243,7 +243,7 @@ fun TabsSample(modifier: Modifier = Modifier) {
         }
 
         Text("Scrollable Tabs", style = MaterialTheme.typography.titleMedium)
-        ScrollableTabRow(selectedTabIndex = scrollableIndex, edgePadding = 16.dp) {
+        PrimaryScrollableTabRow(selectedTabIndex = scrollableIndex, edgePadding = 16.dp) {
             scrollableTabs.forEachIndexed { index, title ->
                 Tab(
                     selected = scrollableIndex == index,

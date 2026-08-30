@@ -152,7 +152,7 @@ fun TextFieldsSample(modifier: Modifier = Modifier) {
                 modifier = Modifier.fillMaxWidth(),
             )
             OutlinedTextField(
-                value = "1.5.0-alpha23",
+                value = "1.5.0-alpha26",
                 onValueChange = {},
                 label = { Text("Material dependency") },
                 supportingText = { Text("Pinned by the version catalog") },

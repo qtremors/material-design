@@ -20,9 +20,9 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.OpenInNew
 import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.filled.ContentCopy
-import androidx.compose.material.icons.filled.OpenInNew
 import androidx.compose.material.icons.outlined.BookmarkBorder
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.Card
@@ -51,11 +51,12 @@ import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.onSizeChanged
-import androidx.compose.ui.platform.LocalClipboardManager
+import android.content.ClipData
+import androidx.compose.ui.platform.ClipEntry
+import androidx.compose.ui.platform.LocalClipboard
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -350,8 +351,9 @@ private fun InspectSection(entry: CatalogEntry) {
 
 @Composable
 private fun ApiSection(entry: CatalogEntry) {
-    val clipboard = LocalClipboardManager.current
+    val clipboard = LocalClipboard.current
     val context = LocalContext.current
+    val coroutineScope = rememberCoroutineScope()
     Column(
         Modifier
             .fillMaxSize()
@@ -365,11 +367,15 @@ private fun ApiSection(entry: CatalogEntry) {
                 Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     Row(Modifier.fillMaxWidth()) {
                         Text(api.symbol, modifier = Modifier.weight(1f), fontFamily = FontFamily.Monospace)
-                        IconButton(onClick = { clipboard.setText(AnnotatedString(api.symbol)) }) {
+                        IconButton(onClick = {
+                            coroutineScope.launch {
+                                clipboard.setClipEntry(ClipEntry(ClipData.newPlainText(context.getString(R.string.detail_clip_label_symbol), api.symbol)))
+                            }
+                        }) {
                             Icon(Icons.Default.ContentCopy, stringResource(R.string.detail_copy_symbol_content_description))
                         }
                         IconButton(onClick = { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(api.url))) }) {
-                            Icon(Icons.Default.OpenInNew, stringResource(R.string.detail_open_official_api_content_description))
+                            Icon(Icons.AutoMirrored.Filled.OpenInNew, stringResource(R.string.detail_open_official_api_content_description))
                         }
                     }
                     Text(stringResource(R.string.detail_artifact_version, api.artifact, api.reviewedVersion))
@@ -399,7 +405,11 @@ private fun ApiSection(entry: CatalogEntry) {
                         Text(source.path, fontFamily = FontFamily.Monospace)
                         Text(source.symbols.joinToString(), style = MaterialTheme.typography.bodySmall)
                     }
-                    IconButton(onClick = { clipboard.setText(AnnotatedString(source.path)) }) {
+                    IconButton(onClick = {
+                        coroutineScope.launch {
+                            clipboard.setClipEntry(ClipEntry(ClipData.newPlainText(context.getString(R.string.detail_clip_label_path), source.path)))
+                        }
+                    }) {
                         Icon(Icons.Default.ContentCopy, stringResource(R.string.detail_copy_path_content_description))
                     }
                 }

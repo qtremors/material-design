@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -159,14 +160,15 @@ fun PullToRefreshSample(modifier: Modifier = Modifier) {
     PullToRefreshBox(
         isRefreshing = isRefreshing,
         onRefresh = { isRefreshing = true },
-        modifier = modifier,
+        modifier = modifier.fillMaxWidth().height(380.dp),
     ) {
-        LazyColumn(Modifier.fillMaxWidth()) {
+        LazyColumn(Modifier.fillMaxSize()) {
             items(messageCount) { index ->
                 ListItem(
-                    headlineContent = { Text("Inbox message ${index + 1}") },
                     supportingContent = { Text("Pull down to check for new messages.") },
-                )
+                ) {
+                    Text("Inbox message ${index + 1}")
+                }
             }
         }
     }

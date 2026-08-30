@@ -24,7 +24,7 @@ class BundledCatalogRepository(context: Context) : CatalogRepository {
 
     companion object {
         const val CATALOG_PATH = "catalog/catalog.json"
-        const val MATERIAL3_VERSION = "1.5.0-alpha23"
+        const val MATERIAL3_VERSION = "1.5.0-alpha26"
         const val COMPOSE_UI_VERSION = "1.12.0-alpha03"
         const val STABLE_BASELINE = "1.4.0"
     }

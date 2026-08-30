@@ -11,7 +11,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
+import androidx.compose.material3.adaptive.currentWindowAdaptiveInfoV2
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -27,7 +27,7 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.window.core.layout.WindowWidthSizeClass
+import androidx.window.core.layout.WindowSizeClass
 import dev.qtremors.material.core.catalog.ApiStability
 import dev.qtremors.materialdesign.CatalogSnapshot
 import dev.qtremors.materialdesign.LibraryState
@@ -55,6 +55,7 @@ internal fun shellTitle(rootDestination: RootDestination): Int = when (rootDesti
 internal fun GalleryShell(
     catalog: CatalogSnapshot,
     search: SearchState,
+    query: String,
     library: LibraryState,
     rootDestination: RootDestination,
     selectedCategory: String?,
@@ -69,28 +70,28 @@ internal fun GalleryShell(
 ) {
     val density = LocalDensity.current
     val isCompact =
-        currentWindowAdaptiveInfo().windowSizeClass.windowWidthSizeClass == WindowWidthSizeClass.COMPACT
+        !currentWindowAdaptiveInfoV2().windowSizeClass.isWidthAtLeastBreakpoint(WindowSizeClass.WIDTH_DP_MEDIUM_LOWER_BOUND)
 
     var showSearchBar by rememberSaveable { mutableStateOf(false) }
     var compactNavHeightDp by remember { mutableFloatStateOf(DefaultCompactNavContentPadding) }
-    val isSearchActive = showSearchBar || search.query.isNotEmpty()
+    val isSearchActive = showSearchBar || query.isNotEmpty()
 
     BackHandler(enabled = isSearchActive) {
         showSearchBar = false
-        if (search.query.isNotEmpty()) onQueryChange("")
+        if (query.isNotEmpty()) onQueryChange("")
     }
 
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
 
     fun closeSearch() {
         showSearchBar = false
-        if (search.query.isNotEmpty()) onQueryChange("")
+        if (query.isNotEmpty()) onQueryChange("")
     }
 
     val topBar: @Composable () -> Unit = {
         if (isSearchActive) {
             SearchTopBar(
-                query = search.query,
+                query = query,
                 onQueryChange = onQueryChange,
                 onClose = ::closeSearch,
                 onSearch = { showSearchBar = false },
@@ -116,6 +117,7 @@ internal fun GalleryShell(
                 GalleryShellContent(
                     catalog = catalog,
                     search = search,
+                    query = query,
                     library = library,
                     rootDestination = rootDestination,
                     selectedCategory = selectedCategory,
@@ -164,6 +166,7 @@ internal fun GalleryShell(
                     GalleryShellContent(
                         catalog = catalog,
                         search = search,
+                        query = query,
                         library = library,
                         rootDestination = rootDestination,
                         selectedCategory = selectedCategory,

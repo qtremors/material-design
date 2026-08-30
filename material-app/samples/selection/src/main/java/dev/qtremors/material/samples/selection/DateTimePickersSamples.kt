@@ -31,10 +31,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLocale
 import androidx.compose.ui.unit.dp
 import java.text.SimpleDateFormat
 import java.util.Date
-import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -44,9 +44,10 @@ fun DatePickerSample(modifier: Modifier = Modifier) {
 
     val datePickerState = rememberDatePickerState()
     val dateRangePickerState = rememberDateRangePickerState()
+    val locale = LocalLocale.current.platformLocale
 
     val selectedDateText = datePickerState.selectedDateMillis?.let {
-        SimpleDateFormat("MMM dd, yyyy", Locale.getDefault()).format(Date(it))
+        SimpleDateFormat("MMM dd, yyyy", locale).format(Date(it))
     } ?: "No date selected"
 
     Column(modifier, verticalArrangement = Arrangement.spacedBy(16.dp)) {
@@ -101,8 +102,8 @@ fun TimePickerSample(modifier: Modifier = Modifier) {
     var showDialPicker by remember { mutableStateOf(false) }
     var useTextEntry by remember { mutableStateOf(false) }
     val timePickerState = rememberTimePickerState(initialHour = 10, initialMinute = 30)
-
-    val formattedTime = String.format(Locale.getDefault(), "%02d:%02d", timePickerState.hour, timePickerState.minute)
+    val locale = LocalLocale.current.platformLocale
+    val formattedTime = String.format(locale, "%02d:%02d", timePickerState.hour, timePickerState.minute)
 
     Column(modifier, verticalArrangement = Arrangement.spacedBy(16.dp)) {
         Text("Time Picker", style = MaterialTheme.typography.titleMedium)

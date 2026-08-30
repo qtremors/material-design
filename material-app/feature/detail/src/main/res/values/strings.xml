@@ -46,4 +46,6 @@
     <string name="detail_opt_in_label">Opt in: %1$s</string>
     <string name="detail_repository_source_title">Repository source</string>
     <string name="detail_copy_path_content_description">Copy source path</string>
+    <string name="detail_clip_label_symbol">API symbol</string>
+    <string name="detail_clip_label_path">Source path</string>
 </resources>

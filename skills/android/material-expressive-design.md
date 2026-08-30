@@ -12,7 +12,7 @@ Use these sources in order:
 4. Current [Compose Material 3 release notes](https://developer.android.com/jetpack/androidx/releases/compose-material3).
 5. Current [Android adaptive layout guidance](https://developer.android.com/develop/adaptive-apps/guides/use-window-size-classes).
 
-The project pins `androidx.compose.material3:material3:1.5.0-alpha23`. Alpha signatures and opt-in requirements can change. Inspect the pinned sources or let the compiler determine required opt-ins; do not copy signatures from a different release.
+The project pins `androidx.compose.material3:material3:1.5.0-alpha26`. Alpha signatures and opt-in requirements can change. Inspect the pinned sources or let the compiler determine required opt-ins; do not copy signatures from a different release.
 
 Label custom behavior **Project implementation**. Never present a project experiment as an official Material API.
 

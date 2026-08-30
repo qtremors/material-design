@@ -36,6 +36,8 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenu
+import androidx.compose.material3.ExposedDropdownMenuAnchorType
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -331,7 +333,7 @@ fun SnackbarsSample(modifier: Modifier = Modifier) {
     }
 }
 
-@OptIn(ExperimentalLayoutApi::class)
+@OptIn(ExperimentalLayoutApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun TooltipsSample(modifier: Modifier = Modifier) {
     val plainState = rememberTooltipState()
@@ -481,7 +483,7 @@ fun MenusSample(modifier: Modifier = Modifier) {
                     label = { Text("List density") },
                     trailingIcon = { Icon(Icons.Default.ExpandMore, contentDescription = null) },
                     modifier = Modifier
-                        .menuAnchor()
+                        .menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable)
                         .fillMaxWidth(),
                 )
                 ExposedDropdownMenu(

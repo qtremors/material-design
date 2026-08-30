@@ -75,6 +75,7 @@ class GalleryViewModel(
     private val catalogLoader: suspend () -> CatalogRepository,
     private val userLibraryRepository: UserLibraryRepository,
     private val searchDispatcher: kotlinx.coroutines.CoroutineDispatcher = Dispatchers.Default,
+    private val ioDispatcher: kotlinx.coroutines.CoroutineDispatcher = Dispatchers.IO,
 ) : ViewModel() {
 
     private val _catalogLoad = MutableStateFlow<CatalogLoad>(CatalogLoad.Loading)
@@ -99,6 +100,7 @@ class GalleryViewModel(
     val apiStability: StateFlow<ApiStability> = _apiStability.asStateFlow()
 
     private val queryFlow = MutableStateFlow("")
+    val query: StateFlow<String> = queryFlow.asStateFlow()
 
     private val _events = MutableSharedFlow<GalleryEvent>(
         extraBufferCapacity = 8,
@@ -119,7 +121,7 @@ class GalleryViewModel(
         viewModelScope.launch {
             _catalogLoad.value = CatalogLoad.Loading
             _catalogLoad.value = try {
-                val repository = withContext(Dispatchers.IO) { catalogLoader() }
+                val repository = withContext(ioDispatcher) { catalogLoader() }
                 publishCatalogSnapshot(repository)
                 CatalogLoad.Ready(repository)
             } catch (cancellation: CancellationException) {

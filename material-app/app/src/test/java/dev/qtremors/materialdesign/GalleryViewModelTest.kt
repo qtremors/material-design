@@ -157,6 +157,7 @@ class GalleryViewModelTest {
             },
             userLibraryRepository = library,
             searchDispatcher = mainDispatcherRule.testDispatcher,
+            ioDispatcher = mainDispatcherRule.testDispatcher,
         )
         collectSearch(viewModel)
         advanceUntilIdle()
@@ -177,6 +178,7 @@ class GalleryViewModelTest {
             catalogLoader = { FakeCatalogRepository(sampleEntries) },
             userLibraryRepository = FakeUserLibraryRepository(),
             searchDispatcher = mainDispatcherRule.testDispatcher,
+            ioDispatcher = mainDispatcherRule.testDispatcher,
         )
         collectSearch(viewModel)
         advanceUntilIdle()
@@ -213,6 +215,7 @@ class GalleryViewModelTest {
             catalogLoader = { FakeCatalogRepository(sampleEntries) },
             userLibraryRepository = library,
             searchDispatcher = mainDispatcherRule.testDispatcher,
+            ioDispatcher = mainDispatcherRule.testDispatcher,
         )
         advanceUntilIdle()
 
@@ -235,6 +238,7 @@ class GalleryViewModelTest {
             catalogLoader = { FakeCatalogRepository(sampleEntries) },
             userLibraryRepository = library,
             searchDispatcher = mainDispatcherRule.testDispatcher,
+            ioDispatcher = mainDispatcherRule.testDispatcher,
         )
         advanceUntilIdle()
 
@@ -254,6 +258,7 @@ class GalleryViewModelTest {
             catalogLoader = { FakeCatalogRepository(sampleEntries) },
             userLibraryRepository = library,
             searchDispatcher = mainDispatcherRule.testDispatcher,
+            ioDispatcher = mainDispatcherRule.testDispatcher,
         )
         advanceUntilIdle()
 
@@ -268,6 +273,7 @@ class GalleryViewModelTest {
             catalogLoader = { FakeCatalogRepository(sampleEntries) },
             userLibraryRepository = library,
             searchDispatcher = mainDispatcherRule.testDispatcher,
+            ioDispatcher = mainDispatcherRule.testDispatcher,
         )
         advanceUntilIdle()
 

@@ -15,7 +15,7 @@
     <string name="app_cd_clear_search">Clear search</string>
 
     <!-- Search -->
-    <string name="app_search_placeholder">Search components, APIs, foundations...</string>
+    <string name="app_search_placeholder">Search components, APIs, foundations…</string>
     <string name="app_no_results_for_query">No results found for \"%1$s\"</string>
     <string name="app_search_empty_hint">Try searching for components (Buttons, Dialogs), foundations (Shapes, Colors), or APIs (rememberDatePickerState).</string>
     <string name="app_kind_foundation">Foundation</string>

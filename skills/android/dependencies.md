@@ -42,9 +42,9 @@ Use the Kotlin Compose compiler plugin for Compose modules. Apply only the plugi
 
 | Library | Pinned value |
 | --- | --- |
-| Compose BOM | `2026.06.00` |
-| Compose Material 3 | `1.5.0-alpha23` |
-| Material 3 Adaptive | `1.2.0` |
+| Compose BOM | `2026.08.00` |
+| Compose Material 3 | `1.5.0-alpha26` |
+| Material 3 Adaptive | `1.3.0` |
 
 Material 3 is explicit because the project uses APIs from the alpha track. Adaptive is also pinned explicitly. Never assume the BOM supplies those versions.
 

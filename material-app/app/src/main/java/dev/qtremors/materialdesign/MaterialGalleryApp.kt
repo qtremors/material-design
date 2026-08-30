@@ -129,6 +129,7 @@ private fun GalleryAppContent(
     val library by viewModel.library.collectAsState()
     val settings by viewModel.settings.collectAsState()
     val searchState by viewModel.search.collectAsState()
+    val query by viewModel.query.collectAsState()
     val rootDestination by viewModel.rootDestination.collectAsState()
     val selectedCategory by viewModel.selectedCategory.collectAsState()
     val apiStability by viewModel.apiStability.collectAsState()
@@ -156,6 +157,7 @@ private fun GalleryAppContent(
                 GalleryShell(
                     catalog = catalog,
                     search = searchState,
+                    query = query,
                     library = library,
                     rootDestination = rootDestination,
                     selectedCategory = selectedCategory,

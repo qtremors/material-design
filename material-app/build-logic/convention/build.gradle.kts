@@ -5,6 +5,8 @@ plugins {
 dependencies {
     compileOnly(libs.android.gradle.plugin)
     compileOnly(libs.kotlin.gradle.plugin)
+    testImplementation(gradleTestKit())
+    testImplementation(kotlin("test"))
 }
 
 gradlePlugin {
@@ -24,6 +26,10 @@ gradlePlugin {
         register("kotlinSerialization") {
             id = "materialdesign.kotlin.serialization"
             implementationClass = "KotlinSerializationConventionPlugin"
+        }
+        register("buildConventions") {
+            id = "materialdesign.build.conventions"
+            implementationClass = "BuildConventionsPlugin"
         }
     }
 }

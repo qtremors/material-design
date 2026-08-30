@@ -49,8 +49,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedToggleButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.ToggleButton
+import androidx.compose.material3.FilledTonalToggleButton
 import androidx.compose.material3.ToggleButtonDefaults
-import androidx.compose.material3.TonalToggleButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -257,7 +257,7 @@ fun ToggleButtonsSample(modifier: Modifier = Modifier) {
                     ToggleIcon(filled, Icons.Outlined.FavoriteBorder, Icons.Filled.Favorite)
                     Text("Filled")
                 }
-                TonalToggleButton(checked = tonal, onCheckedChange = { tonal = it }) {
+                FilledTonalToggleButton(checked = tonal, onCheckedChange = { tonal = it }) {
                     ToggleIcon(tonal, Icons.Outlined.Palette, Icons.Filled.Palette)
                     Text("Tonal")
                 }

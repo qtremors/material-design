@@ -11,6 +11,8 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
             extensions.configure(CommonExtension::class.java) {
                 configureAndroidCommon(this)
             }
+
+            registerBuildConventions()
         }
     }
 }
