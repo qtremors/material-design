@@ -84,7 +84,7 @@ import dev.qtremors.material.core.designsystem.LocalReducedMotion
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun ChipsSample(modifier: Modifier = Modifier) {
+fun ChipSample(modifier: Modifier = Modifier) {
     var compact by remember { mutableStateOf(true) }
     val activeFilters = remember { mutableStateListOf("Working") }
     val collaborators = remember { mutableStateListOf("Ari", "Mina") }
@@ -249,7 +249,7 @@ fun ChipsSample(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun SegmentedButtonsSample(modifier: Modifier = Modifier) {
+fun SegmentedButtonSample(modifier: Modifier = Modifier) {
     var densityIndex by remember { mutableIntStateOf(1) }
     val visibleLayers = remember { mutableStateListOf(0, 1) }
     val densityLabels = listOf("Compact", "Comfortable", "Expanded")
@@ -343,12 +343,6 @@ fun SegmentedButtonsSample(modifier: Modifier = Modifier) {
         }
     }
 }
-
-@Composable
-fun ChipSample(modifier: Modifier = Modifier) = ChipsSample(modifier)
-
-@Composable
-fun SegmentedButtonSample(modifier: Modifier = Modifier) = SegmentedButtonsSample(modifier)
 
 @Composable
 fun CheckboxSample(modifier: Modifier = Modifier) {
@@ -513,15 +507,6 @@ fun SwitchSample(modifier: Modifier = Modifier) {
     }
 }
 
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
-@Composable
-fun SelectionControlsSample(modifier: Modifier = Modifier) {
-    Column(modifier, verticalArrangement = Arrangement.spacedBy(32.dp)) {
-        CheckboxSample()
-        RadioButtonSample()
-        SwitchSample()
-    }
-}
 
 @Composable
 private fun ReferenceSection(

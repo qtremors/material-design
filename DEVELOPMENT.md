@@ -339,10 +339,11 @@ Material Design uses JVM unit, build-logic TestKit, and instrumented Compose UI 
 ### Test Distribution
 
 - **App tests:** ViewModel search and state, demo registration, backup policies, and typed navigation UI.
-- **Catalog tests:** Parsing, versions, identities, sources, demos, guidance, and official metadata.
-- **Data tests:** Bookmark, recent-history, and settings persistence behavior.
+- **Catalog tests:** Parsing, identities, naming contract, declared source symbols, retired IDs, guidance, and search ranking.
+- **API coverage tests:** Every cited symbol checked against the checked-in Material API inventory for existence, deprecation, stability, opt-in, availability, and reviewed version; every public symbol covered, planned, or excluded.
+- **Data tests:** Bookmark, recent-history, retired-ID migration, and settings persistence behavior.
 - **Design-system tests:** Expressive motion and reduced-motion behavior.
-- **Build-logic tests:** Production string detection and release metadata verification.
+- **Build-logic tests:** Production string detection, release metadata, and stale API inventory detection.
 - **Instrumented tests:** Device-dependent gallery navigation and Compose interaction.
 
 ### Verification Commands
@@ -364,9 +365,17 @@ Run from `material-app/` and use `gradlew.bat` on Windows.
 
 # App instrumented UI tests
 .\gradlew.bat :app:connectedDebugAndroidTest
+
+# After a Material dependency bump: regenerate the API inventory, then reconcile the ledger
+.\gradlew.bat :app:generateMaterialApiInventory
+.\gradlew.bat :app:updateApiCoverageLedger
 ```
 
 Run affected module tests while iterating. Reserve complete lint and APK builds for release milestones or cross-module changes.
+
+### Official API Coverage
+
+`core/catalog/api/` makes coverage of the official Material API measurable. `inventory/` is generated from the pinned Material 3, Material 3 Adaptive, and navigation-suite sources jars (and the newest stable Material 3 release, which catalog availability is checked against). `coverage-ledger.json` lists every public symbol no catalog entry cites yet, and `COVERAGE.md` is the generated report. All three are checked in, so `ApiCoverageTest` runs offline; `verifyMaterialBuildConventions` fails when the inventory no longer matches `libs.versions.toml`. Symbols published by a new version arrive in the ledger as `new` and fail tests until they are triaged as `planned` or `excluded`.
 
 ---
 

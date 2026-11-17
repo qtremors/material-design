@@ -4,17 +4,21 @@
   "composeUiVersion": "1.12.1",
   "stableBaseline": "1.4.0",
   "reviewedOn": "2026-11-17",
+  "retiredIds": {
+    "selection-controls": "checkbox"
+  },
   "entries": [
     {
       "id": "buttons",
-      "officialName": "Buttons",
+      "officialName": "Button",
       "aliases": [
         "expressive buttons",
         "morphing buttons",
         "filled button",
         "tonal button",
         "hold to confirm",
-        "fluid toggle group"
+        "fluid toggle group",
+        "buttons"
       ],
       "kind": "component",
       "category": "Actions",
@@ -53,7 +57,7 @@
         {
           "path": "material-app/samples/actions/src/main/java/dev/qtremors/material/samples/actions/ActionSamples.kt",
           "symbols": [
-            "ButtonsSample",
+            "ButtonSample",
             "ExpressiveActionButton",
             "HoldToConfirmButton",
             "FluidToggleButtonGroup",
@@ -131,8 +135,7 @@
         {
           "path": "material-app/samples/actions/src/main/java/dev/qtremors/material/samples/actions/ActionSamples.kt",
           "symbols": [
-            "SplitButtonSample",
-            "SplitButtonsSample"
+            "SplitButtonSample"
           ]
         }
       ],
@@ -191,13 +194,12 @@
         "featured",
         "recent"
       ],
-      "demoKey": "actions.fabs",
+      "demoKey": "actions.floating-action-buttons",
       "sourceLocations": [
         {
           "path": "material-app/samples/actions/src/main/java/dev/qtremors/material/samples/actions/ActionSamples.kt",
           "symbols": [
-            "FloatingActionButtonSample",
-            "FloatingActionButtonsSample"
+            "FloatingActionButtonSample"
           ]
         }
       ],
@@ -262,8 +264,7 @@
         {
           "path": "material-app/samples/actions/src/main/java/dev/qtremors/material/samples/actions/ActionSamples.kt",
           "symbols": [
-            "IconButtonSample",
-            "IconButtonsSample"
+            "IconButtonSample"
           ]
         }
       ],
@@ -280,7 +281,7 @@
           "symbol": "androidx.compose.material3.FilledIconButton",
           "artifact": "androidx.compose.material3:material3",
           "reviewedVersion": "1.5.0-rc01",
-          "availability": "alpha_only",
+          "availability": "stable_artifact",
           "stability": "stable",
           "url": "https://developer.android.com/reference/kotlin/androidx/compose/material3/FilledIconButton"
         },
@@ -288,7 +289,7 @@
           "symbol": "androidx.compose.material3.FilledIconToggleButton",
           "artifact": "androidx.compose.material3:material3",
           "reviewedVersion": "1.5.0-rc01",
-          "availability": "alpha_only",
+          "availability": "stable_artifact",
           "stability": "stable",
           "url": "https://developer.android.com/reference/kotlin/androidx/compose/material3/FilledIconToggleButton"
         },
@@ -296,7 +297,7 @@
           "symbol": "androidx.compose.material3.OutlinedIconToggleButton",
           "artifact": "androidx.compose.material3:material3",
           "reviewedVersion": "1.5.0-rc01",
-          "availability": "alpha_only",
+          "availability": "stable_artifact",
           "stability": "stable",
           "url": "https://developer.android.com/reference/kotlin/androidx/compose/material3/package-summary"
         }
@@ -306,7 +307,7 @@
       ],
       "implementation": "official_api",
       "addedIn": "2.0.5",
-      "reviewedOn": "2026-08-21"
+      "reviewedOn": "2026-11-17"
     },
     {
       "id": "fab-menus",
@@ -353,7 +354,7 @@
         {
           "path": "material-app/samples/actions/src/main/java/dev/qtremors/material/samples/actions/ActionSamples.kt",
           "symbols": [
-            "FabMenusSample"
+            "FabMenuSample"
           ]
         }
       ],
@@ -384,11 +385,12 @@
     },
     {
       "id": "progress-indicators",
-      "officialName": "Progress indicators",
+      "officialName": "Progress indicator",
       "aliases": [
         "wavy progress",
         "wavy progress indicators",
-        "loading progress"
+        "loading progress",
+        "progress indicators"
       ],
       "kind": "component",
       "category": "Communication",
@@ -421,12 +423,12 @@
         "expressive",
         "recent"
       ],
-      "demoKey": "communication.progress",
+      "demoKey": "communication.progress-indicators",
       "sourceLocations": [
         {
           "path": "material-app/samples/communication/src/main/java/dev/qtremors/material/samples/communication/ProgressSamples.kt",
           "symbols": [
-            "ProgressIndicatorsSample"
+            "ProgressIndicatorSample"
           ]
         }
       ],
@@ -491,8 +493,7 @@
         {
           "path": "material-app/samples/communication/src/main/java/dev/qtremors/material/samples/communication/ProgressSamples.kt",
           "symbols": [
-            "LoadingIndicatorSample",
-            "LoadingIndicatorsSample"
+            "LoadingIndicatorSample"
           ]
         }
       ],
@@ -561,13 +562,12 @@
         "featured",
         "expressive"
       ],
-      "demoKey": "containment.segmented-lists",
+      "demoKey": "containment.segmented-list-items",
       "sourceLocations": [
         {
           "path": "material-app/samples/containment/src/main/java/dev/qtremors/material/samples/containment/ContainmentSamples.kt",
           "symbols": [
-            "SegmentedListItemSample",
-            "SegmentedListItemsSample"
+            "SegmentedListItemSample"
           ]
         }
       ],
@@ -632,8 +632,7 @@
         {
           "path": "material-app/samples/containment/src/main/java/dev/qtremors/material/samples/containment/ContainmentSamples.kt",
           "symbols": [
-            "CarouselSample",
-            "CarouselsSample"
+            "CarouselSample"
           ]
         }
       ],
@@ -642,7 +641,7 @@
           "symbol": "androidx.compose.material3.carousel.HorizontalMultiBrowseCarousel",
           "artifact": "androidx.compose.material3:material3",
           "reviewedVersion": "1.5.0-rc01",
-          "availability": "alpha_only",
+          "availability": "stable_artifact",
           "stability": "stable",
           "url": "https://developer.android.com/reference/kotlin/androidx/compose/material3/carousel/package-summary"
         },
@@ -650,7 +649,7 @@
           "symbol": "androidx.compose.material3.carousel.HorizontalUncontainedCarousel",
           "artifact": "androidx.compose.material3:material3",
           "reviewedVersion": "1.5.0-rc01",
-          "availability": "alpha_only",
+          "availability": "stable_artifact",
           "stability": "stable",
           "url": "https://developer.android.com/reference/kotlin/androidx/compose/material3/carousel/HorizontalUncontainedCarousel"
         }
@@ -660,7 +659,7 @@
       ],
       "implementation": "project_implementation",
       "addedIn": "2.0.0",
-      "reviewedOn": "2026-07-15"
+      "reviewedOn": "2026-11-17"
     },
     {
       "id": "pull-to-refresh",
@@ -712,12 +711,12 @@
       ],
       "apiReferences": [
         {
-          "symbol": "androidx.compose.material3.PullToRefreshBox",
+          "symbol": "androidx.compose.material3.pulltorefresh.PullToRefreshBox",
           "artifact": "androidx.compose.material3:material3",
           "reviewedVersion": "1.5.0-rc01",
-          "availability": "alpha_only",
+          "availability": "stable_artifact",
           "stability": "stable",
-          "url": "https://developer.android.com/reference/kotlin/androidx/compose/material3/PullToRefreshBox"
+          "url": "https://developer.android.com/reference/kotlin/androidx/compose/material3/pulltorefresh/package-summary#PullToRefreshBox(kotlin.Boolean,kotlin.Function0,androidx.compose.ui.Modifier,androidx.compose.material3.pulltorefresh.PullToRefreshState,androidx.compose.ui.Alignment,kotlin.Function1,kotlin.Function1)"
         }
       ],
       "officialUrls": [
@@ -725,7 +724,7 @@
       ],
       "implementation": "official_api",
       "addedIn": "2.0.5",
-      "reviewedOn": "2026-08-21"
+      "reviewedOn": "2026-11-17"
     },
     {
       "id": "floating-toolbars",
@@ -769,8 +768,7 @@
         {
           "path": "material-app/samples/navigation/src/main/java/dev/qtremors/material/samples/navigation/NavigationSamples.kt",
           "symbols": [
-            "FloatingToolbarSample",
-            "FloatingToolbarsSample"
+            "FloatingToolbarSample"
           ]
         }
       ],
@@ -867,12 +865,13 @@
     },
     {
       "id": "button-groups",
-      "officialName": "Button groups",
+      "officialName": "Button group",
       "aliases": [
         "button group",
         "connected buttons",
         "overflow button group",
-        "grouped actions"
+        "grouped actions",
+        "button groups"
       ],
       "kind": "component",
       "category": "Actions",
@@ -911,8 +910,7 @@
         {
           "path": "material-app/samples/actions/src/main/java/dev/qtremors/material/samples/actions/ButtonGroupSamples.kt",
           "symbols": [
-            "ButtonGroupSample",
-            "ButtonGroupsSample"
+            "ButtonGroupSample"
           ]
         }
       ],
@@ -987,8 +985,7 @@
         {
           "path": "material-app/samples/actions/src/main/java/dev/qtremors/material/samples/actions/ButtonGroupSamples.kt",
           "symbols": [
-            "ToggleButtonSample",
-            "ToggleButtonsSample"
+            "ToggleButtonSample"
           ]
         }
       ],
@@ -1019,13 +1016,14 @@
     },
     {
       "id": "cards",
-      "officialName": "Cards",
+      "officialName": "Card",
       "aliases": [
         "filled card",
         "elevated card",
         "outlined card",
         "selectable card",
-        "responsive card"
+        "responsive card",
+        "cards"
       ],
       "kind": "component",
       "category": "Containment",
@@ -1064,7 +1062,7 @@
         {
           "path": "material-app/samples/containment/src/main/java/dev/qtremors/material/samples/containment/CardAndListSamples.kt",
           "symbols": [
-            "CardsSample"
+            "CardSample"
           ]
         }
       ],
@@ -1103,13 +1101,14 @@
     },
     {
       "id": "lists",
-      "officialName": "Lists",
+      "officialName": "List",
       "aliases": [
         "list item",
         "standard list item",
         "one line list",
         "two line list",
-        "three line list"
+        "three line list",
+        "lists"
       ],
       "kind": "component",
       "category": "Containment",
@@ -1147,7 +1146,7 @@
         {
           "path": "material-app/samples/containment/src/main/java/dev/qtremors/material/samples/containment/CardAndListSamples.kt",
           "symbols": [
-            "ListsSample"
+            "ListSample"
           ]
         }
       ],
@@ -1170,13 +1169,14 @@
     },
     {
       "id": "chips",
-      "officialName": "Chips",
+      "officialName": "Chip",
       "aliases": [
         "assist chip",
         "filter chip",
         "input chip",
         "suggestion chip",
-        "chip group"
+        "chip group",
+        "chips"
       ],
       "kind": "component",
       "category": "Selection",
@@ -1215,7 +1215,7 @@
         {
           "path": "material-app/samples/selection/src/main/java/dev/qtremors/material/samples/selection/SelectionSamples.kt",
           "symbols": [
-            "ChipsSample"
+            "ChipSample"
           ]
         }
       ],
@@ -1297,8 +1297,7 @@
         {
           "path": "material-app/samples/selection/src/main/java/dev/qtremors/material/samples/selection/SelectionSamples.kt",
           "symbols": [
-            "SegmentedButtonSample",
-            "SegmentedButtonsSample"
+            "SegmentedButtonSample"
           ]
         }
       ],
@@ -1606,7 +1605,7 @@
           "symbol": "androidx.compose.material3.expressiveLightColorScheme",
           "artifact": "androidx.compose.material3:material3",
           "reviewedVersion": "1.5.0-rc01",
-          "availability": "stable_artifact",
+          "availability": "alpha_only",
           "stability": "stable",
           "url": "https://developer.android.com/reference/kotlin/androidx/compose/material3/expressiveLightColorScheme"
         }
@@ -1616,7 +1615,7 @@
       ],
       "implementation": "official_api",
       "addedIn": "2.0.2",
-      "reviewedOn": "2026-08-21"
+      "reviewedOn": "2026-11-17"
     },
     {
       "id": "shape",
@@ -1663,16 +1662,16 @@
       "demoKey": "foundations.shape",
       "sourceLocations": [
         {
+          "path": "material-app/samples/foundations/src/main/java/dev/qtremors/material/samples/foundations/FoundationInspectorSamples.kt",
+          "symbols": [
+            "ShapeSample"
+          ]
+        },
+        {
           "path": "material-app/samples/foundations/src/main/java/dev/qtremors/material/samples/foundations/ExpressiveShapesSamples.kt",
           "symbols": [
             "ExpressiveShapesSample",
             "MaterialExpressiveShapes"
-          ]
-        },
-        {
-          "path": "material-app/samples/foundations/src/main/java/dev/qtremors/material/samples/foundations/FoundationInspectorSamples.kt",
-          "symbols": [
-            "ShapeSample"
           ]
         }
       ],
@@ -1768,7 +1767,7 @@
           "symbol": "androidx.compose.material3.MotionScheme",
           "artifact": "androidx.compose.material3:material3",
           "reviewedVersion": "1.5.0-rc01",
-          "availability": "stable_artifact",
+          "availability": "alpha_only",
           "stability": "stable",
           "url": "https://developer.android.com/reference/kotlin/androidx/compose/material3/MotionScheme"
         },
@@ -1776,7 +1775,7 @@
           "symbol": "androidx.compose.material3.MaterialExpressiveTheme",
           "artifact": "androidx.compose.material3:material3",
           "reviewedVersion": "1.5.0-rc01",
-          "availability": "stable_artifact",
+          "availability": "alpha_only",
           "stability": "stable",
           "url": "https://developer.android.com/reference/kotlin/androidx/compose/material3/MaterialExpressiveTheme"
         }
@@ -1786,7 +1785,7 @@
       ],
       "implementation": "project_implementation",
       "addedIn": "2.0.2",
-      "reviewedOn": "2026-08-21"
+      "reviewedOn": "2026-11-17"
     },
     {
       "id": "elevation",
@@ -1993,14 +1992,15 @@
     },
     {
       "id": "text-fields",
-      "officialName": "Text fields",
+      "officialName": "Text field",
       "aliases": [
         "input",
         "form field",
         "outlined text field",
         "filled text field",
         "validation",
-        "supporting text"
+        "supporting text",
+        "text fields"
       ],
       "kind": "component",
       "category": "Selection and input",
@@ -2038,7 +2038,7 @@
         {
           "path": "material-app/samples/selection/src/main/java/dev/qtremors/material/samples/selection/InputSamples.kt",
           "symbols": [
-            "TextFieldsSample"
+            "TextFieldSample"
           ]
         }
       ],
@@ -2110,7 +2110,7 @@
           ]
         },
         {
-          "path": "material-app/app/src/main/java/dev/qtremors/materialdesign/MaterialGalleryApp.kt",
+          "path": "material-app/app/src/main/java/dev/qtremors/materialdesign/shell/GalleryTopBar.kt",
           "symbols": [
             "GalleryTopBar"
           ]
@@ -2121,7 +2121,7 @@
           "symbol": "androidx.compose.material3.SearchBar",
           "artifact": "androidx.compose.material3:material3",
           "reviewedVersion": "1.5.0-rc01",
-          "availability": "alpha_only",
+          "availability": "stable_artifact",
           "stability": "experimental",
           "optInAnnotation": "androidx.compose.material3.ExperimentalMaterial3Api",
           "url": "https://developer.android.com/reference/kotlin/androidx/compose/material3/SearchBar"
@@ -2130,7 +2130,7 @@
           "symbol": "androidx.compose.material3.SearchBarState",
           "artifact": "androidx.compose.material3:material3",
           "reviewedVersion": "1.5.0-rc01",
-          "availability": "alpha_only",
+          "availability": "stable_artifact",
           "stability": "stable",
           "url": "https://developer.android.com/reference/kotlin/androidx/compose/material3/SearchBarState"
         },
@@ -2138,7 +2138,7 @@
           "symbol": "androidx.compose.material3.DockedSearchBar",
           "artifact": "androidx.compose.material3:material3",
           "reviewedVersion": "1.5.0-rc01",
-          "availability": "alpha_only",
+          "availability": "stable_artifact",
           "stability": "experimental",
           "optInAnnotation": "androidx.compose.material3.ExperimentalMaterial3Api",
           "url": "https://developer.android.com/reference/kotlin/androidx/compose/material3/DockedSearchBar"
@@ -2153,13 +2153,14 @@
     },
     {
       "id": "dialogs",
-      "officialName": "Dialogs",
+      "officialName": "Dialog",
       "aliases": [
         "alert dialog",
         "confirmation dialog",
         "modal",
         "destructive confirmation",
-        "decision"
+        "decision",
+        "dialogs"
       ],
       "kind": "component",
       "category": "Communication",
@@ -2197,7 +2198,7 @@
         {
           "path": "material-app/samples/communication/src/main/java/dev/qtremors/material/samples/communication/FeedbackSamples.kt",
           "symbols": [
-            "DialogsSample"
+            "DialogSample"
           ]
         }
       ],
@@ -2220,13 +2221,14 @@
     },
     {
       "id": "bottom-sheets",
-      "officialName": "Bottom sheets",
+      "officialName": "Bottom sheet",
       "aliases": [
         "modal bottom sheet",
         "sheet",
         "supporting actions",
         "mobile sheet",
-        "scrim"
+        "scrim",
+        "bottom sheets"
       ],
       "kind": "component",
       "category": "Communication",
@@ -2264,7 +2266,7 @@
         {
           "path": "material-app/samples/communication/src/main/java/dev/qtremors/material/samples/communication/FeedbackSamples.kt",
           "symbols": [
-            "BottomSheetsSample"
+            "BottomSheetSample"
           ]
         }
       ],
@@ -2273,7 +2275,7 @@
           "symbol": "androidx.compose.material3.ModalBottomSheet",
           "artifact": "androidx.compose.material3:material3",
           "reviewedVersion": "1.5.0-rc01",
-          "availability": "alpha_only",
+          "availability": "stable_artifact",
           "stability": "experimental",
           "optInAnnotation": "androidx.compose.material3.ExperimentalMaterial3Api",
           "url": "https://developer.android.com/reference/kotlin/androidx/compose/material3/ModalBottomSheet"
@@ -2284,7 +2286,7 @@
       ],
       "implementation": "official_api",
       "addedIn": "2.0.2",
-      "reviewedOn": "2026-07-16"
+      "reviewedOn": "2026-11-17"
     },
     {
       "id": "snackbars",
@@ -2332,8 +2334,7 @@
         {
           "path": "material-app/samples/communication/src/main/java/dev/qtremors/material/samples/communication/FeedbackSamples.kt",
           "symbols": [
-            "SnackbarSample",
-            "SnackbarsSample"
+            "SnackbarSample"
           ]
         }
       ],
@@ -2356,13 +2357,14 @@
     },
     {
       "id": "tooltips",
-      "officialName": "Tooltips",
+      "officialName": "Tooltip",
       "aliases": [
         "tooltip",
         "plain tooltip",
         "rich tooltip",
         "hover label",
-        "long press help"
+        "long press help",
+        "tooltips"
       ],
       "kind": "component",
       "category": "Communication",
@@ -2399,7 +2401,7 @@
         {
           "path": "material-app/samples/communication/src/main/java/dev/qtremors/material/samples/communication/FeedbackSamples.kt",
           "symbols": [
-            "TooltipsSample"
+            "TooltipSample"
           ]
         }
       ],
@@ -2423,13 +2425,14 @@
     },
     {
       "id": "menus",
-      "officialName": "Menus",
+      "officialName": "Menu",
       "aliases": [
         "dropdown menu",
         "overflow menu",
         "context menu",
         "menu item",
-        "selection menu"
+        "selection menu",
+        "menus"
       ],
       "kind": "component",
       "category": "Communication",
@@ -2466,7 +2469,7 @@
         {
           "path": "material-app/samples/communication/src/main/java/dev/qtremors/material/samples/communication/FeedbackSamples.kt",
           "symbols": [
-            "MenusSample"
+            "MenuSample"
           ]
         }
       ],
@@ -2483,7 +2486,7 @@
           "symbol": "androidx.compose.material3.ExposedDropdownMenuBox",
           "artifact": "androidx.compose.material3:material3",
           "reviewedVersion": "1.5.0-rc01",
-          "availability": "alpha_only",
+          "availability": "stable_artifact",
           "stability": "stable",
           "url": "https://developer.android.com/reference/kotlin/androidx/compose/material3/ExposedDropdownMenuBox"
         }
@@ -2533,7 +2536,7 @@
         "recent",
         "featured"
       ],
-      "demoKey": "navigation.bars",
+      "demoKey": "navigation.navigation-bars",
       "sourceLocations": [
         {
           "path": "material-app/samples/navigation/src/main/java/dev/qtremors/material/samples/navigation/NavigationComponentsSamples.kt",
@@ -2594,7 +2597,7 @@
       "collections": [
         "recent"
       ],
-      "demoKey": "navigation.rails",
+      "demoKey": "navigation.navigation-rails",
       "sourceLocations": [
         {
           "path": "material-app/samples/navigation/src/main/java/dev/qtremors/material/samples/navigation/NavigationComponentsSamples.kt",
@@ -2658,7 +2661,7 @@
       "collections": [
         "recent"
       ],
-      "demoKey": "navigation.drawers",
+      "demoKey": "navigation.navigation-drawers",
       "sourceLocations": [
         {
           "path": "material-app/samples/navigation/src/main/java/dev/qtremors/material/samples/navigation/NavigationComponentsSamples.kt",
@@ -2686,13 +2689,14 @@
     },
     {
       "id": "tabs",
-      "officialName": "Tabs",
+      "officialName": "Tab",
       "aliases": [
         "primary tabs",
         "secondary tabs",
         "scrollable tabs",
         "tab row",
-        "tab bar"
+        "tab bar",
+        "tabs"
       ],
       "kind": "component",
       "category": "Navigation",
@@ -2727,7 +2731,7 @@
         {
           "path": "material-app/samples/navigation/src/main/java/dev/qtremors/material/samples/navigation/NavigationComponentsSamples.kt",
           "symbols": [
-            "TabsSample"
+            "TabSample"
           ]
         }
       ],
@@ -2744,17 +2748,17 @@
           "symbol": "androidx.compose.material3.SecondaryTabRow",
           "artifact": "androidx.compose.material3:material3",
           "reviewedVersion": "1.5.0-rc01",
-          "availability": "alpha_only",
+          "availability": "stable_artifact",
           "stability": "stable",
           "url": "https://developer.android.com/reference/kotlin/androidx/compose/material3/SecondaryTabRow"
         },
         {
-          "symbol": "androidx.compose.material3.ScrollableTabRow",
+          "symbol": "androidx.compose.material3.PrimaryScrollableTabRow",
           "artifact": "androidx.compose.material3:material3",
           "reviewedVersion": "1.5.0-rc01",
           "availability": "stable_artifact",
           "stability": "stable",
-          "url": "https://developer.android.com/reference/kotlin/androidx/compose/material3/package-summary"
+          "url": "https://developer.android.com/reference/kotlin/androidx/compose/material3/package-summary#PrimaryScrollableTabRow(kotlin.Int,androidx.compose.ui.Modifier,androidx.compose.foundation.ScrollState,androidx.compose.ui.graphics.Color,androidx.compose.ui.graphics.Color,androidx.compose.ui.unit.Dp,kotlin.Function1,kotlin.Function0,androidx.compose.ui.unit.Dp,kotlin.Function0)"
         }
       ],
       "officialUrls": [
@@ -2762,7 +2766,7 @@
       ],
       "implementation": "official_api",
       "addedIn": "2.0.4",
-      "reviewedOn": "2026-08-11"
+      "reviewedOn": "2026-11-17"
     },
     {
       "id": "top-app-bars",
@@ -2808,8 +2812,7 @@
         {
           "path": "material-app/samples/navigation/src/main/java/dev/qtremors/material/samples/navigation/NavigationComponentsSamples.kt",
           "symbols": [
-            "TopAppBarSample",
-            "TopAppBarsSample"
+            "TopAppBarSample"
           ]
         }
       ],
@@ -2818,7 +2821,7 @@
           "symbol": "androidx.compose.material3.TopAppBar",
           "artifact": "androidx.compose.material3:material3",
           "reviewedVersion": "1.5.0-rc01",
-          "availability": "alpha_only",
+          "availability": "stable_artifact",
           "stability": "stable",
           "url": "https://developer.android.com/reference/kotlin/androidx/compose/material3/TopAppBar"
         }
@@ -2872,8 +2875,7 @@
         {
           "path": "material-app/samples/navigation/src/main/java/dev/qtremors/material/samples/navigation/NavigationComponentsSamples.kt",
           "symbols": [
-            "BottomAppBarSample",
-            "BottomAppBarsSample"
+            "BottomAppBarSample"
           ]
         }
       ],
@@ -2896,13 +2898,14 @@
     },
     {
       "id": "sliders",
-      "officialName": "Sliders",
+      "officialName": "Slider",
       "aliases": [
         "range slider",
         "volume slider",
         "continuous slider",
         "discrete slider",
-        "seek bar"
+        "seek bar",
+        "sliders"
       ],
       "kind": "component",
       "category": "Selection",
@@ -2937,7 +2940,7 @@
         {
           "path": "material-app/samples/selection/src/main/java/dev/qtremors/material/samples/selection/SlidersSamples.kt",
           "symbols": [
-            "SlidersSample"
+            "SliderSample"
           ]
         }
       ],
@@ -2968,12 +2971,13 @@
     },
     {
       "id": "date-pickers",
-      "officialName": "Date pickers",
+      "officialName": "Date picker",
       "aliases": [
         "calendar picker",
         "date range picker",
         "modal date picker",
-        "input date picker"
+        "input date picker",
+        "date pickers"
       ],
       "kind": "component",
       "category": "Selection",
@@ -3016,7 +3020,7 @@
           "symbol": "androidx.compose.material3.DatePicker",
           "artifact": "androidx.compose.material3:material3",
           "reviewedVersion": "1.5.0-rc01",
-          "availability": "alpha_only",
+          "availability": "stable_artifact",
           "stability": "stable",
           "url": "https://developer.android.com/reference/kotlin/androidx/compose/material3/DatePicker"
         },
@@ -3024,7 +3028,7 @@
           "symbol": "androidx.compose.material3.DateRangePicker",
           "artifact": "androidx.compose.material3:material3",
           "reviewedVersion": "1.5.0-rc01",
-          "availability": "alpha_only",
+          "availability": "stable_artifact",
           "stability": "stable",
           "url": "https://developer.android.com/reference/kotlin/androidx/compose/material3/DateRangePicker"
         }
@@ -3038,12 +3042,13 @@
     },
     {
       "id": "time-pickers",
-      "officialName": "Time pickers",
+      "officialName": "Time picker",
       "aliases": [
         "clock picker",
         "time input",
         "modal time picker",
-        "alarm picker"
+        "alarm picker",
+        "time pickers"
       ],
       "kind": "component",
       "category": "Selection",
@@ -3084,7 +3089,7 @@
           "symbol": "androidx.compose.material3.TimePicker",
           "artifact": "androidx.compose.material3:material3",
           "reviewedVersion": "1.5.0-rc01",
-          "availability": "alpha_only",
+          "availability": "stable_artifact",
           "stability": "stable",
           "url": "https://developer.android.com/reference/kotlin/androidx/compose/material3/TimePicker"
         }
@@ -3098,13 +3103,14 @@
     },
     {
       "id": "badges",
-      "officialName": "Badges",
+      "officialName": "Badge",
       "aliases": [
         "notification badge",
         "dot badge",
         "count badge",
         "badged box",
-        "number badge"
+        "number badge",
+        "badges"
       ],
       "kind": "component",
       "category": "Communication",
@@ -3138,7 +3144,7 @@
         {
           "path": "material-app/samples/communication/src/main/java/dev/qtremors/material/samples/communication/BadgesSamples.kt",
           "symbols": [
-            "BadgesSample"
+            "BadgeSample"
           ]
         }
       ],
@@ -3208,7 +3214,7 @@
           "symbol": "androidx.compose.material3.FlexibleBottomAppBar",
           "artifact": "androidx.compose.material3:material3",
           "reviewedVersion": "1.5.0-rc01",
-          "availability": "stable_artifact",
+          "availability": "alpha_only",
           "stability": "stable",
           "url": "https://developer.android.com/reference/kotlin/androidx/compose/material3/FlexibleBottomAppBar"
         }
@@ -3218,7 +3224,7 @@
       ],
       "implementation": "official_api",
       "addedIn": "2.0.8",
-      "reviewedOn": "2026-08-23"
+      "reviewedOn": "2026-11-17"
     },
     {
       "id": "wide-navigation-rails",
@@ -3504,8 +3510,7 @@
         {
           "path": "material-app/samples/selection/src/main/java/dev/qtremors/material/samples/selection/ExtendedSelectionSamples.kt",
           "symbols": [
-            "VerticalSliderSample",
-            "VerticalSlidersSample"
+            "VerticalSliderSample"
           ]
         }
       ],
@@ -3578,8 +3583,7 @@
         {
           "path": "material-app/samples/selection/src/main/java/dev/qtremors/material/samples/selection/ExtendedSelectionSamples.kt",
           "symbols": [
-            "TopSearchBarSample",
-            "TopSearchBarsSample"
+            "TopSearchBarSample"
           ]
         }
       ],
@@ -3597,7 +3601,7 @@
           "symbol": "androidx.compose.material3.ExpandedFullScreenSearchBar",
           "artifact": "androidx.compose.material3:material3",
           "reviewedVersion": "1.5.0-rc01",
-          "availability": "alpha_only",
+          "availability": "stable_artifact",
           "stability": "stable",
           "url": "https://developer.android.com/reference/kotlin/androidx/compose/material3/ExpandedFullScreenSearchBar"
         },
@@ -3605,7 +3609,7 @@
           "symbol": "androidx.compose.material3.rememberSearchBarState",
           "artifact": "androidx.compose.material3:material3",
           "reviewedVersion": "1.5.0-rc01",
-          "availability": "alpha_only",
+          "availability": "stable_artifact",
           "stability": "stable",
           "url": "https://developer.android.com/reference/kotlin/androidx/compose/material3/rememberSearchBarState"
         }
@@ -3661,8 +3665,7 @@
         {
           "path": "material-app/samples/selection/src/main/java/dev/qtremors/material/samples/selection/ExtendedSelectionSamples.kt",
           "symbols": [
-            "TimePickerDialogSample",
-            "TimePickerDialogsSample"
+            "TimePickerDialogSample"
           ]
         }
       ],
@@ -3671,7 +3674,7 @@
           "symbol": "androidx.compose.material3.TimePickerDialog",
           "artifact": "androidx.compose.material3:material3",
           "reviewedVersion": "1.5.0-rc01",
-          "availability": "alpha_only",
+          "availability": "stable_artifact",
           "stability": "stable",
           "url": "https://developer.android.com/reference/kotlin/androidx/compose/material3/TimePickerDialog"
         },
@@ -3687,7 +3690,7 @@
           "symbol": "androidx.compose.material3.TimePickerDialogDefaults",
           "artifact": "androidx.compose.material3:material3",
           "reviewedVersion": "1.5.0-rc01",
-          "availability": "alpha_only",
+          "availability": "stable_artifact",
           "stability": "stable",
           "url": "https://developer.android.com/reference/kotlin/androidx/compose/material3/TimePickerDialogDefaults"
         }
@@ -3741,8 +3744,7 @@
         {
           "path": "material-app/samples/navigation/src/main/java/dev/qtremors/material/samples/navigation/ExtendedNavigationSamples.kt",
           "symbols": [
-            "ScrollableTabRowSample",
-            "ScrollableTabRowsSample"
+            "ScrollableTabRowSample"
           ]
         }
       ],
@@ -3814,8 +3816,7 @@
         {
           "path": "material-app/samples/communication/src/main/java/dev/qtremors/material/samples/communication/ExtendedCommunicationSamples.kt",
           "symbols": [
-            "DropdownMenuGroupSample",
-            "GroupedDropdownMenusSample"
+            "DropdownMenuGroupSample"
           ]
         }
       ],
@@ -3887,8 +3888,7 @@
         {
           "path": "material-app/samples/communication/src/main/java/dev/qtremors/material/samples/communication/ExtendedCommunicationSamples.kt",
           "symbols": [
-            "BasicAlertDialogSample",
-            "BasicAlertDialogsSample"
+            "BasicAlertDialogSample"
           ]
         }
       ],
@@ -3897,7 +3897,7 @@
           "symbol": "androidx.compose.material3.BasicAlertDialog",
           "artifact": "androidx.compose.material3:material3",
           "reviewedVersion": "1.5.0-rc01",
-          "availability": "alpha_only",
+          "availability": "stable_artifact",
           "stability": "stable",
           "url": "https://developer.android.com/reference/kotlin/androidx/compose/material3/BasicAlertDialog"
         }
@@ -3953,8 +3953,7 @@
         {
           "path": "material-app/samples/foundations/src/main/java/dev/qtremors/material/samples/foundations/FoundationSamples.kt",
           "symbols": [
-            "DividerSample",
-            "DividersSample"
+            "DividerSample"
           ]
         }
       ],
@@ -4024,8 +4023,7 @@
         {
           "path": "material-app/samples/containment/src/main/java/dev/qtremors/material/samples/containment/ExtendedContainmentSamples.kt",
           "symbols": [
-            "HeroCarouselSample",
-            "HeroCarouselsSample"
+            "HeroCarouselSample"
           ]
         }
       ],
@@ -4034,7 +4032,7 @@
           "symbol": "androidx.compose.material3.carousel.HorizontalCenteredHeroCarousel",
           "artifact": "androidx.compose.material3:material3",
           "reviewedVersion": "1.5.0-rc01",
-          "availability": "alpha_only",
+          "availability": "stable_artifact",
           "stability": "stable",
           "url": "https://developer.android.com/reference/kotlin/androidx/compose/material3/carousel/HorizontalCenteredHeroCarousel"
         },
@@ -4094,9 +4092,9 @@
       "demoKey": "foundations.scaffold",
       "sourceLocations": [
         {
-          "path": "material-app/samples/foundations/src/main/java/dev/qtremors/material/samples/foundations/ScaffoldFoundationSample.kt",
+          "path": "material-app/samples/foundations/src/main/java/dev/qtremors/material/samples/foundations/ScaffoldSample.kt",
           "symbols": [
-            "ScaffoldFoundationSample"
+            "ScaffoldSample"
           ]
         }
       ],

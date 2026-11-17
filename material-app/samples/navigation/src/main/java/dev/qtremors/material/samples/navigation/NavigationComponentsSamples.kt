@@ -210,7 +210,7 @@ fun NavigationDrawerSample(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun TabsSample(modifier: Modifier = Modifier) {
+fun TabSample(modifier: Modifier = Modifier) {
     var primaryIndex by remember { mutableIntStateOf(0) }
     var secondaryIndex by remember { mutableIntStateOf(0) }
     var scrollableIndex by remember { mutableIntStateOf(0) }
@@ -257,7 +257,7 @@ fun TabsSample(modifier: Modifier = Modifier) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopAppBarsSample(modifier: Modifier = Modifier) {
+fun TopAppBarSample(modifier: Modifier = Modifier) {
     var selectedBar by remember { mutableIntStateOf(0) }
     val barTypes = listOf("Small", "Center", "Medium", "Large")
 
@@ -305,7 +305,7 @@ fun TopAppBarsSample(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun BottomAppBarsSample(modifier: Modifier = Modifier) {
+fun BottomAppBarSample(modifier: Modifier = Modifier) {
     var actionResult by remember { mutableStateOf("Choose a bottom bar action") }
 
     Column(modifier, verticalArrangement = Arrangement.spacedBy(16.dp)) {
@@ -332,12 +332,3 @@ fun BottomAppBarsSample(modifier: Modifier = Modifier) {
         }
     }
 }
-
-@Composable
-fun TopAppBarSample(modifier: Modifier = Modifier) = TopAppBarsSample(modifier)
-
-@Composable
-fun BottomAppBarSample(modifier: Modifier = Modifier) = BottomAppBarsSample(modifier)
-
-@Composable
-fun TabSample(modifier: Modifier = Modifier) = TabsSample(modifier)

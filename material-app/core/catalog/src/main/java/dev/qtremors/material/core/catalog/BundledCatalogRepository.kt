@@ -24,26 +24,30 @@ class BundledCatalogRepository(context: Context) : CatalogRepository {
 
     companion object {
         const val CATALOG_PATH = "catalog/catalog.json"
-        const val MATERIAL3_VERSION = "1.5.0-rc01"
-        const val COMPOSE_UI_VERSION = "1.12.1"
-        const val STABLE_BASELINE = "1.4.0"
     }
 }
 
+/**
+ * Structural validation that must hold for the bundled catalog to be usable at runtime.
+ *
+ * Version agreement between the catalog, the pinned dependencies, and the upstream API inventory
+ * is verified at build time by `ApiCoverageTest`, so a metadata mismatch can never stop the
+ * installed app from opening.
+ */
 object CatalogValidator {
     fun validate(document: CatalogDocument) {
         require(document.schemaVersion == 1) { "Unsupported catalog schema ${document.schemaVersion}" }
-        require(document.material3Version == BundledCatalogRepository.MATERIAL3_VERSION) {
-            "Catalog Material3 ${document.material3Version} does not match ${BundledCatalogRepository.MATERIAL3_VERSION}"
-        }
-        require(document.composeUiVersion == BundledCatalogRepository.COMPOSE_UI_VERSION) {
-            "Catalog Compose UI ${document.composeUiVersion} does not match ${BundledCatalogRepository.COMPOSE_UI_VERSION}"
-        }
-        require(document.stableBaseline == BundledCatalogRepository.STABLE_BASELINE)
+        require(document.material3Version.isNotBlank() && document.composeUiVersion.isNotBlank())
+        require(document.stableBaseline.isNotBlank())
         require(document.entries.isNotEmpty())
         require(document.entries.map { it.id }.distinct().size == document.entries.size) { "Catalog IDs must be unique" }
         require(document.entries.map { it.officialName.lowercase() }.distinct().size == document.entries.size) {
             "Official names must be unique"
+        }
+        val activeIds = document.entries.mapTo(mutableSetOf(), CatalogEntry::id)
+        document.retiredIds.forEach { (retired, replacement) ->
+            require(retired !in activeIds) { "Retired ID $retired is still an active entry" }
+            require(replacement in activeIds) { "Retired ID $retired points to missing entry $replacement" }
         }
         document.entries.forEach { entry ->
             require(entry.id.matches(Regex("[a-z0-9-]+"))) { "Invalid catalog ID ${entry.id}" }

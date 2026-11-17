@@ -66,8 +66,9 @@ class GalleryViewModelTest {
 
     private class FakeCatalogRepository(
         catalogEntries: List<CatalogEntry>,
+        retiredIds: Map<String, String> = emptyMap(),
     ) : CatalogRepository {
-        override val document = CatalogDocument(1, "m3", "ui", "baseline", "2026-01-01", catalogEntries)
+        override val document = CatalogDocument(1, "m3", "ui", "baseline", "2026-01-01", catalogEntries, retiredIds)
         override val entries: List<CatalogEntry> = catalogEntries
         override fun entry(id: String): CatalogEntry? = entries.firstOrNull { it.id == id }
         override fun search(query: String): List<SearchResult> =
@@ -127,6 +128,12 @@ class GalleryViewModelTest {
             )
         }
 
+        override suspend fun migrateIds(redirects: Map<String, String>) {
+            failIfRequested()
+            bookmarkFlow.value = bookmarkFlow.value.mapTo(linkedSetOf()) { redirects[it] ?: it }
+            recentFlow.value = recentFlow.value.map { redirects[it] ?: it }.distinct()
+        }
+
         override suspend fun updateMotionMode(mode: dev.qtremors.material.core.data.MotionMode) {
             failIfRequested()
             settingsFlow.value = settingsFlow.value.copy(themeState = settingsFlow.value.themeState.copy(reducedMotion = mode == dev.qtremors.material.core.data.MotionMode.REDUCED))
@@ -170,6 +177,52 @@ class GalleryViewModelTest {
         assertTrue(viewModel.catalogLoad.value is CatalogLoad.Ready)
         assertEquals(sampleEntries.size, viewModel.catalog.value.entries.size)
         assertFalse(viewModel.search.value.visibleCatalogEntries.isEmpty())
+    }
+
+    @Test
+    fun storedIdsArePrunedEvenWhenStorageEmitsBeforeTheCatalogLoads() = kotlinx.coroutines.test.runTest {
+        val library = FakeUserLibraryRepository().apply {
+            bookmarkFlow.value = setOf("buttons", "removed-entry")
+            recentFlow.value = listOf("removed-entry", "dialogs")
+        }
+        val catalogGate = kotlinx.coroutines.CompletableDeferred<Unit>()
+        val viewModel = GalleryViewModel(
+            catalogLoader = {
+                catalogGate.await()
+                FakeCatalogRepository(sampleEntries)
+            },
+            userLibraryRepository = library,
+            searchDispatcher = mainDispatcherRule.testDispatcher,
+            ioDispatcher = mainDispatcherRule.testDispatcher,
+        )
+        runCurrent()
+        // Storage has emitted while the catalog is still loading.
+        assertEquals(setOf("buttons", "removed-entry"), viewModel.library.value.bookmarks)
+
+        catalogGate.complete(Unit)
+        advanceUntilIdle()
+
+        assertEquals(setOf("buttons"), viewModel.library.value.bookmarks)
+        assertEquals(listOf("dialogs"), viewModel.library.value.recent)
+    }
+
+    @Test
+    fun retiredIdsAreMigratedToTheirReplacementOnLoad() = kotlinx.coroutines.test.runTest {
+        val library = FakeUserLibraryRepository().apply {
+            bookmarkFlow.value = setOf("old-buttons")
+            recentFlow.value = listOf("old-buttons", "dialogs")
+        }
+        val viewModel = GalleryViewModel(
+            catalogLoader = { FakeCatalogRepository(sampleEntries, retiredIds = mapOf("old-buttons" to "buttons")) },
+            userLibraryRepository = library,
+            searchDispatcher = mainDispatcherRule.testDispatcher,
+            ioDispatcher = mainDispatcherRule.testDispatcher,
+        )
+        advanceUntilIdle()
+
+        assertEquals(setOf("buttons"), library.bookmarkFlow.value)
+        assertEquals(setOf("buttons"), viewModel.library.value.bookmarks)
+        assertEquals(listOf("buttons", "dialogs"), viewModel.library.value.recent)
     }
 
     @Test

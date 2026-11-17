@@ -123,6 +123,8 @@ class GalleryViewModel(
             _catalogLoad.value = try {
                 val repository = withContext(ioDispatcher) { catalogLoader() }
                 publishCatalogSnapshot(repository)
+                val redirects = repository.document.retiredIds
+                if (redirects.isNotEmpty()) launchSafely { userLibraryRepository.migrateIds(redirects) }
                 CatalogLoad.Ready(repository)
             } catch (cancellation: CancellationException) {
                 throw cancellation
@@ -151,24 +153,25 @@ class GalleryViewModel(
 
     private fun observeLibrary() {
         viewModelScope.launch {
+            userLibraryRepository.settings.collect { _settings.value = it }
+        }
+        viewModelScope.launch {
+            // Derived from the catalog as well as storage, so IDs are pruned whichever loads first.
             combine(
+                _catalog,
                 userLibraryRepository.bookmarks,
                 userLibraryRepository.recent,
-                userLibraryRepository.settings,
-            ) { bookmarks, recent, settings -> Triple(bookmarks, recent, settings) }
-                .collect { (bookmarks, recent, settings) ->
-                    val snapshot = _catalog.value
-                    if (snapshot != CatalogSnapshot()) {
-                        val validIds = snapshot.entries.mapTo(mutableSetOf(), CatalogEntry::id)
-                        _library.value = LibraryState(
-                            bookmarks = bookmarks.intersect(validIds),
-                            recent = recent.filter(validIds::contains),
-                        )
-                    } else {
-                        _library.value = LibraryState(bookmarks = bookmarks, recent = recent)
-                    }
-                    _settings.value = settings
+            ) { catalog, bookmarks, recent ->
+                if (catalog.entries.isEmpty()) {
+                    LibraryState(bookmarks = bookmarks, recent = recent)
+                } else {
+                    val validIds = catalog.entries.mapTo(mutableSetOf(), CatalogEntry::id)
+                    LibraryState(
+                        bookmarks = bookmarks.intersect(validIds),
+                        recent = recent.filter(validIds::contains),
+                    )
                 }
+            }.collect { _library.value = it }
         }
     }
 

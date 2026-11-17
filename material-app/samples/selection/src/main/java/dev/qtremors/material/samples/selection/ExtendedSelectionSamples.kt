@@ -76,9 +76,6 @@ fun VerticalSliderSample(modifier: Modifier = Modifier) {
     }
 }
 
-@Composable
-fun VerticalSlidersSample(modifier: Modifier = Modifier) = VerticalSliderSample(modifier)
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopSearchBarSample(modifier: Modifier = Modifier) {
@@ -122,9 +119,6 @@ fun TopSearchBarSample(modifier: Modifier = Modifier) {
         }
     }
 }
-
-@Composable
-fun TopSearchBarsSample(modifier: Modifier = Modifier) = TopSearchBarSample(modifier)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -178,6 +172,3 @@ fun TimePickerDialogSample(modifier: Modifier = Modifier) {
         }
     }
 }
-
-@Composable
-fun TimePickerDialogsSample(modifier: Modifier = Modifier) = TimePickerDialogSample(modifier)

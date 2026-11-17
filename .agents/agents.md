@@ -31,7 +31,7 @@ Never present a project experiment as an official Material API. The catalog's `i
 
 ## External Reference Projects: Learning Only
 
-The projects under `X:\0\refs\m3ex`, including projects such as Zenith and Lune, are read-only learning references. They may be studied to understand broad qualities such as hierarchy, composition, interaction pacing, motion character, adaptation, accessibility decisions, or how a complete expressive product feels.
+External open-source apps kept outside this repository are read-only learning references. They may be studied to understand broad qualities such as hierarchy, composition, interaction pacing, motion character, adaptation, accessibility decisions, or how a complete expressive product feels.
 
 Never copy from a referenced project in any way or form. This includes:
 
@@ -103,7 +103,33 @@ API availability and API stability are separate concepts:
 - Availability records whether the API exists in a stable artifact or only in the pinned alpha line.
 - Stability records whether the symbol itself is stable or experimental.
 
-Do not infer either value from the other.
+Do not infer either value from the other. Both are verified by tests against the API inventory described below; never fill them in from memory.
+
+### Naming and identity
+
+- **Entry IDs are permanent.** Bookmarks and history store them. To replace an entry, add `"<old id>": "<new id>"` to the catalog's `retiredIds`; the app migrates stored data on launch.
+- **Official names are singular, sentence case** for components (`Button`, `Navigation bar`, `Time picker dialog`); foundations keep their foundation name (`Color`, `Motion`). Keep former or plural names in `aliases` so search still finds them.
+- **One working reference per entry**, named `<OfficialName>Sample` in PascalCase (`FAB menu` becomes `FabMenuSample`), listed first in the entry's first source location. Do not add alias wrapper functions.
+- **`demoKey` is `<sample module>.<id>`** (for example `actions.split-buttons`). `MaterialDemoRegistry` is a single map from these keys to samples.
+
+`CatalogRepositoryTest` enforces these rules, and that every listed source symbol is declared in its file.
+
+### Official API coverage
+
+The catalog is accountable for the complete public API of the pinned Material artifacts, not only the components someone remembered to add.
+
+- `material-app/core/catalog/api/inventory/` holds a checked-in inventory of every public symbol in Material 3, Material 3 Adaptive, and the navigation suite, generated from the pinned sources jars, plus a Material 3 inventory of the newest stable release (`composeMaterial3StableBaseline`) that availability is checked against.
+- `material-app/core/catalog/api/coverage-ledger.json` lists every public symbol no catalog entry cites yet, as `planned` (backlog) or `excluded` (with a reason).
+- `material-app/core/catalog/api/COVERAGE.md` is the generated coverage report and the Android component backlog.
+- `ApiCoverageTest` fails when a cited symbol is missing or deprecated, when stability, availability, opt-in, or `reviewedVersion` disagree with the inventory, when versions disagree with `libs.versions.toml`, or when any public symbol is untracked.
+
+After any Material dependency bump:
+
+1. Run `.\gradlew.bat :app:generateMaterialApiInventory` to read the new sources.
+2. Run `.\gradlew.bat :app:updateApiCoverageLedger`. Newly published symbols arrive with status `new`.
+3. Triage every `new` symbol to `planned` or `excluded`, fix whatever `ApiCoverageTest` reports in the catalog, then rerun `updateApiCoverageLedger` to refresh `COVERAGE.md`.
+
+When a new entry cites previously planned symbols, rerun `updateApiCoverageLedger` so they leave the ledger.
 
 ## Component Detail Contract
 
@@ -191,7 +217,7 @@ Use Title Case in release commit summaries:
 vX.Y.Z: <One-Line Summary Based On The Changelog>
 ```
 
-Checkpoint and commit when the diff reaches approximately 1000–1500 changed lines, as required by the repository instructions. Keep each checkpoint coherent and independently buildable. Do not push, create a pull request, or rewrite already shared history unless explicitly requested.
+Each version commit carries at least 2,000 changed lines; fixes under about 100 lines to an unpushed version are folded into that version's commit instead of creating a new version. Keep each checkpoint coherent and independently buildable. Do not push, create a pull request, or rewrite already shared history unless explicitly requested.
 
 ## Changelog Discipline
 
@@ -233,7 +259,7 @@ Do not claim that Android instrumentation tests ran unless a device or emulator 
 
 Android is the leading active implementation. The catalog already covers actions, selection, text input, search, containment, progress, dialogs, bottom sheets, snackbars, tooltips, menus, floating toolbars, typography, and inspectable system foundations.
 
-Use `TASKS.md` as the live backlog. At the time this guide was created, navigation bars, rails, drawers, and tabs were the next incomplete Android component family. Re-read `TASKS.md` before acting because this statement will age.
+Use `TASKS.md` as the live backlog and `material-app/core/catalog/api/COVERAGE.md` as the measured list of official APIs that still need a working reference. Re-read both before acting because this statement will age.
 
 ## Definition of Done
 

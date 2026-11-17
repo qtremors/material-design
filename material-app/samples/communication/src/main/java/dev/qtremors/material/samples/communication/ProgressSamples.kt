@@ -27,7 +27,7 @@ import dev.qtremors.material.core.designsystem.progressSpring
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
-fun ProgressIndicatorsSample(modifier: Modifier = Modifier) {
+fun ProgressIndicatorSample(modifier: Modifier = Modifier) {
     val progressSlider = rememberSliderState(value = 0.62f)
     val progress = progressSlider.value
     val animatedProgress by animateFloatAsState(
@@ -55,7 +55,7 @@ fun ProgressIndicatorsSample(modifier: Modifier = Modifier) {
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
-fun LoadingIndicatorsSample(modifier: Modifier = Modifier) {
+fun LoadingIndicatorSample(modifier: Modifier = Modifier) {
     Column(modifier, verticalArrangement = Arrangement.spacedBy(20.dp)) {
         Text("Loading indicator", style = MaterialTheme.typography.titleMedium)
         LoadingIndicator()
@@ -63,9 +63,3 @@ fun LoadingIndicatorsSample(modifier: Modifier = Modifier) {
         ContainedLoadingIndicator()
     }
 }
-
-@Composable
-fun LoadingIndicatorSample(modifier: Modifier = Modifier) = LoadingIndicatorsSample(modifier)
-
-@Composable
-fun ProgressIndicatorSample(modifier: Modifier = Modifier) = ProgressIndicatorsSample(modifier)

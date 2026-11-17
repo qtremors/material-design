@@ -223,9 +223,6 @@ fun ButtonGroupSample(modifier: Modifier = Modifier) {
     }
 }
 
-@Composable
-fun ButtonGroupsSample(modifier: Modifier = Modifier) = ButtonGroupSample(modifier)
-
 @OptIn(ExperimentalMaterial3ExpressiveApi::class, ExperimentalLayoutApi::class)
 @Composable
 fun ToggleButtonSample(modifier: Modifier = Modifier) {
@@ -329,9 +326,6 @@ fun ToggleButtonSample(modifier: Modifier = Modifier) {
         }
     }
 }
-
-@Composable
-fun ToggleButtonsSample(modifier: Modifier = Modifier) = ToggleButtonSample(modifier)
 
 @Composable
 private fun ToggleIcon(

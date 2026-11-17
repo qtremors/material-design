@@ -67,7 +67,7 @@ class BuildConventionsTest {
     }
 
     @Test
-    fun `verifyVersionCatalogFreshness and release metadata succeed with valid setup`() {
+    fun `api inventory and release metadata succeed with valid setup`() {
         val projectDir = Files.createTempDirectory("material-build-logic-valid-test")
         projectDir.resolve("settings.gradle.kts").writeText("")
         val catalog = projectDir.resolve("gradle/libs.versions.toml")
@@ -99,6 +99,7 @@ class BuildConventionsTest {
             val versionCode = 208
             """.trimIndent()
         )
+        writeInventory(projectDir, inventoryVersion = "9.3.0")
 
         val result = GradleRunner.create()
             .withProjectDir(projectDir.toFile())
@@ -106,8 +107,64 @@ class BuildConventionsTest {
             .withArguments("verifyMaterialBuildConventions")
             .build()
 
-        assertEquals(TaskOutcome.SUCCESS, result.task(":verifyVersionCatalogFreshness")?.outcome)
+        assertEquals(TaskOutcome.SUCCESS, result.task(":verifyMaterialApiInventory")?.outcome)
         assertEquals(TaskOutcome.SUCCESS, result.task(":verifyReleaseVersionMetadata")?.outcome)
         assertEquals(TaskOutcome.SUCCESS, result.task(":verifyMaterialBuildConventions")?.outcome)
+    }
+
+    @Test
+    fun `stale api inventory fails verification after a version bump`() {
+        val projectDir = Files.createTempDirectory("material-build-logic-stale-inventory")
+        projectDir.resolve("settings.gradle.kts").writeText("")
+        val catalog = projectDir.resolve("gradle/libs.versions.toml")
+        catalog.parent.createDirectories()
+        catalog.writeText(
+            """
+            [versions]
+            agp = "9.4.0"
+
+            [libraries]
+            sample = { module = "example:sample", version.ref = "agp" }
+
+            [plugins]
+            sample = { id = "example.sample", version.ref = "agp" }
+            """.trimIndent()
+        )
+        projectDir.resolve("build.gradle.kts").writeText(
+            """
+            plugins {
+                id("materialdesign.build.conventions")
+            }
+            """.trimIndent()
+        )
+        writeInventory(projectDir, inventoryVersion = "9.3.0")
+
+        val result = GradleRunner.create()
+            .withProjectDir(projectDir.toFile())
+            .withPluginClasspath()
+            .withArguments("verifyMaterialApiInventory")
+            .buildAndFail()
+
+        assertTrue(result.output.contains("The Material API inventory is stale"))
+        assertTrue(result.output.contains("inventory 9.3.0, pinned 9.4.0"))
+    }
+
+    private fun writeInventory(projectDir: java.nio.file.Path, inventoryVersion: String) {
+        val inventoryDir = projectDir.resolve("core/catalog/api/inventory")
+        inventoryDir.createDirectories()
+        inventoryDir.resolve("manifest.json").writeText(
+            """
+            {
+              "composeBom": "unused",
+              "composeUiVersion": "1.0.0",
+              "artifacts": [
+                {"artifact": "example:sample", "version": "$inventoryVersion", "versionKey": "agp", "file": "sample.json"}
+              ]
+            }
+            """.trimIndent()
+        )
+        inventoryDir.resolve("sample.json").writeText(
+            """{"artifact": "example:sample", "version": "$inventoryVersion", "symbols": []}""",
+        )
     }
 }

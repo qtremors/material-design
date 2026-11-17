@@ -109,6 +109,3 @@ fun DividerSample(modifier: Modifier = Modifier) {
         }
     }
 }
-
-@Composable
-fun DividersSample(modifier: Modifier = Modifier) = DividerSample(modifier)

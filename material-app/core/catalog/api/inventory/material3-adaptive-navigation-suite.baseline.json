@@ -1,0 +1,20 @@
+{
+  "artifact": "androidx.compose.material3:material3-adaptive-navigation-suite",
+  "version": "1.4.0",
+  "symbols": [
+    {"fqName": "androidx.compose.material3.adaptive.navigationsuite.ExperimentalMaterial3AdaptiveNavigationSuiteApi", "kind": "annotation", "stability": "stable", "optIns": [], "overloads": 1, "group": "ExperimentalMaterial3AdaptiveComponentsApi", "members": []},
+    {"fqName": "androidx.compose.material3.adaptive.navigationsuite.NavigationSuite", "kind": "composable", "stability": "stable", "optIns": [], "overloads": 2, "group": "NavigationSuiteScaffold", "members": []},
+    {"fqName": "androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteColors", "kind": "class", "stability": "stable", "optIns": [], "overloads": 1, "group": "NavigationSuiteScaffold", "members": ["navigationBarContainerColor", "navigationBarContentColor", "navigationDrawerContainerColor", "navigationDrawerContentColor", "navigationRailContainerColor", "navigationRailContentColor", "shortNavigationBarContainerColor", "shortNavigationBarContentColor", "wideNavigationRailColors"]},
+    {"fqName": "androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteDefaults", "kind": "object", "stability": "stable", "optIns": [], "overloads": 1, "group": "NavigationSuiteScaffold", "members": ["colors", "itemColors", "verticalArrangement"]},
+    {"fqName": "androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteItem", "kind": "composable", "stability": "stable", "optIns": [], "overloads": 1, "group": "NavigationSuiteScaffold", "members": []},
+    {"fqName": "androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteItemColors", "kind": "class", "stability": "stable", "optIns": [], "overloads": 1, "group": "NavigationSuiteScaffold", "members": ["navigationBarItemColors", "navigationDrawerItemColors", "navigationRailItemColors"]},
+    {"fqName": "androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffold", "kind": "composable", "stability": "stable", "optIns": [], "overloads": 2, "group": "NavigationSuiteScaffold", "members": []},
+    {"fqName": "androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffoldDefaults", "kind": "object", "stability": "stable", "optIns": [], "overloads": 1, "group": "NavigationSuiteScaffold", "members": ["calculateFromAdaptiveInfo", "containerColor", "contentColor", "navigationSuiteType", "primaryActionContentAlignment"]},
+    {"fqName": "androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffoldLayout", "kind": "composable", "stability": "stable", "optIns": [], "overloads": 2, "group": "NavigationSuiteScaffold", "members": []},
+    {"fqName": "androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffoldState", "kind": "interface", "stability": "stable", "optIns": [], "overloads": 1, "group": "NavigationSuiteScaffold", "members": ["currentValue", "hide", "isAnimating", "show", "snapTo", "targetValue", "toggle"]},
+    {"fqName": "androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffoldValue", "kind": "enum", "stability": "stable", "optIns": [], "overloads": 1, "group": "NavigationSuiteScaffold", "members": []},
+    {"fqName": "androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScope", "kind": "interface", "stability": "stable", "optIns": [], "overloads": 1, "group": "NavigationSuiteScaffold", "members": ["item"]},
+    {"fqName": "androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteType", "kind": "value class", "stability": "stable", "optIns": [], "overloads": 1, "group": "NavigationSuiteScaffold", "members": []},
+    {"fqName": "androidx.compose.material3.adaptive.navigationsuite.rememberNavigationSuiteScaffoldState", "kind": "composable", "stability": "stable", "optIns": [], "overloads": 1, "group": "NavigationSuiteScaffold", "members": []}
+  ]
+}

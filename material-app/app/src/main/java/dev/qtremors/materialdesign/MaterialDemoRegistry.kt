@@ -3,186 +3,140 @@ package dev.qtremors.materialdesign
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import dev.qtremors.material.core.catalog.ComponentDemoRegistry
-import dev.qtremors.material.samples.actions.ButtonsSample
 import dev.qtremors.material.samples.actions.ButtonGroupSample
-import dev.qtremors.material.samples.actions.FabMenusSample
-import dev.qtremors.material.samples.actions.FloatingActionButtonsSample
-import dev.qtremors.material.samples.actions.IconButtonsSample
-import dev.qtremors.material.samples.actions.SplitButtonsSample
+import dev.qtremors.material.samples.actions.ButtonSample
+import dev.qtremors.material.samples.actions.FabMenuSample
+import dev.qtremors.material.samples.actions.FloatingActionButtonSample
+import dev.qtremors.material.samples.actions.IconButtonSample
+import dev.qtremors.material.samples.actions.SplitButtonSample
 import dev.qtremors.material.samples.actions.ToggleButtonSample
-import dev.qtremors.material.samples.containment.CardsSample
-import dev.qtremors.material.samples.communication.BadgesSample
+import dev.qtremors.material.samples.communication.BadgeSample
 import dev.qtremors.material.samples.communication.BasicAlertDialogSample
-import dev.qtremors.material.samples.communication.BottomSheetsSample
+import dev.qtremors.material.samples.communication.BottomSheetSample
+import dev.qtremors.material.samples.communication.DialogSample
 import dev.qtremors.material.samples.communication.DropdownMenuGroupSample
-import dev.qtremors.material.samples.communication.DialogsSample
-import dev.qtremors.material.samples.communication.LoadingIndicatorsSample
-import dev.qtremors.material.samples.communication.MenusSample
-import dev.qtremors.material.samples.communication.ProgressIndicatorsSample
-import dev.qtremors.material.samples.communication.SnackbarsSample
-import dev.qtremors.material.samples.communication.TooltipsSample
-import dev.qtremors.material.samples.containment.CarouselsSample
-import dev.qtremors.material.samples.containment.HeroCarouselsSample
-import dev.qtremors.material.samples.containment.ListsSample
+import dev.qtremors.material.samples.communication.LoadingIndicatorSample
+import dev.qtremors.material.samples.communication.MenuSample
+import dev.qtremors.material.samples.communication.ProgressIndicatorSample
+import dev.qtremors.material.samples.communication.SnackbarSample
+import dev.qtremors.material.samples.communication.TooltipSample
+import dev.qtremors.material.samples.containment.CardSample
+import dev.qtremors.material.samples.containment.CarouselSample
+import dev.qtremors.material.samples.containment.HeroCarouselSample
+import dev.qtremors.material.samples.containment.ListSample
 import dev.qtremors.material.samples.containment.PullToRefreshSample
-import dev.qtremors.material.samples.containment.SegmentedListItemsSample
+import dev.qtremors.material.samples.containment.SegmentedListItemSample
 import dev.qtremors.material.samples.containment.SwipeToDismissSample
-import dev.qtremors.material.samples.foundations.DividerSample
-import dev.qtremors.material.samples.foundations.ScaffoldFoundationSample
-import dev.qtremors.material.samples.foundations.TypographySample
 import dev.qtremors.material.samples.foundations.AccessibilitySample
 import dev.qtremors.material.samples.foundations.ColorSample
+import dev.qtremors.material.samples.foundations.DividerSample
 import dev.qtremors.material.samples.foundations.ElevationSample
 import dev.qtremors.material.samples.foundations.LayoutSample
 import dev.qtremors.material.samples.foundations.MotionSample
+import dev.qtremors.material.samples.foundations.ScaffoldSample
 import dev.qtremors.material.samples.foundations.ShapeSample
-import dev.qtremors.material.samples.navigation.FloatingToolbarsSample
-import dev.qtremors.material.samples.navigation.BottomAppBarsSample
+import dev.qtremors.material.samples.foundations.TypographySample
+import dev.qtremors.material.samples.navigation.BottomAppBarSample
 import dev.qtremors.material.samples.navigation.FlexibleBottomAppBarSample
+import dev.qtremors.material.samples.navigation.FloatingToolbarSample
 import dev.qtremors.material.samples.navigation.NavigationBarSample
-import dev.qtremors.material.samples.navigation.NavigationRailSample
 import dev.qtremors.material.samples.navigation.NavigationDrawerSample
-import dev.qtremors.material.samples.navigation.ScrollableTabRowsSample
+import dev.qtremors.material.samples.navigation.NavigationRailSample
+import dev.qtremors.material.samples.navigation.ScrollableTabRowSample
 import dev.qtremors.material.samples.navigation.ShortNavigationBarSample
-import dev.qtremors.material.samples.navigation.TabsSample
-import dev.qtremors.material.samples.navigation.TopAppBarsSample
+import dev.qtremors.material.samples.navigation.TabSample
+import dev.qtremors.material.samples.navigation.TopAppBarSample
 import dev.qtremors.material.samples.navigation.WideNavigationRailSample
 import dev.qtremors.material.samples.selection.CheckboxSample
-import dev.qtremors.material.samples.selection.ChipsSample
+import dev.qtremors.material.samples.selection.ChipSample
 import dev.qtremors.material.samples.selection.DatePickerSample
 import dev.qtremors.material.samples.selection.RadioButtonSample
 import dev.qtremors.material.samples.selection.SearchSample
-import dev.qtremors.material.samples.selection.SegmentedButtonsSample
-import dev.qtremors.material.samples.selection.SlidersSample
+import dev.qtremors.material.samples.selection.SegmentedButtonSample
+import dev.qtremors.material.samples.selection.SliderSample
 import dev.qtremors.material.samples.selection.SwitchSample
-import dev.qtremors.material.samples.selection.TextFieldsSample
+import dev.qtremors.material.samples.selection.TextFieldSample
 import dev.qtremors.material.samples.selection.TimePickerDialogSample
 import dev.qtremors.material.samples.selection.TimePickerSample
 import dev.qtremors.material.samples.selection.TopSearchBarSample
 import dev.qtremors.material.samples.selection.VerticalSliderSample
 
+/**
+ * Maps each catalog `demoKey` (`<sample module>.<entry id>`) to its working reference.
+ *
+ * One map is both the set of registered keys and the renderer, so a key can never be registered
+ * without a demo. `DemoRegistryTest` checks this map against the bundled catalog.
+ */
 class MaterialDemoRegistry : ComponentDemoRegistry {
-    override val registeredKeys: Set<String> = setOf(
-        "actions.buttons",
-        "actions.button-groups",
-        "actions.toggle-buttons",
-        "actions.split-buttons",
-        "actions.fabs",
-        "actions.icon-buttons",
-        "actions.fab-menus",
-        "communication.progress",
-        "communication.loading-indicators",
-        "communication.dialogs",
-        "communication.bottom-sheets",
-        "communication.snackbars",
-        "communication.tooltips",
-        "communication.menus",
-        "communication.badges",
-        "communication.grouped-dropdown-menus",
-        "communication.basic-alert-dialogs",
-        "containment.segmented-lists",
-        "containment.carousels",
-        "containment.hero-carousels",
-        "containment.swipe-to-dismiss",
-        "containment.pull-to-refresh",
-        "containment.cards",
-        "containment.lists",
-        "selection.chips",
-        "selection.segmented-buttons",
-        "selection.checkbox",
-        "selection.radio-button",
-        "selection.switch",
-        "selection.text-fields",
-        "selection.search",
-        "selection.sliders",
-        "selection.vertical-sliders",
-        "selection.date-pickers",
-        "selection.time-pickers",
-        "selection.time-picker-dialogs",
-        "selection.top-search-bars",
-        "navigation.floating-toolbars",
-        "navigation.bars",
-        "navigation.short-navigation-bars",
-        "navigation.bottom-app-bars",
-        "navigation.flexible-bottom-app-bars",
-        "navigation.rails",
-        "navigation.wide-navigation-rails",
-        "navigation.drawers",
-        "navigation.tabs",
-        "navigation.scrollable-tab-rows",
-        "navigation.top-app-bars",
-        "foundations.typography",
-        "foundations.color",
-        "foundations.shape",
-        "foundations.motion",
-        "foundations.elevation",
-        "foundations.layout",
-        "foundations.scaffold",
-        "foundations.dividers",
-        "foundations.accessibility",
-    )
+    private val demos: Map<String, @Composable () -> Unit> = buildMap<String, @Composable () -> Unit> {
+        demo("actions.button-groups") { ButtonGroupSample() }
+        demo("actions.buttons") { ButtonSample() }
+        demo("actions.fab-menus") { FabMenuSample() }
+        demo("actions.floating-action-buttons") { FloatingActionButtonSample() }
+        demo("actions.icon-buttons") { IconButtonSample() }
+        demo("actions.split-buttons") { SplitButtonSample() }
+        demo("actions.toggle-buttons") { ToggleButtonSample() }
+        demo("communication.badges") { BadgeSample() }
+        demo("communication.basic-alert-dialogs") { BasicAlertDialogSample() }
+        demo("communication.bottom-sheets") { BottomSheetSample() }
+        demo("communication.dialogs") { DialogSample() }
+        demo("communication.grouped-dropdown-menus") { DropdownMenuGroupSample() }
+        demo("communication.loading-indicators") { LoadingIndicatorSample() }
+        demo("communication.menus") { MenuSample() }
+        demo("communication.progress-indicators") { ProgressIndicatorSample() }
+        demo("communication.snackbars") { SnackbarSample() }
+        demo("communication.tooltips") { TooltipSample() }
+        demo("containment.cards") { CardSample() }
+        demo("containment.carousels") { CarouselSample() }
+        demo("containment.hero-carousels") { HeroCarouselSample() }
+        demo("containment.lists") { ListSample() }
+        demo("containment.pull-to-refresh") { PullToRefreshSample() }
+        demo("containment.segmented-list-items") { SegmentedListItemSample() }
+        demo("containment.swipe-to-dismiss") { SwipeToDismissSample() }
+        demo("foundations.accessibility") { AccessibilitySample() }
+        demo("foundations.color") { ColorSample() }
+        demo("foundations.dividers") { DividerSample() }
+        demo("foundations.elevation") { ElevationSample() }
+        demo("foundations.layout") { LayoutSample() }
+        demo("foundations.motion") { MotionSample() }
+        demo("foundations.scaffold") { ScaffoldSample() }
+        demo("foundations.shape") { ShapeSample() }
+        demo("foundations.typography") { TypographySample() }
+        demo("navigation.bottom-app-bars") { BottomAppBarSample() }
+        demo("navigation.flexible-bottom-app-bars") { FlexibleBottomAppBarSample() }
+        demo("navigation.floating-toolbars") { FloatingToolbarSample() }
+        demo("navigation.navigation-bars") { NavigationBarSample() }
+        demo("navigation.navigation-drawers") { NavigationDrawerSample() }
+        demo("navigation.navigation-rails") { NavigationRailSample() }
+        demo("navigation.scrollable-tab-rows") { ScrollableTabRowSample() }
+        demo("navigation.short-navigation-bars") { ShortNavigationBarSample() }
+        demo("navigation.tabs") { TabSample() }
+        demo("navigation.top-app-bars") { TopAppBarSample() }
+        demo("navigation.wide-navigation-rails") { WideNavigationRailSample() }
+        demo("selection.checkbox") { CheckboxSample() }
+        demo("selection.chips") { ChipSample() }
+        demo("selection.date-pickers") { DatePickerSample() }
+        demo("selection.radio-button") { RadioButtonSample() }
+        demo("selection.search") { SearchSample() }
+        demo("selection.segmented-buttons") { SegmentedButtonSample() }
+        demo("selection.sliders") { SliderSample() }
+        demo("selection.switch") { SwitchSample() }
+        demo("selection.text-fields") { TextFieldSample() }
+        demo("selection.time-picker-dialogs") { TimePickerDialogSample() }
+        demo("selection.time-pickers") { TimePickerSample() }
+        demo("selection.top-search-bars") { TopSearchBarSample() }
+        demo("selection.vertical-sliders") { VerticalSliderSample() }
+    }
+
+    override val registeredKeys: Set<String> = demos.keys
 
     @Composable
     fun Render(demoKey: String) {
-        when (demoKey) {
-            "actions.buttons" -> ButtonsSample()
-            "actions.button-groups" -> ButtonGroupSample()
-            "actions.toggle-buttons" -> ToggleButtonSample()
-            "actions.split-buttons" -> SplitButtonsSample()
-            "actions.fabs" -> FloatingActionButtonsSample()
-            "actions.icon-buttons" -> IconButtonsSample()
-            "actions.fab-menus" -> FabMenusSample()
-            "communication.progress" -> ProgressIndicatorsSample()
-            "communication.loading-indicators" -> LoadingIndicatorsSample()
-            "communication.dialogs" -> DialogsSample()
-            "communication.bottom-sheets" -> BottomSheetsSample()
-            "communication.snackbars" -> SnackbarsSample()
-            "communication.tooltips" -> TooltipsSample()
-            "communication.menus" -> MenusSample()
-            "communication.badges" -> BadgesSample()
-            "communication.grouped-dropdown-menus" -> DropdownMenuGroupSample()
-            "communication.basic-alert-dialogs" -> BasicAlertDialogSample()
-            "containment.segmented-lists" -> SegmentedListItemsSample()
-            "containment.carousels" -> CarouselsSample()
-            "containment.hero-carousels" -> HeroCarouselsSample()
-            "containment.swipe-to-dismiss" -> SwipeToDismissSample()
-            "containment.pull-to-refresh" -> PullToRefreshSample()
-            "containment.cards" -> CardsSample()
-            "containment.lists" -> ListsSample()
-            "selection.chips" -> ChipsSample()
-            "selection.segmented-buttons" -> SegmentedButtonsSample()
-            "selection.checkbox" -> CheckboxSample()
-            "selection.radio-button" -> RadioButtonSample()
-            "selection.switch" -> SwitchSample()
-            "selection.text-fields" -> TextFieldsSample()
-            "selection.search" -> SearchSample()
-            "selection.sliders" -> SlidersSample()
-            "selection.vertical-sliders" -> VerticalSliderSample()
-            "selection.date-pickers" -> DatePickerSample()
-            "selection.time-pickers" -> TimePickerSample()
-            "selection.time-picker-dialogs" -> TimePickerDialogSample()
-            "selection.top-search-bars" -> TopSearchBarSample()
-            "navigation.floating-toolbars" -> FloatingToolbarsSample()
-            "navigation.bars" -> NavigationBarSample()
-            "navigation.short-navigation-bars" -> ShortNavigationBarSample()
-            "navigation.bottom-app-bars" -> BottomAppBarsSample()
-            "navigation.flexible-bottom-app-bars" -> FlexibleBottomAppBarSample()
-            "navigation.rails" -> NavigationRailSample()
-            "navigation.wide-navigation-rails" -> WideNavigationRailSample()
-            "navigation.drawers" -> NavigationDrawerSample()
-            "navigation.tabs" -> TabsSample()
-            "navigation.scrollable-tab-rows" -> ScrollableTabRowsSample()
-            "navigation.top-app-bars" -> TopAppBarsSample()
-            "foundations.typography" -> TypographySample()
-            "foundations.color" -> ColorSample()
-            "foundations.shape" -> ShapeSample()
-            "foundations.motion" -> MotionSample()
-            "foundations.elevation" -> ElevationSample()
-            "foundations.layout" -> LayoutSample()
-            "foundations.scaffold" -> ScaffoldFoundationSample()
-            "foundations.dividers" -> DividerSample()
-            "foundations.accessibility" -> AccessibilitySample()
-            else -> Text("Missing working demo: $demoKey")
-        }
+        val demo = demos[demoKey]
+        if (demo != null) demo() else Text("Missing working demo: $demoKey")
+    }
+
+    private fun MutableMap<String, @Composable () -> Unit>.demo(key: String, content: @Composable () -> Unit) {
+        check(put(key, content) == null) { "Duplicate demo key $key" }
     }
 }

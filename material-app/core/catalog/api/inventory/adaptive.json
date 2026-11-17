@@ -1,0 +1,22 @@
+{
+  "artifact": "androidx.compose.material3.adaptive:adaptive",
+  "version": "1.3.0",
+  "symbols": [
+    {"fqName": "androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi", "kind": "annotation", "stability": "stable", "optIns": [], "overloads": 1, "group": "ExperimentalMaterial3AdaptiveApi", "members": []},
+    {"fqName": "androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveComponentOverrideApi", "kind": "annotation", "stability": "stable", "optIns": [], "overloads": 1, "group": "ExperimentalMaterial3AdaptiveComponentOverrideApi", "members": []},
+    {"fqName": "androidx.compose.material3.adaptive.HingeInfo", "kind": "class", "stability": "stable", "optIns": [], "overloads": 1, "group": "Posture", "members": ["bounds", "isFlat", "isOccluding", "isSeparating", "isVertical"]},
+    {"fqName": "androidx.compose.material3.adaptive.Posture", "kind": "class", "stability": "stable", "optIns": [], "overloads": 1, "group": "Posture", "members": []},
+    {"fqName": "androidx.compose.material3.adaptive.WindowAdaptiveInfo", "kind": "class", "stability": "stable", "optIns": [], "overloads": 1, "group": "WindowAdaptiveInfo", "members": []},
+    {"fqName": "androidx.compose.material3.adaptive.allHorizontalHingeBounds", "kind": "property", "stability": "stable", "optIns": [], "overloads": 1, "group": "Posture", "members": []},
+    {"fqName": "androidx.compose.material3.adaptive.allVerticalHingeBounds", "kind": "property", "stability": "stable", "optIns": [], "overloads": 1, "group": "Posture", "members": []},
+    {"fqName": "androidx.compose.material3.adaptive.collectFoldingFeaturesAsState", "kind": "composable", "stability": "stable", "optIns": [], "overloads": 1, "group": "AndroidWindowAdaptiveInfo", "members": []},
+    {"fqName": "androidx.compose.material3.adaptive.currentWindowAdaptiveInfo", "kind": "deprecated", "stability": "stable", "optIns": [], "overloads": 1, "group": "WindowAdaptiveInfo", "members": []},
+    {"fqName": "androidx.compose.material3.adaptive.currentWindowAdaptiveInfoV2", "kind": "composable", "stability": "stable", "optIns": [], "overloads": 1, "group": "WindowAdaptiveInfo", "members": []},
+    {"fqName": "androidx.compose.material3.adaptive.currentWindowDpSize", "kind": "deprecated", "stability": "experimental", "optIns": ["ExperimentalMaterial3AdaptiveApi"], "overloads": 1, "group": "WindowAdaptiveInfo", "members": []},
+    {"fqName": "androidx.compose.material3.adaptive.currentWindowSize", "kind": "deprecated", "stability": "stable", "optIns": [], "overloads": 1, "group": "WindowAdaptiveInfo", "members": []},
+    {"fqName": "androidx.compose.material3.adaptive.occludingHorizontalHingeBounds", "kind": "property", "stability": "stable", "optIns": [], "overloads": 1, "group": "Posture", "members": []},
+    {"fqName": "androidx.compose.material3.adaptive.occludingVerticalHingeBounds", "kind": "property", "stability": "stable", "optIns": [], "overloads": 1, "group": "Posture", "members": []},
+    {"fqName": "androidx.compose.material3.adaptive.separatingHorizontalHingeBounds", "kind": "property", "stability": "stable", "optIns": [], "overloads": 1, "group": "Posture", "members": []},
+    {"fqName": "androidx.compose.material3.adaptive.separatingVerticalHingeBounds", "kind": "property", "stability": "stable", "optIns": [], "overloads": 1, "group": "Posture", "members": []}
+  ]
+}

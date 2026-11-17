@@ -103,7 +103,7 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
-fun ButtonsSample(modifier: Modifier = Modifier) {
+fun ButtonSample(modifier: Modifier = Modifier) {
     var loading by remember { mutableStateOf(false) }
     var confirmed by remember { mutableStateOf(false) }
     LaunchedEffect(loading) {
@@ -435,7 +435,7 @@ fun RejectedActionButton(modifier: Modifier = Modifier) {
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
-fun SplitButtonsSample(modifier: Modifier = Modifier) {
+fun SplitButtonSample(modifier: Modifier = Modifier) {
     var expanded by remember { mutableStateOf(false) }
     Column(modifier) {
         SplitButtonLayout(
@@ -467,7 +467,7 @@ fun SplitButtonsSample(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun FloatingActionButtonsSample(modifier: Modifier = Modifier) {
+fun FloatingActionButtonSample(modifier: Modifier = Modifier) {
     Column(modifier, verticalArrangement = Arrangement.spacedBy(20.dp)) {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -501,7 +501,7 @@ fun FloatingActionButtonsSample(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun IconButtonsSample(modifier: Modifier = Modifier) {
+fun IconButtonSample(modifier: Modifier = Modifier) {
     Column(modifier, verticalArrangement = Arrangement.spacedBy(20.dp)) {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -553,7 +553,7 @@ fun IconButtonsSample(modifier: Modifier = Modifier) {
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
-fun FabMenusSample(modifier: Modifier = Modifier) {
+fun FabMenuSample(modifier: Modifier = Modifier) {
     var menuExpanded by remember { mutableStateOf(false) }
     val reducedMotion = LocalReducedMotion.current
     Column(modifier, verticalArrangement = Arrangement.spacedBy(16.dp)) {
@@ -611,18 +611,3 @@ fun FabMenusSample(modifier: Modifier = Modifier) {
         }
     }
 }
-
-@Composable
-fun ButtonSample(modifier: Modifier = Modifier) = ButtonsSample(modifier)
-
-@Composable
-fun SplitButtonSample(modifier: Modifier = Modifier) = SplitButtonsSample(modifier)
-
-@Composable
-fun FloatingActionButtonSample(modifier: Modifier = Modifier) = FloatingActionButtonsSample(modifier)
-
-@Composable
-fun IconButtonSample(modifier: Modifier = Modifier) = IconButtonsSample(modifier)
-
-@Composable
-fun FabMenuSample(modifier: Modifier = Modifier) = FabMenusSample(modifier)

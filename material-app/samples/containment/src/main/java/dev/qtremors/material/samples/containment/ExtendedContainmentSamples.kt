@@ -91,13 +91,9 @@ fun SwipeToDismissSample(modifier: Modifier = Modifier) {
     }
 }
 
-@Composable
-fun HeroCarouselSample(modifier: Modifier = Modifier) = HeroCarouselsSample(modifier)
-
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HeroCarouselsSample(modifier: Modifier = Modifier) {
+fun HeroCarouselSample(modifier: Modifier = Modifier) {
     val items = listOf(0, 1, 2, 3, 4)
     val colors = listOf(
         MaterialTheme.colorScheme.primaryContainer,

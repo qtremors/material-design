@@ -36,7 +36,7 @@ import dev.qtremors.material.core.designsystem.LocalReducedMotion
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
-fun FloatingToolbarsSample(modifier: Modifier = Modifier) {
+fun FloatingToolbarSample(modifier: Modifier = Modifier) {
     var expanded by remember { mutableStateOf(true) }
     var vertical by remember { mutableStateOf(false) }
     var selectedIndex by remember { mutableIntStateOf(0) }
@@ -113,6 +113,3 @@ private fun ToolbarActions(
         }
     }
 }
-
-@Composable
-fun FloatingToolbarSample(modifier: Modifier = Modifier) = FloatingToolbarsSample(modifier)

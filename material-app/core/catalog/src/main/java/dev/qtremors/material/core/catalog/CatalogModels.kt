@@ -11,6 +11,11 @@ data class CatalogDocument(
     val stableBaseline: String,
     val reviewedOn: String,
     val entries: List<CatalogEntry>,
+    /**
+     * Former entry IDs mapped to the entry that replaced them. Entry IDs are permanent because
+     * bookmarks and history store them; retiring one requires a redirect here.
+     */
+    val retiredIds: Map<String, String> = emptyMap(),
 )
 
 @Serializable

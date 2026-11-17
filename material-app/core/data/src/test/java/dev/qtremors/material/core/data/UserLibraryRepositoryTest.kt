@@ -20,4 +20,15 @@ class UserLibraryRepositoryTest {
     fun addingToEmptyHistoryCreatesOneRecentEntry() {
         assertEquals(listOf("buttons"), updatedRecent(emptyList(), "buttons"))
     }
+
+    @Test
+    fun retiredIdsMoveToTheirReplacementWithoutDuplicatingHistory() {
+        val redirects = mapOf("selection-controls" to "checkbox")
+
+        assertEquals(setOf("checkbox", "buttons"), migratedBookmarks(setOf("selection-controls", "buttons"), redirects))
+        assertEquals(
+            listOf("checkbox", "buttons"),
+            migratedRecent(listOf("selection-controls", "buttons", "checkbox"), redirects),
+        )
+    }
 }

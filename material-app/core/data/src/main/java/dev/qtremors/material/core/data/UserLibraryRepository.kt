@@ -37,6 +37,9 @@ interface UserLibraryRepository {
     suspend fun updateThemeMode(mode: ThemeMode)
     suspend fun updateDynamicColor(enabled: Boolean)
     suspend fun updateMotionMode(mode: MotionMode)
+
+    /** Rewrites stored bookmarks and history so retired entry IDs point at their replacements. */
+    suspend fun migrateIds(redirects: Map<String, String>)
 }
 
 private val Context.materialPreferences by preferencesDataStore(name = "material_reference")
@@ -105,6 +108,20 @@ class DataStoreUserLibraryRepository(private val context: Context) : UserLibrary
         }
     }
 
+    override suspend fun migrateIds(redirects: Map<String, String>) {
+        if (redirects.isEmpty()) return
+        context.materialPreferences.edit { preferences ->
+            val bookmarks = preferences[Keys.bookmarks].orEmpty()
+            if (bookmarks.any(redirects::containsKey)) {
+                preferences[Keys.bookmarks] = migratedBookmarks(bookmarks, redirects)
+            }
+            val recent = preferences[Keys.recent].orEmpty().split(',').filter(String::isNotBlank)
+            if (recent.any(redirects::containsKey)) {
+                preferences[Keys.recent] = migratedRecent(recent, redirects).joinToString(",")
+            }
+        }
+    }
+
     private fun settingsFrom(preferences: Preferences): AppSettings {
         val themeModeStr = preferences[Keys.themeMode] ?: ThemeMode.SYSTEM.name
         val accentColorStr = preferences[Keys.accentColor] ?: AccentColor.DYNAMIC.name
@@ -152,3 +169,10 @@ class DataStoreUserLibraryRepository(private val context: Context) : UserLibrary
 
 internal fun updatedRecent(current: List<String>, id: String): List<String> =
     (listOf(id) + current.filterNot { it == id }).take(DataStoreUserLibraryRepository.MAX_RECENT)
+
+internal fun migratedBookmarks(bookmarks: Set<String>, redirects: Map<String, String>): Set<String> =
+    bookmarks.mapTo(linkedSetOf()) { redirects[it] ?: it }
+
+/** Keeps history newest-first and unique after redirecting retired IDs. */
+internal fun migratedRecent(recent: List<String>, redirects: Map<String, String>): List<String> =
+    recent.map { redirects[it] ?: it }.distinct()

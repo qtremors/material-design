@@ -18,11 +18,9 @@ class CatalogRepositoryTest {
     }
 
     @Test
-    fun bundledCatalogIsValidAndMatchesPinnedMaterialVersion() {
+    fun bundledCatalogPassesRuntimeValidation() {
+        // Version agreement with the pinned dependencies is covered by ApiCoverageTest.
         CatalogValidator.validate(document)
-        assertEquals(BundledCatalogRepository.MATERIAL3_VERSION, document.material3Version)
-        assertEquals(BundledCatalogRepository.COMPOSE_UI_VERSION, document.composeUiVersion)
-        assertEquals(BundledCatalogRepository.STABLE_BASELINE, document.stableBaseline)
     }
 
     @Test
@@ -75,6 +73,48 @@ class CatalogRepositoryTest {
     fun everySourceLocationExistsInTheRepository() {
         document.entries.flatMap(CatalogEntry::sourceLocations).forEach { source ->
             assertTrue("Missing source ${source.path}", File(repositoryRoot, source.path).isFile)
+        }
+    }
+
+    @Test
+    fun everyListedSourceSymbolIsDeclaredInItsFile() {
+        val missing = document.entries.flatMap { entry ->
+            entry.sourceLocations.flatMap { source ->
+                val text = File(repositoryRoot, source.path).readText()
+                source.symbols.filterNot { symbol ->
+                    Regex("""\b(fun(\s+<[^>]+>)?|val|object|class|interface)\s+$symbol\b""").containsMatchIn(text)
+                }.map { "${entry.id}: $it in ${source.path}" }
+            }
+        }
+        assertTrue("Declared symbols not found:\n${missing.joinToString("\n")}", missing.isEmpty())
+    }
+
+    /**
+     * Naming contract: an entry's working reference is `<OfficialName>Sample`, listed first in its
+     * first source location, and registered as `<sample module>.<id>`.
+     */
+    @Test
+    fun entriesFollowTheSampleNamingContract() {
+        val problems = document.entries.mapNotNull { entry ->
+            val first = entry.sourceLocations.first()
+            val module = first.path.substringAfter("/samples/").substringBefore('/')
+            val sample = entry.officialName.split(' ', '-')
+                .joinToString("") { word -> word.lowercase().replaceFirstChar(Char::uppercaseChar) } + "Sample"
+            when {
+                entry.demoKey != "$module.${entry.id}" -> "${entry.id}: demoKey ${entry.demoKey}, expected $module.${entry.id}"
+                first.symbols.firstOrNull() != sample -> "${entry.id}: first symbol ${first.symbols.firstOrNull()}, expected $sample"
+                else -> null
+            }
+        }
+        assertTrue(problems.joinToString("\n"), problems.isEmpty())
+    }
+
+    @Test
+    fun retiredIdsRedirectToActiveEntries() {
+        val active = document.entries.map(CatalogEntry::id).toSet()
+        document.retiredIds.forEach { (retired, replacement) ->
+            assertTrue("$retired is retired but still active", retired !in active)
+            assertTrue("$retired redirects to missing $replacement", replacement in active)
         }
     }
 

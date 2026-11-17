@@ -76,7 +76,7 @@ class GalleryNavigationTest {
     @Test
     fun holdConfirmationHasAnAccessibleNonGestureAction() {
         search("expressive buttons")
-        openResult("Buttons")
+        openResult("Button")
         composeRule.onNodeWithText("Hold to confirm")
             .performSemanticsAction(SemanticsActions.OnLongClick)
         composeRule.onNodeWithText("Confirmed").assertIsDisplayed()
@@ -104,7 +104,7 @@ class GalleryNavigationTest {
     @Test
     fun textFieldAliasOpensInteractiveValidationReference() {
         search("form field")
-        openResult("Text fields")
+        openResult("Text field")
         composeRule.onNodeWithText("Validation").assertIsDisplayed()
         composeRule.onNodeWithText("Review email").assertIsDisplayed()
     }
@@ -112,7 +112,7 @@ class GalleryNavigationTest {
     @Test
     fun dialogGuidanceExplainsFocusContainment() {
         search("destructive confirmation")
-        openResult("Dialogs")
+        openResult("Dialog")
         composeRule.onNodeWithText("Guidance").performClick()
         composeRule.onNodeWithText("Focus remains within the dialog while open and reaches a safe initial control.")
             .performScrollTo()

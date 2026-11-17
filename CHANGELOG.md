@@ -4,6 +4,18 @@
 
 ---
 
+## [2.1.2] - 2026-11-17
+
+### Added & Improved
+
+- Made official API coverage measurable: a generated inventory of every public symbol in Material 3, Material 3 Adaptive, and the navigation suite, a coverage ledger, and a generated `COVERAGE.md` report now show that the catalog cites 96 of 499 public symbols, with the rest tracked as the component backlog.
+- Added coverage tests that check every catalog API reference against the pinned sources for existence, deprecation, stability, opt-in, availability against the newest stable release, and reviewed version, and that fail when a dependency bump publishes untriaged APIs; they corrected 26 availability values, the `PullToRefreshBox` package, and a deprecated `ScrollableTabRow` reference.
+- Moved catalog version agreement from app startup into build-time tests, so a metadata mismatch can no longer stop the app from opening.
+- Standardized catalog naming on singular component names with plural aliases, one `<Name>Sample` working reference per entry, and `<module>.<id>` demo keys served from a single registry map.
+- Bookmarks and history now migrate retired entry IDs (Selection controls moves to Checkbox) and are pruned of removed entries regardless of load order.
+
+---
+
 ## [2.1.1] - 2026-11-17
 
 ### Added & Improved

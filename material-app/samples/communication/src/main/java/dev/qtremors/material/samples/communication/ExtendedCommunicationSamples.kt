@@ -70,9 +70,6 @@ fun DropdownMenuGroupSample(modifier: Modifier = Modifier) {
     }
 }
 
-@Composable
-fun GroupedDropdownMenusSample(modifier: Modifier = Modifier) = DropdownMenuGroupSample(modifier)
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BasicAlertDialogSample(modifier: Modifier = Modifier) {
@@ -102,6 +99,3 @@ fun BasicAlertDialogSample(modifier: Modifier = Modifier) {
         }
     }
 }
-
-@Composable
-fun BasicAlertDialogsSample(modifier: Modifier = Modifier) = BasicAlertDialogSample(modifier)

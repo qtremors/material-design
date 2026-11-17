@@ -74,7 +74,7 @@ import dev.qtremors.material.core.designsystem.standardSpring
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun CardsSample(modifier: Modifier = Modifier) {
+fun CardSample(modifier: Modifier = Modifier) {
     var bookmarked by remember { mutableStateOf(false) }
     var selectedCard by remember { mutableIntStateOf(0) }
     val selectionLabels = listOf("Quick scan", "Deep study", "Implementation")
@@ -318,7 +318,7 @@ private fun SelectableReferenceCard(
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
-fun ListsSample(modifier: Modifier = Modifier) {
+fun ListSample(modifier: Modifier = Modifier) {
     var selectedReference by remember { mutableIntStateOf(0) }
     var notifications by remember { mutableStateOf(true) }
     var bookmarked by remember { mutableStateOf(false) }
@@ -464,9 +464,3 @@ private fun ContainmentReferenceSection(
         content()
     }
 }
-
-@Composable
-fun CardSample(modifier: Modifier = Modifier) = CardsSample(modifier)
-
-@Composable
-fun ListSample(modifier: Modifier = Modifier) = ListsSample(modifier)

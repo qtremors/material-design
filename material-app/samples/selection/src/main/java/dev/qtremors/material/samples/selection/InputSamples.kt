@@ -51,7 +51,7 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 
 @Composable
-fun TextFieldsSample(modifier: Modifier = Modifier) {
+fun TextFieldSample(modifier: Modifier = Modifier) {
     var name by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("material@example") }
     var password by remember { mutableStateOf("expressive") }
@@ -299,6 +299,3 @@ private fun InputReferenceSection(
         content()
     }
 }
-
-@Composable
-fun TextFieldSample(modifier: Modifier = Modifier) = TextFieldsSample(modifier)

@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import kotlin.math.roundToInt
 
 @Composable
-fun SlidersSample(modifier: Modifier = Modifier) {
+fun SliderSample(modifier: Modifier = Modifier) {
     val continuousValueSlider = rememberSliderState(value = 40f, trackRange = 0f..100f)
     val continuousValue = continuousValueSlider.value
     val discreteValueSlider = rememberSliderState(value = 60f, steps = 4, trackRange = 0f..100f)
@@ -65,6 +65,3 @@ fun SlidersSample(modifier: Modifier = Modifier) {
         }
     }
 }
-
-@Composable
-fun SliderSample(modifier: Modifier = Modifier) = SlidersSample(modifier)
