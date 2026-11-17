@@ -4,6 +4,18 @@
 
 ---
 
+## [2.1.3] - 2026-11-17
+
+### Added & Improved
+
+- Rebuilt the app's design system on Material 3 Expressive: Google Sans Flex typography, color schemes generated from a seed with Material Color Utilities (wallpaper, six presets, or any custom seed), pure black as a dark-theme option, tonal surface roles, shape and spacing tokens, and haptics that follow the Haptics setting.
+- Replaced the navigation shell with a floating tab bar that morphs into Back and the page title on inner pages, large flexible top bars that collapse on scroll, motion-scheme transitions that match predictive back, a fade-through between tabs that keeps each tab's scroll position, and a splash screen that waits for the saved theme.
+- Moved search to its own full-screen page with a pill field, suggestions, recently viewed entries, and tagged results.
+- Redesigned the component page around connected toggle buttons for Preview, Guidance, Inspect, and API, with icon-led use and avoid guidance, copyable source paths, and both stability and availability on every API symbol.
+- Redesigned Settings and About with connected groups, connected choices, and expressive switches; removed two settings that had no effect, and carried existing theme choices (OLED mode, accent colors, and presets) over to the new seed-based colors.
+
+---
+
 ## [2.1.2] - 2026-11-17
 
 ### Added & Improved

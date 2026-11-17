@@ -59,7 +59,8 @@ Material Design is built by [Tremors](https://github.com/qtremors) with Kotlin a
 
 - [Google Material Design](https://m3.material.io/), [AndroidX](https://developer.android.com/jetpack/androidx), [Jetpack Compose](https://developer.android.com/compose), and [Material 3 Adaptive](https://developer.android.com/develop/ui/compose/layouts/adaptive)
 - [Kotlin](https://kotlinlang.org/), [Kotlin Coroutines](https://github.com/Kotlin/kotlinx.coroutines), and [Kotlin Serialization](https://github.com/Kotlin/kotlinx.serialization)
-- [Roboto](https://fonts.google.com/specimen/Roboto), [Material Symbols](https://fonts.google.com/icons), and the broader open-source Android and web ecosystems
+- [Google Sans Flex](https://fonts.google.com/specimen/Google+Sans+Flex) (SIL Open Font License 1.1), [Material Symbols](https://fonts.google.com/icons), and [MaterialKolor](https://github.com/jordond/MaterialKolor) (MIT) for seed color schemes
+- The broader open-source Android and web ecosystems
 
 Each project remains the property of its respective authors and is used under its own license.
 

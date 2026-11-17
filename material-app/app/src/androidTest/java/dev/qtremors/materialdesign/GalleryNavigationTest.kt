@@ -52,7 +52,8 @@ class GalleryNavigationTest {
     fun searchFindsCanonicalFabEntryFromAlias() {
         search("fab")
         openResult("Floating action button")
-        composeRule.onNodeWithText("Interactive reference").assertIsDisplayed()
+        composeRule.onNodeWithText("Preview").assertIsDisplayed()
+        composeRule.onNodeWithText("Every state below is live", substring = true).assertIsDisplayed()
     }
 
     @Test
@@ -68,7 +69,8 @@ class GalleryNavigationTest {
     fun settingsIsAnAppSurfaceNotAnAccount() {
         composeRule.waitUntilAtLeastOneExists(hasContentDescription("Open settings"), timeoutMillis = 10_000)
         composeRule.onNodeWithContentDescription("Open settings").performClick()
-        composeRule.onNodeWithText("Settings").assertIsDisplayed()
+        // The page title and the floating Back pill both name the page.
+        composeRule.onAllNodes(hasText("Settings")).onFirst().assertIsDisplayed()
         composeRule.onNodeWithText("Appearance").assertIsDisplayed()
         composeRule.onAllNodes(hasText("Sign in", substring = true)).assertCountEquals(0)
     }
@@ -87,7 +89,7 @@ class GalleryNavigationTest {
         search("spring physics")
         openResult("Motion")
         composeRule.onNodeWithText("Guidance").performClick()
-        composeRule.onNodeWithText("Behavior and feeling").assertIsDisplayed()
+        composeRule.onNodeWithText("Behavior and feel").performScrollTo().assertIsDisplayed()
         composeRule.onNodeWithText("Motion is user-triggered, interruptible, and safe under rapid repeated input.")
             .performScrollTo()
             .assertIsDisplayed()

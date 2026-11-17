@@ -9,9 +9,7 @@ import dev.qtremors.material.core.catalog.CatalogEntry
 import dev.qtremors.material.core.catalog.CatalogKind
 import dev.qtremors.material.core.catalog.CatalogRepository
 import dev.qtremors.material.core.data.AppSettings
-import dev.qtremors.material.core.data.MotionMode
 import dev.qtremors.material.core.data.UserLibraryRepository
-import dev.qtremors.material.core.designsystem.ThemeMode
 import dev.qtremors.material.core.designsystem.ThemeState
 import android.util.Log
 import kotlinx.coroutines.CancellationException
@@ -90,6 +88,11 @@ class GalleryViewModel(
     private val _settings = MutableStateFlow(AppSettings())
     val settings: StateFlow<AppSettings> = _settings.asStateFlow()
 
+    private val _settingsLoaded = MutableStateFlow(false)
+
+    /** False until stored settings arrive, so the splash screen never reveals the wrong theme. */
+    val settingsLoaded: StateFlow<Boolean> = _settingsLoaded.asStateFlow()
+
     private val _rootDestination = MutableStateFlow(RootDestination.EXPLORE)
     val rootDestination: StateFlow<RootDestination> = _rootDestination.asStateFlow()
 
@@ -153,7 +156,10 @@ class GalleryViewModel(
 
     private fun observeLibrary() {
         viewModelScope.launch {
-            userLibraryRepository.settings.collect { _settings.value = it }
+            userLibraryRepository.settings.collect {
+                _settings.value = it
+                _settingsLoaded.value = true
+            }
         }
         viewModelScope.launch {
             // Derived from the catalog as well as storage, so IDs are pruned whichever loads first.
@@ -221,16 +227,6 @@ class GalleryViewModel(
 
     fun updateThemeState(themeState: ThemeState) = launchSafely {
         userLibraryRepository.updateThemeState(themeState)
-    }
-
-    fun updateThemeMode(mode: ThemeMode) = launchSafely { userLibraryRepository.updateThemeMode(mode) }
-
-    fun updateDynamicColor(enabled: Boolean) = launchSafely {
-        userLibraryRepository.updateDynamicColor(enabled)
-    }
-
-    fun updateMotionMode(mode: MotionMode) = launchSafely {
-        userLibraryRepository.updateMotionMode(mode)
     }
 
     fun notifyComponentUnavailable() {

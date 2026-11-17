@@ -1,4 +1,11 @@
 <resources>
-    <!-- Base application theme. Compose handles all UI; this is just the window chrome. -->
+    <!-- Compose draws everything; this is the window chrome behind it. -->
     <style name="Theme.MaterialDesign" parent="Theme.AppCompat.DayNight.NoActionBar" />
+
+    <!-- Held until the saved theme loads, so the first frame is never the wrong colors. -->
+    <style name="Theme.MaterialDesign.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/splash_background</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
+        <item name="postSplashScreenTheme">@style/Theme.MaterialDesign</item>
+    </style>
 </resources>

@@ -2110,9 +2110,15 @@
           ]
         },
         {
-          "path": "material-app/app/src/main/java/dev/qtremors/materialdesign/shell/GalleryTopBar.kt",
+          "path": "material-app/app/src/main/java/dev/qtremors/materialdesign/shell/SearchScreen.kt",
           "symbols": [
-            "GalleryTopBar"
+            "SearchScreen"
+          ]
+        },
+        {
+          "path": "material-app/core/designsystem/src/main/java/dev/qtremors/material/core/designsystem/components/InlineSearchField.kt",
+          "symbols": [
+            "InlineSearchField"
           ]
         }
       ],

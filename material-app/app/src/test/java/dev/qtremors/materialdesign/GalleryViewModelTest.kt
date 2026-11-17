@@ -11,9 +11,7 @@ import dev.qtremors.material.core.catalog.ImplementationKind
 import dev.qtremors.material.core.catalog.SearchResult
 import dev.qtremors.material.core.data.AppSettings
 import dev.qtremors.material.core.data.UserLibraryRepository
-import dev.qtremors.material.core.designsystem.AccentColor
 import dev.qtremors.material.core.designsystem.ThemeMode
-import dev.qtremors.material.core.designsystem.ThemePreset
 import dev.qtremors.material.core.designsystem.ThemeState
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
@@ -114,29 +112,15 @@ class GalleryViewModelTest {
             recentFlow.value = emptyList()
         }
 
-        override suspend fun updateThemeState(themeState: ThemeState) { failIfRequested() }
-
-        override suspend fun updateThemeMode(mode: ThemeMode) {
+        override suspend fun updateThemeState(themeState: ThemeState) {
             failIfRequested()
-            settingsFlow.value = settingsFlow.value.copy(themeState = settingsFlow.value.themeState.copy(themeMode = mode))
-        }
-
-        override suspend fun updateDynamicColor(enabled: Boolean) {
-            failIfRequested()
-            settingsFlow.value = settingsFlow.value.copy(
-                themeState = settingsFlow.value.themeState.copy(accentColor = if (enabled) AccentColor.DYNAMIC else AccentColor.BLUE),
-            )
+            settingsFlow.value = settingsFlow.value.copy(themeState = themeState)
         }
 
         override suspend fun migrateIds(redirects: Map<String, String>) {
             failIfRequested()
             bookmarkFlow.value = bookmarkFlow.value.mapTo(linkedSetOf()) { redirects[it] ?: it }
             recentFlow.value = recentFlow.value.map { redirects[it] ?: it }.distinct()
-        }
-
-        override suspend fun updateMotionMode(mode: dev.qtremors.material.core.data.MotionMode) {
-            failIfRequested()
-            settingsFlow.value = settingsFlow.value.copy(themeState = settingsFlow.value.themeState.copy(reducedMotion = mode == dev.qtremors.material.core.data.MotionMode.REDUCED))
         }
     }
 
@@ -330,10 +314,11 @@ class GalleryViewModelTest {
         )
         advanceUntilIdle()
 
-        viewModel.updateDynamicColor(enabled = false)
+        assertTrue(viewModel.settingsLoaded.value)
+        viewModel.updateThemeState(ThemeState(themeMode = ThemeMode.DARK, pureBlack = true))
         advanceUntilIdle()
 
-        assertEquals(AccentColor.BLUE, viewModel.settings.value.themeState.accentColor)
-        assertEquals(ThemePreset.NONE.name, viewModel.settings.value.themeState.themePreset.name)
+        assertEquals(ThemeMode.DARK, viewModel.settings.value.themeState.themeMode)
+        assertTrue(viewModel.settings.value.themeState.pureBlack)
     }
 }

@@ -1,27 +1,28 @@
 package dev.qtremors.materialdesign
 
-import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.CloudOff
-import androidx.compose.material.icons.filled.Refresh
-import androidx.compose.material3.Button
-import androidx.compose.material3.CircularWavyProgressIndicator
-import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
-import androidx.compose.material3.Icon
+import androidx.compose.material.icons.rounded.CloudOff
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -30,88 +31,56 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.IntOffset
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavBackStackEntry
+import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import dev.qtremors.material.core.catalog.CatalogRepository
 import dev.qtremors.material.core.designsystem.MaterialDesignTheme
+import dev.qtremors.material.core.designsystem.components.EmptyState
+import dev.qtremors.material.core.designsystem.components.FloatingTabBar
+import dev.qtremors.material.core.designsystem.components.LoadingState
+import dev.qtremors.material.core.designsystem.components.TabItem
+import dev.qtremors.material.core.designsystem.spacing
 import dev.qtremors.material.feature.detail.ComponentDetailScreen
 import dev.qtremors.material.feature.detail.DetailSection
 import dev.qtremors.material.feature.settings.AboutScreen
 import dev.qtremors.material.feature.settings.SettingsScreen
 import dev.qtremors.materialdesign.shell.GalleryShell
+import dev.qtremors.materialdesign.shell.RootTabs
+import dev.qtremors.materialdesign.shell.SearchScreen
 import kotlinx.serialization.Serializable
 
 @Serializable private object GalleryRoute
 @Serializable private data class DetailRoute(val id: String)
+@Serializable private object SearchRoute
 @Serializable private object SettingsRoute
 @Serializable private object AboutRoute
 
 @Composable
 fun MaterialGalleryApp(viewModel: GalleryViewModel, demoRegistry: MaterialDemoRegistry) {
-    val catalogLoad by viewModel.catalogLoad.collectAsState()
-    val settings by viewModel.settings.collectAsState()
+    val catalogLoad by viewModel.catalogLoad.collectAsStateWithLifecycle()
+    val settings by viewModel.settings.collectAsStateWithLifecycle()
 
     MaterialDesignTheme(themeState = settings.themeState) {
-        Surface(
-            modifier = Modifier.fillMaxSize(),
-            color = MaterialTheme.colorScheme.background,
-        ) {
+        Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.surfaceContainer) {
             when (val load = catalogLoad) {
-                CatalogLoad.Loading -> CatalogLoadingScreen()
-                is CatalogLoad.Failed -> CatalogErrorScreen(onRetry = viewModel::retryCatalogLoad)
-                is CatalogLoad.Ready ->
-                    GalleryAppContent(
-                        viewModel = viewModel,
-                        demoRegistry = demoRegistry,
-                        repository = load.repository,
+                CatalogLoad.Loading -> Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) { LoadingState() }
+                is CatalogLoad.Failed -> Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    EmptyState(
+                        icon = Icons.Rounded.CloudOff,
+                        title = stringResource(R.string.app_error_catalog_load_title),
+                        message = stringResource(R.string.app_error_catalog_load_body),
+                        actionLabel = stringResource(R.string.app_retry),
+                        onAction = viewModel::retryCatalogLoad,
                     )
-            }
-        }
-    }
-}
-
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
-@Composable
-private fun CatalogLoadingScreen(modifier: Modifier = Modifier) {
-    Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        CircularWavyProgressIndicator()
-    }
-}
-
-@Composable
-private fun CatalogErrorScreen(onRetry: () -> Unit, modifier: Modifier = Modifier) {
-    Box(modifier = modifier.fillMaxSize().padding(32.dp), contentAlignment = Alignment.Center) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-            modifier = Modifier.fillMaxWidth(),
-        ) {
-            Icon(
-                imageVector = Icons.Default.CloudOff,
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.size(48.dp),
-            )
-            Text(
-                text = stringResource(R.string.app_error_catalog_load_title),
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Center,
-            )
-            Text(
-                text = stringResource(R.string.app_error_catalog_load_body),
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                textAlign = TextAlign.Center,
-            )
-            Button(onClick = onRetry) {
-                Icon(Icons.Default.Refresh, contentDescription = null, modifier = Modifier.size(18.dp))
-                Text(stringResource(R.string.app_retry))
+                }
+                is CatalogLoad.Ready -> GalleryAppContent(viewModel, demoRegistry, load.repository)
             }
         }
     }
@@ -124,73 +93,127 @@ private fun GalleryAppContent(
     repository: CatalogRepository,
 ) {
     val navController = rememberNavController()
+    val backStackEntry by navController.currentBackStackEntryAsState()
 
-    val catalog by viewModel.catalog.collectAsState()
-    val library by viewModel.library.collectAsState()
-    val settings by viewModel.settings.collectAsState()
-    val searchState by viewModel.search.collectAsState()
-    val query by viewModel.query.collectAsState()
-    val rootDestination by viewModel.rootDestination.collectAsState()
-    val selectedCategory by viewModel.selectedCategory.collectAsState()
-    val apiStability by viewModel.apiStability.collectAsState()
+    val catalog by viewModel.catalog.collectAsStateWithLifecycle()
+    val library by viewModel.library.collectAsStateWithLifecycle()
+    val settings by viewModel.settings.collectAsStateWithLifecycle()
+    val searchState by viewModel.search.collectAsStateWithLifecycle()
+    val query by viewModel.query.collectAsStateWithLifecycle()
+    val rootDestination by viewModel.rootDestination.collectAsStateWithLifecycle()
+    val selectedCategory by viewModel.selectedCategory.collectAsStateWithLifecycle()
+    val apiStability by viewModel.apiStability.collectAsStateWithLifecycle()
 
     val snackbarHostState = remember { SnackbarHostState() }
-    // Resolved in composable scope so the LaunchedEffect below can emit them later.
     val writeFailedMessage = stringResource(R.string.app_error_library_write_failed)
     val unavailableMessage = stringResource(R.string.app_error_component_unavailable)
-
     LaunchedEffect(viewModel) {
         viewModel.events.collect { event ->
             when (event) {
                 GalleryEvent.LibraryWriteFailed -> snackbarHostState.showSnackbar(writeFailedMessage)
                 GalleryEvent.ComponentUnavailable -> {
-                    snackbarHostState.showSnackbar(unavailableMessage)
                     navController.popBackStack()
+                    snackbarHostState.showSnackbar(unavailableMessage)
                 }
             }
         }
     }
 
+    val openEntry: (String) -> Unit = { id ->
+        // Recorded once per navigation, not from composition.
+        viewModel.recordRecent(id)
+        navController.navigate(DetailRoute(id))
+    }
+
+    // Shared spatial and effects specs from the Expressive motion scheme. With Reduce motion on, the
+    // scheme snaps, so screens change at once while keeping the same structure.
+    val spatial = MaterialTheme.motionScheme.defaultSpatialSpec<IntOffset>()
+    val effects = MaterialTheme.motionScheme.defaultEffectsSpec<Float>()
+    val enter: AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition = {
+        slideInHorizontally(spatial) { it / 5 } + fadeIn(effects)
+    }
+    val exit: AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition = {
+        slideOutHorizontally(spatial) { -it / 10 } + fadeOut(effects)
+    }
+    val popEnter: AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition = {
+        slideInHorizontally(spatial) { -it / 10 } + fadeIn(effects)
+    }
+    val popExit: AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition = {
+        slideOutHorizontally(spatial) { it / 5 } + fadeOut(effects)
+    }
+
+    val destination = backStackEntry?.destination
+    val onTabs = destination == null || destination.hasRoute<GalleryRoute>()
+    val onSearch = destination?.hasRoute<SearchRoute>() == true
+    val settingsTitle = stringResource(R.string.app_destination_settings)
+    val aboutTitle = stringResource(R.string.app_destination_about)
+    val backTitle = when {
+        destination == null -> null
+        destination.hasRoute<DetailRoute>() -> repository.entry(backStackEntry!!.toRoute<DetailRoute>().id)?.officialName
+        destination.hasRoute<SettingsRoute>() -> settingsTitle
+        destination.hasRoute<AboutRoute>() -> aboutTitle
+        else -> null
+    }
+
     Box(Modifier.fillMaxSize()) {
-        NavHost(navController = navController, startDestination = GalleryRoute) {
+        NavHost(
+            navController = navController,
+            startDestination = GalleryRoute,
+            enterTransition = enter,
+            exitTransition = exit,
+            popEnterTransition = popEnter,
+            popExitTransition = popExit,
+        ) {
             composable<GalleryRoute> {
                 GalleryShell(
                     catalog = catalog,
                     search = searchState,
-                    query = query,
                     library = library,
                     rootDestination = rootDestination,
                     selectedCategory = selectedCategory,
                     apiStability = apiStability,
                     onRootSelected = viewModel::selectRoot,
-                    onQueryChange = viewModel::updateQuery,
                     onCategorySelected = viewModel::selectCategory,
                     onApiStabilitySelected = viewModel::selectApiStability,
                     onBookmarkClick = viewModel::setBookmarked,
-                    onEntryClick = { id ->
-                        // Recorded once per actual navigation action, not from composition.
-                        viewModel.recordRecent(id)
-                        navController.navigate(DetailRoute(id))
+                    onEntryClick = openEntry,
+                    onSearch = { initial ->
+                        viewModel.updateQuery(initial)
+                        navController.navigate(SearchRoute)
                     },
                     onSettingsClick = { navController.navigate(SettingsRoute) },
                 )
             }
-            composable<DetailRoute> { backStackEntry ->
-                val route = backStackEntry.toRoute<DetailRoute>()
-                val entry = remember(route.id) { repository.entry(route.id) }
-                if (entry == null || !demoRegistry.contains(entry.demoKey)) {
+            composable<SearchRoute> {
+                // Search is its own page, so leaving it clears the query instead of filtering other tabs.
+                DisposableEffect(Unit) { onDispose { viewModel.updateQuery("") } }
+                val recent = remember(library.recent, catalog.entries) {
+                    val byId = catalog.entries.associateBy { it.id }
+                    library.recent.mapNotNull(byId::get).take(6)
+                }
+                SearchScreen(
+                    query = query,
+                    results = searchState.results,
+                    recent = recent,
+                    onQueryChange = viewModel::updateQuery,
+                    onEntryClick = openEntry,
+                    onBack = navController::popBackStack,
+                )
+            }
+            composable<DetailRoute> { entry ->
+                val route = entry.toRoute<DetailRoute>()
+                val catalogEntry = remember(route.id) { repository.entry(route.id) }
+                if (catalogEntry == null || !demoRegistry.contains(catalogEntry.demoKey)) {
                     LaunchedEffect(route.id) { viewModel.notifyComponentUnavailable() }
-                    Box(Modifier.fillMaxSize())
                 } else {
-                    var section by rememberSaveable(entry.id) { mutableStateOf(DetailSection.PREVIEW) }
+                    var section by rememberSaveable(catalogEntry.id) { mutableStateOf(DetailSection.PREVIEW) }
                     ComponentDetailScreen(
-                        entry = entry,
+                        entry = catalogEntry,
                         selectedSection = section,
-                        bookmarked = entry.id in library.bookmarks,
+                        bookmarked = catalogEntry.id in library.bookmarks,
                         onSectionSelected = { section = it },
-                        onBookmarkClick = { viewModel.setBookmarked(entry.id, it) },
-                        onBack = navController::popBackStack,
-                        demo = { demoRegistry.Render(entry.demoKey) },
+                        onBookmarkClick = { viewModel.setBookmarked(catalogEntry.id, it) },
+                        demo = { demoRegistry.Render(catalogEntry.demoKey) },
                     )
                 }
             }
@@ -205,7 +228,6 @@ private fun GalleryAppContent(
                     onClearBookmarks = viewModel::clearBookmarks,
                     onClearRecent = viewModel::clearRecent,
                     onNavigateToAbout = { navController.navigate(AboutRoute) },
-                    onBack = navController::popBackStack,
                 )
             }
             composable<AboutRoute> {
@@ -213,10 +235,32 @@ private fun GalleryAppContent(
                     appVersion = BuildConfig.APP_VERSION_NAME,
                     material3Version = catalog.material3Version,
                     composeUiVersion = catalog.composeUiVersion,
-                    onBack = navController::popBackStack,
                 )
             }
         }
-        SnackbarHost(hostState = snackbarHostState, modifier = Modifier.align(Alignment.BottomCenter))
+
+        // One control at the bottom of every page: tabs at the top level, Back and the page title elsewhere.
+        AnimatedVisibility(
+            visible = !onSearch,
+            enter = slideInVertically(spatial) { it } + fadeIn(effects),
+            exit = slideOutVertically(spatial) { it } + fadeOut(effects),
+            modifier = Modifier.align(Alignment.BottomCenter),
+        ) {
+            FloatingTabBar(
+                tabs = RootTabs.map { TabItem(it.icon, stringResource(it.labelRes)) },
+                selectedIndex = RootTabs.indexOfFirst { it.destination == rootDestination },
+                onSelect = { index -> viewModel.selectRoot(RootTabs[index].destination) },
+                backTitle = if (onTabs) null else backTitle,
+                onBack = if (onTabs) null else ({ navController.popBackStack() }),
+            )
+        }
+
+        SnackbarHost(
+            hostState = snackbarHostState,
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .navigationBarsPadding()
+                .padding(bottom = MaterialTheme.spacing.toolbarClearance),
+        )
     }
 }

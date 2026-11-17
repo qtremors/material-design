@@ -10,14 +10,22 @@ import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.staticCompositionLocalOf
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
+/** True when decorative motion should snap instead of animate. */
 val LocalReducedMotion = staticCompositionLocalOf { false }
+
+/** False when the person turned haptics off. Read through rememberAppHaptics(). */
+val LocalHapticsEnabled = staticCompositionLocalOf { true }
+
+val LocalSpacing = staticCompositionLocalOf { Spacing() }
+
+/** Whether catalog maturity badges are shown, from Settings. */
+val LocalShowBadges = staticCompositionLocalOf { true }
 
 @Composable
 fun MaterialDesignTheme(
@@ -25,120 +33,50 @@ fun MaterialDesignTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit,
 ) {
-    val context = LocalContext.current
-    val effectivelyDark = when (themeState.themeMode) {
+    val dark = when (themeState.themeMode) {
         ThemeMode.SYSTEM -> darkTheme
         ThemeMode.LIGHT -> false
         ThemeMode.DARK -> true
-        ThemeMode.OLED -> true
     }
-
-    val colorScheme = resolveThemeColorScheme(
-        themeState = themeState,
-        effectivelyDark = effectivelyDark,
-        context = context
-    )
+    val context = LocalContext.current
+    val colorScheme = remember(themeState, dark) { resolveColorScheme(context, themeState, dark) }
 
     val view = LocalView.current
     if (!view.isInEditMode && view.context is Activity) {
         SideEffect {
             val window = (view.context as Activity).window
-            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = !effectivelyDark
-            WindowCompat.getInsetsController(window, view).isAppearanceLightNavigationBars = !effectivelyDark
+            WindowCompat.getInsetsController(window, view).apply {
+                isAppearanceLightStatusBars = !dark
+                isAppearanceLightNavigationBars = !dark
+            }
         }
     }
 
-    CompositionLocalProvider(LocalReducedMotion provides themeState.reducedMotion) {
+    CompositionLocalProvider(
+        LocalReducedMotion provides themeState.reducedMotion,
+        LocalHapticsEnabled provides themeState.hapticsEnabled,
+        LocalShowBadges provides themeState.showBadges,
+        LocalSpacing provides Spacing(),
+    ) {
         MaterialExpressiveTheme(
             colorScheme = colorScheme,
-            shapes = ExpressiveShapes,
+            typography = AppTypography,
+            shapes = AppShapes,
             motionScheme = ExpressiveMotion.motionScheme(themeState.reducedMotion),
             content = content,
         )
     }
 }
 
-fun resolveThemeColorScheme(
-    themeState: ThemeState,
-    effectivelyDark: Boolean,
-    context: android.content.Context,
-): ColorScheme {
-    return when (themeState.themePreset) {
-        ThemePreset.DRACULA -> {
-            if (effectivelyDark) {
-                if (themeState.themeMode == ThemeMode.OLED) DraculaOledColorScheme else DraculaDarkColorScheme
-            } else {
-                DraculaLightColorScheme
-            }
-        }
-        ThemePreset.TOKYO_NIGHT -> {
-            if (effectivelyDark) {
-                if (themeState.themeMode == ThemeMode.OLED) TokyoNightOledColorScheme else TokyoNightDarkColorScheme
-            } else {
-                TokyoNightLightColorScheme
-            }
-        }
-        ThemePreset.CUSTOM -> {
-            val primaryColor = parseColor(themeState.customPrimaryColorHex, Color(0xFFBD93F9))
-            val rawBg = parseColor(themeState.customBackgroundColorHex, Color(0xFF282A36))
-            val bg = if (themeState.themeMode == ThemeMode.OLED) Color.Black else rawBg
-            val fg = getContrastColor(bg)
-            val scheme = buildScheme(primaryColor, effectivelyDark)
-            val surfaceVar = if (fg == Color.White) {
-                Color.White.copy(alpha = 0.08f).compositeOver(bg)
-            } else {
-                Color.Black.copy(alpha = 0.08f).compositeOver(bg)
-            }
-            scheme.copy(
-                primary = primaryColor,
-                background = bg,
-                surface = bg,
-                onBackground = fg,
-                onSurface = fg,
-                surfaceVariant = surfaceVar,
-                onSurfaceVariant = fg
-            )
-        }
-        ThemePreset.NONE -> when {
-            themeState.accentColor == AccentColor.MONOCHROME -> {
-                buildMonochromeScheme(
-                    isDark = effectivelyDark,
-                    isOled = themeState.themeMode == ThemeMode.OLED
-                )
-            }
-            themeState.accentColor == AccentColor.DYNAMIC && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-                if (effectivelyDark) {
-                    if (themeState.themeMode == ThemeMode.OLED) {
-                        dynamicDarkColorScheme(context).copy(
-                            background = Color.Black,
-                            surface = Color.Black,
-                            surfaceVariant = OledSurfaceVariant
-                        )
-                    } else {
-                        dynamicDarkColorScheme(context)
-                    }
-                } else {
-                    dynamicLightColorScheme(context)
-                }
-            }
-            themeState.accentColor != AccentColor.DYNAMIC -> {
-                val primaryColor = themeState.accentColor.color ?: AccentBlue
-                val scheme = buildScheme(primaryColor, effectivelyDark)
-                if (themeState.themeMode == ThemeMode.OLED) {
-                    scheme.copy(
-                        background = Color.Black,
-                        surface = Color.Black,
-                        surfaceVariant = OledSurfaceVariant,
-                        surfaceContainerLowest = OledContainerLowest,
-                        surfaceContainerLow = OledContainerLow
-                    )
-                } else {
-                    scheme
-                }
-            }
-            themeState.themeMode == ThemeMode.OLED -> OledColorScheme
-            effectivelyDark -> DarkColorScheme
-            else -> LightColorScheme
-        }
+/** Wallpaper colors on Android 12+, otherwise a generated scheme from the preset or custom seed. */
+fun resolveColorScheme(context: android.content.Context, themeState: ThemeState, dark: Boolean): ColorScheme {
+    val wallpaperAvailable = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
+    val base = when {
+        themeState.accentSource == AccentSource.WALLPAPER && wallpaperAvailable ->
+            if (dark) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+        themeState.accentSource == AccentSource.CUSTOM ->
+            seedColorScheme(parseHexColor(themeState.customSeedHex) ?: BrandSeed, dark)
+        else -> seedColorScheme(themeState.preset.seed, dark, themeState.preset.monochrome)
     }
+    return if (dark && themeState.pureBlack) base.toPureBlack() else base
 }

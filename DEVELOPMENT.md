@@ -91,7 +91,8 @@ material-design/
 │   ├── core/
 │   │   ├── catalog/                             # Models, bundled JSON, validation, search repository
 │   │   ├── data/                                # DataStore preferences and user library repository
-│   │   └── designsystem/                        # Theme, expressive motion, color, and shared design behavior
+│   │   ├── designsystem/                        # Expressive theme, generated color, Google Sans Flex type, tokens, motion, haptics, and shared components
+│   │   └── ui/                                  # Catalog-aware shared UI: entry rows and maturity tags
 │   ├── feature/
 │   │   ├── explore/                             # Featured, bookmarked, and recent references
 │   │   ├── catalog/                             # Component browsing and category filters

@@ -119,6 +119,7 @@ dependencies {
     implementation(project(":core:catalog"))
     implementation(project(":core:data"))
     implementation(project(":core:designsystem"))
+    implementation(project(":core:ui"))
     implementation(project(":feature:explore"))
     implementation(project(":feature:catalog"))
     implementation(project(":feature:apis"))
@@ -138,6 +139,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.navigation.compose)
 
     implementation(platform(libs.androidx.compose.bom))

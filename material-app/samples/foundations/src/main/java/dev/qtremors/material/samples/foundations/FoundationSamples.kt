@@ -74,7 +74,7 @@ fun VariableTypographyPreview(
     val fontFamily = remember(axes) {
         FontFamily(
             Font(
-                resId = R.font.google_sans_flex_variable,
+                resId = dev.qtremors.material.core.designsystem.R.font.google_sans_flex_variable,
                 variationSettings = FontVariation.Settings(
                     FontVariation.weight(axes.weight.toInt().coerceIn(1, 1000)),
                     FontVariation.width(axes.width.coerceIn(25f, 150f)),

@@ -1,77 +1,58 @@
 package dev.qtremors.material.core.designsystem
 
+import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
 
-enum class ThemeMode {
-    SYSTEM,
-    LIGHT,
-    DARK,
-    OLED
+enum class ThemeMode { SYSTEM, LIGHT, DARK }
+
+/** Where accent colors come from. Wallpaper falls back to the preset below Android 12. */
+enum class AccentSource { WALLPAPER, PRESET, CUSTOM }
+
+/** The Material baseline seed: the app's own color, used whenever wallpaper colors are not. */
+val BrandSeed = Color(0xFF6750A4)
+
+/**
+ * Named seeds. Each produces a complete tonal scheme in light, dark, and pure black through
+ * Material Color Utilities, so no preset ships hand-picked colors with broken contrast.
+ */
+enum class ThemePreset(val seed: Color, val monochrome: Boolean = false) {
+    BASELINE(BrandSeed),
+    BLUE(Color(0xFF1B6EF3)),
+    GREEN(Color(0xFF2E8B57)),
+    AMBER(Color(0xFFE9A400)),
+    CORAL(Color(0xFFEF5145)),
+    GRAPHITE(Color(0xFF5F6368), monochrome = true),
 }
 
-// Accent Colors (Material 500)
-val AccentRed = Color(0xFFF44336)
-val AccentPink = Color(0xFFE91E63)
-val AccentPurple = Color(0xFF9C27B0)
-val AccentDeepPurple = Color(0xFF673AB7)
-val AccentIndigo = Color(0xFF3F51B5)
-val AccentBlue = Color(0xFF2196F3)
-val AccentLightBlue = Color(0xFF03A9F4)
-val AccentCyan = Color(0xFF00BCD4)
-val AccentTeal = Color(0xFF009688)
-val AccentGreen = Color(0xFF4CAF50)
-val AccentLightGreen = Color(0xFF8BC34A)
-val AccentLime = Color(0xFFCDDC39)
-val AccentYellow = Color(0xFFFFEB3B)
-val AccentAmber = Color(0xFFFFC107)
-val AccentOrange = Color(0xFFFF9800)
-val AccentDeepOrange = Color(0xFFFF5722)
-val AccentBrown = Color(0xFF795548)
-val AccentBlueGrey = Color(0xFF607D8B)
-val AccentGrey = Color(0xFF757575)
-val AccentBlack = Color(0xFF111111)
-
-enum class AccentColor(val color: Color?) {
-    DYNAMIC(null),
-    MONOCHROME(null),
-    RED(AccentRed),
-    PINK(AccentPink),
-    PURPLE(AccentPurple),
-    DEEP_PURPLE(AccentDeepPurple),
-    CYAN(AccentCyan),
-    LIGHT_BLUE(AccentLightBlue),
-    BLUE(AccentBlue),
-    INDIGO(AccentIndigo),
-    TEAL(AccentTeal),
-    GREEN(AccentGreen),
-    LIGHT_GREEN(AccentLightGreen),
-    LIME(AccentLime),
-    DEEP_ORANGE(AccentDeepOrange),
-    ORANGE(AccentOrange),
-    AMBER(AccentAmber),
-    YELLOW(AccentYellow),
-    BROWN(AccentBrown),
-    BLUE_GREY(AccentBlueGrey),
-    GREY(AccentGrey),
-    BLACK(AccentBlack),
-}
-
-enum class ThemePreset {
-    NONE,
-    DRACULA,
-    TOKYO_NIGHT,
-    CUSTOM
-}
-
+/**
+ * Everything the theme and app behavior read from settings. Defaults: system light and dark,
+ * wallpaper colors, haptics on, full motion, catalog badges shown.
+ */
+@Immutable
 data class ThemeState(
     val themeMode: ThemeMode = ThemeMode.SYSTEM,
-    val accentColor: AccentColor = AccentColor.DYNAMIC,
-    val themePreset: ThemePreset = ThemePreset.NONE,
-    val customPrimaryColorHex: String = "#BD93F9",
-    val customBackgroundColorHex: String = "#282A36",
-    val harmonizeColors: Boolean = true,
+    /** Pure black surfaces in dark mode, for OLED screens. */
+    val pureBlack: Boolean = false,
+    val accentSource: AccentSource = AccentSource.WALLPAPER,
+    val preset: ThemePreset = ThemePreset.BASELINE,
+    /** Seed for [AccentSource.CUSTOM], as `#RRGGBB`. */
+    val customSeedHex: String = "#6750A4",
     val reducedMotion: Boolean = false,
-    val vibrationsEnabled: Boolean = true,
-    val expandableAppBar: Boolean = true,
+    val hapticsEnabled: Boolean = true,
     val showBadges: Boolean = true,
 )
+
+/** Parses `#RRGGBB` or `#AARRGGBB`, or returns null. */
+fun parseHexColor(hex: String): Color? {
+    val digits = hex.trim().removePrefix("#")
+    if (digits.length != 6 && digits.length != 8) return null
+    val value = digits.toLongOrNull(16) ?: return null
+    return if (digits.length == 6) Color(0xFF000000 or value) else Color(value)
+}
+
+/** Formats a color as `#RRGGBB`. */
+fun Color.toHex(): String {
+    val argb = (alpha * 255).toInt() shl 24 or ((red * 255).toInt() shl 16) or
+        ((green * 255).toInt() shl 8) or (blue * 255).toInt()
+    return "#%06X".format(argb and 0xFFFFFF)
+}

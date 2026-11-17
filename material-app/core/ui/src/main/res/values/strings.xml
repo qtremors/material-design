@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tag_expressive">Expressive</string>
+    <string name="tag_experimental">Experimental</string>
+    <string name="tag_project">Project</string>
+    <string name="tag_official">Official API</string>
+    <string name="tag_pre_release">Pre-release</string>
+    <string name="tag_stable">Stable</string>
+    <string name="tag_stable_release">In stable release</string>
+</resources>
