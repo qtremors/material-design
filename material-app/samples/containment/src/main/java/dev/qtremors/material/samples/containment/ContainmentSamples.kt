@@ -173,3 +173,9 @@ fun PullToRefreshSample(modifier: Modifier = Modifier) {
         }
     }
 }
+
+@Composable
+fun SegmentedListItemSample(modifier: Modifier = Modifier) = SegmentedListItemsSample(modifier)
+
+@Composable
+fun CarouselSample(modifier: Modifier = Modifier) = CarouselsSample(modifier)

@@ -113,3 +113,6 @@ private fun ToolbarActions(
         }
     }
 }
+
+@Composable
+fun FloatingToolbarSample(modifier: Modifier = Modifier) = FloatingToolbarsSample(modifier)

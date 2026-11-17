@@ -235,3 +235,6 @@ fun ScrollableTabRowsSample(modifier: Modifier = Modifier) {
         }
     }
 }
+
+@Composable
+fun ScrollableTabRowSample(modifier: Modifier = Modifier) = ScrollableTabRowsSample(modifier)

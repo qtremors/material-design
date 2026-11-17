@@ -4,6 +4,18 @@
 
 ---
 
+## [2.1.1] - 2026-11-17
+
+### Added & Improved
+
+- Upgraded to Material 3 1.5.0-rc01, Android Gradle Plugin 9.5.1, Kotlin 2.4.21, Gradle 9.8.2, Compose BOM 2026.09.00, Navigation Compose 2.10.2, DataStore 1.3.0, Kotlinx Serialization 1.13.0, Core KTX 1.19.1, and AppCompat 1.8.0.
+- Re-reviewed every catalog API reference against the 1.5.0-rc01 sources: Material 3 Expressive APIs that graduated (wavy progress, floating toolbars, segmented list items, flexible search bars, pickers and their dialogs, grouped menus, hero carousels, vertical sliders, and more) now show as stable, `TooltipBox` correctly shows as experimental, and the Compose UI version reflects the resolved 1.12.1.
+- Split Selection controls into separate Checkbox, Radio button, and Switch references with standalone, hierarchical, and disabled states.
+- Moved the Basic alert dialog and Divider references into their Communication and Foundations sample modules, and renamed API-level entries such as Split button, Top search bar, Dropdown menu group, and Time picker dialog to their singular API names.
+- Migrated samples to `SplitButtonLayout`, `VibrantTimePickerDialog`, and the state-based `Slider`, `VerticalSlider`, and `RangeSlider` APIs.
+
+---
+
 ## [2.1.0] - 2026-08-30
 
 ### Added & Improved

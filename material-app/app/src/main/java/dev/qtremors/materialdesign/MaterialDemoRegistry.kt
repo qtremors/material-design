@@ -4,16 +4,17 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import dev.qtremors.material.core.catalog.ComponentDemoRegistry
 import dev.qtremors.material.samples.actions.ButtonsSample
-import dev.qtremors.material.samples.actions.ButtonGroupsSample
+import dev.qtremors.material.samples.actions.ButtonGroupSample
 import dev.qtremors.material.samples.actions.FabMenusSample
 import dev.qtremors.material.samples.actions.FloatingActionButtonsSample
 import dev.qtremors.material.samples.actions.IconButtonsSample
 import dev.qtremors.material.samples.actions.SplitButtonsSample
-import dev.qtremors.material.samples.actions.ToggleButtonsSample
+import dev.qtremors.material.samples.actions.ToggleButtonSample
 import dev.qtremors.material.samples.containment.CardsSample
 import dev.qtremors.material.samples.communication.BadgesSample
+import dev.qtremors.material.samples.communication.BasicAlertDialogSample
 import dev.qtremors.material.samples.communication.BottomSheetsSample
-import dev.qtremors.material.samples.communication.GroupedDropdownMenusSample
+import dev.qtremors.material.samples.communication.DropdownMenuGroupSample
 import dev.qtremors.material.samples.communication.DialogsSample
 import dev.qtremors.material.samples.communication.LoadingIndicatorsSample
 import dev.qtremors.material.samples.communication.MenusSample
@@ -26,6 +27,7 @@ import dev.qtremors.material.samples.containment.ListsSample
 import dev.qtremors.material.samples.containment.PullToRefreshSample
 import dev.qtremors.material.samples.containment.SegmentedListItemsSample
 import dev.qtremors.material.samples.containment.SwipeToDismissSample
+import dev.qtremors.material.samples.foundations.DividerSample
 import dev.qtremors.material.samples.foundations.ScaffoldFoundationSample
 import dev.qtremors.material.samples.foundations.TypographySample
 import dev.qtremors.material.samples.foundations.AccessibilitySample
@@ -45,19 +47,19 @@ import dev.qtremors.material.samples.navigation.ShortNavigationBarSample
 import dev.qtremors.material.samples.navigation.TabsSample
 import dev.qtremors.material.samples.navigation.TopAppBarsSample
 import dev.qtremors.material.samples.navigation.WideNavigationRailSample
+import dev.qtremors.material.samples.selection.CheckboxSample
 import dev.qtremors.material.samples.selection.ChipsSample
-import dev.qtremors.material.samples.selection.BasicAlertDialogsSample
 import dev.qtremors.material.samples.selection.DatePickerSample
-import dev.qtremors.material.samples.selection.DividersSample
+import dev.qtremors.material.samples.selection.RadioButtonSample
 import dev.qtremors.material.samples.selection.SearchSample
 import dev.qtremors.material.samples.selection.SegmentedButtonsSample
-import dev.qtremors.material.samples.selection.SelectionControlsSample
 import dev.qtremors.material.samples.selection.SlidersSample
+import dev.qtremors.material.samples.selection.SwitchSample
 import dev.qtremors.material.samples.selection.TextFieldsSample
-import dev.qtremors.material.samples.selection.TimePickerDialogsSample
+import dev.qtremors.material.samples.selection.TimePickerDialogSample
 import dev.qtremors.material.samples.selection.TimePickerSample
-import dev.qtremors.material.samples.selection.TopSearchBarsSample
-import dev.qtremors.material.samples.selection.VerticalSlidersSample
+import dev.qtremors.material.samples.selection.TopSearchBarSample
+import dev.qtremors.material.samples.selection.VerticalSliderSample
 
 class MaterialDemoRegistry : ComponentDemoRegistry {
     override val registeredKeys: Set<String> = setOf(
@@ -87,7 +89,9 @@ class MaterialDemoRegistry : ComponentDemoRegistry {
         "containment.lists",
         "selection.chips",
         "selection.segmented-buttons",
-        "selection.controls",
+        "selection.checkbox",
+        "selection.radio-button",
+        "selection.switch",
         "selection.text-fields",
         "selection.search",
         "selection.sliders",
@@ -122,8 +126,8 @@ class MaterialDemoRegistry : ComponentDemoRegistry {
     fun Render(demoKey: String) {
         when (demoKey) {
             "actions.buttons" -> ButtonsSample()
-            "actions.button-groups" -> ButtonGroupsSample()
-            "actions.toggle-buttons" -> ToggleButtonsSample()
+            "actions.button-groups" -> ButtonGroupSample()
+            "actions.toggle-buttons" -> ToggleButtonSample()
             "actions.split-buttons" -> SplitButtonsSample()
             "actions.fabs" -> FloatingActionButtonsSample()
             "actions.icon-buttons" -> IconButtonsSample()
@@ -136,8 +140,8 @@ class MaterialDemoRegistry : ComponentDemoRegistry {
             "communication.tooltips" -> TooltipsSample()
             "communication.menus" -> MenusSample()
             "communication.badges" -> BadgesSample()
-            "communication.grouped-dropdown-menus" -> GroupedDropdownMenusSample()
-            "communication.basic-alert-dialogs" -> BasicAlertDialogsSample()
+            "communication.grouped-dropdown-menus" -> DropdownMenuGroupSample()
+            "communication.basic-alert-dialogs" -> BasicAlertDialogSample()
             "containment.segmented-lists" -> SegmentedListItemsSample()
             "containment.carousels" -> CarouselsSample()
             "containment.hero-carousels" -> HeroCarouselsSample()
@@ -147,15 +151,17 @@ class MaterialDemoRegistry : ComponentDemoRegistry {
             "containment.lists" -> ListsSample()
             "selection.chips" -> ChipsSample()
             "selection.segmented-buttons" -> SegmentedButtonsSample()
-            "selection.controls" -> SelectionControlsSample()
+            "selection.checkbox" -> CheckboxSample()
+            "selection.radio-button" -> RadioButtonSample()
+            "selection.switch" -> SwitchSample()
             "selection.text-fields" -> TextFieldsSample()
             "selection.search" -> SearchSample()
             "selection.sliders" -> SlidersSample()
-            "selection.vertical-sliders" -> VerticalSlidersSample()
+            "selection.vertical-sliders" -> VerticalSliderSample()
             "selection.date-pickers" -> DatePickerSample()
             "selection.time-pickers" -> TimePickerSample()
-            "selection.time-picker-dialogs" -> TimePickerDialogsSample()
-            "selection.top-search-bars" -> TopSearchBarsSample()
+            "selection.time-picker-dialogs" -> TimePickerDialogSample()
+            "selection.top-search-bars" -> TopSearchBarSample()
             "navigation.floating-toolbars" -> FloatingToolbarsSample()
             "navigation.bars" -> NavigationBarSample()
             "navigation.short-navigation-bars" -> ShortNavigationBarSample()
@@ -174,7 +180,7 @@ class MaterialDemoRegistry : ComponentDemoRegistry {
             "foundations.elevation" -> ElevationSample()
             "foundations.layout" -> LayoutSample()
             "foundations.scaffold" -> ScaffoldFoundationSample()
-            "foundations.dividers" -> DividersSample()
+            "foundations.dividers" -> DividerSample()
             "foundations.accessibility" -> AccessibilitySample()
             else -> Text("Missing working demo: $demoKey")
         }

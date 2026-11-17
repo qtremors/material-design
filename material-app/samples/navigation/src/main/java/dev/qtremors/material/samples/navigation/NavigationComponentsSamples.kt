@@ -332,3 +332,12 @@ fun BottomAppBarsSample(modifier: Modifier = Modifier) {
         }
     }
 }
+
+@Composable
+fun TopAppBarSample(modifier: Modifier = Modifier) = TopAppBarsSample(modifier)
+
+@Composable
+fun BottomAppBarSample(modifier: Modifier = Modifier) = BottomAppBarsSample(modifier)
+
+@Composable
+fun TabSample(modifier: Modifier = Modifier) = TabsSample(modifier)

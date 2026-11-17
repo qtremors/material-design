@@ -354,6 +354,8 @@ private fun ApiSection(entry: CatalogEntry) {
     val clipboard = LocalClipboard.current
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
+    val symbolClipLabel = stringResource(R.string.detail_clip_label_symbol)
+    val pathClipLabel = stringResource(R.string.detail_clip_label_path)
     Column(
         Modifier
             .fillMaxSize()
@@ -369,7 +371,7 @@ private fun ApiSection(entry: CatalogEntry) {
                         Text(api.symbol, modifier = Modifier.weight(1f), fontFamily = FontFamily.Monospace)
                         IconButton(onClick = {
                             coroutineScope.launch {
-                                clipboard.setClipEntry(ClipEntry(ClipData.newPlainText(context.getString(R.string.detail_clip_label_symbol), api.symbol)))
+                                clipboard.setClipEntry(ClipEntry(ClipData.newPlainText(symbolClipLabel, api.symbol)))
                             }
                         }) {
                             Icon(Icons.Default.ContentCopy, stringResource(R.string.detail_copy_symbol_content_description))
@@ -407,7 +409,7 @@ private fun ApiSection(entry: CatalogEntry) {
                     }
                     IconButton(onClick = {
                         coroutineScope.launch {
-                            clipboard.setClipEntry(ClipEntry(ClipData.newPlainText(context.getString(R.string.detail_clip_label_path), source.path)))
+                            clipboard.setClipEntry(ClipEntry(ClipData.newPlainText(pathClipLabel, source.path)))
                         }
                     }) {
                         Icon(Icons.Default.ContentCopy, stringResource(R.string.detail_copy_path_content_description))

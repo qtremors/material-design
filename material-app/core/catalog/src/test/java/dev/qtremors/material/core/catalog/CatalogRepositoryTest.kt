@@ -33,7 +33,7 @@ class CatalogRepositoryTest {
         assertEquals("split-buttons", CatalogSearch.search(document.entries, "SplitButtonLayout").first().entry.id)
         assertEquals("button-groups", CatalogSearch.search(document.entries, "connected buttons").first().entry.id)
         assertEquals("chips", CatalogSearch.search(document.entries, "input chip").first().entry.id)
-        assertEquals("selection-controls", CatalogSearch.search(document.entries, "tri state checkbox").first().entry.id)
+        assertEquals("checkbox", CatalogSearch.search(document.entries, "tri state checkbox").first().entry.id)
         assertEquals("motion", CatalogSearch.search(document.entries, "spring physics").first().entry.id)
         assertEquals("layout", CatalogSearch.search(document.entries, "panes").first().entry.id)
         assertEquals("accessibility", CatalogSearch.search(document.entries, "talkback").first().entry.id)

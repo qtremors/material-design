@@ -60,6 +60,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Slider
+import androidx.compose.material3.rememberSliderState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
@@ -67,7 +68,6 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.ToggleButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -252,7 +252,8 @@ fun ShapeSample(modifier: Modifier = Modifier) {
 fun MotionSample(modifier: Modifier = Modifier) {
     var destination by remember { mutableStateOf(false) }
     var pressedPreview by remember { mutableStateOf(false) }
-    var progress by remember { mutableFloatStateOf(0.35f) }
+    val progressSlider = rememberSliderState(value = 0.35f, trackRange = 0f..1f)
+    val progress = progressSlider.value
     val reducedMotion = LocalReducedMotion.current
     val travel by animateDpAsState(
         targetValue = if (destination) 172.dp else 0.dp,
@@ -347,7 +348,7 @@ fun MotionSample(modifier: Modifier = Modifier) {
                     Modifier.fillMaxWidth(progressWidth).height(18.dp).background(MaterialTheme.colorScheme.primary),
                 )
             }
-            Slider(value = progress, onValueChange = { progress = it }, valueRange = 0f..1f)
+            Slider(state = progressSlider, onValueChange = { progressSlider.value = it })
             Text("Target ${(progress * 100).roundToInt()}%", style = MaterialTheme.typography.labelLarge)
         }
 
@@ -374,8 +375,10 @@ fun MotionSample(modifier: Modifier = Modifier) {
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun ElevationSample(modifier: Modifier = Modifier) {
-    var tonalLevel by remember { mutableFloatStateOf(2f) }
-    var shadowLevel by remember { mutableFloatStateOf(1f) }
+    val tonalLevelSlider = rememberSliderState(value = 2f, steps = 5, trackRange = 0f..6f)
+    val tonalLevel = tonalLevelSlider.value
+    val shadowLevelSlider = rememberSliderState(value = 1f, steps = 5, trackRange = 0f..6f)
+    val shadowLevel = shadowLevelSlider.value
     val tonalDp = tonalLevel.roundToInt().dp
     val shadowDp = shadowLevel.roundToInt().dp
 
@@ -402,9 +405,9 @@ fun ElevationSample(modifier: Modifier = Modifier) {
                 }
             }
             Text("Tonal elevation", style = MaterialTheme.typography.labelLarge)
-            Slider(value = tonalLevel, onValueChange = { tonalLevel = it }, valueRange = 0f..6f, steps = 5)
+            Slider(state = tonalLevelSlider, onValueChange = { tonalLevelSlider.value = it })
             Text("Shadow elevation", style = MaterialTheme.typography.labelLarge)
-            Slider(value = shadowLevel, onValueChange = { shadowLevel = it }, valueRange = 0f..6f, steps = 5)
+            Slider(state = shadowLevelSlider, onValueChange = { shadowLevelSlider.value = it })
         }
 
         FoundationSection(
@@ -458,7 +461,8 @@ fun ElevationSample(modifier: Modifier = Modifier) {
 
 @Composable
 fun LayoutSample(modifier: Modifier = Modifier) {
-    var simulatedWidth by remember { mutableFloatStateOf(360f) }
+    val simulatedWidthSlider = rememberSliderState(value = 360f, trackRange = 280f..1000f)
+    val simulatedWidth = simulatedWidthSlider.value
     val widthClass = when {
         simulatedWidth < 600f -> "Compact"
         simulatedWidth < 840f -> "Medium"
@@ -476,7 +480,7 @@ fun LayoutSample(modifier: Modifier = Modifier) {
             description = "Layout decisions follow available window space, not a guessed device category or orientation.",
         ) {
             Text("Simulated width ${simulatedWidth.roundToInt()} dp · $widthClass", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
-            Slider(value = simulatedWidth, onValueChange = { simulatedWidth = it }, valueRange = 280f..1000f)
+            Slider(state = simulatedWidthSlider, onValueChange = { simulatedWidthSlider.value = it })
             BoxWithConstraints(Modifier.fillMaxWidth()) {
                 val previewWidth = simulatedWidth.dp.coerceAtMost(maxWidth)
                 Surface(
@@ -583,7 +587,8 @@ private fun AdaptiveAction(label: String, icon: androidx.compose.ui.graphics.vec
 
 @Composable
 fun AccessibilitySample(modifier: Modifier = Modifier) {
-    var textSize by remember { mutableFloatStateOf(18f) }
+    val textSizeSlider = rememberSliderState(value = 18f, trackRange = 14f..34f)
+    val textSize = textSizeSlider.value
     var checked by remember { mutableStateOf(true) }
     var selected by remember { mutableStateOf(false) }
     val systemFontScale = LocalDensity.current.fontScale
@@ -594,7 +599,7 @@ fun AccessibilitySample(modifier: Modifier = Modifier) {
             description = "Text scaling is a layout condition. Containers grow and actions reflow before content is truncated.",
         ) {
             Text("Preview size ${textSize.roundToInt()} sp · system scale ${"%.2f".format(systemFontScale)}×", style = MaterialTheme.typography.labelLarge)
-            Slider(value = textSize, onValueChange = { textSize = it }, valueRange = 14f..34f)
+            Slider(state = textSizeSlider, onValueChange = { textSizeSlider.value = it })
             ElevatedCard(Modifier.fillMaxWidth()) {
                 Column(Modifier.padding(18.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
                     Text(

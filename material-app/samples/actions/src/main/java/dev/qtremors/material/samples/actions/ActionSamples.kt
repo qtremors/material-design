@@ -58,7 +58,7 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedIconButton
 import androidx.compose.material3.OutlinedIconToggleButton
 import androidx.compose.material3.SmallFloatingActionButton
-import androidx.compose.material3.SplitButton
+import androidx.compose.material3.SplitButtonLayout
 import androidx.compose.material3.SplitButtonDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -438,7 +438,7 @@ fun RejectedActionButton(modifier: Modifier = Modifier) {
 fun SplitButtonsSample(modifier: Modifier = Modifier) {
     var expanded by remember { mutableStateOf(false) }
     Column(modifier) {
-        SplitButton(
+        SplitButtonLayout(
             leadingButton = {
                 SplitButtonDefaults.LeadingButton(onClick = {}) {
                     Icon(Icons.Default.Share, contentDescription = null)
@@ -611,3 +611,18 @@ fun FabMenusSample(modifier: Modifier = Modifier) {
         }
     }
 }
+
+@Composable
+fun ButtonSample(modifier: Modifier = Modifier) = ButtonsSample(modifier)
+
+@Composable
+fun SplitButtonSample(modifier: Modifier = Modifier) = SplitButtonsSample(modifier)
+
+@Composable
+fun FloatingActionButtonSample(modifier: Modifier = Modifier) = FloatingActionButtonsSample(modifier)
+
+@Composable
+fun IconButtonSample(modifier: Modifier = Modifier) = IconButtonsSample(modifier)
+
+@Composable
+fun FabMenuSample(modifier: Modifier = Modifier) = FabMenusSample(modifier)

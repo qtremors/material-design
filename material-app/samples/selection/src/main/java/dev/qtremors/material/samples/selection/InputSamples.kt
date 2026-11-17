@@ -152,7 +152,7 @@ fun TextFieldsSample(modifier: Modifier = Modifier) {
                 modifier = Modifier.fillMaxWidth(),
             )
             OutlinedTextField(
-                value = "1.5.0-alpha26",
+                value = "1.5.0-rc01",
                 onValueChange = {},
                 label = { Text("Material dependency") },
                 supportingText = { Text("Pinned by the version catalog") },
@@ -299,3 +299,6 @@ private fun InputReferenceSection(
         content()
     }
 }
+
+@Composable
+fun TextFieldSample(modifier: Modifier = Modifier) = TextFieldsSample(modifier)

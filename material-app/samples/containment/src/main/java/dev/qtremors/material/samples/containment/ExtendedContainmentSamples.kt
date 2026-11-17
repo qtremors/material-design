@@ -91,6 +91,10 @@ fun SwipeToDismissSample(modifier: Modifier = Modifier) {
     }
 }
 
+@Composable
+fun HeroCarouselSample(modifier: Modifier = Modifier) = HeroCarouselsSample(modifier)
+
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HeroCarouselsSample(modifier: Modifier = Modifier) {

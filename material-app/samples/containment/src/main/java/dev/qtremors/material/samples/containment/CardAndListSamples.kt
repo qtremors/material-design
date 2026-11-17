@@ -464,3 +464,9 @@ private fun ContainmentReferenceSection(
         content()
     }
 }
+
+@Composable
+fun CardSample(modifier: Modifier = Modifier) = CardsSample(modifier)
+
+@Composable
+fun ListSample(modifier: Modifier = Modifier) = ListsSample(modifier)

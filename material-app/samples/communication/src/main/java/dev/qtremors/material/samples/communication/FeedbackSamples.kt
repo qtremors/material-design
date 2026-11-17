@@ -527,3 +527,18 @@ private fun FeedbackSection(
         content()
     }
 }
+
+@Composable
+fun DialogSample(modifier: Modifier = Modifier) = DialogsSample(modifier)
+
+@Composable
+fun BottomSheetSample(modifier: Modifier = Modifier) = BottomSheetsSample(modifier)
+
+@Composable
+fun SnackbarSample(modifier: Modifier = Modifier) = SnackbarsSample(modifier)
+
+@Composable
+fun TooltipSample(modifier: Modifier = Modifier) = TooltipsSample(modifier)
+
+@Composable
+fun MenuSample(modifier: Modifier = Modifier) = MenusSample(modifier)

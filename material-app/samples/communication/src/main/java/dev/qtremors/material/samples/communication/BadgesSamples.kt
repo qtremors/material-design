@@ -69,3 +69,6 @@ fun BadgesSample(modifier: Modifier = Modifier) {
         }
     }
 }
+
+@Composable
+fun BadgeSample(modifier: Modifier = Modifier) = BadgesSample(modifier)

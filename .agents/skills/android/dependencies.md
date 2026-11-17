@@ -9,24 +9,24 @@ Centralize all dependency coordinates, plugin declarations, and version definiti
 ```toml
 [versions]
 # Build toolchain & plugins
-agp = "9.3.1"
-kotlin = "2.4.10"
+agp = "9.5.1"
+kotlin = "2.4.21"
 
 # AndroidX platform & lifecycle
-coreKtx = "1.19.0"
-appcompat = "1.7.0"
+coreKtx = "1.19.1"
+appcompat = "1.8.0"
 activityCompose = "1.13.0"
 lifecycleRuntimeKtx = "2.11.0"
 
 # Jetpack Compose & Material 3
-composeBom = "2026.08.00"
-composeMaterial3 = "1.5.0-alpha26"
+composeBom = "2026.09.00"
+composeMaterial3 = "1.5.0-rc01"
 composeMaterial3Adaptive = "1.3.0"
 
 # Navigation, persistence, and serialization
-navigationCompose = "2.9.8"
-datastore = "1.2.1"
-kotlinxSerialization = "1.11.0"
+navigationCompose = "2.10.2"
+datastore = "1.3.0"
+kotlinxSerialization = "1.13.0"
 kotlinxCoroutines = "1.11.0"
 
 # Testing
@@ -128,7 +128,7 @@ internal fun Project.configureAndroidCommon(commonExtension: CommonExtension<*, 
 
 ### BOM vs Explicit Pinned Versions
 - **Compose BOM (`compose-bom`):** Ensures UI foundation libraries (`ui`, `ui-graphics`, `ui-tooling`) use mutually compatible stable versions.
-- **Explicit Material 3 Alpha Pinning:** When using new Material 3 Expressive features (such as `SplitButton`, `FloatingToolbar`, `WavyProgressIndicator`, or `NavigationSuiteScaffold`), pin `androidx.compose.material3` (e.g. `1.5.0-alpha26`) and `androidx.compose.material3.adaptive` (e.g. `1.3.0`) directly, as the stable BOM line may not yet include these components.
+- **Explicit Material 3 Alpha Pinning:** When using new Material 3 Expressive features (such as `SplitButtonLayout`, `FloatingToolbar`, `WavyProgressIndicator`, or `NavigationSuiteScaffold`), pin `androidx.compose.material3` (e.g. `1.5.0-rc01`) and `androidx.compose.material3.adaptive` (e.g. `1.3.0`) directly, as the stable BOM line may not yet include these components.
 
 ### Handling Experimental Opt-Ins
 When consuming alpha or evolving Material 3 APIs, require explicit opt-in annotations where appropriate:

@@ -344,16 +344,16 @@ fun SegmentedButtonsSample(modifier: Modifier = Modifier) {
     }
 }
 
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
-fun SelectionControlsSample(modifier: Modifier = Modifier) {
+fun ChipSample(modifier: Modifier = Modifier) = ChipsSample(modifier)
+
+@Composable
+fun SegmentedButtonSample(modifier: Modifier = Modifier) = SegmentedButtonsSample(modifier)
+
+@Composable
+fun CheckboxSample(modifier: Modifier = Modifier) {
     val checklist = remember { mutableStateListOf(true, false, false) }
-    var themeIndex by remember { mutableIntStateOf(0) }
-    var dynamicColor by remember { mutableStateOf(true) }
-    var motionPreview by remember { mutableStateOf(true) }
-    val themeLabels = listOf("System", "Light", "Dark")
-    val themeIcons = listOf(Icons.Outlined.Contrast, Icons.Outlined.LightMode, Icons.Outlined.DarkMode)
-    val selectedThemeIcons = listOf(Icons.Filled.Contrast, Icons.Filled.LightMode, Icons.Filled.DarkMode)
+    var singleChecked by remember { mutableStateOf(true) }
     val checkedCount = checklist.count { it }
     val parentState = when (checkedCount) {
         0 -> ToggleableState.Off
@@ -363,8 +363,23 @@ fun SelectionControlsSample(modifier: Modifier = Modifier) {
 
     Column(modifier, verticalArrangement = Arrangement.spacedBy(24.dp)) {
         ReferenceSection(
+            title = "Standalone checkbox",
+            description = "Checkboxes let users select one or more independent options from a set.",
+        ) {
+            ListItem(
+                leadingContent = {
+                    Checkbox(
+                        checked = singleChecked,
+                        onCheckedChange = { singleChecked = it },
+                    )
+                },
+                supportingContent = { Text(if (singleChecked) "Option enabled" else "Option disabled") },
+            ) { Text("Independent toggle") }
+        }
+
+        ReferenceSection(
             title = "Checkbox hierarchy",
-            description = "Checkboxes support independent choices. A parent reflects the combined child state.",
+            description = "A tri-state parent checkbox reflects and controls the combined state of its child options.",
         ) {
             ListItem(
                 supportingContent = { Text("$checkedCount of ${checklist.size} enabled") },
@@ -391,8 +406,31 @@ fun SelectionControlsSample(modifier: Modifier = Modifier) {
         }
 
         ReferenceSection(
-            title = "Radio choice",
-            description = "Radio buttons select exactly one mutually exclusive option and expose a group relationship.",
+            title = "Disabled state",
+            description = "Disabled checkboxes communicate that the option cannot currently be edited.",
+        ) {
+            ListItem(
+                enabled = false,
+                leadingContent = {
+                    Checkbox(checked = true, onCheckedChange = null, enabled = false)
+                },
+                supportingContent = { Text("Required option that cannot be toggled") },
+            ) { Text("Locked permission") }
+        }
+    }
+}
+
+@Composable
+fun RadioButtonSample(modifier: Modifier = Modifier) {
+    var themeIndex by remember { mutableIntStateOf(0) }
+    val themeLabels = listOf("System", "Light", "Dark")
+    val themeIcons = listOf(Icons.Outlined.Contrast, Icons.Outlined.LightMode, Icons.Outlined.DarkMode)
+    val selectedThemeIcons = listOf(Icons.Filled.Contrast, Icons.Filled.LightMode, Icons.Filled.DarkMode)
+
+    Column(modifier, verticalArrangement = Arrangement.spacedBy(24.dp)) {
+        ReferenceSection(
+            title = "Radio choice group",
+            description = "Radio buttons select exactly one mutually exclusive option from a list.",
         ) {
             Column(Modifier.selectableGroup()) {
                 themeLabels.forEachIndexed { index, label ->
@@ -416,8 +454,29 @@ fun SelectionControlsSample(modifier: Modifier = Modifier) {
         }
 
         ReferenceSection(
+            title = "Disabled state",
+            description = "Disabled radio buttons show unavailable options within the choice set.",
+        ) {
+            ListItem(
+                enabled = false,
+                leadingContent = {
+                    RadioButton(selected = false, onClick = null, enabled = false)
+                },
+                supportingContent = { Text("Available only while Dark theme is selected") },
+            ) { Text("High contrast OLED theme") }
+        }
+    }
+}
+
+@Composable
+fun SwitchSample(modifier: Modifier = Modifier) {
+    var dynamicColor by remember { mutableStateOf(true) }
+    var motionPreview by remember { mutableStateOf(true) }
+
+    Column(modifier, verticalArrangement = Arrangement.spacedBy(24.dp)) {
+        ReferenceSection(
             title = "Immediate settings",
-            description = "Switches change a binary setting immediately; the complete row describes the consequence.",
+            description = "Switches toggle the state of a single setting on or off immediately.",
         ) {
             Card(Modifier.fillMaxWidth()) {
                 Column {
@@ -443,7 +502,7 @@ fun SelectionControlsSample(modifier: Modifier = Modifier) {
 
         ReferenceSection(
             title = "Disabled state",
-            description = "Disabled controls stay understandable and retain supporting context.",
+            description = "Disabled switches communicate unavailable toggles with supporting explanation.",
         ) {
             ListItem(
                 enabled = false,
@@ -451,6 +510,16 @@ fun SelectionControlsSample(modifier: Modifier = Modifier) {
                 trailingContent = { Switch(checked = false, onCheckedChange = null, enabled = false) },
             ) { Text("Device-only palette") }
         }
+    }
+}
+
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
+@Composable
+fun SelectionControlsSample(modifier: Modifier = Modifier) {
+    Column(modifier, verticalArrangement = Arrangement.spacedBy(32.dp)) {
+        CheckboxSample()
+        RadioButtonSample()
+        SwitchSample()
     }
 }
 
