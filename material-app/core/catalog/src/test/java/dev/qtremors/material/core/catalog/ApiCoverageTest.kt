@@ -127,10 +127,13 @@ class ApiCoverageTest {
 
     @Test
     fun untrackedComposeReferencesUseTheResolvedComposeVersion() {
+        // Compose UI, foundation, and animation come from the stable BOM, so they ship in a stable artifact.
+        val bomIsStable = '-' !in manifest.composeUiVersion
         val stale = references.filter { (_, api) ->
             api.artifact !in inventories && api.artifact.startsWith("androidx.compose.") &&
-                api.reviewedVersion != manifest.composeUiVersion
-        }.map { (id, api) -> "$id ${api.symbol} ${api.reviewedVersion}" }
+                (api.reviewedVersion != manifest.composeUiVersion ||
+                    (bomIsStable && api.availability != ApiAvailability.STABLE_ARTIFACT))
+        }.map { (id, api) -> "$id ${api.symbol} ${api.reviewedVersion} ${api.availability}" }
         assertTrue(stale.joinToString("\n", prefix = "Expected ${manifest.composeUiVersion}:\n"), stale.isEmpty())
     }
 

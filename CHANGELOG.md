@@ -4,6 +4,20 @@
 
 ---
 
+## [2.1.4] - 2026-11-17
+
+### Added & Improved
+
+- Rebuilt Explore as a hub: a summary of components, foundations, and API symbols, featured references in the official multi-browse carousel, bookmarks, recently viewed, categories, and what the latest release added.
+- Rebuilt Catalog with category filter chips, entries grouped under category headers, maturity tags, and a long-press menu to open or bookmark; rebuilt APIs with stable and experimental counts, a symbol filter, pinned versions, and symbols grouped by the entry that demonstrates them; rebuilt Foundations as connected rows.
+- Opening an entry now carries its category badge from the list into the page with a shared-element transition.
+- Expanded windows (tablets, unfolded foldables, desktop) use the Expressive wide navigation rail, with search as its main action, and show the list beside the open entry through the official navigable list-detail pane scaffold.
+- Every list of entries (Explore, Catalog, Foundations, and search) shares one long-press menu to open, bookmark, or copy an entry's source path for an agent or an editor.
+- Corrected catalog categories (Divider under Containment, Search under Navigation, a Text inputs category, Scaffold as a Layout foundation) and the availability of Compose UI, foundation, and animation symbols, with a test that keeps them stable-release symbols.
+- The API inventory now reads declarations whose type parameters wrap across lines, which adds `AnimatedPane` to the tracked Adaptive API.
+
+---
+
 ## [2.1.3] - 2026-11-17
 
 ### Added & Improved

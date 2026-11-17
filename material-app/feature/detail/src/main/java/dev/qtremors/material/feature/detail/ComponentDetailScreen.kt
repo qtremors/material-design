@@ -31,7 +31,7 @@ import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.ContentCopy
 import androidx.compose.material.icons.rounded.Devices
 import androidx.compose.material.icons.rounded.FolderOpen
-import androidx.compose.material.icons.rounded.MenuBook
+import androidx.compose.material.icons.automirrored.rounded.MenuBook
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
@@ -65,6 +65,9 @@ import dev.qtremors.material.core.designsystem.components.ConnectedRow
 import dev.qtremors.material.core.designsystem.components.IconBadge
 import dev.qtremors.material.core.designsystem.components.SectionHeader
 import dev.qtremors.material.core.designsystem.components.TagRow
+import dev.qtremors.material.core.designsystem.components.categoryIcon
+import dev.qtremors.material.core.designsystem.components.entryBadgeKey
+import dev.qtremors.material.core.designsystem.components.sharedEntryBounds
 import dev.qtremors.material.core.designsystem.components.rememberAppHaptics
 import dev.qtremors.material.core.designsystem.spacing
 import dev.qtremors.material.core.ui.apiTags
@@ -163,8 +166,19 @@ private fun Summary(entry: CatalogEntry) {
         verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.space12),
         modifier = Modifier.padding(horizontal = MaterialTheme.spacing.extraSmall),
     ) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            // The same badge as the list row the page was opened from; it travels here on open.
+            IconBadge(
+                categoryIcon(entry.category),
+                key = entry.category,
+                size = 56.dp,
+                iconSize = 28.dp,
+                modifier = Modifier.sharedEntryBounds(entryBadgeKey(entry.id)),
+            )
+            Spacer(Modifier.width(MaterialTheme.spacing.medium))
+            TagRow(entryTags(entry), modifier = Modifier.weight(1f))
+        }
         Text(entry.summary, style = MaterialTheme.typography.bodyLarge, color = MaterialTheme.colorScheme.onSurface)
-        TagRow(entryTags(entry))
         val aliases = entry.aliases.filterNot { it.equals(entry.officialName, ignoreCase = true) }
         if (aliases.isNotEmpty()) {
             Text(
@@ -268,7 +282,7 @@ private fun InspectSection(entry: CatalogEntry) {
                     if (entry.implementation == ImplementationKind.OFFICIAL_API) R.string.detail_inspect_official_api else R.string.detail_inspect_project_implementation,
                 ),
                 supporting = stringResource(R.string.detail_inspect_implementation_label),
-                leading = { IconBadge(Icons.Rounded.MenuBook, key = entry.implementation.name) },
+                leading = { IconBadge(Icons.AutoMirrored.Rounded.MenuBook, key = entry.implementation.name) },
             )
             FactRow(
                 R.string.detail_inspect_kind_label,

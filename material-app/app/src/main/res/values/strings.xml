@@ -14,6 +14,8 @@
     <!-- Actions -->
     <string name="app_cd_search_components">Search components</string>
     <string name="app_cd_open_settings">Open settings</string>
+    <string name="app_rail_expand">Show labels</string>
+    <string name="app_rail_collapse">Hide labels</string>
 
     <!-- Search -->
     <string name="app_search_placeholder">Components, foundations, APIs</string>
@@ -24,6 +26,10 @@
     <string name="app_search_no_results_body">Search covers official names, aliases, API symbols, and guidance. Try a shorter word.</string>
     <string name="app_search_empty_title">Search the reference</string>
     <string name="app_search_empty_body">Find a component by its official name, an alias such as FAB, or an API symbol such as SplitButtonLayout.</string>
+
+    <!-- Two-pane layout -->
+    <string name="app_pane_empty_title">Pick a reference</string>
+    <string name="app_pane_empty_body">Choose a component or foundation from the list to see it working here.</string>
 
     <!-- Errors -->
     <string name="app_error_catalog_load_title">The catalog didn\'t load</string>

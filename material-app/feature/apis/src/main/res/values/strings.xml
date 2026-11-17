@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="apis_version_banner">Compose Material 3 · %1$s\nCompose UI · %2$s · Stable Material baseline · %3$s</string>
-    <string name="apis_filter_stable_apis">Stable APIs</string>
-    <string name="apis_filter_experimental">Experimental</string>
-    <plurals name="apis_search_result_count">
-        <item quantity="one">%1$d API found for \"%2$s\"</item>
-        <item quantity="other">%1$d APIs found for \"%2$s\"</item>
-    </plurals>
-    <string name="apis_badge_stable_artifact">Stable artifact</string>
-    <string name="apis_badge_alpha_only">Alpha only</string>
+    <string name="apis_filter_stable">Stable · %1$d</string>
+    <string name="apis_filter_experimental">Experimental · %1$d</string>
+    <string name="apis_filter_placeholder">Filter symbols</string>
+    <string name="apis_versions_title">Pinned versions</string>
+    <string name="apis_version_material3">Compose Material 3</string>
+    <string name="apis_version_compose_ui">Compose UI</string>
+    <string name="apis_version_baseline">Newest stable Material 3</string>
+    <string name="apis_version_baseline_supporting">Availability is checked against this release</string>
+    <string name="apis_empty_title">No symbols match \"%1$s\"</string>
+    <string name="apis_empty_body">Filter by a symbol name such as SliderState, or switch between stable and experimental.</string>
 </resources>

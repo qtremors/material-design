@@ -11,6 +11,7 @@ import dev.qtremors.material.core.catalog.ImplementationKind
 import dev.qtremors.material.core.designsystem.components.EntryRow
 import dev.qtremors.material.core.designsystem.components.Tag
 import dev.qtremors.material.core.designsystem.components.TagTone
+import dev.qtremors.material.core.designsystem.components.entryBadgeKey
 
 /** True when the entry belongs to the Material 3 Expressive collection. */
 val CatalogEntry.isExpressive: Boolean get() = "expressive" in collections
@@ -54,6 +55,8 @@ fun CatalogEntryRow(
     modifier: Modifier = Modifier,
     onLongClick: (() -> Unit)? = null,
     showSummary: Boolean = true,
+    /** False where the same entry can appear twice on one page, since shared keys must be unique. */
+    shareBadge: Boolean = true,
 ) {
     EntryRow(
         title = entry.officialName,
@@ -63,5 +66,6 @@ fun CatalogEntryRow(
         onClick = onClick,
         onLongClick = onLongClick,
         modifier = modifier,
+        sharedKey = if (shareBadge) entryBadgeKey(entry.id) else null,
     )
 }

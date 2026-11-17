@@ -32,7 +32,7 @@ internal object MaterialApiInventory {
     )
 
     private val declarationPattern = Regex(
-        """^(\s*)((?:@[\w.]+(?:\([^)]*\))?\s+)*)(?:(public|private|internal|protected)\s+)?((?:(?:inline|sealed|abstract|open|data|value|enum|annotation|expect|actual|operator|infix|suspend|fun|const|override|lateinit|tailrec|external)\s+)*)(fun|class|interface|object|val|var|typealias)\s+(?:<[^>]*>\s+)?((?:[\w.<>?, ]+\.)?)(`?[A-Za-z_]\w*`?)""",
+        """^(\s*)((?:@[\w.]+(?:\([^)]*\))?\s+)*)(?:(public|private|internal|protected)\s+)?((?:(?:inline|sealed|abstract|open|data|value|enum|annotation|expect|actual|operator|infix|suspend|fun|const|override|lateinit|tailrec|external)\s+)*)(fun|class|interface|object|val|var|typealias)\s+(?:<(?:[^<>]|<[^<>]*>)*>\s*)?((?:[\w.<>?, ]+\.)?)(`?[A-Za-z_]\w*`?)""",
     )
     private val experimentalAnnotation = Regex("""@(Experimental\w*Api)\b""")
 
@@ -51,7 +51,7 @@ internal object MaterialApiInventory {
     }
 
     private fun parseFile(fileName: String, text: String): List<Declaration> {
-        val lines = text.lines()
+        val lines = joinWrappedTypeParameters(text.lines())
         val packageName = lines.firstOrNull { it.startsWith("package ") }
             ?.removePrefix("package ")?.trim().orEmpty()
         val result = mutableListOf<Declaration>()
@@ -103,6 +103,34 @@ internal object MaterialApiInventory {
             }
         }
         return result
+    }
+
+    /**
+     * Long type-parameter lists are wrapped one bound per line (`fun <\n    T : Role,\n> Scope.Name(`).
+     * Joins them onto the declaration line, leaving the wrapped lines blank so line indices, and
+     * the annotations above each declaration, stay where they were.
+     */
+    internal fun joinWrappedTypeParameters(lines: List<String>): List<String> {
+        val joined = lines.toMutableList()
+        var index = 0
+        while (index < joined.size) {
+            val line = joined[index]
+            if (line.trimEnd().endsWith("fun <") || line.trimEnd().endsWith("class <")) {
+                val parts = StringBuilder(line.trimEnd())
+                var cursor = index + 1
+                while (cursor < joined.size) {
+                    val next = joined[cursor].trim()
+                    parts.append(if (next.startsWith(">")) "" else " ").append(next)
+                    joined[cursor] = ""
+                    if (next.startsWith(">")) break
+                    cursor++
+                }
+                joined[index] = parts.toString()
+                index = cursor
+            }
+            index++
+        }
+        return joined
     }
 
     private fun annotationsAbove(lines: List<String>, index: Int): String {

@@ -3,6 +3,7 @@
   "version": "1.3.0",
   "symbols": [
     {"fqName": "androidx.compose.material3.adaptive.layout.AdaptStrategy", "kind": "interface", "stability": "experimental", "optIns": ["ExperimentalMaterial3AdaptiveApi"], "overloads": 1, "group": "AdaptStrategy", "members": ["Levitate", "Reflow"]},
+    {"fqName": "androidx.compose.material3.adaptive.layout.AnimatedPane", "kind": "composable", "stability": "experimental", "optIns": ["ExperimentalMaterial3AdaptiveApi"], "overloads": 1, "group": "Pane", "members": []},
     {"fqName": "androidx.compose.material3.adaptive.layout.AnimatedPaneOverride", "kind": "interface", "stability": "experimental", "optIns": ["ExperimentalMaterial3AdaptiveComponentOverrideApi"], "overloads": 1, "group": "Pane", "members": []},
     {"fqName": "androidx.compose.material3.adaptive.layout.AnimatedPaneOverrideScope", "kind": "class", "stability": "experimental", "optIns": ["ExperimentalMaterial3AdaptiveComponentOverrideApi"], "overloads": 1, "group": "Pane", "members": ["boundsAnimationSpec", "content", "dragToResizeHandle", "enterTransition", "exitTransition", "modifier", "scope"]},
     {"fqName": "androidx.compose.material3.adaptive.layout.AnimatedPaneScope", "kind": "interface", "stability": "stable", "optIns": [], "overloads": 1, "group": "Pane", "members": []},

@@ -9,7 +9,6 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.togetherWith
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Apps
 import androidx.compose.material.icons.rounded.DataObject
@@ -103,7 +102,7 @@ internal fun GalleryShell(
                     }
                 },
             ) { padding ->
-                val content = PaddingValues(top = padding.calculateTopPadding(), bottom = padding.calculateBottomPadding())
+                val content = padding
                 when (destination) {
                     RootDestination.EXPLORE -> ExploreScreen(
                         entries = catalog.entries,
@@ -120,6 +119,8 @@ internal fun GalleryShell(
                         },
                         onExpressiveClick = { onSearch("expressive") },
                         onFoundationsClick = { onRootSelected(RootDestination.FOUNDATIONS) },
+                        onApisClick = { onRootSelected(RootDestination.APIS) },
+                        onBookmarkClick = onBookmarkClick,
                         contentPadding = content,
                     )
                     RootDestination.CATALOG -> CatalogScreen(
@@ -145,6 +146,8 @@ internal fun GalleryShell(
                     RootDestination.FOUNDATIONS -> FoundationsScreen(
                         entries = catalog.foundationEntries,
                         onEntryClick = onEntryClick,
+                        bookmarkedIds = library.bookmarks,
+                        onBookmarkClick = onBookmarkClick,
                         contentPadding = content,
                     )
                 }

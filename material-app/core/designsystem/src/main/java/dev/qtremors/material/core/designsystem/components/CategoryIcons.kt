@@ -8,6 +8,7 @@ import androidx.compose.material.icons.rounded.Dashboard
 import androidx.compose.material.icons.rounded.Explore
 import androidx.compose.material.icons.rounded.FormatShapes
 import androidx.compose.material.icons.rounded.Inbox
+import androidx.compose.material.icons.rounded.Keyboard
 import androidx.compose.material.icons.rounded.Layers
 import androidx.compose.material.icons.rounded.Notifications
 import androidx.compose.material.icons.rounded.Palette
@@ -28,6 +29,7 @@ fun categoryIcon(category: String): ImageVector = when (category.lowercase().sub
     "navigation" -> Icons.Rounded.Explore
     "selection" -> Icons.Rounded.Tune
     "layout" -> Icons.Rounded.Dashboard
+    "text" -> Icons.Rounded.Keyboard
     "color" -> Icons.Rounded.Palette
     "typography" -> Icons.Rounded.TextFields
     "shape" -> Icons.Rounded.FormatShapes

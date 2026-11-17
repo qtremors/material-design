@@ -73,11 +73,13 @@ fun EntryRow(
     onLongClick: (() -> Unit)? = null,
     containerColor: Color = MaterialTheme.colorScheme.surfaceBright,
     trailing: (@Composable RowScope.() -> Unit)? = null,
+    /** Shares the badge with the entry's page, so it travels there on open. See [entryBadgeKey]. */
+    sharedKey: String? = null,
 ) {
     ConnectedRow(
         title = title,
         modifier = modifier,
-        leading = { IconBadge(categoryIcon(category), key = category) },
+        leading = { IconBadge(categoryIcon(category), key = category, modifier = Modifier.sharedEntryBounds(sharedKey)) },
         trailing = trailing,
         onClick = onClick,
         onLongClick = onLongClick,

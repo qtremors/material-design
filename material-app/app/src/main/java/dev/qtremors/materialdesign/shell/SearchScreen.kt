@@ -14,7 +14,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
-import androidx.compose.material.icons.rounded.ManageSearch
+import androidx.compose.material.icons.automirrored.rounded.ManageSearch
 import androidx.compose.material.icons.rounded.SearchOff
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.Icon
@@ -43,6 +43,7 @@ import dev.qtremors.material.core.designsystem.components.InlineSearchField
 import dev.qtremors.material.core.designsystem.components.SectionHeader
 import dev.qtremors.material.core.designsystem.spacing
 import dev.qtremors.material.core.ui.CatalogEntryRow
+import dev.qtremors.material.core.ui.EntryWithMenu
 import dev.qtremors.materialdesign.R
 import dev.qtremors.material.core.designsystem.R as DesignR
 
@@ -59,8 +60,10 @@ internal fun SearchScreen(
     query: String,
     results: List<CatalogEntry>,
     recent: List<CatalogEntry>,
+    bookmarkedIds: Set<String>,
     onQueryChange: (String) -> Unit,
     onEntryClick: (String) -> Unit,
+    onBookmarkClick: (String, Boolean) -> Unit,
     onBack: () -> Unit,
 ) {
     val focus = remember { FocusRequester() }
@@ -125,7 +128,7 @@ internal fun SearchScreen(
                     if (recent.isEmpty()) {
                         item {
                             EmptyState(
-                                icon = Icons.Rounded.ManageSearch,
+                                icon = Icons.AutoMirrored.Rounded.ManageSearch,
                                 title = stringResource(R.string.app_search_empty_title),
                                 message = stringResource(R.string.app_search_empty_body),
                             )
@@ -134,7 +137,14 @@ internal fun SearchScreen(
                         item { SectionHeader(stringResource(R.string.app_search_recent)) }
                         itemsIndexed(recent, key = { _, entry -> "recent-${entry.id}" }) { index, entry ->
                             ConnectedItem(index, recent.size) {
-                                CatalogEntryRow(entry, onClick = { onEntryClick(entry.id) }, showSummary = false)
+                                EntryWithMenu(
+                                    entry = entry,
+                                    bookmarked = entry.id in bookmarkedIds,
+                                    onOpen = { onEntryClick(entry.id) },
+                                    onBookmark = { onBookmarkClick(entry.id, it) },
+                                ) { openMenu ->
+                                    CatalogEntryRow(entry, onClick = { onEntryClick(entry.id) }, onLongClick = openMenu, showSummary = false)
+                                }
                             }
                         }
                     }
@@ -150,13 +160,18 @@ internal fun SearchScreen(
                     item { SectionHeader(stringResource(R.string.app_search_results)) }
                     itemsIndexed(results, key = { _, entry -> entry.id }) { index, entry ->
                         ConnectedItem(index, results.size, modifier = Modifier.animateItem()) {
-                            CatalogEntryRow(
-                                entry,
-                                onClick = {
-                                    keyboard?.hide()
-                                    onEntryClick(entry.id)
-                                },
-                            )
+                            val open = {
+                                keyboard?.hide()
+                                onEntryClick(entry.id)
+                            }
+                            EntryWithMenu(
+                                entry = entry,
+                                bookmarked = entry.id in bookmarkedIds,
+                                onOpen = open,
+                                onBookmark = { onBookmarkClick(entry.id, it) },
+                            ) { openMenu ->
+                                CatalogEntryRow(entry, onClick = open, onLongClick = openMenu)
+                            }
                         }
                     }
                 }

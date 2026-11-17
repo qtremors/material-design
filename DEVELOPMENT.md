@@ -165,6 +165,15 @@ The application shell and documentation surfaces must use Material Design as com
 
 `MaterialGalleryApp.kt` owns the typed navigation graph. The app module maps routes and composes feature modules; feature and sample modules do not depend on the app module or receive a navigation controller.
 
+The frame around every destination:
+
+- **Compact and medium windows:** the four top-level destinations share one `FloatingTabBar`. On every other page it morphs into Back plus the page title, so there is one consistent control at the bottom.
+- **Expanded windows:** a `WideNavigationRail` (collapsed to icons, or expanded to labels) replaces the tab bar at the top level, and `NavigableListDetailPaneScaffold` keeps the destination's list beside the open entry, with Material's pane motion and predictive back between entries.
+- **Transitions:** destinations slide and fade with the motion scheme's spatial and effects specs; the same transitions drive predictive back. Tabs fade through and keep their own scroll state through a saveable state holder.
+- **Shared elements:** a `SharedTransitionLayout` wraps the graph. Rows that open an entry mark their badge with `sharedEntryBounds(entryBadgeKey(id))`, and the entry page carries the same key, so the badge travels into the page. Explore turns this off because one entry can appear in several of its sections, and shared keys must be unique on a page.
+- **Search** is its own full-screen destination. Leaving it clears the query, so search never filters other tabs.
+- **Splash:** `MainActivity` keeps the splash screen until stored settings arrive (two-second ceiling), so the first frame always uses the saved theme.
+
 `GalleryViewModel` owns application-level state:
 
 - Catalog load state is loading, ready, or failed with retry.
@@ -180,11 +189,11 @@ Collect state at the narrowest owning composable and pass immutable values plus 
 
 ## Catalog & Search
 
-`BundledCatalogRepository` parses `core/catalog/src/main/assets/catalog/catalog.json`, validates document versions, and provides deterministic entry lookup and search.
+`BundledCatalogRepository` parses `core/catalog/src/main/assets/catalog/catalog.json`, validates its structure, and provides deterministic entry lookup and search. Version agreement is a build-time concern: `ApiCoverageTest` checks it, so a metadata mismatch can never stop the installed app from opening.
 
 Catalog tests require:
 
-- Exact alignment between reviewed catalog versions and pinned dependency metadata.
+- Exact alignment between reviewed catalog versions, the pinned dependencies, and the generated API inventory.
 - Unique stable IDs and canonical names.
 - Registered demos for working entries.
 - Existing source files and declared symbols.
@@ -199,7 +208,15 @@ Search includes official names, aliases, summaries, categories, guidance, and AP
 
 ### Theme and Personalization
 
-`MaterialDesignTheme` applies system, light, dark, and OLED modes plus dynamic or selected accent palettes. Theme values come from `ThemeState`; feature modules must not invent independent app themes.
+`MaterialDesignTheme` wraps `MaterialExpressiveTheme`. Theme values come from `ThemeState`; feature modules never invent their own themes.
+
+- **Modes:** System, Light, or Dark, plus a pure black option for dark mode (`toPureBlack()`): pages go black while rows step up in small neutral grays so they still read as separate.
+- **Color source:** wallpaper colors on Android 12+, one of six preset seeds, or any custom seed. Seed schemes come from Material Color Utilities through MaterialKolor (tonal spot, or monochrome for Graphite); no scheme is hand-picked. Settings saved before 2.1.3 (OLED mode, accent colors, named presets) migrate to these values on read.
+- **Type:** Google Sans Flex, one variable font file with weights as instances, on the Material type scale (`AppTypography`), plus `MetricTextStyle` for counts and `CodeTextStyle` for symbols and paths.
+- **Tokens:** `AppShapes`, connected-row shapes (`connectedRowShape`, 24 dp outside, 6 dp inside, 2 dp gaps), `FieldShape` for every text field, and `MaterialTheme.spacing` for layout gaps.
+- **Behavior locals:** `LocalReducedMotion`, `LocalHapticsEnabled` (read through `rememberAppHaptics()`), and `LocalShowBadges`.
+
+Shared components live in `core/designsystem/components`: `AppScaffold` (large flexible top bar), `FloatingTabBar`, `ConnectedGroup`/`ConnectedItem`/`ConnectedRow`/`NavigationRow`/`ToggleRow`, `ChoiceRow`/`ConnectedChoices`, `ExpressiveSwitch`, `AppMenu`, `AppBottomSheet`, `InlineSearchField`, `IconBadge`, `EntryRow` and tags, and `LoadingState`/`EmptyState`. Catalog-aware pieces (entry rows and maturity tags) live in `core/ui`.
 
 ### Expressive Motion
 
@@ -209,7 +226,7 @@ Animation must tolerate interruption, repeated input, disposal, disabled-state c
 
 ### Adaptive Layout
 
-Use current window size information, not device names or fixed orientation assumptions. Verify phones, tablets, foldables, freeform windows, browser zoom, increased font scale, and long translated text.
+Use current window size information (`currentWindowAdaptiveInfoV2()`), not device names or fixed orientation assumptions. The app switches to the rail and the list-detail scaffold at the expanded width breakpoint. Verify phones, tablets, foldables, freeform windows, increased font scale, and long translated text.
 
 ### Accessibility
 
@@ -221,15 +238,15 @@ Preserve semantic labels, touch targets, focus order, contrast, state announceme
 
 ### 1. Explore (`feature/explore`)
 
-Featured references, recent history, bookmarks, category entry points, and discovery surfaces.
+The hub: counts of components, foundations, and API symbols; featured references in the official multi-browse carousel; bookmarks; recently viewed; categories as navigation rows; and what the latest release added.
 
 ### 2. Catalog (`feature/catalog`)
 
-Component browsing, category filtering, counts, and entry cards.
+Every component under category headers, with filter chips, maturity tags, and a long-press menu to open or bookmark.
 
 ### 3. APIs (`feature/apis`)
 
-Stable and experimental API views derived from reviewed catalog references.
+Pinned versions, stable and experimental symbols with counts, a symbol filter, and symbols grouped by the entry that demonstrates them.
 
 ### 4. Foundations (`feature/foundations`)
 
@@ -237,11 +254,11 @@ Inspectable Color, Shape, Motion, Elevation, Layout, and Accessibility reference
 
 ### 5. Detail (`feature/detail`)
 
-Preview, Guidance, Inspect, and API tabs with collapsible header behavior and source/API copy actions.
+Preview, Guidance, Inspect, and API as connected toggle buttons under a large flexible top bar, with icon-led use and avoid guidance, copyable source paths, and stability plus availability on every API symbol.
 
 ### 6. Settings (`feature/settings`)
 
-Theme modes, OLED, dynamic color, accent selection, reduced motion, library clearing, and About information.
+Theme mode, pure black, color source with preset swatches or a custom seed, a live preview of color roles, haptics, reduced motion, maturity badges, library clearing, and About with project links, versions, credits, and copyable device details.
 
 ### 7. Samples (`samples/*`)
 

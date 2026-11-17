@@ -7,4 +7,10 @@
     <string name="tag_pre_release">Pre-release</string>
     <string name="tag_stable">Stable</string>
     <string name="tag_stable_release">In stable release</string>
+    <string name="entry_menu_open">Open</string>
+    <string name="entry_menu_bookmark">Bookmark</string>
+    <string name="entry_menu_remove_bookmark">Remove bookmark</string>
+    <string name="entry_menu_copy_source">Copy source path</string>
+    <string name="entry_menu_copy_source_supporting">For an agent or your editor</string>
+    <string name="entry_clip_label_path">Source path</string>
 </resources>

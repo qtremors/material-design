@@ -74,7 +74,7 @@ Keep module ownership strict:
 - `material-app/core/designsystem/`: the app's Material 3 Expressive design system: theme (System, Light, Dark, pure black; wallpaper, preset, or custom seed colors generated with Material Color Utilities), Google Sans Flex typography, shape and spacing tokens, motion, haptics, and shared components (`AppScaffold`, `FloatingTabBar`, connected groups and rows, connected choices, `ExpressiveSwitch`, `AppMenu`, state views).
 - `material-app/core/ui/`: catalog-aware shared UI such as entry rows and maturity tags.
 
-Product surfaces outside the demos are built only from these components and current Material 3 Expressive APIs (large flexible top bars, morphing button shapes, connected toggle buttons, loading indicators, expressive menus). A screen that needs something new adds it to the design system so every screen gets it.
+Product surfaces outside the demos are built only from these components and current Material 3 Expressive APIs: large flexible top bars, morphing button shapes, connected toggle buttons, loading indicators, and expressive menus. Expanded windows use the wide navigation rail and the official list-detail pane scaffold, and an entry's badge travels between list rows and its page as a shared element (`sharedEntryBounds`, keyed by `entryBadgeKey`). A screen that needs something new adds it to the design system so every screen gets it.
 - `material-app/feature/`: product destinations such as Explore, Catalog, APIs, Foundations, Detail, and Settings.
 - `material-app/samples/`: independent, state-hoisted implementations grouped by official Material domains.
 

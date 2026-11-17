@@ -850,7 +850,7 @@
           "symbol": "androidx.compose.ui.text.font.FontVariation",
           "artifact": "androidx.compose.ui:ui-text",
           "reviewedVersion": "1.12.1",
-          "availability": "alpha_only",
+          "availability": "stable_artifact",
           "stability": "experimental",
           "optInAnnotation": "androidx.compose.ui.text.ExperimentalTextApi",
           "url": "https://developer.android.com/reference/kotlin/androidx/compose/ui/text/font/FontVariation"
@@ -861,7 +861,7 @@
       ],
       "implementation": "project_implementation",
       "addedIn": "2.0.0",
-      "reviewedOn": "2026-07-15"
+      "reviewedOn": "2026-11-17"
     },
     {
       "id": "button-groups",
@@ -1759,7 +1759,7 @@
           "symbol": "androidx.compose.animation.core.spring",
           "artifact": "androidx.compose.animation:animation-core",
           "reviewedVersion": "1.12.1",
-          "availability": "alpha_only",
+          "availability": "stable_artifact",
           "stability": "stable",
           "url": "https://developer.android.com/reference/kotlin/androidx/compose/animation/core/package-summary"
         },
@@ -1909,7 +1909,7 @@
           "symbol": "androidx.compose.foundation.layout.BoxWithConstraints",
           "artifact": "androidx.compose.foundation:foundation-layout",
           "reviewedVersion": "1.12.1",
-          "availability": "alpha_only",
+          "availability": "stable_artifact",
           "stability": "stable",
           "url": "https://developer.android.com/reference/kotlin/androidx/compose/foundation/layout/package-summary"
         }
@@ -1919,7 +1919,7 @@
       ],
       "implementation": "project_implementation",
       "addedIn": "2.0.2",
-      "reviewedOn": "2026-07-16"
+      "reviewedOn": "2026-11-17"
     },
     {
       "id": "accessibility",
@@ -1978,7 +1978,7 @@
           "symbol": "androidx.compose.ui.semantics.semantics",
           "artifact": "androidx.compose.ui:ui",
           "reviewedVersion": "1.12.1",
-          "availability": "alpha_only",
+          "availability": "stable_artifact",
           "stability": "stable",
           "url": "https://developer.android.com/reference/kotlin/androidx/compose/ui/semantics/package-summary"
         }
@@ -1988,7 +1988,7 @@
       ],
       "implementation": "project_implementation",
       "addedIn": "2.0.2",
-      "reviewedOn": "2026-07-16"
+      "reviewedOn": "2026-11-17"
     },
     {
       "id": "text-fields",
@@ -2003,7 +2003,7 @@
         "text fields"
       ],
       "kind": "component",
-      "category": "Selection and input",
+      "category": "Text inputs",
       "summary": "Filled and outlined text entry with labels, supporting text, validation, clear actions, and multiline behavior.",
       "guidance": {
         "purpose": "Collect editable text while keeping its label, requirements, current value, and validation state understandable.",
@@ -2057,7 +2057,7 @@
       ],
       "implementation": "official_api",
       "addedIn": "2.0.2",
-      "reviewedOn": "2026-07-16"
+      "reviewedOn": "2026-11-17"
     },
     {
       "id": "search",
@@ -2071,7 +2071,7 @@
         "filter results"
       ],
       "kind": "component",
-      "category": "Selection and input",
+      "category": "Navigation",
       "summary": "Search entry, active suggestions, result filtering, query clearing, and empty-state behavior.",
       "guidance": {
         "purpose": "Help people quickly locate known or discoverable content within a defined scope.",
@@ -3928,7 +3928,7 @@
         "VerticalDivider"
       ],
       "kind": "component",
-      "category": "Foundations",
+      "category": "Containment",
       "summary": "Thin rules that group and separate content, available as HorizontalDivider and VerticalDivider with inset variants.",
       "guidance": {
         "purpose": "Separate and group content so scanning stays effortless without introducing containers.",
@@ -3986,7 +3986,7 @@
       ],
       "implementation": "official_api",
       "addedIn": "2.0.8",
-      "reviewedOn": "2026-08-23"
+      "reviewedOn": "2026-11-17"
     },
     {
       "id": "hero-carousels",
@@ -4068,7 +4068,7 @@
         "inner padding",
         "Scaffold composable"
       ],
-      "kind": "component",
+      "kind": "foundation",
       "category": "Layout",
       "summary": "Foundational screen layout that coordinates top bar, bottom bar, FAB, and inset slots into consistent innerPadding for content.",
       "guidance": {
@@ -4127,7 +4127,7 @@
       ],
       "implementation": "official_api",
       "addedIn": "2.0.8",
-      "reviewedOn": "2026-08-23"
+      "reviewedOn": "2026-11-17"
     }
   ]
 }

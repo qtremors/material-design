@@ -40,11 +40,12 @@ No account or network connection is required by the Android app.
 
 ## Features
 
-- **Interactive Android gallery:** Browse and search working Material references across actions, communication, containment, navigation, selection, and foundations.
-- **Validated offline catalog:** Inspect aliases, guidance, source paths, official links, API availability, stability, artifact versions, and opt-in requirements.
-- **Material 3 Expressive product shell:** Explore adaptive navigation, search, detail, settings, feedback, motion, and accessibility in the same system used by the samples.
+- **Interactive Android gallery:** Browse and search working Material references across actions, communication, containment, navigation, selection, text inputs, and foundations.
+- **Validated offline catalog:** Inspect aliases, guidance, source paths, official links, API availability, stability, artifact versions, and opt-in requirements, all checked against the pinned Material sources.
+- **Measured API coverage:** Every public symbol in Material 3 and Material 3 Adaptive is tracked, so the catalog shows exactly which official APIs it demonstrates and which are still to come.
+- **A Material 3 Expressive app, not only demos:** Google Sans Flex, seed-generated color schemes, large flexible top bars, a floating tab bar that becomes Back on inner pages, connected toggle buttons, expressive switches and menus, shared-element and predictive-back transitions, and a wide navigation rail with list-detail panes on tablets and foldables.
 - **Practical design guidance:** Read purpose, use and avoid rules, expected behavior, accessibility, and adaptive layout notes for every installed entry.
-- **Local personalization:** Keep bookmarks, recent references, theme modes, dynamic color, accent choices, and reduced-motion preferences on the device.
+- **Local personalization:** Keep bookmarks, recent references, theme mode, pure black, wallpaper, preset, or custom seed colors, haptics, and reduced-motion preferences on the device.
 
 ## Community and support
 

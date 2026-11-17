@@ -11,9 +11,9 @@ Deprecated symbols are tracked in the inventory but are not required.
 | `androidx.compose.material3:material3` | 407 | 96 | 311 | 0 | 0 | 23.5% |
 | `androidx.compose.material3:material3-adaptive-navigation-suite` | 14 | 0 | 14 | 0 | 0 | 0.0% |
 | `androidx.compose.material3.adaptive:adaptive` | 13 | 0 | 13 | 0 | 0 | 0.0% |
-| `androidx.compose.material3.adaptive:adaptive-layout` | 58 | 0 | 58 | 0 | 0 | 0.0% |
+| `androidx.compose.material3.adaptive:adaptive-layout` | 59 | 0 | 59 | 0 | 0 | 0.0% |
 | `androidx.compose.material3.adaptive:adaptive-navigation` | 7 | 0 | 7 | 0 | 0 | 0.0% |
-| **Total** | **499** | **96** | | | | **19.2%** |
+| **Total** | **500** | **96** | | | | **19.2%** |
 
 ## Remaining work by source group
 
@@ -37,7 +37,7 @@ Groups follow the source file that declares each symbol, which mirrors how the l
 | DragToResizeState | `DockedEdge`, `DragToResizeState`, `rememberDragToResizeState` |
 | LevitatedPaneScrim | `LevitatedPaneScrim`, `LevitatedPaneScrimDefaults` |
 | ListDetailPaneScaffold | `ListDetailPaneScaffold`, `ListDetailPaneScaffoldDefaults`, `ListDetailPaneScaffoldRole` |
-| Pane | `AnimatedPaneOverride`, `AnimatedPaneOverrideScope`, `AnimatedPaneScope`, `LocalAnimatedPaneOverride` |
+| Pane | `AnimatedPane`, `AnimatedPaneOverride`, `AnimatedPaneOverrideScope`, `AnimatedPaneScope`, `LocalAnimatedPaneOverride` |
 | PaneAdaptedValue | `PaneAdaptedValue` |
 | PaneExpansionState | `PaneExpansionAnchor`, `PaneExpansionState`, `PaneExpansionStateKey`, `PaneExpansionStateKeyProvider`, `rememberPaneExpansionState` |
 | PaneMargins | `PaneMargins` |

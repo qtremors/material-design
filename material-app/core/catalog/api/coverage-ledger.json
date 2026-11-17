@@ -19,6 +19,7 @@
     {"fqName": "androidx.compose.material3.adaptive.separatingHorizontalHingeBounds", "artifact": "androidx.compose.material3.adaptive:adaptive", "status": "planned", "group": "Posture", "note": ""},
     {"fqName": "androidx.compose.material3.adaptive.separatingVerticalHingeBounds", "artifact": "androidx.compose.material3.adaptive:adaptive", "status": "planned", "group": "Posture", "note": ""},
     {"fqName": "androidx.compose.material3.adaptive.layout.AdaptStrategy", "artifact": "androidx.compose.material3.adaptive:adaptive-layout", "status": "planned", "group": "AdaptStrategy", "note": ""},
+    {"fqName": "androidx.compose.material3.adaptive.layout.AnimatedPane", "artifact": "androidx.compose.material3.adaptive:adaptive-layout", "status": "planned", "group": "Pane", "note": ""},
     {"fqName": "androidx.compose.material3.adaptive.layout.AnimatedPaneOverride", "artifact": "androidx.compose.material3.adaptive:adaptive-layout", "status": "planned", "group": "Pane", "note": ""},
     {"fqName": "androidx.compose.material3.adaptive.layout.AnimatedPaneOverrideScope", "artifact": "androidx.compose.material3.adaptive:adaptive-layout", "status": "planned", "group": "Pane", "note": ""},
     {"fqName": "androidx.compose.material3.adaptive.layout.AnimatedPaneScope", "artifact": "androidx.compose.material3.adaptive:adaptive-layout", "status": "planned", "group": "Pane", "note": ""},

@@ -140,9 +140,7 @@ class GalleryViewModel(
 
     private fun publishCatalogSnapshot(repository: CatalogRepository) {
         val components = repository.entries.filter { it.kind == CatalogKind.COMPONENT }
-        val allCategories = components.map {
-            if (it.category.startsWith("Selection", ignoreCase = true)) "Selection" else it.category
-        }.distinct().sorted()
+        val allCategories = components.map(CatalogEntry::category).distinct().sorted()
         _catalog.value = CatalogSnapshot(
             entries = repository.entries,
             componentEntries = components,
@@ -263,9 +261,7 @@ class GalleryViewModel(
             val searched = if (query.isBlank()) null else repository.search(query)
             val base = searched?.map { it.entry } ?: repository.entries
             val visible = base.filter { entry ->
-                val matchesCategory = category == null ||
-                    entry.category.equals(category, ignoreCase = true) ||
-                    (category.equals("Selection", ignoreCase = true) && entry.category.startsWith("Selection", ignoreCase = true))
+                val matchesCategory = category == null || entry.category.equals(category, ignoreCase = true)
                 if (query.isBlank()) {
                     entry.kind == CatalogKind.COMPONENT && matchesCategory
                 } else {
