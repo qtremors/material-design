@@ -233,6 +233,10 @@ private fun GalleryAppContent(
                         exitTransition = exit,
                         popEnterTransition = popEnter,
                         popExitTransition = popExit,
+                        // Without these, Navigation uses its default predictive-back animation: the page shrinks
+                        // into a square-cornered card and fades. The gesture must match the button.
+                        predictivePopEnterTransition = { popEnter() },
+                        predictivePopExitTransition = { popExit() },
                     ) {
                         composable<GalleryRoute> {
                             ProvideNavScope(this) {

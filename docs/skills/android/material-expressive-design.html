@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Material 3 Expressive and Adaptive UI design tokens, spring physics, adaptive scaffolds, and component blueprints for Android.">
+  <meta name="description" content="How the Material Design app builds a complete Material 3 Expressive product in Jetpack Compose: theme, generated color, typography, shapes, components, adaptive navigation, motion, and API coverage.">
   <title>Material 3 Expressive Design for Android · Material Design</title>
   <link rel="icon" type="image/svg+xml" href="../../assets/material-design.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,80 +12,93 @@
 <body class="docs-page">
   <header class="site-header"><a class="brand" href="../../index.html" aria-label="Documentation home"><img src="../../assets/material-design.svg" alt="" width="44" height="44"><span>Material Design</span></a><nav aria-label="Skill navigation"><a href="material-design-development.html">Android development</a><a href="dependencies.html">Build and dependencies</a><a class="nav-action" href="../../index.html#skills">All skills</a></nav></header>
   <main>
-    <section class="docs-hero skill-hero"><p class="eyebrow">Expressive design guide</p><h1>Material 3 Expressive Design for Android</h1><p>Master Material 3 Expressive color systems, dynamic theming, typography, spring physics, adaptive scaffolding, and component patterns in Jetpack Compose.</p></section>
+    <section class="docs-hero skill-hero"><p class="eyebrow">Expressive design guide</p><h1>Material 3 Expressive Design for Android</h1><p>How the Material Design app builds a complete Material 3 Expressive product in Jetpack Compose, and how to build one the same way. Every rule here is implemented in <code>core/designsystem</code> and <code>core/ui</code>.</p></section>
     <div class="docs-layout">
-      <aside class="docs-toc"><strong>On this page</strong><a href="#color">Color & Dynamic theming</a><a href="#typography">Typography scale</a><a href="#shape">Shape & Tonal elevation</a><a href="#motion">Spring motion & Physics</a><a href="#adaptive">Adaptive scaffolds</a><a href="#components">Expressive components</a><a href="#checklist">Quality checklist</a></aside>
+      <aside class="docs-toc"><strong>On this page</strong><a href="#principles">Principles</a><a href="#theme">Theme & generated color</a><a href="#typography">Typography</a><a href="#shape">Shape & spacing</a><a href="#components">Components</a><a href="#adaptive">Navigation & adaptive</a><a href="#motion">Motion & haptics</a><a href="#coverage">API coverage</a><a href="#checklist">Quality checklist</a></aside>
       <article class="docs-article skill-article">
-        <section id="color"><p class="eyebrow">Color system</p><h2>Semantic color roles & Dynamic theming</h2>
+        <section id="principles"><p class="eyebrow">Principles</p><h2>Expressive, not decorated</h2>
           <div class="compact-grid">
-            <article><h3>Primary roles</h3><p><code>primary</code>, <code>onPrimary</code>, <code>primaryContainer</code>, and <code>onPrimaryContainer</code> for prominent actions and highlighted surfaces.</p></article>
-            <article><h3>Secondary & Tertiary</h3><p><code>secondary</code> for chips/filters, <code>tertiary</code> for contrasting visual accents and balanced visual energy.</p></article>
-            <article><h3>Surface hierarchy</h3><p><code>surfaceContainerLowest</code> through <code>surfaceContainerHighest</code> define tonal elevation without heavy drop shadows.</p></article>
-            <article><h3>Outline & Error</h3><p><code>outline</code> for borders, <code>error</code> and <code>errorContainer</code> for feedback, validation, and destructive actions.</p></article>
+            <article><h3>Meaningful expression</h3><p>Shape, size, color, and motion carry meaning: a larger shape for the main action, connected shapes for grouped choices, a spring when something responds to touch.</p></article>
+            <article><h3>Tonal surfaces</h3><p>Pages sit on <code>surfaceContainer</code>, rows on <code>surfaceBright</code>, and groups of rows connect with 2 dp gaps. Shadows are rare.</p></article>
+            <article><h3>One design system</h3><p>Screens use the shared components. A screen that needs something new adds it to the design system, so every screen gets it.</p></article>
+            <article><h3>Respect the person</h3><p>Haptics and motion follow their settings. Nothing flashes, nothing jumps, and loading never looks like empty.</p></article>
           </div>
         </section>
 
-        <section id="typography"><p class="eyebrow">Typography</p><h2>Material 3 type scale & Variable font axes</h2>
-          <p>Material 3 organizes type into 15 roles across 5 styles: Display, Headline, Title, Body, and Label. When using variable fonts like Roboto Flex, configure axes (weight, width, optical size) within verified ranges and ensure layouts support 200% accessibility font scaling without clipping.</p>
+        <section id="theme"><p class="eyebrow">Theme</p><h2>Modes, color sources, and generated schemes</h2>
+          <p><code>MaterialDesignTheme</code> wraps <code>MaterialExpressiveTheme</code> with a scheme, typography, shapes, and motion scheme from <code>ThemeState</code>.</p>
+          <ul>
+            <li><strong>Modes:</strong> System, Light, or Dark as connected choices, plus a pure black toggle that applies in dark mode.</li>
+            <li><strong>Color source:</strong> wallpaper colors on Android 12+, a named preset seed, or a custom seed. Below Android 12, wallpaper falls back to the preset.</li>
+            <li><strong>Generated schemes:</strong> seeds become full schemes through Material Color Utilities (MaterialKolor's tonal spot, or monochrome for a neutral preset), so every preset keeps proper contrast. Never hand-pick a whole scheme.</li>
+            <li><strong>Pure black:</strong> pages go black while rows and raised parts step up in small neutral grays, so rows still read as separate.</li>
+            <li><strong>Splash:</strong> keep the splash screen until stored settings load, so the first frame never uses the wrong colors.</li>
+          </ul>
+          <div class="compact-grid">
+            <article><h3>Page and rows</h3><p><code>surfaceContainer</code> behind everything; <code>surfaceBright</code> for rows and content blocks.</p></article>
+            <article><h3>Actions and selection</h3><p><code>primary</code> for the main action; <code>secondaryContainer</code> and <code>primaryContainer</code> for selected states.</p></article>
+            <article><h3>Text hierarchy</h3><p>Section headers in <code>primary</code> <code>titleSmall</code>; supporting text in <code>onSurfaceVariant</code>.</p></article>
+            <article><h3>Decorative tints</h3><p>Badges use a pastel palette hashed by key, so the same item always gets the same color in every theme.</p></article>
+          </div>
         </section>
 
-        <section id="shape"><p class="eyebrow">Shape & Elevation</p><h2>Expressive grouping and state layers</h2>
-          <ul class="document-list">
-            <li><strong>Tonal Elevation:</strong> Surfaces communicate elevation depth through surface container color shifts rather than heavy drop shadows.</li>
-            <li><strong>Expressive Shapes:</strong> Round corners and asymmetric shapes communicate visual grouping (e.g. connected card items, segmented controls).</li>
-            <li><strong>State Overlays:</strong> Standardized alpha overlays indicate hover, focus, press, and dragged interaction states.</li>
+        <section id="typography"><p class="eyebrow">Typography</p><h2>Google Sans Flex on the Material type scale</h2>
+          <p>One variable font file, with weights as instances, on the 15-role Material type scale. Large titles come from <code>LargeFlexibleTopAppBar</code>, row titles use <code>bodyLarge</code>, supporting text <code>bodyMedium</code>, and tags <code>labelMedium</code>. Counts use tabular figures; API symbols and paths use a monospaced code style. Layouts must survive 200% font scale without clipping.</p>
+        </section>
+
+        <section id="shape"><p class="eyebrow">Shape & spacing</p><h2>Rounded tokens and connected groups</h2>
+          <ul>
+            <li><strong>Shapes:</strong> 12, 16, 20, and 28 dp roles; never the 4 dp default on shipped components.</li>
+            <li><strong>Connected groups:</strong> 24 dp outside, 6 dp inside, and 2 dp gaps between rows, so the page shows through as a hairline.</li>
+            <li><strong>Fields:</strong> a 16 dp field shape on every text field; search fields are pills.</li>
+            <li><strong>Expressive shapes:</strong> <code>MaterialShapes</code> for one hero element per screen and for the selected swatch in a picker.</li>
+            <li><strong>Spacing:</strong> a 4 dp grid through <code>MaterialTheme.spacing</code>, with semantic gutters, row padding, section gaps, and clearance under the floating bar.</li>
           </ul>
         </section>
 
-        <section id="motion"><p class="eyebrow">Motion</p><h2>Spring physics and reduced-motion fallback</h2>
-          <pre class="code-block"><code>object ExpressiveMotion {
-    val PressSpring = spring&lt;Float&gt;(
-        dampingRatio = Spring.DampingRatioMediumBouncy,
-        stiffness = Spring.StiffnessMedium
-    )
-    val SpatialSpring = spring&lt;IntOffset&gt;(
-        dampingRatio = Spring.DampingRatioNoBouncy,
-        stiffness = Spring.StiffnessMediumLow
-    )
-}</code></pre>
-          <p>When reduced motion is enabled, replace spatial bounces with immediate state transitions while preserving feedback and safety intervals.</p>
-        </section>
-
-        <section id="adaptive"><p class="eyebrow">Adaptive layouts</p><h2>Window size classes & NavigationSuiteScaffold</h2>
-          <div class="table-wrap" tabindex="0" role="region" aria-label="Adaptive breakpoints">
-            <table>
-              <thead><tr><th scope="col">Size Class</th><th scope="col">Window Width</th><th scope="col">Navigation</th><th scope="col">Layout Pattern</th></tr></thead>
-              <tbody>
-                <tr><th scope="row">Compact</th><td>&lt; 600 dp</td><td>NavigationBar / BottomAppBar</td><td>Single Pane</td></tr>
-                <tr><th scope="row">Medium</th><td>600–839 dp</td><td>NavigationRail</td><td>Single or Supporting Pane</td></tr>
-                <tr><th scope="row">Expanded</th><td>840–1199 dp</td><td>NavigationRail / Drawer</td><td>List-Detail / Supporting Pane</td></tr>
-                <tr><th scope="row">Large+</th><td>&gt;= 1200 dp</td><td>Permanent NavigationDrawer</td><td>Multi-Pane with max reading width</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </section>
-
-        <section id="components"><p class="eyebrow">Component blueprints</p><h2>Key Material 3 Expressive components</h2>
+        <section id="components"><p class="eyebrow">Components</p><h2>The shared component set</h2>
           <div class="compact-grid">
-            <article><h3>Split Buttons</h3><p>Combines a primary button with an adjacent contextual dropdown menu trigger via <code>SplitButtonLayout</code>.</p></article>
-            <article><h3>Floating Toolbars</h3><p>Floating action surfaces that adapt smoothly between horizontal and vertical orientations via <code>HorizontalFloatingToolbar</code>.</p></article>
-            <article><h3>Wavy Progress</h3><p>Organic wave motion for determinate or indeterminate operations via <code>WavyLinearProgressIndicator</code>.</p></article>
-            <article><h3>Segmented Buttons</h3><p>Connected selection controls that communicate mutually exclusive or multi-select choices.</p></article>
+            <article><h3>AppScaffold</h3><p>A large flexible top bar that collapses on scroll, with padding that already includes gutters and toolbar clearance.</p></article>
+            <article><h3>FloatingTabBar</h3><p>Tabs on top-level pages; on every other page it morphs into Back plus the page title.</p></article>
+            <article><h3>Connected rows</h3><p><code>ConnectedGroup</code>, <code>ConnectedItem</code>, <code>NavigationRow</code>, and <code>ToggleRow</code> with <code>ExpressiveSwitch</code>.</p></article>
+            <article><h3>Connected choices</h3><p>Two to five short options as connected <code>ToggleButton</code>s; the selected one morphs round.</p></article>
+            <article><h3>AppMenu</h3><p>The Expressive menu with vibrant groups, opened by long-press on the item.</p></article>
+            <article><h3>States</h3><p><code>LoadingIndicator</code> while loading; <code>EmptyState</code> with a soft shape, a title, a sentence, and an optional action.</p></article>
           </div>
+          <p>Buttons always pass the pressed-shape variants so they morph when touched, and destructive actions confirm in a dialog that names what happens.</p>
         </section>
 
-        <section id="checklist"><p class="eyebrow">Quality checklist</p><h2>Verification standards</h2>
-          <ul class="document-list">
-            <li>Semantic MaterialTheme colorScheme and typography tokens applied consistently.</li>
-            <li>Interactive elements meet the minimum 48x48 dp touch target requirement.</li>
-            <li>Dynamic color support verified across light and dark themes.</li>
-            <li>Adaptive navigation responsive across compact, medium, and expanded window sizes.</li>
-            <li>Accessibility semantics and reduced-motion modes thoroughly tested.</li>
+        <section id="adaptive"><p class="eyebrow">Navigation & adaptive</p><h2>From the floating bar to rails and panes</h2>
+          <ul>
+            <li><strong>Compact and medium:</strong> the floating tab bar, with search as its own full-screen page.</li>
+            <li><strong>Expanded:</strong> a <code>WideNavigationRail</code> replaces the floating bar, and <code>NavigableListDetailPaneScaffold</code> keeps the list beside the open item with Material's pane motion.</li>
+            <li><strong>Transitions:</strong> destinations slide and fade with the motion scheme's specs, and predictive back uses the same transitions. Tabs fade through and keep their scroll state.</li>
+            <li><strong>Shared elements:</strong> an element that appears in both the list and the opened page carries the same key inside a <code>SharedTransitionLayout</code>, so it travels between them.</li>
+          </ul>
+        </section>
+
+        <section id="motion"><p class="eyebrow">Motion & haptics</p><h2>Springs with jobs, and respect for settings</h2>
+          <p>Springs respond to touch with a slight Expressive bounce. Project springs live in one file and are named for their job: press feedback, spatial movement, settling, progress, and rejection. Official components keep their own physics. With Reduce motion on, decorative movement snaps while state changes, meaning, and safety timing stay. Haptics go through one helper that does nothing when the person turned them off.</p>
+        </section>
+
+        <section id="coverage"><p class="eyebrow">API coverage</p><h2>Accountable to the whole official API</h2>
+          <p>The repository tracks every public symbol of the pinned Material 3 and Material 3 Adaptive artifacts in <code>core/catalog/api/</code>: a generated inventory, a coverage ledger, and a generated report. Tests check every catalog reference for existence, stability, availability, and reviewed version, and new upstream symbols fail the build until they are triaged.</p>
+        </section>
+
+        <section id="checklist"><p class="eyebrow">Quality checklist</p><h2>Before a screen ships</h2>
+          <ul>
+            <li>Every screen uses the scaffold with a large flexible top bar.</li>
+            <li>Lists are connected groups; toggles are toggle rows; one-of-a-few choices are connected toggle buttons.</li>
+            <li>Fields use the 16 dp shape and search fields are pills; buttons morph when pressed.</li>
+            <li>Menus open by long-press; loading and empty states never flash.</li>
+            <li>Expanded windows get the rail and panes; nothing assumes a phone.</li>
+            <li>Haptics and animations follow the person's settings.</li>
+            <li>Light, dark, and pure black checked at the smallest and largest font sizes.</li>
           </ul>
         </section>
       </article>
     </div>
   </main>
-  <footer><img src="../../assets/material-design.svg" alt="" width="32" height="32"><p>Comprehensive Material 3 Expressive and Adaptive design guide for Android.</p><a href="../../index.html">Documentation home</a></footer>
+  <footer><img src="../../assets/material-design.svg" alt="" width="32" height="32"><p>Material 3 Expressive design guide for Android, built from the Material Design app.</p><a href="../../index.html">Documentation home</a></footer>
 </body>
 </html>

@@ -4,6 +4,18 @@
 
 ---
 
+## [2.1.5] - 2026-11-20
+
+### Added & Improved
+
+- Prepared Material Design 2.1.5 as a public release, with release notes covering everything since 2.1.0.
+- Fixed the back gesture shrinking the page into a sharp rectangle that slowly faded; predictive back now uses the same slide and fade as the Back button.
+- Rewrote the Material 3 Expressive design skill for Android around the system the app uses: theme modes and pure black, seed-generated color, Google Sans Flex, shape and spacing tokens, the shared component set, the floating tab bar, rails and list-detail panes, shared elements, motion and haptics, and official API coverage.
+- Updated the Android development skill with the Expressive theme pattern, settings migration, the splash hold, device tests, and the API inventory and ledger workflow, and added MaterialKolor and the splash screen library to the dependency guide.
+- Updated the documentation site's landing and Android project pages to describe the current theme, color, haptics, app frame, and module layout.
+
+---
+
 ## [2.1.4] - 2026-11-17
 
 ### Added & Improved

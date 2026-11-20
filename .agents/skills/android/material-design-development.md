@@ -29,7 +29,8 @@ Structure modern Material 3 Android apps into distinct, well-defined layers:
 
 ### Module Organization
 - **`:app`:** Application entry point, dependency injection / composition root, global navigation wiring.
-- **`:core:designsystem`:** Design tokens, `MaterialTheme` configuration, color schemes, typography scale, shape definitions, and motion contracts.
+- **`:core:designsystem`:** The Expressive design system: theme, generated color schemes, typography, shape and spacing tokens, motion, haptics, and shared components (scaffold, floating tab bar, connected rows, connected choices, switches, menus, state views).
+- **`:core:ui`:** Shared UI that needs domain models, such as list rows and status tags for catalog entries, so the design system itself stays model-free.
 - **`:core:data` / `:core:model`:** Data repositories, domain models, and persistence engines.
 - **`:feature:<name>`:** Independent feature destinations containing screens, ViewModels, and UI state models.
 - **`:samples` or `:ui-components`:** Reusable, state-hoisted UI components independent of business logic.
@@ -131,32 +132,41 @@ fun AppNavHost(
 
 ## Material 3 Theme Integration
 
-Wrap your application in a custom `MaterialTheme` wrapper:
+Wrap the application in one theme composable that builds on `MaterialExpressiveTheme` and reads every appearance choice from a single settings model:
 
 ```kotlin
 @Composable
-fun AppTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    dynamicColor: Boolean = true,
-    content: @Composable () -> Unit
-) {
-    val colorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-        }
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
+fun AppTheme(state: ThemeState, content: @Composable () -> Unit) {
+    val dark = when (state.mode) {
+        ThemeMode.SYSTEM -> isSystemInDarkTheme()
+        ThemeMode.LIGHT -> false
+        ThemeMode.DARK -> true
     }
-
-    MaterialTheme(
-        colorScheme = colorScheme,
-        typography = AppTypography,
-        shapes = AppShapes,
-        content = content
-    )
+    val context = LocalContext.current
+    val scheme = remember(state, dark) {
+        val base = when {
+            state.source == AccentSource.WALLPAPER && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S ->
+                if (dark) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+            state.source == AccentSource.CUSTOM -> seedColorScheme(state.customSeed, dark)
+            else -> seedColorScheme(state.preset.seed, dark)
+        }
+        if (dark && state.pureBlack) base.toPureBlack() else base
+    }
+    CompositionLocalProvider(LocalReducedMotion provides state.reducedMotion) {
+        MaterialExpressiveTheme(
+            colorScheme = scheme,
+            typography = AppTypography, // One variable font, weights as instances.
+            shapes = AppShapes,
+            motionScheme = if (state.reducedMotion) ReducedMotionScheme else MotionScheme.expressive(),
+            content = content,
+        )
+    }
 }
 ```
+
+- **Generated color:** `seedColorScheme` builds the full scheme from one seed with Material Color Utilities (for example MaterialKolor's `SchemeTonalSpot`), so presets and custom colors keep proper contrast. Never hand-pick a whole scheme.
+- **Stored settings migrate:** when a settings model changes shape, read the old keys once and map them onto the new values, so nobody loses a choice.
+- **No wrong first frame:** keep the splash screen until stored settings arrive, with a short ceiling.
 
 ## Component State Hoisting Contract
 
@@ -202,4 +212,22 @@ fun ItemCard(
 2. **Compose UI Tests:** Test composable states, accessibility semantics, and user interactions with `createComposeRule()`.
 3. **Android Lint:** Run `.\gradlew.bat lintDebug` to catch accessibility, performance, and API misuse issues.
 4. **Build Verification:** Run `.\gradlew.bat testDebugUnitTest assembleDebug` before committing changes.
+5. **Instrumented Tests:** Run `.\gradlew.bat :app:connectedDebugAndroidTest` on a device or emulator; compiling them is not the same as running them.
+
+## Official API Coverage
+
+A reference app is accountable for the whole official API of the libraries it documents, not only the components someone remembered to add.
+
+1. A Gradle task reads the pinned sources jars (and the newest stable release) and writes a checked-in inventory of every public symbol with its stability.
+2. A ledger lists every symbol no catalog entry cites yet, as `planned` or `excluded` with a reason, and a generated report shows coverage per artifact.
+3. Unit tests check every catalog reference against the inventory (existence, deprecation, stability, opt-in, availability, reviewed version) and fail when a symbol is untracked.
+
+After any Material dependency bump:
+
+```powershell
+.\gradlew.bat :app:generateMaterialApiInventory
+.\gradlew.bat :app:updateApiCoverageLedger
+```
+
+Newly published symbols arrive as `new` and fail the tests until each is triaged as `planned` or `excluded`. Fix whatever the tests report in the catalog, then rerun the ledger task to refresh the report.
 

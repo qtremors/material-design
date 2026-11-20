@@ -28,6 +28,8 @@ navigationCompose = "2.10.2"
 datastore = "1.3.0"
 kotlinxSerialization = "1.13.0"
 kotlinxCoroutines = "1.11.0"
+materialKolor = "5.0.1"
+coreSplashScreen = "1.2.0"
 
 # Testing
 junit4 = "4.13.2"
@@ -73,6 +75,8 @@ androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-
 kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
 
 # Build plugins
+material-kolor = { group = "com.materialkolor", name = "material-kolor", version.ref = "materialKolor" }
+androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "coreSplashScreen" }
 android-gradle-plugin = { group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
 kotlin-gradle-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 

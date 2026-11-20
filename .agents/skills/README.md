@@ -5,7 +5,7 @@ These Markdown files provide comprehensive design, architecture, build, and impl
 ## Android
 
 - [Material Design Android Development](android/material-design-development.md): Layered architecture, Unidirectional Data Flow (StateFlow), type-safe Navigation Compose, theming integration, component state hoisting, and testing.
-- [Material 3 Expressive Design for Android](android/material-expressive-design.md): Color systems, dynamic theming, typography scale, shape tokens, spring physics, adaptive scaffolds (NavigationSuiteScaffold), and component blueprints.
+- [Material 3 Expressive Design for Android](android/material-expressive-design.md): Theme modes and pure black, seed-generated color, Google Sans Flex typography, shape and spacing tokens, the shared component set, floating tab bar, wide rail and list-detail panes, shared elements, motion and haptics, and official API coverage.
 - [Android Build and Dependencies](android/dependencies.md): Concrete Gradle version catalog (`libs.versions.toml`), convention plugins (`build-logic`), SDK levels, R8 optimization, and release signing.
 
 ## Web
