@@ -9,9 +9,7 @@ import dev.qtremors.material.core.catalog.CatalogEntry
 import dev.qtremors.material.core.catalog.CatalogKind
 import dev.qtremors.material.core.catalog.CatalogRepository
 import dev.qtremors.material.core.data.AppSettings
-import dev.qtremors.material.core.data.MotionMode
 import dev.qtremors.material.core.data.UserLibraryRepository
-import dev.qtremors.material.core.designsystem.ThemeMode
 import dev.qtremors.material.core.designsystem.ThemeState
 import android.util.Log
 import kotlinx.coroutines.CancellationException
@@ -90,6 +88,11 @@ class GalleryViewModel(
     private val _settings = MutableStateFlow(AppSettings())
     val settings: StateFlow<AppSettings> = _settings.asStateFlow()
 
+    private val _settingsLoaded = MutableStateFlow(false)
+
+    /** False until stored settings arrive, so the splash screen never reveals the wrong theme. */
+    val settingsLoaded: StateFlow<Boolean> = _settingsLoaded.asStateFlow()
+
     private val _rootDestination = MutableStateFlow(RootDestination.EXPLORE)
     val rootDestination: StateFlow<RootDestination> = _rootDestination.asStateFlow()
 
@@ -123,6 +126,8 @@ class GalleryViewModel(
             _catalogLoad.value = try {
                 val repository = withContext(ioDispatcher) { catalogLoader() }
                 publishCatalogSnapshot(repository)
+                val redirects = repository.document.retiredIds
+                if (redirects.isNotEmpty()) launchSafely { userLibraryRepository.migrateIds(redirects) }
                 CatalogLoad.Ready(repository)
             } catch (cancellation: CancellationException) {
                 throw cancellation
@@ -135,9 +140,7 @@ class GalleryViewModel(
 
     private fun publishCatalogSnapshot(repository: CatalogRepository) {
         val components = repository.entries.filter { it.kind == CatalogKind.COMPONENT }
-        val allCategories = components.map {
-            if (it.category.startsWith("Selection", ignoreCase = true)) "Selection" else it.category
-        }.distinct().sorted()
+        val allCategories = components.map(CatalogEntry::category).distinct().sorted()
         _catalog.value = CatalogSnapshot(
             entries = repository.entries,
             componentEntries = components,
@@ -151,24 +154,28 @@ class GalleryViewModel(
 
     private fun observeLibrary() {
         viewModelScope.launch {
+            userLibraryRepository.settings.collect {
+                _settings.value = it
+                _settingsLoaded.value = true
+            }
+        }
+        viewModelScope.launch {
+            // Derived from the catalog as well as storage, so IDs are pruned whichever loads first.
             combine(
+                _catalog,
                 userLibraryRepository.bookmarks,
                 userLibraryRepository.recent,
-                userLibraryRepository.settings,
-            ) { bookmarks, recent, settings -> Triple(bookmarks, recent, settings) }
-                .collect { (bookmarks, recent, settings) ->
-                    val snapshot = _catalog.value
-                    if (snapshot != CatalogSnapshot()) {
-                        val validIds = snapshot.entries.mapTo(mutableSetOf(), CatalogEntry::id)
-                        _library.value = LibraryState(
-                            bookmarks = bookmarks.intersect(validIds),
-                            recent = recent.filter(validIds::contains),
-                        )
-                    } else {
-                        _library.value = LibraryState(bookmarks = bookmarks, recent = recent)
-                    }
-                    _settings.value = settings
+            ) { catalog, bookmarks, recent ->
+                if (catalog.entries.isEmpty()) {
+                    LibraryState(bookmarks = bookmarks, recent = recent)
+                } else {
+                    val validIds = catalog.entries.mapTo(mutableSetOf(), CatalogEntry::id)
+                    LibraryState(
+                        bookmarks = bookmarks.intersect(validIds),
+                        recent = recent.filter(validIds::contains),
+                    )
                 }
+            }.collect { _library.value = it }
         }
     }
 
@@ -220,16 +227,6 @@ class GalleryViewModel(
         userLibraryRepository.updateThemeState(themeState)
     }
 
-    fun updateThemeMode(mode: ThemeMode) = launchSafely { userLibraryRepository.updateThemeMode(mode) }
-
-    fun updateDynamicColor(enabled: Boolean) = launchSafely {
-        userLibraryRepository.updateDynamicColor(enabled)
-    }
-
-    fun updateMotionMode(mode: MotionMode) = launchSafely {
-        userLibraryRepository.updateMotionMode(mode)
-    }
-
     fun notifyComponentUnavailable() {
         _events.tryEmit(GalleryEvent.ComponentUnavailable)
     }
@@ -264,9 +261,7 @@ class GalleryViewModel(
             val searched = if (query.isBlank()) null else repository.search(query)
             val base = searched?.map { it.entry } ?: repository.entries
             val visible = base.filter { entry ->
-                val matchesCategory = category == null ||
-                    entry.category.equals(category, ignoreCase = true) ||
-                    (category.equals("Selection", ignoreCase = true) && entry.category.startsWith("Selection", ignoreCase = true))
+                val matchesCategory = category == null || entry.category.equals(category, ignoreCase = true)
                 if (query.isBlank()) {
                     entry.kind == CatalogKind.COMPONENT && matchesCategory
                 } else {

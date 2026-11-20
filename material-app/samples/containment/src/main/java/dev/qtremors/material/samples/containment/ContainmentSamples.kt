@@ -49,7 +49,7 @@ import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
-fun SegmentedListItemsSample(modifier: Modifier = Modifier) {
+fun SegmentedListItemSample(modifier: Modifier = Modifier) {
     val labels = listOf("Color and theme", "Typography", "Shape and motion")
     var selectedIndex by remember { mutableIntStateOf(0) }
     val reducedMotion = LocalReducedMotion.current
@@ -86,7 +86,7 @@ fun SegmentedListItemsSample(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun CarouselsSample(modifier: Modifier = Modifier) {
+fun CarouselSample(modifier: Modifier = Modifier) {
     val colors = listOf(
         MaterialTheme.colorScheme.primaryContainer,
         MaterialTheme.colorScheme.secondaryContainer,

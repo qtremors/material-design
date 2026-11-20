@@ -1,0 +1,13 @@
+{
+  "artifact": "androidx.compose.material3.adaptive:adaptive-navigation",
+  "version": "1.3.0",
+  "symbols": [
+    {"fqName": "androidx.compose.material3.adaptive.navigation.BackNavigationBehavior", "kind": "value class", "stability": "experimental", "optIns": ["ExperimentalMaterial3AdaptiveApi"], "overloads": 1, "group": "BackNavigationBehavior", "members": []},
+    {"fqName": "androidx.compose.material3.adaptive.navigation.NavigableListDetailPaneScaffold", "kind": "composable", "stability": "experimental", "optIns": ["ExperimentalMaterial3AdaptiveApi"], "overloads": 1, "group": "AndroidThreePaneScaffold", "members": []},
+    {"fqName": "androidx.compose.material3.adaptive.navigation.NavigableSupportingPaneScaffold", "kind": "composable", "stability": "experimental", "optIns": ["ExperimentalMaterial3AdaptiveApi"], "overloads": 1, "group": "AndroidThreePaneScaffold", "members": []},
+    {"fqName": "androidx.compose.material3.adaptive.navigation.ThreePaneScaffoldNavigator", "kind": "interface", "stability": "experimental", "optIns": ["ExperimentalMaterial3AdaptiveApi"], "overloads": 1, "group": "ThreePaneScaffoldNavigator", "members": ["canNavigateBack", "currentDestination", "isDestinationHistoryAware", "navigateBack", "navigateTo", "peekPreviousScaffoldValue", "scaffoldDirective", "scaffoldState", "scaffoldValue", "seekBack"]},
+    {"fqName": "androidx.compose.material3.adaptive.navigation.ThreePaneScaffoldPredictiveBackHandler", "kind": "composable", "stability": "experimental", "optIns": ["ExperimentalMaterial3AdaptiveApi"], "overloads": 1, "group": "ThreePaneScaffoldPredictiveBackHandler", "members": []},
+    {"fqName": "androidx.compose.material3.adaptive.navigation.rememberListDetailPaneScaffoldNavigator", "kind": "composable", "stability": "experimental", "optIns": ["ExperimentalMaterial3AdaptiveApi"], "overloads": 2, "group": "ThreePaneScaffoldNavigator", "members": []},
+    {"fqName": "androidx.compose.material3.adaptive.navigation.rememberSupportingPaneScaffoldNavigator", "kind": "composable", "stability": "experimental", "optIns": ["ExperimentalMaterial3AdaptiveApi"], "overloads": 2, "group": "ThreePaneScaffoldNavigator", "members": []}
+  ]
+}

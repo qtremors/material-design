@@ -9,25 +9,27 @@ Centralize all dependency coordinates, plugin declarations, and version definiti
 ```toml
 [versions]
 # Build toolchain & plugins
-agp = "9.3.1"
-kotlin = "2.4.10"
+agp = "9.5.1"
+kotlin = "2.4.21"
 
 # AndroidX platform & lifecycle
-coreKtx = "1.19.0"
-appcompat = "1.7.0"
+coreKtx = "1.19.1"
+appcompat = "1.8.0"
 activityCompose = "1.13.0"
 lifecycleRuntimeKtx = "2.11.0"
 
 # Jetpack Compose & Material 3
-composeBom = "2026.08.00"
-composeMaterial3 = "1.5.0-alpha26"
+composeBom = "2026.09.00"
+composeMaterial3 = "1.5.0-rc01"
 composeMaterial3Adaptive = "1.3.0"
 
 # Navigation, persistence, and serialization
-navigationCompose = "2.9.8"
-datastore = "1.2.1"
-kotlinxSerialization = "1.11.0"
+navigationCompose = "2.10.2"
+datastore = "1.3.0"
+kotlinxSerialization = "1.13.0"
 kotlinxCoroutines = "1.11.0"
+materialKolor = "5.0.1"
+coreSplashScreen = "1.2.0"
 
 # Testing
 junit4 = "4.13.2"
@@ -73,6 +75,8 @@ androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-
 kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
 
 # Build plugins
+material-kolor = { group = "com.materialkolor", name = "material-kolor", version.ref = "materialKolor" }
+androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "coreSplashScreen" }
 android-gradle-plugin = { group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
 kotlin-gradle-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 
@@ -128,7 +132,7 @@ internal fun Project.configureAndroidCommon(commonExtension: CommonExtension<*, 
 
 ### BOM vs Explicit Pinned Versions
 - **Compose BOM (`compose-bom`):** Ensures UI foundation libraries (`ui`, `ui-graphics`, `ui-tooling`) use mutually compatible stable versions.
-- **Explicit Material 3 Alpha Pinning:** When using new Material 3 Expressive features (such as `SplitButton`, `FloatingToolbar`, `WavyProgressIndicator`, or `NavigationSuiteScaffold`), pin `androidx.compose.material3` (e.g. `1.5.0-alpha26`) and `androidx.compose.material3.adaptive` (e.g. `1.3.0`) directly, as the stable BOM line may not yet include these components.
+- **Explicit Material 3 Alpha Pinning:** When using new Material 3 Expressive features (such as `SplitButtonLayout`, `FloatingToolbar`, `WavyProgressIndicator`, or `NavigationSuiteScaffold`), pin `androidx.compose.material3` (e.g. `1.5.0-rc01`) and `androidx.compose.material3.adaptive` (e.g. `1.3.0`) directly, as the stable BOM line may not yet include these components.
 
 ### Handling Experimental Opt-Ins
 When consuming alpha or evolving Material 3 APIs, require explicit opt-in annotations where appropriate:

@@ -9,25 +9,10 @@ class BuildConventionsPlugin : Plugin<Project> {
 }
 
 internal fun Project.registerBuildConventions() {
-    val versionCatalog = rootProject.layout.projectDirectory.file("gradle/libs.versions.toml")
     val gradleProperties = rootProject.layout.projectDirectory.file("gradle.properties")
     val appBuildFile = layout.projectDirectory.file("build.gradle.kts")
 
-    val verifyVersionCatalogFreshness = tasks.register("verifyVersionCatalogFreshness") {
-        group = "verification"
-        description = "Verifies that dependency freshness checks have an active version catalog to inspect."
-        inputs.file(versionCatalog)
-        doLast {
-            val catalog = versionCatalog.asFile
-            require(catalog.exists()) {
-                "Missing gradle/libs.versions.toml; dependency freshness checks need a version catalog."
-            }
-            val text = catalog.readText()
-            require("[versions]" in text && "[libraries]" in text && "[plugins]" in text) {
-                "gradle/libs.versions.toml must keep [versions], [libraries], and [plugins] sections."
-            }
-        }
-    }
+    val verifyMaterialApiInventory = registerMaterialApiTasks()
 
     val verifyReleaseVersionMetadata = tasks.register("verifyReleaseVersionMetadata") {
         group = "verification"
@@ -122,6 +107,6 @@ internal fun Project.registerBuildConventions() {
     tasks.register("verifyMaterialBuildConventions") {
         group = "verification"
         description = "Runs Material Design build convention checks used for release readiness."
-        dependsOn(verifyVersionCatalogFreshness, verifyReleaseVersionMetadata)
+        dependsOn(verifyMaterialApiInventory, verifyReleaseVersionMetadata)
     }
 }

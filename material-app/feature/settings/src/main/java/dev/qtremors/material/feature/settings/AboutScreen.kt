@@ -1,329 +1,211 @@
 package dev.qtremors.material.feature.settings
 
 import android.content.ClipData
-import android.content.ClipboardManager
-import android.content.Context
 import android.os.Build
-import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.automirrored.filled.Assignment
-import androidx.compose.material.icons.filled.AutoAwesome
-import androidx.compose.material.icons.filled.BugReport
-import androidx.compose.material.icons.filled.Code
-import androidx.compose.material.icons.filled.History
-import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.Layers
-import androidx.compose.material.icons.filled.PhoneAndroid
-import androidx.compose.material.icons.filled.Source
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.LargeTopAppBar
-import androidx.compose.material3.ListItemDefaults
+import androidx.compose.material.icons.rounded.BugReport
+import androidx.compose.material.icons.rounded.Code
+import androidx.compose.material.icons.rounded.Download
+import androidx.compose.material.icons.rounded.Gavel
+import androidx.compose.material.icons.rounded.Layers
+import androidx.compose.material.icons.rounded.Palette
+import androidx.compose.material.icons.rounded.Person
+import androidx.compose.material.icons.rounded.PhoneAndroid
+import androidx.compose.material.icons.rounded.TextFields
+import androidx.compose.material.icons.rounded.Widgets
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SegmentedListItem
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.ClipEntry
+import androidx.compose.ui.platform.LocalClipboard
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import dev.qtremors.material.core.designsystem.expressiveSegmentedShapes
+import dev.qtremors.material.core.designsystem.components.AppScaffold
+import dev.qtremors.material.core.designsystem.components.ConnectedGroup
+import dev.qtremors.material.core.designsystem.components.ConnectedRow
+import dev.qtremors.material.core.designsystem.components.IconBadge
+import dev.qtremors.material.core.designsystem.components.NavigationRow
+import dev.qtremors.material.core.designsystem.components.SectionHeader
+import dev.qtremors.material.core.designsystem.components.rememberAppHaptics
+import dev.qtremors.material.core.designsystem.spacing
+import kotlinx.coroutines.launch
+import dev.qtremors.material.core.designsystem.R as DesignR
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
+private const val RepositoryUrl = "https://github.com/qtremors/material-design"
+
 @Composable
 fun AboutScreen(
     appVersion: String,
     material3Version: String,
     composeUiVersion: String,
-    onBack: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val context = LocalContext.current
     val uriHandler = LocalUriHandler.current
-    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
+    val clipboard = LocalClipboard.current
+    val scope = rememberCoroutineScope()
+    val haptics = rememberAppHaptics()
+    val device = stringResource(
+        R.string.about_device_format,
+        Build.MANUFACTURER.replaceFirstChar(Char::uppercaseChar),
+        Build.MODEL,
+        Build.VERSION.RELEASE,
+        Build.VERSION.SDK_INT,
+    )
+    val deviceClipLabel = stringResource(R.string.about_device_copied_label)
 
-    val copiedToClipboardTemplate = stringResource(R.string.settings_copied_to_clipboard)
-    val versionLabel = stringResource(R.string.settings_version_label)
-    val deviceLabel = stringResource(R.string.settings_device_label)
-    val m3ComposeLabel = stringResource(R.string.settings_m3_compose_label)
-    val composeUiLabel = stringResource(R.string.settings_compose_ui_label)
-
-    val copyToClipboard: (String, String) -> Unit = { label, text ->
-        val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager
-        clipboard?.setPrimaryClip(ClipData.newPlainText(label, text))
-        Toast.makeText(context, copiedToClipboardTemplate.format(label), Toast.LENGTH_SHORT).show()
-    }
-
-    Scaffold(
-        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-        topBar = {
-            LargeTopAppBar(
-                title = {
-                    Text(
-                        text = stringResource(R.string.settings_about_title),
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
-                        fontWeight = FontWeight.Bold,
-                    )
-                },
-                navigationIcon = {
-                    Surface(
-                        shape = CircleShape,
-                        color = MaterialTheme.colorScheme.surfaceContainerHigh,
-                        modifier = Modifier
-                            .padding(start = 12.dp)
-                            .size(40.dp),
-                    ) {
-                        IconButton(onClick = onBack) {
-                            Icon(
-                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                                contentDescription = stringResource(R.string.settings_back),
-                                tint = MaterialTheme.colorScheme.onSurface,
-                            )
-                        }
-                    }
-                },
-                scrollBehavior = scrollBehavior,
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.background,
-                    scrolledContainerColor = MaterialTheme.colorScheme.surfaceContainer.copy(alpha = 0.95f),
-                ),
-            )
-        },
-    ) { padding ->
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(padding)
-                .padding(horizontal = 16.dp),
-            contentPadding = PaddingValues(top = 16.dp, bottom = 48.dp),
-            verticalArrangement = Arrangement.spacedBy(24.dp),
-        ) {
+    AppScaffold(title = stringResource(R.string.about_title), modifier = modifier) { padding ->
+        LazyColumn(contentPadding = padding) {
             item {
                 Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = 8.dp, bottom = 12.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
+                        .padding(vertical = MaterialTheme.spacing.large),
                 ) {
                     Image(
-                        painter = painterResource(R.drawable.ic_material_logo),
-                        contentDescription = stringResource(R.string.settings_app_name),
-                        modifier = Modifier.size(96.dp),
+                        painter = painterResource(DesignR.drawable.material_design),
+                        contentDescription = null,
+                        modifier = Modifier.size(88.dp),
                     )
-                    Spacer(Modifier.height(16.dp))
+                    Text(stringResource(R.string.about_app_name), style = MaterialTheme.typography.headlineMedium)
                     Text(
-                        text = stringResource(R.string.settings_app_name),
-                        style = MaterialTheme.typography.headlineMedium,
-                        fontWeight = FontWeight.Bold,
+                        stringResource(R.string.about_version, appVersion),
+                        style = MaterialTheme.typography.labelLarge,
+                        color = MaterialTheme.colorScheme.primary,
                     )
-                    Spacer(Modifier.height(4.dp))
                     Text(
-                        text = stringResource(R.string.settings_about_tagline),
+                        stringResource(R.string.about_tagline),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         textAlign = TextAlign.Center,
+                        modifier = Modifier.padding(horizontal = MaterialTheme.spacing.large),
                     )
                 }
             }
 
+            item { SectionHeader(stringResource(R.string.about_section_project)) }
             item {
-                AboutSection(title = stringResource(R.string.settings_about_section_app_info)) {
-                    SegmentedListItem(
-                        onClick = { copyToClipboard(versionLabel, appVersion) },
-                        shapes = expressiveSegmentedShapes(index = 0, count = 4),
-                        leadingContent = {
-                            Box(modifier = Modifier.fillMaxHeight(), contentAlignment = Alignment.Center) {
-                                Icon(Icons.Default.Info, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
-                            }
-                        },
-                        content = { Text(versionLabel) },
-                        supportingContent = { Text(appVersion) },
-                        colors = ListItemDefaults.segmentedColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
-                        modifier = Modifier.height(IntrinsicSize.Min),
-                    )
-                    SegmentedListItem(
+                ConnectedGroup {
+                    NavigationRow(
+                        title = stringResource(R.string.about_developer),
+                        supporting = stringResource(R.string.about_developer_name),
+                        icon = Icons.Rounded.Person,
+                        badgeKey = "developer",
                         onClick = { uriHandler.openUri("https://github.com/qtremors") },
-                        shapes = expressiveSegmentedShapes(index = 1, count = 4),
-                        leadingContent = {
-                            Box(modifier = Modifier.fillMaxHeight(), contentAlignment = Alignment.Center) {
-                                Icon(Icons.Default.Code, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
-                            }
-                        },
-                        content = { Text(stringResource(R.string.settings_developer)) },
-                        supportingContent = { Text(stringResource(R.string.settings_developer_name)) },
-                        colors = ListItemDefaults.segmentedColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
-                        modifier = Modifier.height(IntrinsicSize.Min),
                     )
-                    SegmentedListItem(
-                        onClick = { uriHandler.openUri("https://github.com/qtremors/material-design") },
-                        shapes = expressiveSegmentedShapes(index = 2, count = 4),
-                        leadingContent = {
-                            Box(modifier = Modifier.fillMaxHeight(), contentAlignment = Alignment.Center) {
-                                Icon(Icons.Default.Source, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
-                            }
-                        },
-                        content = { Text(stringResource(R.string.settings_repository)) },
-                        supportingContent = { Text(stringResource(R.string.settings_repository_url)) },
-                        colors = ListItemDefaults.segmentedColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
-                        modifier = Modifier.height(IntrinsicSize.Min),
+                    NavigationRow(
+                        title = stringResource(R.string.about_source),
+                        supporting = stringResource(R.string.about_source_supporting),
+                        icon = Icons.Rounded.Code,
+                        badgeKey = "source",
+                        onClick = { uriHandler.openUri(RepositoryUrl) },
                     )
-                    val deviceText = stringResource(
-                        R.string.settings_device_format,
-                        Build.MANUFACTURER,
-                        Build.MODEL,
-                        Build.VERSION.RELEASE,
+                    NavigationRow(
+                        title = stringResource(R.string.about_releases),
+                        supporting = stringResource(R.string.about_releases_supporting),
+                        icon = Icons.Rounded.Download,
+                        badgeKey = "releases",
+                        onClick = { uriHandler.openUri("$RepositoryUrl/releases") },
                     )
-                    SegmentedListItem(
-                        onClick = { copyToClipboard(deviceLabel, deviceText) },
-                        shapes = expressiveSegmentedShapes(index = 3, count = 4),
-                        leadingContent = {
-                            Box(modifier = Modifier.fillMaxHeight(), contentAlignment = Alignment.Center) {
-                                Icon(Icons.Default.PhoneAndroid, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
-                            }
-                        },
-                        content = { Text(deviceLabel) },
-                        supportingContent = { Text(deviceText) },
-                        colors = ListItemDefaults.segmentedColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
-                        modifier = Modifier.height(IntrinsicSize.Min),
+                    NavigationRow(
+                        title = stringResource(R.string.about_issues),
+                        supporting = stringResource(R.string.about_issues_supporting),
+                        icon = Icons.Rounded.BugReport,
+                        badgeKey = "issues",
+                        onClick = { uriHandler.openUri("$RepositoryUrl/issues") },
+                    )
+                    NavigationRow(
+                        title = stringResource(R.string.about_license),
+                        supporting = stringResource(R.string.about_license_supporting),
+                        icon = Icons.Rounded.Gavel,
+                        badgeKey = "license",
+                        onClick = { uriHandler.openUri("$RepositoryUrl/blob/main/LICENSE.md") },
                     )
                 }
             }
 
+            item { SectionHeader(stringResource(R.string.about_section_built_on)) }
             item {
-                AboutSection(title = stringResource(R.string.settings_about_section_catalog)) {
-                    SegmentedListItem(
-                        onClick = { copyToClipboard(m3ComposeLabel, material3Version) },
-                        shapes = expressiveSegmentedShapes(index = 0, count = 3),
-                        leadingContent = {
-                            Box(modifier = Modifier.fillMaxHeight(), contentAlignment = Alignment.Center) {
-                                Icon(Icons.Default.Layers, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
-                            }
-                        },
-                        content = { Text(m3ComposeLabel) },
-                        supportingContent = { Text(material3Version) },
-                        colors = ListItemDefaults.segmentedColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
-                        modifier = Modifier.height(IntrinsicSize.Min),
+                ConnectedGroup {
+                    ConnectedRow(
+                        title = stringResource(R.string.about_material3),
+                        supporting = material3Version,
+                        leading = { IconBadge(Icons.Rounded.Widgets, key = "material3") },
                     )
-                    SegmentedListItem(
-                        onClick = { copyToClipboard(composeUiLabel, composeUiVersion) },
-                        shapes = expressiveSegmentedShapes(index = 1, count = 3),
-                        leadingContent = {
-                            Box(modifier = Modifier.fillMaxHeight(), contentAlignment = Alignment.Center) {
-                                Icon(Icons.Default.Layers, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
-                            }
-                        },
-                        content = { Text(stringResource(R.string.settings_compose_ui_version_label)) },
-                        supportingContent = { Text(composeUiVersion) },
-                        colors = ListItemDefaults.segmentedColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
-                        modifier = Modifier.height(IntrinsicSize.Min),
-                    )
-                    SegmentedListItem(
-                        onClick = {},
-                        shapes = expressiveSegmentedShapes(index = 2, count = 3),
-                        leadingContent = {
-                            Box(modifier = Modifier.fillMaxHeight(), contentAlignment = Alignment.Center) {
-                                Icon(Icons.Default.AutoAwesome, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
-                            }
-                        },
-                        content = { Text(stringResource(R.string.settings_components)) },
-                        supportingContent = { Text(stringResource(R.string.settings_components_description)) },
-                        colors = ListItemDefaults.segmentedColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
-                        modifier = Modifier.height(IntrinsicSize.Min),
+                    ConnectedRow(
+                        title = stringResource(R.string.about_compose_ui),
+                        supporting = composeUiVersion,
+                        leading = { IconBadge(Icons.Rounded.Layers, key = "compose") },
                     )
                 }
             }
 
+            item { SectionHeader(stringResource(R.string.about_section_credits)) }
             item {
-                AboutSection(title = stringResource(R.string.settings_about_section_community)) {
-                    SegmentedListItem(
-                        onClick = { uriHandler.openUri("https://github.com/qtremors/material-design/releases") },
-                        shapes = expressiveSegmentedShapes(index = 0, count = 3),
-                        leadingContent = {
-                            Box(modifier = Modifier.fillMaxHeight(), contentAlignment = Alignment.Center) {
-                                Icon(Icons.Default.History, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
-                            }
-                        },
-                        content = { Text(stringResource(R.string.settings_releases_changelog)) },
-                        supportingContent = { Text(stringResource(R.string.settings_releases_changelog_description)) },
-                        colors = ListItemDefaults.segmentedColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
-                        modifier = Modifier.height(IntrinsicSize.Min),
+                ConnectedGroup {
+                    NavigationRow(
+                        title = stringResource(R.string.about_credit_material),
+                        supporting = stringResource(R.string.about_credit_material_supporting),
+                        icon = Icons.Rounded.Palette,
+                        badgeKey = "credit-material",
+                        onClick = { uriHandler.openUri("https://m3.material.io/") },
                     )
-                    SegmentedListItem(
-                        onClick = { uriHandler.openUri("https://github.com/qtremors/material-design/issues") },
-                        shapes = expressiveSegmentedShapes(index = 1, count = 3),
-                        leadingContent = {
-                            Box(modifier = Modifier.fillMaxHeight(), contentAlignment = Alignment.Center) {
-                                Icon(Icons.Default.BugReport, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
-                            }
-                        },
-                        content = { Text(stringResource(R.string.settings_report_issue)) },
-                        supportingContent = { Text(stringResource(R.string.settings_report_issue_description)) },
-                        colors = ListItemDefaults.segmentedColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
-                        modifier = Modifier.height(IntrinsicSize.Min),
+                    NavigationRow(
+                        title = stringResource(R.string.about_credit_compose),
+                        supporting = stringResource(R.string.about_credit_compose_supporting),
+                        icon = Icons.Rounded.Layers,
+                        badgeKey = "credit-compose",
+                        onClick = { uriHandler.openUri("https://developer.android.com/compose") },
                     )
-                    SegmentedListItem(
-                        onClick = { uriHandler.openUri("https://github.com/qtremors/material-design/blob/main/LICENSE.md") },
-                        shapes = expressiveSegmentedShapes(index = 2, count = 3),
-                        leadingContent = {
-                            Box(modifier = Modifier.fillMaxHeight(), contentAlignment = Alignment.Center) {
-                                Icon(Icons.AutoMirrored.Filled.Assignment, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
-                            }
-                        },
-                        content = { Text(stringResource(R.string.settings_open_source_license)) },
-                        supportingContent = { Text(stringResource(R.string.settings_license_name)) },
-                        colors = ListItemDefaults.segmentedColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
-                        modifier = Modifier.height(IntrinsicSize.Min),
+                    NavigationRow(
+                        title = stringResource(R.string.about_credit_font),
+                        supporting = stringResource(R.string.about_credit_font_supporting),
+                        icon = Icons.Rounded.TextFields,
+                        badgeKey = "credit-font",
+                        onClick = { uriHandler.openUri("https://fonts.google.com/specimen/Google+Sans+Flex") },
+                    )
+                    NavigationRow(
+                        title = stringResource(R.string.about_credit_kolor),
+                        supporting = stringResource(R.string.about_credit_kolor_supporting),
+                        icon = Icons.Rounded.Palette,
+                        badgeKey = "credit-kolor",
+                        onClick = { uriHandler.openUri("https://github.com/jordond/MaterialKolor") },
                     )
                 }
             }
-        }
-    }
-}
 
-@Composable
-private fun AboutSection(
-    title: String,
-    content: @Composable () -> Unit,
-) {
-    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        Text(
-            text = title,
-            style = MaterialTheme.typography.titleMedium,
-            fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.primary,
-            modifier = Modifier.padding(horizontal = 4.dp),
-        )
-        Column(verticalArrangement = Arrangement.spacedBy(ListItemDefaults.SegmentedGap)) {
-            content()
+            item { SectionHeader(stringResource(R.string.about_section_device)) }
+            item {
+                ConnectedGroup {
+                    ConnectedRow(
+                        title = device,
+                        supporting = stringResource(R.string.about_device_copy_hint),
+                        leading = { IconBadge(Icons.Rounded.PhoneAndroid, key = "device") },
+                        tapHaptic = false,
+                        onClick = {
+                            haptics.confirm()
+                            scope.launch {
+                                val report = "Material Design $appVersion · Material 3 $material3Version · $device"
+                                clipboard.setClipEntry(ClipEntry(ClipData.newPlainText(deviceClipLabel, report)))
+                            }
+                        },
+                    )
+                }
+            }
         }
     }
 }

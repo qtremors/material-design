@@ -28,7 +28,7 @@ import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ScaffoldFoundationSample(modifier: Modifier = Modifier) {
+fun ScaffoldSample(modifier: Modifier = Modifier) {
     Column(modifier, verticalArrangement = Arrangement.spacedBy(12.dp)) {
         Text("Scaffold as a layout foundation", style = MaterialTheme.typography.titleMedium)
         Text(

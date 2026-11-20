@@ -14,7 +14,7 @@
   <main>
     <section class="docs-hero skill-hero"><p class="eyebrow">Android architecture guide</p><h1>Material Design Android Development</h1><p>Learn how to architect, implement, theme, and test modern Android applications using Material Design 3 and Jetpack Compose.</p></section>
     <div class="docs-layout">
-      <aside class="docs-toc"><strong>On this page</strong><a href="#architecture">Architecture layers</a><a href="#state">State management & UDF</a><a href="#navigation">Type-safe navigation</a><a href="#theming">Theme integration</a><a href="#components">Component hoisting</a><a href="#accessibility">Accessibility & UX</a><a href="#verification">Testing & Quality</a></aside>
+      <aside class="docs-toc"><strong>On this page</strong><a href="#architecture">Architecture layers</a><a href="#state">State management & UDF</a><a href="#navigation">Type-safe navigation</a><a href="#theming">Theme integration</a><a href="#components">Component hoisting</a><a href="#accessibility">Accessibility & UX</a><a href="#verification">Testing & Quality</a><a href="#coverage">API coverage</a></aside>
       <article class="docs-article skill-article">
         <section id="architecture"><p class="eyebrow">Architecture layers</p><h2>Layered architecture for Compose apps</h2>
           <div class="compact-grid">
@@ -70,29 +70,39 @@ fun AppNavHost(navController: NavHostController) {
 }</code></pre>
         </section>
 
-        <section id="theming"><p class="eyebrow">Theming</p><h2>MaterialTheme wrapper with dynamic color</h2>
+        <section id="theming"><p class="eyebrow">Theming</p><h2>One Expressive theme from one settings model</h2>
           <pre class="code-block"><code>@Composable
-fun AppTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    dynamicColor: Boolean = true,
-    content: @Composable () -> Unit
-) {
-    val colorScheme = when {
-        dynamicColor &amp;&amp; Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.S -&gt; {
-            val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-        }
-        darkTheme -&gt; DarkColorScheme
-        else -&gt; LightColorScheme
+fun AppTheme(state: ThemeState, content: @Composable () -&gt; Unit) {
+    val dark = when (state.mode) {
+        ThemeMode.SYSTEM -&gt; isSystemInDarkTheme()
+        ThemeMode.LIGHT -&gt; false
+        ThemeMode.DARK -&gt; true
     }
-
-    MaterialTheme(
-        colorScheme = colorScheme,
-        typography = AppTypography,
-        shapes = AppShapes,
-        content = content
-    )
+    val context = LocalContext.current
+    val scheme = remember(state, dark) {
+        val base = when {
+            state.source == AccentSource.WALLPAPER &amp;&amp; Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.S -&gt;
+                if (dark) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+            state.source == AccentSource.CUSTOM -&gt; seedColorScheme(state.customSeed, dark)
+            else -&gt; seedColorScheme(state.preset.seed, dark)
+        }
+        if (dark &amp;&amp; state.pureBlack) base.toPureBlack() else base
+    }
+    CompositionLocalProvider(LocalReducedMotion provides state.reducedMotion) {
+        MaterialExpressiveTheme(
+            colorScheme = scheme,
+            typography = AppTypography, // One variable font, weights as instances.
+            shapes = AppShapes,
+            motionScheme = if (state.reducedMotion) ReducedMotionScheme else MotionScheme.expressive(),
+            content = content,
+        )
+    }
 }</code></pre>
+          <ul>
+            <li><strong>Generated color:</strong> build the full scheme from one seed with Material Color Utilities, so presets and custom colors keep proper contrast. Never hand-pick a whole scheme.</li>
+            <li><strong>Stored settings migrate:</strong> when the settings model changes shape, read the old keys once and map them onto the new values.</li>
+            <li><strong>No wrong first frame:</strong> keep the splash screen until stored settings arrive, with a short ceiling.</li>
+          </ul>
         </section>
 
         <section id="components"><p class="eyebrow">Component design</p><h2>State hoisting and reusability</h2>
@@ -115,7 +125,20 @@ fun AppTheme(
         <section id="verification"><p class="eyebrow">Testing & Quality</p><h2>Automated testing and linting</h2>
           <pre class="code-block"><code>.\gradlew.bat testDebugUnitTest
 .\gradlew.bat lintDebug
-.\gradlew.bat :app:assembleDebug</code></pre>
+.\gradlew.bat :app:assembleDebug
+.\gradlew.bat :app:connectedDebugAndroidTest</code></pre>
+          <p>Instrumented tests count only when a device or emulator ran them; compiling them is not the same as running them.</p>
+        </section>
+
+        <section id="coverage"><p class="eyebrow">API coverage</p><h2>Accountable to the whole official API</h2>
+          <ol>
+            <li>A Gradle task reads the pinned sources jars, and the newest stable release, and writes a checked-in inventory of every public symbol with its stability.</li>
+            <li>A ledger lists every symbol no catalog entry cites yet, as planned or excluded with a reason, and a generated report shows coverage per artifact.</li>
+            <li>Unit tests check every catalog reference for existence, deprecation, stability, opt-in, availability, and reviewed version, and fail when a symbol is untracked.</li>
+          </ol>
+          <p>After any Material dependency bump, regenerate the inventory and reconcile the ledger. Newly published symbols arrive as <code>new</code> and fail the tests until each is triaged.</p>
+          <pre class="code-block"><code>.\gradlew.bat :app:generateMaterialApiInventory
+.\gradlew.bat :app:updateApiCoverageLedger</code></pre>
         </section>
       </article>
     </div>

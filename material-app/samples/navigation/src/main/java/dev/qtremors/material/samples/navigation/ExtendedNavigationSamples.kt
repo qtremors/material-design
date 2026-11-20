@@ -207,7 +207,7 @@ fun ShortNavigationBarSample(modifier: Modifier = Modifier) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ScrollableTabRowsSample(modifier: Modifier = Modifier) {
+fun ScrollableTabRowSample(modifier: Modifier = Modifier) {
     var primaryIndex by remember { mutableIntStateOf(0) }
     var secondaryIndex by remember { mutableIntStateOf(0) }
     val categories = listOf("All", "News", "Videos", "Images", "Shopping", "Maps", "Books", "Flights")

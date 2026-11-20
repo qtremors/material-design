@@ -14,10 +14,10 @@ import androidx.compose.material3.LinearWavyProgressIndicator
 import androidx.compose.material3.LoadingIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Slider
+import androidx.compose.material3.rememberSliderState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -27,8 +27,9 @@ import dev.qtremors.material.core.designsystem.progressSpring
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
-fun ProgressIndicatorsSample(modifier: Modifier = Modifier) {
-    var progress by remember { mutableFloatStateOf(0.62f) }
+fun ProgressIndicatorSample(modifier: Modifier = Modifier) {
+    val progressSlider = rememberSliderState(value = 0.62f)
+    val progress = progressSlider.value
     val animatedProgress by animateFloatAsState(
         targetValue = progress,
         animationSpec = progressSpring(),
@@ -48,13 +49,13 @@ fun ProgressIndicatorsSample(modifier: Modifier = Modifier) {
             CircularWavyProgressIndicator(progress = { displayedProgress })
             CircularWavyProgressIndicator()
         }
-        Slider(value = progress, onValueChange = { progress = it })
+        Slider(state = progressSlider, onValueChange = { progressSlider.value = it })
     }
 }
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
-fun LoadingIndicatorsSample(modifier: Modifier = Modifier) {
+fun LoadingIndicatorSample(modifier: Modifier = Modifier) {
     Column(modifier, verticalArrangement = Arrangement.spacedBy(20.dp)) {
         Text("Loading indicator", style = MaterialTheme.typography.titleMedium)
         LoadingIndicator()

@@ -69,7 +69,7 @@ import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class, ExperimentalLayoutApi::class)
 @Composable
-fun ButtonGroupsSample(modifier: Modifier = Modifier) {
+fun ButtonGroupSample(modifier: Modifier = Modifier) {
     var lastAction by remember { mutableStateOf("No action yet") }
     var selectedView by remember { mutableIntStateOf(0) }
     val enabledTools = remember { mutableStateListOf(0, 2) }
@@ -89,13 +89,11 @@ fun ButtonGroupsSample(modifier: Modifier = Modifier) {
                 overflowIndicator = { menuState ->
                     ButtonGroupDefaults.OverflowIndicator(menuState = menuState)
                 },
-                modifier = Modifier.fillMaxWidth(),
             ) {
                 clickableItem(
                     onClick = { lastAction = "Created a reference" },
                     label = "Create",
                     icon = { Icon(Icons.Default.Add, contentDescription = null) },
-                    weight = 1f,
                 )
                 clickableItem(
                     onClick = { lastAction = "Duplicated the reference" },
@@ -203,20 +201,17 @@ fun ButtonGroupsSample(modifier: Modifier = Modifier) {
         ) {
             ButtonGroup(
                 overflowIndicator = { menuState -> ButtonGroupDefaults.OverflowIndicator(menuState) },
-                modifier = Modifier.fillMaxWidth(),
             ) {
                 clickableItem(
                     onClick = { lastAction = "Undid the latest change" },
                     label = "Undo",
                     icon = { Icon(Icons.AutoMirrored.Filled.Undo, contentDescription = null) },
-                    weight = 1f,
                 )
                 clickableItem(
                     onClick = { lastAction = "Redid the latest change" },
                     label = "Redo",
                     icon = { Icon(Icons.AutoMirrored.Filled.Redo, contentDescription = null) },
                     enabled = false,
-                    weight = 1f,
                 )
                 clickableItem(
                     onClick = { lastAction = "Opened command history" },
@@ -230,7 +225,7 @@ fun ButtonGroupsSample(modifier: Modifier = Modifier) {
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class, ExperimentalLayoutApi::class)
 @Composable
-fun ToggleButtonsSample(modifier: Modifier = Modifier) {
+fun ToggleButtonSample(modifier: Modifier = Modifier) {
     var filled by remember { mutableStateOf(true) }
     var tonal by remember { mutableStateOf(false) }
     var elevated by remember { mutableStateOf(false) }

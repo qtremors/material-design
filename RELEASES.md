@@ -1,11 +1,75 @@
 # Material Design - Releases
 
 > **Project:** Material Design
-> **Last Updated:** 2026-08-30
+> **Last Updated:** 2026-11-20
 
 | Version | Release Date | Key Focus |
 | :--- | :--- | :--- |
+| [v2.1.5](#v215) | 2026-11-20 | A full Material 3 Expressive redesign, Material 3 1.5.0-rc01, adaptive layouts for large screens, and measured official API coverage |
 | [v2.1.0](#v210) | 2026-08-30 | First public Android app release with an interactive gallery, validated catalog, practical guidance, and local personalization |
+
+---
+
+# v2.1.5
+
+**Release Date:** November 20, 2026
+
+**Previous public release:** [v2.1.0](#v210)
+
+**Development range included:** v2.1.1 through v2.1.5.
+
+**Known issues and roadmap:** Track active work in [TASKS.md](TASKS.md) and the measured API backlog in [COVERAGE.md](material-app/core/catalog/api/COVERAGE.md).
+
+Material Design v2.1.5 rebuilds the whole app on Material 3 Expressive, so the app around the demos is now a reference in its own right. It moves to Material 3 1.5.0-rc01, adapts to tablets and foldables, and makes the catalog accountable to the complete official API.
+
+## Highlights
+
+- **A Material 3 Expressive app, not only demos:** Google Sans Flex typography, large flexible top bars that collapse on scroll, connected groups and toggle buttons, expressive switches and menus, and loading indicators across every screen.
+- **Colors generated from a seed:** follow your wallpaper, pick one of six presets, or enter any color; Material Color Utilities builds a complete scheme with proper contrast in light, dark, and pure black.
+- **Fluid navigation:** a floating tab bar that morphs into Back and the page title, transitions that match predictive back, and shared-element transitions that carry an entry's badge into its page.
+- **Built for large screens:** tablets, unfolded foldables, and desktop windows get the wide navigation rail and the list beside the open entry.
+- **Material 3 1.5.0-rc01:** Expressive APIs that graduated now show as stable, and every API reference was re-reviewed against the library sources.
+- **Measured official API coverage:** every public symbol in Material 3 and Material 3 Adaptive is tracked, so the catalog shows exactly which official APIs it demonstrates.
+
+## What's New
+
+### Design and Navigation
+
+- Rebuilt Explore as a hub with counts, featured references in the official carousel, bookmarks, recently viewed, categories, and what each release added.
+- Rebuilt Catalog, APIs, and Foundations on connected rows, category filters, and maturity tags that state both stability and availability.
+- Redesigned the component page around Preview, Guidance, Inspect, and API as connected toggle buttons, with icon-led use and avoid guidance and copyable source paths.
+- Moved search to its own full-screen page with suggestions, recently viewed entries, and tagged results.
+- Added one long-press menu to every list of entries: open, bookmark, or copy the source path for an agent or an editor.
+
+### Settings and Personalization
+
+- Redesigned Settings with theme mode, pure black, color source with preset swatches or a custom seed, a live preview of color roles, haptics, reduced motion, and maturity badges.
+- Redesigned About with project links, versions, credits, and device details you can copy for a bug report.
+- Existing theme choices carry over: OLED mode becomes Dark with pure black, and accent colors and named presets become the same color as a custom seed.
+- Removed two settings that had no effect, and Haptics now controls every vibration in the app.
+
+### Catalog and Reference Data
+
+- Split Selection controls into Checkbox, Radio button, and Switch references; bookmarks of the old entry move to Checkbox automatically.
+- Corrected 26 availability values, two API references, and several categories, so Divider, Search, Text fields, and Scaffold sit where Material groups them.
+- Standardized entry names, so each reference has one official name with older names kept for search.
+
+### Engineering and Reliability
+
+- Upgraded to Material 3 1.5.0-rc01, Android Gradle Plugin 9.5.1, Kotlin 2.4.21, Gradle 9.8.2, and current AndroidX libraries.
+- Added a generated API inventory, a coverage ledger, and tests that check every catalog reference for existence, stability, availability, and reviewed version.
+- Version checks moved from app startup into build-time tests, so a metadata mismatch can never stop the app from opening.
+- A splash screen holds until your saved theme loads, so the app never opens in the wrong colors.
+- The back gesture now slides and fades like the Back button instead of shrinking the page into a sharp rectangle.
+- The instrumented test suite runs again and passes on a physical device.
+
+## Requirements and Installation
+
+- Android 7.0 or newer.
+- Download the APK from [GitHub Releases](https://github.com/qtremors/material-design/releases).
+- No account, network permission, or online service is required by the Android app.
+
+For source builds, testing commands, and signing configuration, see [DEVELOPMENT.md](DEVELOPMENT.md).
 
 ---
 

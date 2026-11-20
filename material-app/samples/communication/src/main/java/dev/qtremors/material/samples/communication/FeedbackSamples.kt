@@ -81,7 +81,7 @@ private enum class DialogExample { INFORMATION, CONFIRMATION, DESTRUCTIVE }
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun DialogsSample(modifier: Modifier = Modifier) {
+fun DialogSample(modifier: Modifier = Modifier) {
     var activeDialog by remember { mutableStateOf<DialogExample?>(null) }
     var result by remember { mutableStateOf("Choose a dialog purpose") }
 
@@ -205,7 +205,7 @@ private fun DialogRule(label: String, description: String) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BottomSheetsSample(modifier: Modifier = Modifier) {
+fun BottomSheetSample(modifier: Modifier = Modifier) {
     var showSheet by remember { mutableStateOf(false) }
     var selectedAction by remember { mutableStateOf("No sheet action selected") }
     val sheetState = rememberBottomSheetState(
@@ -280,7 +280,7 @@ fun BottomSheetsSample(modifier: Modifier = Modifier) {
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun SnackbarsSample(modifier: Modifier = Modifier) {
+fun SnackbarSample(modifier: Modifier = Modifier) {
     val hostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
     var outcome by remember { mutableStateOf("No transient message shown") }
@@ -335,7 +335,7 @@ fun SnackbarsSample(modifier: Modifier = Modifier) {
 
 @OptIn(ExperimentalLayoutApi::class, ExperimentalMaterial3Api::class)
 @Composable
-fun TooltipsSample(modifier: Modifier = Modifier) {
+fun TooltipSample(modifier: Modifier = Modifier) {
     val plainState = rememberTooltipState()
     val richState = rememberTooltipState(isPersistent = true)
     val scope = rememberCoroutineScope()
@@ -403,7 +403,7 @@ fun TooltipsSample(modifier: Modifier = Modifier) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MenusSample(modifier: Modifier = Modifier) {
+fun MenuSample(modifier: Modifier = Modifier) {
     var overflowExpanded by remember { mutableStateOf(false) }
     var filterExpanded by remember { mutableStateOf(false) }
     var densityMenuExpanded by remember { mutableStateOf(false) }

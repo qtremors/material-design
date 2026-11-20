@@ -51,7 +51,7 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 
 @Composable
-fun TextFieldsSample(modifier: Modifier = Modifier) {
+fun TextFieldSample(modifier: Modifier = Modifier) {
     var name by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("material@example") }
     var password by remember { mutableStateOf("expressive") }
@@ -152,7 +152,7 @@ fun TextFieldsSample(modifier: Modifier = Modifier) {
                 modifier = Modifier.fillMaxWidth(),
             )
             OutlinedTextField(
-                value = "1.5.0-alpha26",
+                value = "1.5.0-rc01",
                 onValueChange = {},
                 label = { Text("Material dependency") },
                 supportingText = { Text("Pinned by the version catalog") },

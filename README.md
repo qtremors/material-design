@@ -40,11 +40,12 @@ No account or network connection is required by the Android app.
 
 ## Features
 
-- **Interactive Android gallery:** Browse and search working Material references across actions, communication, containment, navigation, selection, and foundations.
-- **Validated offline catalog:** Inspect aliases, guidance, source paths, official links, API availability, stability, artifact versions, and opt-in requirements.
-- **Material 3 Expressive product shell:** Explore adaptive navigation, search, detail, settings, feedback, motion, and accessibility in the same system used by the samples.
+- **Interactive Android gallery:** Browse and search working Material references across actions, communication, containment, navigation, selection, text inputs, and foundations.
+- **Validated offline catalog:** Inspect aliases, guidance, source paths, official links, API availability, stability, artifact versions, and opt-in requirements, all checked against the pinned Material sources.
+- **Measured API coverage:** Every public symbol in Material 3 and Material 3 Adaptive is tracked, so the catalog shows exactly which official APIs it demonstrates and which are still to come.
+- **A Material 3 Expressive app, not only demos:** Google Sans Flex, seed-generated color schemes, large flexible top bars, a floating tab bar that becomes Back on inner pages, connected toggle buttons, expressive switches and menus, shared-element and predictive-back transitions, and a wide navigation rail with list-detail panes on tablets and foldables.
 - **Practical design guidance:** Read purpose, use and avoid rules, expected behavior, accessibility, and adaptive layout notes for every installed entry.
-- **Local personalization:** Keep bookmarks, recent references, theme modes, dynamic color, accent choices, and reduced-motion preferences on the device.
+- **Local personalization:** Keep bookmarks, recent references, theme mode, pure black, wallpaper, preset, or custom seed colors, haptics, and reduced-motion preferences on the device.
 
 ## Community and support
 
@@ -59,7 +60,8 @@ Material Design is built by [Tremors](https://github.com/qtremors) with Kotlin a
 
 - [Google Material Design](https://m3.material.io/), [AndroidX](https://developer.android.com/jetpack/androidx), [Jetpack Compose](https://developer.android.com/compose), and [Material 3 Adaptive](https://developer.android.com/develop/ui/compose/layouts/adaptive)
 - [Kotlin](https://kotlinlang.org/), [Kotlin Coroutines](https://github.com/Kotlin/kotlinx.coroutines), and [Kotlin Serialization](https://github.com/Kotlin/kotlinx.serialization)
-- [Roboto](https://fonts.google.com/specimen/Roboto), [Material Symbols](https://fonts.google.com/icons), and the broader open-source Android and web ecosystems
+- [Google Sans Flex](https://fonts.google.com/specimen/Google+Sans+Flex) (SIL Open Font License 1.1), [Material Symbols](https://fonts.google.com/icons), and [MaterialKolor](https://github.com/jordond/MaterialKolor) (MIT) for seed color schemes
+- The broader open-source Android and web ecosystems
 
 Each project remains the property of its respective authors and is used under its own license.
 

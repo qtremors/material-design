@@ -30,11 +30,11 @@ import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Slider
+import androidx.compose.material3.rememberSliderState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -324,7 +324,8 @@ fun ExpressiveShapesSample(modifier: Modifier = Modifier) {
     var selectedStartIndex by remember { mutableIntStateOf(0) } // Circle
     var selectedEndIndex by remember { mutableIntStateOf(16) }   // 4-sided cookie
     var selectedCategory by remember { mutableStateOf("All") }
-    var morphProgress by remember { mutableFloatStateOf(0f) }
+    val morphProgressSlider = rememberSliderState(value = 0f, trackRange = 0f..1f)
+    val morphProgress = morphProgressSlider.value
     var isAnimating by remember { mutableStateOf(false) }
 
     val reducedMotion = LocalReducedMotion.current
@@ -575,9 +576,8 @@ fun ExpressiveShapesSample(modifier: Modifier = Modifier) {
                             Text("${(morphProgress * 100).toInt()}%", style = MaterialTheme.typography.labelMedium, fontWeight = FontWeight.Bold)
                         }
                         Slider(
-                            value = morphProgress,
-                            onValueChange = { morphProgress = it },
-                            valueRange = 0f..1f,
+                            state = morphProgressSlider,
+                            onValueChange = { morphProgressSlider.value = it },
                         )
                     }
                 }

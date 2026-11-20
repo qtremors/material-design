@@ -22,7 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun BadgesSample(modifier: Modifier = Modifier) {
+fun BadgeSample(modifier: Modifier = Modifier) {
     Column(modifier, verticalArrangement = Arrangement.spacedBy(16.dp)) {
         Text("Badges on Icons", style = MaterialTheme.typography.titleMedium)
         Card(Modifier.fillMaxWidth()) {

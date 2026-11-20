@@ -1,0 +1,11 @@
+{
+  "composeBom": "2026.09.00",
+  "composeUiVersion": "1.12.1",
+  "artifacts": [
+    {"artifact": "androidx.compose.material3:material3", "version": "1.5.0-rc01", "versionKey": "composeMaterial3", "file": "material3.json", "baselineVersion": "1.4.0", "baselineVersionKey": "composeMaterial3StableBaseline", "baselineFile": "material3.baseline.json"},
+    {"artifact": "androidx.compose.material3:material3-adaptive-navigation-suite", "version": "1.5.0-rc01", "versionKey": "composeMaterial3", "file": "material3-adaptive-navigation-suite.json", "baselineVersion": "1.4.0", "baselineVersionKey": "composeMaterial3StableBaseline", "baselineFile": "material3-adaptive-navigation-suite.baseline.json"},
+    {"artifact": "androidx.compose.material3.adaptive:adaptive", "version": "1.3.0", "versionKey": "composeMaterial3Adaptive", "file": "adaptive.json"},
+    {"artifact": "androidx.compose.material3.adaptive:adaptive-layout", "version": "1.3.0", "versionKey": "composeMaterial3Adaptive", "file": "adaptive-layout.json"},
+    {"artifact": "androidx.compose.material3.adaptive:adaptive-navigation", "version": "1.3.0", "versionKey": "composeMaterial3Adaptive", "file": "adaptive-navigation.json"}
+  ]
+}

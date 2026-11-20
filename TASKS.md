@@ -2,7 +2,7 @@
 
 > **Project:** Material Design
 >
-> **Last Updated:** 2026-08-30
+> **Last Updated:** 2026-11-17
 
 ---
 
@@ -46,12 +46,18 @@
 
 ---
 
+### Official API Coverage Backlog
+
+`material-app/core/catalog/api/COVERAGE.md` is the measured backlog of official Material 3 and Material 3 Adaptive public APIs that no catalog entry demonstrates yet, grouped by source file. It is generated from `coverage-ledger.json` and enforced by `ApiCoverageTest`, so it replaces hand-maintained component gap lists. Work through it group by group; each new entry removes its symbols from the ledger.
+
+---
+
 ### Component Backlog (Material 3 Pinned-Artifact Gaps)
 
 Add an item to the app only after the implementation, interactive demo, official API metadata, search aliases, adaptive behavior, accessibility checks, and source validation are complete:
 
 - [ ] **UI-0021 - Side sheets** `[Medium]`
-  - `ModalSideSheet` is not available in `1.5.0-alpha23` (re-verified against the pinned artifact on 2026-08-23); keep tracking upstream until it lands, then implement.
+  - `ModalSideSheet` is not public in `1.5.0-rc01` (absent from the generated API inventory on 2026-11-17); keep tracking upstream until it lands, then implement.
 - [x] **UI-0022 - Flexible bottom app bars** `[Medium]`
   - Add `FlexibleBottomAppBar` as a working reference.
   - **Resolution (2.0.8):** `FlexibleBottomAppBarSample` registered as `navigation.flexible-bottom-app-bars` with full catalog metadata.

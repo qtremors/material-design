@@ -61,7 +61,7 @@
     <section class="proof-strip" aria-label="Project overview">
       <article><span class="material-symbols-rounded" aria-hidden="true">widgets</span><div><strong>55 working references</strong><p>Every visible entry resolves to a real demo and source location.</p></div></article>
       <article><span class="material-symbols-rounded" aria-hidden="true">account_tree</span><div><strong>16 Android modules</strong><p>App, core, feature, and sample ownership stays explicit.</p></div></article>
-      <article><span class="material-symbols-rounded" aria-hidden="true">verified_user</span><div><strong>Local-first state</strong><p>Bookmarks, recents, themes, accents, and motion preferences stay on-device.</p></div></article>
+      <article><span class="material-symbols-rounded" aria-hidden="true">verified_user</span><div><strong>Local-first state</strong><p>Bookmarks, recents, theme, color, haptics, and motion preferences stay on-device.</p></div></article>
     </section>
 
     <section id="app" class="section" aria-labelledby="app-title">
@@ -97,7 +97,7 @@
         <li><span>3</span><div><h3>Publish independent state</h3><p>Catalog loading, search, category, destination, API stability, library, appearance, and one-shot events use focused flows.</p></div></li>
         <li><span>4</span><div><h3>Adapt the shell</h3><p>Compact floating navigation or expanded navigation is selected from current window space, with state preserved across resizing.</p></div></li>
         <li><span>5</span><div><h3>Resolve a stable identity</h3><p>Typed detail routes carry a catalog ID, then connect its metadata and source locations to exactly one registered demo.</p></div></li>
-        <li><span>6</span><div><h3>Persist locally</h3><p>Preferences DataStore stores bookmarks, recent IDs, theme state, accent selection, and reduced-motion choice.</p></div></li>
+        <li><span>6</span><div><h3>Persist locally</h3><p>Preferences DataStore stores bookmarks, recent IDs, theme mode, pure black, color source, haptics, and reduced-motion choice.</p></div></li>
       </ol>
       <div class="architecture-grid">
         <article><code>app/</code><h3>Composition root</h3><p>Activity, typed navigation, adaptive shell, search, ViewModel, dependency container, and demo registry.</p></article>
@@ -111,9 +111,9 @@
     <section id="personalization" class="section privacy-section" aria-labelledby="personalization-title">
       <div class="section-heading"><p class="eyebrow">Personal and private</p><h2 id="personalization-title">Rich local settings without an account or backend.</h2><p>Appearance and library state are useful inside the app, stay local, and are excluded from Android cloud backup and device-transfer restoration.</p></div>
       <div class="pattern-grid">
-        <article><span class="material-symbols-rounded" aria-hidden="true">dark_mode</span><h3>Theme modes</h3><p>Follow the system or choose light, dark, and OLED presentation.</p></article>
-        <article><span class="material-symbols-rounded" aria-hidden="true">format_paint</span><h3>Color choices</h3><p>Use Material You dynamic color, monochrome, curated accents, or custom color input where supported.</p></article>
-        <article><span class="material-symbols-rounded" aria-hidden="true">style</span><h3>Theme presets</h3><p>Choose the default system, Dracula, Tokyo Night, or custom theme treatment.</p></article>
+        <article><span class="material-symbols-rounded" aria-hidden="true">dark_mode</span><h3>Theme modes</h3><p>Follow the system or choose light or dark, with pure black for OLED screens.</p></article>
+        <article><span class="material-symbols-rounded" aria-hidden="true">format_paint</span><h3>Color choices</h3><p>Use wallpaper colors, one of six presets, or any custom seed; every scheme is generated with Material Color Utilities.</p></article>
+        <article><span class="material-symbols-rounded" aria-hidden="true">style</span><h3>Expressive app frame</h3><p>Google Sans Flex, large flexible top bars, a floating tab bar that becomes Back, and a wide rail with list-detail panes on large screens.</p></article>
         <article><span class="material-symbols-rounded" aria-hidden="true">motion_photos_off</span><h3>Reduced motion</h3><p>Replace decorative spatial and opacity motion while preserving state, feedback, haptics, and safety timing.</p></article>
         <article><span class="material-symbols-rounded" aria-hidden="true">bookmark</span><h3>Bookmarks and recents</h3><p>Save references and return to recently viewed components without sending activity anywhere.</p></article>
         <article><span class="material-symbols-rounded" aria-hidden="true">wifi_off</span><h3>Offline by construction</h3><p>The app declares no internet permission, analytics SDK, advertising SDK, telemetry, or remote catalog dependency.</p></article>
@@ -170,7 +170,7 @@
       <div class="section-heading"><p class="eyebrow">Credits</p><h2 id="credits-title">Built on excellent platform and open-source work.</h2><p>Material Design remains an independent educational project. Each referenced project belongs to its respective authors and is used under its own license.</p></div>
       <div class="credit-grid">
         <article><h3>Android app</h3><p>Built with <a href="https://kotlinlang.org/">Kotlin</a>, <a href="https://developer.android.com/compose">Jetpack Compose</a>, <a href="https://m3.material.io/">Material 3</a>, <a href="https://developer.android.com/develop/ui/compose/layouts/adaptive">Material 3 Adaptive</a>, AndroidX Lifecycle, Navigation Compose, Preferences DataStore, Kotlin Coroutines, and Kotlin Serialization.</p></article>
-        <article><h3>Design and website</h3><p>Guidance builds on <a href="https://m3.material.io/">Google Material Design</a>. The site uses semantic HTML, CSS, vanilla JavaScript, <a href="https://fonts.google.com/specimen/Roboto+Flex">Roboto Flex</a>, and <a href="https://fonts.google.com/icons">Material Symbols</a>.</p></article>
+        <article><h3>Design and website</h3><p>Guidance builds on <a href="https://m3.material.io/">Google Material Design</a>. The site uses semantic HTML, CSS, vanilla JavaScript, <a href="https://fonts.google.com/specimen/Roboto+Flex">Roboto Flex</a>, and <a href="https://fonts.google.com/icons">Material Symbols</a>. The Android app uses <a href="https://fonts.google.com/specimen/Google+Sans+Flex">Google Sans Flex</a> and <a href="https://github.com/jordond/MaterialKolor">MaterialKolor</a>.</p></article>
         <article><h3>Testing and build</h3><p>Android verification uses JUnit, AndroidX Test, Espresso, Compose UI testing, Kotlin Coroutines Test, Gradle TestKit, Android lint, R8, and Android build tools.</p></article>
         <article><h3>License and source</h3><p>The project source is available under the <a href="https://github.com/qtremors/material-design/blob/main/LICENSE.md">MIT License</a>. Source, changelog, release notes, privacy policy, and active work remain public on GitHub.</p></article>
       </div>
@@ -180,7 +180,7 @@
       <div class="section-heading"><p class="eyebrow">Frequently asked questions</p><h2 id="faq-title">What this project is and how it behaves.</h2></div>
       <div class="faq-grid">
         <details><summary>Is the Android app offline?</summary><p>Yes. The manifest does not declare <code>android.permission.INTERNET</code>. The catalog is bundled in the APK and the app includes no ads, analytics, or tracking SDKs.</p></details>
-        <details><summary>What information stays on the device?</summary><p>Bookmarks, recent component IDs, theme mode, theme preset, accent choice, custom color values, and reduced-motion preference are stored in Preferences DataStore and excluded from cloud backup and device transfer.</p></details>
+        <details><summary>What information stays on the device?</summary><p>Bookmarks, recent component IDs, theme mode, pure black, color source, preset, custom seed, haptics, and reduced-motion preference are stored in Preferences DataStore and excluded from cloud backup and device transfer.</p></details>
         <details><summary>Are all catalog entries working?</summary><p>Yes. Every visible entry has a stable ID, exact official name, guidance, reviewed API metadata, real source paths, and exactly one registered demonstration. Incomplete ideas stay in the task backlog.</p></details>
         <details><summary>Are project experiments official Material APIs?</summary><p>No. The catalog explicitly separates official APIs from project implementations, and separately models artifact availability and individual API stability.</p></details>
         <details><summary>Does Android share code with the web implementations?</summary><p>No. The surfaces share design intent, terminology, states, accessibility goals, and adaptive behavior. Each platform owns its code, tokens, APIs, state, tests, and release lifecycle.</p></details>

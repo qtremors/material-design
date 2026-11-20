@@ -104,6 +104,12 @@ androidComponents.onVariants { variant ->
     }
 }
 
+// DemoRegistryTest reads the bundled catalog from the catalog module; re-run it when the catalog changes.
+tasks.withType<Test>().configureEach {
+    inputs.file(rootProject.layout.projectDirectory.file("core/catalog/src/main/assets/catalog/catalog.json"))
+        .withPropertyName("catalog")
+}
+
 composeCompiler {
     reportsDestination = layout.buildDirectory.dir("compose_compiler/reports")
     metricsDestination = layout.buildDirectory.dir("compose_compiler/metrics")
@@ -113,6 +119,7 @@ dependencies {
     implementation(project(":core:catalog"))
     implementation(project(":core:data"))
     implementation(project(":core:designsystem"))
+    implementation(project(":core:ui"))
     implementation(project(":feature:explore"))
     implementation(project(":feature:catalog"))
     implementation(project(":feature:apis"))
@@ -132,6 +139,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.navigation.compose)
 
     implementation(platform(libs.androidx.compose.bom))

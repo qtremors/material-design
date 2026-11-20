@@ -1,10 +1,10 @@
 package dev.qtremors.material.feature.explore
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -13,57 +13,66 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowForward
-import androidx.compose.material.icons.filled.AutoAwesome
-import androidx.compose.material.icons.filled.Bookmark
-import androidx.compose.material.icons.filled.Category
-import androidx.compose.material.icons.filled.Explore
-import androidx.compose.material.icons.filled.History
-import androidx.compose.material.icons.filled.Inbox
-import androidx.compose.material.icons.filled.Notifications
-import androidx.compose.material.icons.filled.Palette
-import androidx.compose.material.icons.filled.TouchApp
-import androidx.compose.material.icons.filled.Tune
-import androidx.compose.material3.AssistChip
-import androidx.compose.material3.AssistChipDefaults
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material.icons.rounded.AutoAwesome
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialShapes
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.carousel.HorizontalMultiBrowseCarousel
 import androidx.compose.material3.carousel.rememberCarouselState
+import androidx.compose.material3.toShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import dev.qtremors.material.core.catalog.CatalogEntry
 import dev.qtremors.material.core.catalog.CatalogKind
+import dev.qtremors.material.core.designsystem.MetricTextStyle
+import dev.qtremors.material.core.designsystem.components.BadgePalette
+import dev.qtremors.material.core.designsystem.components.ConnectedGroup
+import dev.qtremors.material.core.designsystem.components.ConnectedItem
+import dev.qtremors.material.core.designsystem.components.NavigationRow
+import dev.qtremors.material.core.designsystem.components.SectionHeader
+import dev.qtremors.material.core.designsystem.components.categoryIcon
+import dev.qtremors.material.core.designsystem.components.rememberAppHaptics
+import dev.qtremors.material.core.designsystem.spacing
+import dev.qtremors.material.core.ui.CatalogEntryRow
+import dev.qtremors.material.core.ui.EntryWithMenu
+import dev.qtremors.material.core.ui.isExpressive
 
-/** Memoized derived sections for the Explore feed. */
 private data class ExploreSections(
-    val componentEntries: List<CatalogEntry>,
-    val foundationEntries: List<CatalogEntry>,
-    val featuredEntries: List<CatalogEntry>,
-    val expressiveHighlights: List<CatalogEntry>,
+    val featured: List<CatalogEntry>,
     val bookmarked: List<CatalogEntry>,
     val recent: List<CatalogEntry>,
-    val componentCategories: List<Pair<String, List<CatalogEntry>>>,
+    val categories: List<Pair<String, Int>>,
+    val componentCount: Int,
+    val foundationCount: Int,
+    val apiSymbolCount: Int,
+    val expressiveCount: Int,
+    val latestRelease: String?,
+    val recentlyAdded: List<CatalogEntry>,
 )
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
+/** Compares `x.y.z` versions numerically, so 2.0.10 sorts after 2.0.9. */
+private val VersionOrder = compareBy<String>({ it.split('.').getOrNull(0)?.toIntOrNull() ?: 0 }, { it.split('.').getOrNull(1)?.toIntOrNull() ?: 0 }, { it.split('.').getOrNull(2)?.toIntOrNull() ?: 0 })
+
+/**
+ * The hub: what the reference holds, featured references in the official Expressive carousel,
+ * the person's bookmarks and history, categories, and what the latest release added.
+ */
 @Composable
 fun ExploreScreen(
     entries: List<CatalogEntry>,
@@ -74,243 +83,112 @@ fun ExploreScreen(
     onAllComponentsClick: () -> Unit = {},
     onExpressiveClick: () -> Unit = {},
     onFoundationsClick: () -> Unit = {},
+    onApisClick: () -> Unit = {},
+    onBookmarkClick: (String, Boolean) -> Unit = { _, _ -> },
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(0.dp),
 ) {
-    // Derived sections are memoized so unrelated recompositions (e.g. bookmark
-    // toggles elsewhere) do not rerun the filter/group/sort passes.
-    val derived = remember(entries, bookmarkedIds, recentIds) {
-        val entryById = entries.associateBy(CatalogEntry::id)
+    val sections = remember(entries, bookmarkedIds, recentIds) {
+        val byId = entries.associateBy(CatalogEntry::id)
         val components = entries.filter { it.kind == CatalogKind.COMPONENT }
+        val latest = entries.map(CatalogEntry::addedIn).maxWithOrNull(VersionOrder)
         ExploreSections(
-            featuredEntries = entries.filter { "featured" in it.collections },
-            expressiveHighlights = entries.filter { "expressive" in it.collections && "featured" !in it.collections },
+            featured = entries.filter { "featured" in it.collections },
             bookmarked = entries.filter { it.id in bookmarkedIds },
-            recent = recentIds.mapNotNull(entryById::get),
-            foundationEntries = entries.filter { it.kind == CatalogKind.FOUNDATION },
-            componentEntries = components,
-            componentCategories = components
-                .groupBy { if (it.category.startsWith("Selection", ignoreCase = true)) "Selection" else it.category }
-                .toList()
-                .sortedBy { it.first },
+            recent = recentIds.mapNotNull(byId::get).take(5),
+            categories = components.groupingBy(CatalogEntry::category).eachCount().toList().sortedBy { it.first },
+            componentCount = components.size,
+            foundationCount = entries.size - components.size,
+            apiSymbolCount = entries.flatMap { entry -> entry.apiReferences.map { it.symbol } }.distinct().size,
+            expressiveCount = entries.count { it.isExpressive },
+            latestRelease = latest,
+            recentlyAdded = entries.filter { it.addedIn == latest },
         )
     }
-    val componentEntries = derived.componentEntries
-    val foundationEntries = derived.foundationEntries
-    val featuredEntries = derived.featuredEntries
-    val expressiveHighlights = derived.expressiveHighlights
-    val bookmarked = derived.bookmarked
-    val recent = derived.recent
-    val componentCategories = derived.componentCategories
 
-    LazyColumn(
-        modifier = modifier.fillMaxSize(),
-        contentPadding = PaddingValues(
-            top = contentPadding.calculateTopPadding() + 16.dp,
-            bottom = contentPadding.calculateBottomPadding() + 16.dp,
-        ),
-        verticalArrangement = Arrangement.spacedBy(28.dp),
-    ) {
-        item {
-            Column(
-                modifier = Modifier.padding(horizontal = 20.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp),
-            ) {
-                Text(
-                    text = stringResource(R.string.explore_subtitle),
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-                FlowRow(
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    verticalArrangement = Arrangement.spacedBy(6.dp),
-                    modifier = Modifier.padding(top = 4.dp),
-                ) {
-                    AssistChip(
-                        onClick = onAllComponentsClick,
-                        label = {
-                            Text(pluralStringResource(R.plurals.explore_chip_component_count, componentEntries.size, componentEntries.size))
-                        },
-                        colors = AssistChipDefaults.assistChipColors(
-                            containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
-                        ),
-                    )
-                    AssistChip(
-                        onClick = onExpressiveClick,
-                        label = {
-                            val expressiveCount = entries.count { "expressive" in it.collections }
-                            Text(pluralStringResource(R.plurals.explore_chip_expressive_count, expressiveCount, expressiveCount))
-                        },
-                        leadingIcon = {
-                            Icon(Icons.Default.AutoAwesome, contentDescription = null, modifier = Modifier.size(16.dp))
-                        },
-                        colors = AssistChipDefaults.assistChipColors(
-                            containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
-                        ),
-                    )
-                    if (foundationEntries.isNotEmpty()) {
-                        AssistChip(
-                            onClick = onFoundationsClick,
-                            label = {
-                                Text(pluralStringResource(R.plurals.explore_chip_foundation_count, foundationEntries.size, foundationEntries.size))
-                            },
-                            leadingIcon = {
-                                Icon(Icons.Default.Palette, contentDescription = null, modifier = Modifier.size(16.dp))
-                            },
-                            colors = AssistChipDefaults.assistChipColors(
-                                containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
-                            ),
-                        )
+    LazyColumn(modifier = modifier.fillMaxSize(), contentPadding = contentPadding) {
+        item(key = "hero") {
+            Hero(
+                sections = sections,
+                onComponentsClick = onAllComponentsClick,
+                onFoundationsClick = onFoundationsClick,
+                onApisClick = onApisClick,
+            )
+        }
+
+        if (sections.featured.isNotEmpty()) {
+            item(key = "featured-header") { SectionHeader(stringResource(R.string.explore_section_featured)) }
+            item(key = "featured") { FeaturedCarousel(sections.featured, onEntryClick) }
+        }
+
+        if (sections.bookmarked.isNotEmpty()) {
+            item(key = "bookmarks-header") { SectionHeader(stringResource(R.string.explore_section_bookmarks)) }
+            itemsIndexed(sections.bookmarked, key = { _, entry -> "bookmark-${entry.id}" }) { index, entry ->
+                ConnectedItem(index, sections.bookmarked.size) {
+                    EntryWithMenu(
+                        entry = entry,
+                        bookmarked = entry.id in bookmarkedIds,
+                        onOpen = { onEntryClick(entry.id) },
+                        onBookmark = { onBookmarkClick(entry.id, it) },
+                    ) { openMenu ->
+                        CatalogEntryRow(entry, onClick = { onEntryClick(entry.id) }, onLongClick = openMenu, showSummary = false, shareBadge = false)
                     }
                 }
             }
         }
 
-        if (featuredEntries.isNotEmpty()) {
-            item(key = "featured") {
-                ExploreCarouselSection(
-                    title = stringResource(R.string.explore_section_featured),
-                    items = featuredEntries,
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    icon = Icons.Default.Category,
-                    onEntryClick = onEntryClick,
-                )
-            }
-        }
-
-        if (componentCategories.isNotEmpty() || foundationEntries.isNotEmpty()) {
-            item(key = "categories") {
-                Column(
-                    modifier = Modifier.padding(horizontal = 20.dp),
-                    verticalArrangement = Arrangement.spacedBy(12.dp),
-                ) {
-                    Text(
-                        text = stringResource(R.string.explore_section_categories),
-                        style = MaterialTheme.typography.titleLarge,
-                        fontWeight = FontWeight.SemiBold,
-                    )
-                    FlowRow(
-                        maxItemsInEachRow = 2,
-                        horizontalArrangement = Arrangement.spacedBy(10.dp),
-                        verticalArrangement = Arrangement.spacedBy(10.dp),
-                        modifier = Modifier.fillMaxWidth(),
-                    ) {
-                        componentCategories.forEach { (category, categoryEntries) ->
-                            CategoryCard(
-                                category = category,
-                                count = categoryEntries.size,
-                                onClick = { onCategoryClick(category) },
-                                modifier = Modifier.weight(1f),
-                            )
-                        }
-                        if (foundationEntries.isNotEmpty()) {
-                            CategoryCard(
-                                category = stringResource(R.string.explore_category_foundations),
-                                count = foundationEntries.size,
-                                onClick = onFoundationsClick,
-                                modifier = Modifier.weight(1f),
-                            )
-                        }
+        if (sections.recent.isNotEmpty()) {
+            item(key = "recent-header") { SectionHeader(stringResource(R.string.explore_section_recently_viewed)) }
+            itemsIndexed(sections.recent, key = { _, entry -> "recent-${entry.id}" }) { index, entry ->
+                ConnectedItem(index, sections.recent.size) {
+                    EntryWithMenu(
+                        entry = entry,
+                        bookmarked = entry.id in bookmarkedIds,
+                        onOpen = { onEntryClick(entry.id) },
+                        onBookmark = { onBookmarkClick(entry.id, it) },
+                    ) { openMenu ->
+                        CatalogEntryRow(entry, onClick = { onEntryClick(entry.id) }, onLongClick = openMenu, showSummary = false, shareBadge = false)
                     }
                 }
             }
         }
 
-        if (expressiveHighlights.isNotEmpty()) {
-            item(key = "expressive") {
-                ExploreCarouselSection(
-                    title = stringResource(R.string.explore_section_expressive_highlights),
-                    items = expressiveHighlights,
-                    containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-                    icon = Icons.Default.AutoAwesome,
-                    onEntryClick = onEntryClick,
+        item(key = "categories-header") { SectionHeader(stringResource(R.string.explore_section_categories)) }
+        item(key = "categories") {
+            ConnectedGroup {
+                NavigationRow(
+                    title = stringResource(R.string.explore_section_expressive),
+                    supporting = stringResource(R.string.explore_expressive_supporting),
+                    icon = Icons.Rounded.AutoAwesome,
+                    badgeKey = "expressive",
+                    trailingText = pluralStringResource(R.plurals.explore_expressive_count, sections.expressiveCount, sections.expressiveCount),
+                    onClick = onExpressiveClick,
                 )
-            }
-        }
-
-        if (bookmarked.isNotEmpty()) {
-            item(key = "bookmarks") {
-                ExploreCarouselSection(
-                    title = stringResource(R.string.explore_section_bookmarks),
-                    items = bookmarked,
-                    containerColor = MaterialTheme.colorScheme.secondaryContainer,
-                    icon = Icons.Default.Bookmark,
-                    onEntryClick = onEntryClick,
-                )
-            }
-        }
-
-        if (recent.isNotEmpty()) {
-            item(key = "recent") {
-                ExploreCarouselSection(
-                    title = stringResource(R.string.explore_section_recently_viewed),
-                    items = recent,
-                    containerColor = MaterialTheme.colorScheme.surfaceContainerHighest,
-                    icon = Icons.Default.History,
-                    onEntryClick = onEntryClick,
-                )
-            }
-        }
-    }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-private fun ExploreCarouselSection(
-    title: String,
-    items: List<CatalogEntry>,
-    containerColor: androidx.compose.ui.graphics.Color,
-    icon: ImageVector,
-    onEntryClick: (String) -> Unit,
-) {
-    Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-        Text(
-            text = title,
-            modifier = Modifier.padding(horizontal = 20.dp),
-            style = MaterialTheme.typography.titleLarge,
-            fontWeight = FontWeight.SemiBold,
-        )
-        HorizontalMultiBrowseCarousel(
-            state = rememberCarouselState { items.size },
-            preferredItemWidth = 220.dp,
-            itemSpacing = 10.dp,
-            contentPadding = PaddingValues(horizontal = 20.dp),
-            modifier = Modifier.fillMaxWidth(),
-        ) { index ->
-            val entry = items[index]
-            Card(
-                onClick = { onEntryClick(entry.id) },
-                modifier = Modifier
-                    .height(170.dp)
-                    .maskClip(MaterialTheme.shapes.extraLarge),
-                colors = CardDefaults.cardColors(containerColor = containerColor),
-            ) {
-                Box(Modifier.fillMaxSize().padding(18.dp)) {
-                    Icon(
-                        imageVector = icon,
-                        contentDescription = null,
-                        modifier = Modifier.align(Alignment.TopStart),
+                sections.categories.forEach { (category, count) ->
+                    NavigationRow(
+                        title = category,
+                        icon = categoryIcon(category),
+                        badgeKey = category,
+                        trailingText = pluralStringResource(R.plurals.explore_category_count, count, count),
+                        onClick = { onCategoryClick(category) },
                     )
-                    IconButton(
-                        onClick = { onEntryClick(entry.id) },
-                        modifier = Modifier.align(Alignment.TopEnd),
-                    ) {
-                        Icon(
-                            Icons.AutoMirrored.Filled.ArrowForward,
-                            contentDescription = stringResource(R.string.explore_open_entry_content_description, entry.officialName),
-                        )
-                    }
-                    Column(Modifier.align(Alignment.BottomStart)) {
-                        Text(
-                            text = entry.officialName,
-                            style = MaterialTheme.typography.titleLarge,
-                            maxLines = 2,
-                            overflow = TextOverflow.Ellipsis,
-                        )
-                        Text(
-                            text = entry.category,
-                            style = MaterialTheme.typography.labelLarge,
-                        )
+                }
+            }
+        }
+
+        if (sections.latestRelease != null && sections.recentlyAdded.isNotEmpty()) {
+            item(key = "added-header") {
+                SectionHeader(stringResource(R.string.explore_section_recently_added, sections.latestRelease))
+            }
+            itemsIndexed(sections.recentlyAdded, key = { _, entry -> "added-${entry.id}" }) { index, entry ->
+                ConnectedItem(index, sections.recentlyAdded.size) {
+                    EntryWithMenu(
+                        entry = entry,
+                        bookmarked = entry.id in bookmarkedIds,
+                        onOpen = { onEntryClick(entry.id) },
+                        onBookmark = { onBookmarkClick(entry.id, it) },
+                    ) { openMenu ->
+                        CatalogEntryRow(entry, onClick = { onEntryClick(entry.id) }, onLongClick = openMenu, shareBadge = false)
                     }
                 }
             }
@@ -318,74 +196,124 @@ private fun ExploreCarouselSection(
     }
 }
 
+/** What the reference holds, as three tappable measures under a one-line promise. */
 @Composable
-private fun CategoryCard(
-    category: String,
-    count: Int,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
+private fun Hero(
+    sections: ExploreSections,
+    onComponentsClick: () -> Unit,
+    onFoundationsClick: () -> Unit,
+    onApisClick: () -> Unit,
 ) {
-    val categoryIcon = when (category.lowercase()) {
-        "actions" -> Icons.Default.TouchApp
-        "containment" -> Icons.Default.Inbox
-        "navigation" -> Icons.Default.Explore
-        "selection" -> Icons.Default.Tune
-        "communication" -> Icons.Default.Notifications
-        "foundations", "foundation" -> Icons.Default.Palette
-        else -> Icons.Default.Category
-    }
-
+    val colors = MaterialTheme.colorScheme
     Surface(
-        onClick = onClick,
-        shape = MaterialTheme.shapes.large,
-        color = MaterialTheme.colorScheme.surfaceContainerHigh,
-        modifier = modifier.height(84.dp),
+        color = colors.primaryContainer,
+        contentColor = colors.onPrimaryContainer,
+        shape = MaterialTheme.shapes.extraLarge,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = MaterialTheme.spacing.small),
     ) {
-        Row(
+        Column(
+            verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
+            modifier = Modifier.padding(MaterialTheme.spacing.space20),
+        ) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Box(
+                    contentAlignment = Alignment.Center,
+                    modifier = Modifier
+                        .size(48.dp)
+                        .background(colors.primary, MaterialShapes.Cookie9Sided.toShape()),
+                ) {
+                    Icon(Icons.Rounded.AutoAwesome, contentDescription = null, tint = colors.onPrimary)
+                }
+                Spacer(Modifier.size(MaterialTheme.spacing.space12))
+                Text(stringResource(R.string.explore_intro), style = MaterialTheme.typography.bodyLarge, modifier = Modifier.weight(1f))
+            }
+            Row(horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)) {
+                Metric(sections.componentCount, stringResource(R.string.explore_metric_components), onComponentsClick, Modifier.weight(1f))
+                Metric(sections.foundationCount, stringResource(R.string.explore_metric_foundations), onFoundationsClick, Modifier.weight(1f))
+                Metric(sections.apiSymbolCount, stringResource(R.string.explore_metric_apis), onApisClick, Modifier.weight(1f))
+            }
+        }
+    }
+}
+
+@Composable
+private fun Metric(value: Int, label: String, onClick: () -> Unit, modifier: Modifier = Modifier) {
+    val haptics = rememberAppHaptics()
+    Column(
+        modifier = modifier
+            .background(MaterialTheme.colorScheme.surfaceBright.copy(alpha = 0.55f), MaterialTheme.shapes.large)
+            .clickable(role = Role.Button, onClickLabel = label) {
+                haptics.tap()
+                onClick()
+            }
+            .padding(horizontal = MaterialTheme.spacing.space12, vertical = MaterialTheme.spacing.small),
+    ) {
+        Text(value.toString(), style = MetricTextStyle, color = MaterialTheme.colorScheme.onSurface)
+        Text(label, style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 1)
+    }
+}
+
+/**
+ * Featured references in Material's multi-browse carousel: one large item, smaller ones beside
+ * it. Item text fades with the item's width so it never gets cut mid-word.
+ */
+@Composable
+private fun FeaturedCarousel(entries: List<CatalogEntry>, onEntryClick: (String) -> Unit) {
+    val dark = MaterialTheme.colorScheme.surface.luminance() < 0.5f
+    val state = rememberCarouselState { entries.size }
+    val haptics = rememberAppHaptics()
+    HorizontalMultiBrowseCarousel(
+        state = state,
+        preferredItemWidth = 216.dp,
+        itemSpacing = MaterialTheme.spacing.small,
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(184.dp),
+    ) { index ->
+        val entry = entries[index]
+        // Keyed by entry, so neighboring cards differ even when they share a category.
+        val badge = remember(entry.id, dark) { BadgePalette.forKey(entry.id, dark) }
+        val description = stringResource(R.string.explore_open_entry_content_description, entry.officialName)
+        Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(horizontal = 14.dp, vertical = 12.dp),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Surface(
-                shape = MaterialTheme.shapes.medium,
-                color = MaterialTheme.colorScheme.surfaceContainerHighest,
-                modifier = Modifier.size(40.dp),
-            ) {
-                Box(contentAlignment = Alignment.Center) {
-                    Icon(
-                        imageVector = categoryIcon,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier.size(22.dp),
-                    )
+                .maskClip(MaterialTheme.shapes.extraLarge)
+                .background(badge.container)
+                .clickable(role = Role.Button) {
+                    haptics.tap()
+                    onEntryClick(entry.id)
                 }
-            }
-            Spacer(Modifier.width(12.dp))
+                .semantics { contentDescription = description }
+                .padding(MaterialTheme.spacing.medium),
+        ) {
+            Icon(categoryIcon(entry.category), contentDescription = null, tint = badge.content, modifier = Modifier.size(28.dp))
             Column(
-                modifier = Modifier.weight(1f),
-                verticalArrangement = Arrangement.Center,
+                modifier = Modifier
+                    .align(Alignment.BottomStart)
+                    .graphicsLayer {
+                        // Text shows only on items near full width, so it never appears cut mid-word.
+                        val info = carouselItemDrawInfo
+                        val fadeStart = info.maxSize * 0.8f
+                        val range = (info.maxSize - fadeStart).coerceAtLeast(1f)
+                        alpha = ((info.size - fadeStart) / range).coerceIn(0f, 1f)
+                    },
             ) {
                 Text(
-                    text = category,
-                    style = MaterialTheme.typography.titleSmall,
-                    fontWeight = FontWeight.Bold,
+                    entry.officialName,
+                    style = MaterialTheme.typography.titleLarge,
+                    color = badge.content,
                     maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
+                    overflow = TextOverflow.Clip,
                 )
                 Text(
-                    text = pluralStringResource(R.plurals.explore_category_component_count, count, count),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    entry.category,
+                    style = MaterialTheme.typography.labelLarge,
+                    color = badge.content.copy(alpha = 0.8f),
                     maxLines = 1,
                 )
             }
-            Icon(
-                imageVector = Icons.AutoMirrored.Filled.ArrowForward,
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.size(16.dp),
-            )
         }
     }
 }

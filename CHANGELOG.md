@@ -4,6 +4,68 @@
 
 ---
 
+## [2.1.5] - 2026-11-20
+
+### Added & Improved
+
+- Prepared Material Design 2.1.5 as a public release, with release notes covering everything since 2.1.0.
+- Fixed the back gesture shrinking the page into a sharp rectangle that slowly faded; predictive back now uses the same slide and fade as the Back button.
+- Rewrote the Material 3 Expressive design skill for Android around the system the app uses: theme modes and pure black, seed-generated color, Google Sans Flex, shape and spacing tokens, the shared component set, the floating tab bar, rails and list-detail panes, shared elements, motion and haptics, and official API coverage.
+- Updated the Android development skill with the Expressive theme pattern, settings migration, the splash hold, device tests, and the API inventory and ledger workflow, and added MaterialKolor and the splash screen library to the dependency guide.
+- Updated the documentation site's landing and Android project pages to describe the current theme, color, haptics, app frame, and module layout.
+
+---
+
+## [2.1.4] - 2026-11-17
+
+### Added & Improved
+
+- Rebuilt Explore as a hub: a summary of components, foundations, and API symbols, featured references in the official multi-browse carousel, bookmarks, recently viewed, categories, and what the latest release added.
+- Rebuilt Catalog with category filter chips, entries grouped under category headers, maturity tags, and a long-press menu to open or bookmark; rebuilt APIs with stable and experimental counts, a symbol filter, pinned versions, and symbols grouped by the entry that demonstrates them; rebuilt Foundations as connected rows.
+- Opening an entry now carries its category badge from the list into the page with a shared-element transition.
+- Expanded windows (tablets, unfolded foldables, desktop) use the Expressive wide navigation rail, with search as its main action, and show the list beside the open entry through the official navigable list-detail pane scaffold.
+- Every list of entries (Explore, Catalog, Foundations, and search) shares one long-press menu to open, bookmark, or copy an entry's source path for an agent or an editor.
+- Corrected catalog categories (Divider under Containment, Search under Navigation, a Text inputs category, Scaffold as a Layout foundation) and the availability of Compose UI, foundation, and animation symbols, with a test that keeps them stable-release symbols.
+- The API inventory now reads declarations whose type parameters wrap across lines, which adds `AnimatedPane` to the tracked Adaptive API.
+
+---
+
+## [2.1.3] - 2026-11-17
+
+### Added & Improved
+
+- Rebuilt the app's design system on Material 3 Expressive: Google Sans Flex typography, color schemes generated from a seed with Material Color Utilities (wallpaper, six presets, or any custom seed), pure black as a dark-theme option, tonal surface roles, shape and spacing tokens, and haptics that follow the Haptics setting.
+- Replaced the navigation shell with a floating tab bar that morphs into Back and the page title on inner pages, large flexible top bars that collapse on scroll, motion-scheme transitions that match predictive back, a fade-through between tabs that keeps each tab's scroll position, and a splash screen that waits for the saved theme.
+- Moved search to its own full-screen page with a pill field, suggestions, recently viewed entries, and tagged results.
+- Redesigned the component page around connected toggle buttons for Preview, Guidance, Inspect, and API, with icon-led use and avoid guidance, copyable source paths, and both stability and availability on every API symbol.
+- Redesigned Settings and About with connected groups, connected choices, and expressive switches; removed two settings that had no effect, and carried existing theme choices (OLED mode, accent colors, and presets) over to the new seed-based colors.
+
+---
+
+## [2.1.2] - 2026-11-17
+
+### Added & Improved
+
+- Made official API coverage measurable: a generated inventory of every public symbol in Material 3, Material 3 Adaptive, and the navigation suite, a coverage ledger, and a generated `COVERAGE.md` report now show that the catalog cites 96 of 499 public symbols, with the rest tracked as the component backlog.
+- Added coverage tests that check every catalog API reference against the pinned sources for existence, deprecation, stability, opt-in, availability against the newest stable release, and reviewed version, and that fail when a dependency bump publishes untriaged APIs; they corrected 26 availability values, the `PullToRefreshBox` package, and a deprecated `ScrollableTabRow` reference.
+- Moved catalog version agreement from app startup into build-time tests, so a metadata mismatch can no longer stop the app from opening.
+- Standardized catalog naming on singular component names with plural aliases, one `<Name>Sample` working reference per entry, and `<module>.<id>` demo keys served from a single registry map.
+- Bookmarks and history now migrate retired entry IDs (Selection controls moves to Checkbox) and are pruned of removed entries regardless of load order.
+
+---
+
+## [2.1.1] - 2026-11-17
+
+### Added & Improved
+
+- Upgraded to Material 3 1.5.0-rc01, Android Gradle Plugin 9.5.1, Kotlin 2.4.21, Gradle 9.8.2, Compose BOM 2026.09.00, Navigation Compose 2.10.2, DataStore 1.3.0, Kotlinx Serialization 1.13.0, Core KTX 1.19.1, and AppCompat 1.8.0.
+- Re-reviewed every catalog API reference against the 1.5.0-rc01 sources: Material 3 Expressive APIs that graduated (wavy progress, floating toolbars, segmented list items, flexible search bars, pickers and their dialogs, grouped menus, hero carousels, vertical sliders, and more) now show as stable, `TooltipBox` correctly shows as experimental, and the Compose UI version reflects the resolved 1.12.1.
+- Split Selection controls into separate Checkbox, Radio button, and Switch references with standalone, hierarchical, and disabled states.
+- Moved the Basic alert dialog and Divider references into their Communication and Foundations sample modules, and renamed API-level entries such as Split button, Top search bar, Dropdown menu group, and Time picker dialog to their singular API names.
+- Migrated samples to `SplitButtonLayout`, `VibrantTimePickerDialog`, and the state-based `Slider`, `VerticalSlider`, and `RangeSlider` APIs.
+
+---
+
 ## [2.1.0] - 2026-08-30
 
 ### Added & Improved
